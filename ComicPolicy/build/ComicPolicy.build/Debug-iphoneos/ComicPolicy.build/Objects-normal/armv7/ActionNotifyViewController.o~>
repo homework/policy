@@ -1,0 +1,32 @@
+/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ActionNotifyViewController.m:9:33: error: ActionViewController.h: No such file or directory
+/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ActionNotifyViewController.m:23: warning: cannot find interface declaration for 'ActionViewController'
+/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ActionNotifyViewController.m: In function '-[ActionViewController touchesBegan:withEvent:]':
+/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ActionNotifyViewController.m:26: error: request for member 'view' in something not a structure or union
+/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ActionNotifyViewController.m:28: error: 'actionView' undeclared (first use in this function)
+/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ActionNotifyViewController.m:28: error: (Each undeclared identifier is reported only once
+/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ActionNotifyViewController.m:28: error: for each function it appears in.)
+/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ActionNotifyViewController.m:29: error: 'topImages' undeclared (first use in this function)
+/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ActionNotifyViewController.m:29: error: 'topImageIndex' undeclared (first use in this function)
+/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ActionNotifyViewController.m:30: error: 'CATransition' undeclared (first use in this function)
+/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ActionNotifyViewController.m:30: error: 'transition' undeclared (first use in this function)
+/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ActionNotifyViewController.m:32: error: 'CAMediaTimingFunction' undeclared (first use in this function)
+/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ActionNotifyViewController.m:32: error: 'kCAMediaTimingFunctionEaseInEaseOut' undeclared (first use in this function)
+/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ActionNotifyViewController.m:33: error: 'kCATransitionFade' undeclared (first use in this function)
+/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ActionNotifyViewController.m:38: error: 'bottomImages' undeclared (first use in this function)
+/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ActionNotifyViewController.m:38: error: 'bottomImageIndex' undeclared (first use in this function)
+/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ActionNotifyViewController.m: In function '-[ActionViewController loadView]':
+/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ActionNotifyViewController.m:51: error: 'topImageIndex' undeclared (first use in this function)
+/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ActionNotifyViewController.m:52: error: 'topImages' undeclared (first use in this function)
+/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ActionNotifyViewController.m:54: error: 'bottomImageIndex' undeclared (first use in this function)
+/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ActionNotifyViewController.m:55: error: 'bottomImages' undeclared (first use in this function)
+/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ActionNotifyViewController.m:58: error: 'ActionView' undeclared (first use in this function)
+/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ActionNotifyViewController.m:58: error: 'aview' undeclared (first use in this function)
+/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ActionNotifyViewController.m:59: error: request for member 'actionView' in something not a structure or union
+/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ActionNotifyViewController.m:60: error: request for member 'view' in something not a structure or union
+/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ActionNotifyViewController.m:60: error: 'actionView' undeclared (first use in this function)
+/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ActionNotifyViewController.m: In function '-[ActionViewController didReceiveMemoryWarning]':
+/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ActionNotifyViewController.m:81: error: no super class declared in @interface for 'ActionViewController'
+/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ActionNotifyViewController.m: In function '-[ActionViewController viewDidUnload]':
+/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ActionNotifyViewController.m:88: error: no super class declared in @interface for 'ActionViewController'
+/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ActionNotifyViewController.m: In function '-[ActionViewController dealloc]':
+/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ActionNotifyViewController.m:95: error: no super class declared in @interface for 'ActionViewController'

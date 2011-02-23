@@ -1,0 +1,256 @@
+TComicPolicy
+v7
+r0
+t320153607.618506
+cCheck dependencies
+cProcessInfoPlistFile /Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/Debug-iphonesimulator/ComicPolicy.app/Info.plist ComicPolicy-Info.plist
+cCompileXIB /Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/MainWindow.xib
+cCompileXIB /Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/ComicPolicyViewController.xib
+cProcessPCH /var/folders/9t/9tAWA3i9EJKIk6x4yDSF-U+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/ComicPolicy_Prefix-hektsumcavziegfosrvkkgalyzpm/ComicPolicy_Prefix.pch.gch ComicPolicy_Prefix.pch normal i386 objective-c com.apple.compilers.gcc.4_2
+cCompileC build/ComicPolicy.build/Debug-iphonesimulator/ComicPolicy.build/Objects-normal/i386/main.o /Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/main.m normal i386 objective-c com.apple.compilers.gcc.4_2
+cCompileC build/ComicPolicy.build/Debug-iphonesimulator/ComicPolicy.build/Objects-normal/i386/ComicPolicyAppDelegate.o /Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/Classes/ComicPolicyAppDelegate.m normal i386 objective-c com.apple.compilers.gcc.4_2
+cCompileC build/ComicPolicy.build/Debug-iphonesimulator/ComicPolicy.build/Objects-normal/i386/ComicPolicyViewController.o /Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/Classes/ComicPolicyViewController.m normal i386 objective-c com.apple.compilers.gcc.4_2
+cLd /Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/Debug-iphonesimulator/ComicPolicy.app/ComicPolicy normal i386
+cGenerateDSYMFile /Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/Debug-iphonesimulator/ComicPolicy.app.dSYM /Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/Debug-iphonesimulator/ComicPolicy.app/ComicPolicy
+cTouch /Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/Debug-iphonesimulator/ComicPolicy.app
+
+N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator3.2.sdk
+c000000004C494D260000000000000110
+t1279872294
+s272
+
+N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator3.2.sdk/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics
+c000000004BD1CD90000000000026F020
+t1272040848
+s2551840
+
+N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator3.2.sdk/System/Library/Frameworks/Foundation.framework/Foundation
+c000000004BD1FFC200000000002A96A0
+t1272053698
+s2791072
+
+N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator3.2.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.h
+c000000004BD1FF9E0000000000001355
+t1272053662
+s4949
+
+N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator3.2.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIKit.h
+c000000004BD20412000000000000098F
+t1272054802
+s2447
+
+N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator3.2.sdk/System/Library/Frameworks/UIKit.framework/UIKit
+c000000004BD20471000000000222E640
+t1272054897
+s35841600
+
+N/Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/Classes/ComicPolicyAppDelegate.h
+c000000004D64EF3F00000000000001F7
+t1298460479
+s503
+i<UIKit/UIKit.h>
+
+N/Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/Classes/ComicPolicyAppDelegate.m
+c000000004D64EF3F00000000000007BE
+t1298460479
+s1982
+i"ComicPolicyAppDelegate.h"
+i"ComicPolicyViewController.h"
+
+N/Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/Classes/ComicPolicyViewController.h
+c000000004D64EF3F00000000000000FA
+t1298460479
+s250
+i<UIKit/UIKit.h>
+
+N/Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/Classes/ComicPolicyViewController.m
+c000000004D64EF3F0000000000000560
+t1298460479
+s1376
+i"ComicPolicyViewController.h"
+
+N/Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/ComicPolicyViewController.xib
+c000000004D64EF3F0000000000003EF1
+t1298460479
+s16113
+
+N/Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/ComicPolicy_Prefix.pch
+c000000004D64EF3F00000000000000BF
+t1298460479
+s191
+i<Foundation/Foundation.h>
+i<UIKit/UIKit.h>
+
+N/Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/MainWindow.xib
+c000000004D64EF3F0000000000004D31
+t1298460479
+s19761
+
+N/Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphonesimulator/ComicPolicy.build/Objects-normal/i386/ComicPolicy.LinkFileList
+c000000004D64F07E00000000000001E9
+t1298460798
+s489
+
+N/Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphonesimulator/ComicPolicy.build/Objects-normal/i386/ComicPolicyAppDelegate.o
+t1298460805
+s45284
+
+N/Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphonesimulator/ComicPolicy.build/Objects-normal/i386/ComicPolicyViewController.o
+t1298460805
+s34436
+
+N/Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphonesimulator/ComicPolicy.build/Objects-normal/i386/main.o
+t1298460805
+s6344
+
+N/Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/Debug-iphonesimulator/ComicPolicy.app
+t1298460807
+s238
+
+N/Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/Debug-iphonesimulator/ComicPolicy.app.dSYM
+t1298460807
+s102
+
+N/Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/Debug-iphonesimulator/ComicPolicy.app/ComicPolicy
+t1298460807
+s17412
+
+N/Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/Debug-iphonesimulator/ComicPolicy.app/ComicPolicyViewController.nib
+t1298460800
+s764
+
+N/Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/Debug-iphonesimulator/ComicPolicy.app/Info.plist
+t1298460798
+s734
+
+N/Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/Debug-iphonesimulator/ComicPolicy.app/MainWindow.nib
+t1298460800
+s1131
+
+N/Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/Debug-iphonesimulator/ComicPolicy.app/PkgInfo
+t1298460798
+s8
+
+N/Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/main.m
+c000000004D64EF3F000000000000016D
+t1298460479
+s365
+i<UIKit/UIKit.h>
+
+N/var/folders/9t/9tAWA3i9EJKIk6x4yDSF-U+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/ComicPolicy_Prefix-hektsumcavziegfosrvkkgalyzpm/ComicPolicy_Prefix.pch.gch
+t1298460804
+s13825936
+
+NComicPolicy-Info.plist
+c000000004D64F07E00000000000004AB
+t1298460798
+s1195
+
+CCheck dependencies
+r0
+lSLF07#2@18"Check dependencies320153598#320153598#0(0"0(0#1#0"8632402464#0"0#
+
+CCompileC build/ComicPolicy.build/Debug-iphonesimulator/ComicPolicy.build/Objects-normal/i386/ComicPolicyAppDelegate.o /Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/Classes/ComicPolicyAppDelegate.m normal i386 objective-c com.apple.compilers.gcc.4_2
+s320153605.122191
+e320153605.240761
+r1
+xCompileC
+xbuild/ComicPolicy.build/Debug-iphonesimulator/ComicPolicy.build/Objects-normal/i386/ComicPolicyAppDelegate.o
+x/Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/Classes/ComicPolicyAppDelegate.m
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.gcc.4_2
+lSLF07#2@99"Compile /Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/Classes/ComicPolicyAppDelegate.m320153605#320153605#0(0"0(0#0#91"/Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/Classes/ComicPolicyAppDelegate.m8633098112#2299"    cd /Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -D__IPHONE_OS_VERSION_MIN_REQUIRED=30200 -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator3.2.sdk -fexceptions -fvisibility=hidden -mmacosx-version-min=10.5 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -D__IPHONE_OS_VERSION_MIN_REQUIRED=30200 -iquote /Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphonesimulator/ComicPolicy.build/ComicPolicy-generated-files.hmap -I/Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphonesimulator/ComicPolicy.build/ComicPolicy-own-target-headers.hmap -I/Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphonesimulator/ComicPolicy.build/ComicPolicy-all-target-headers.hmap -iquote /Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphonesimulator/ComicPolicy.build/ComicPolicy-project-headers.hmap -F/Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/Debug-iphonesimulator -I/Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/Debug-iphonesimulator/include -I/Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphonesimulator/ComicPolicy.build/DerivedSources/i386 -I/Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphonesimulator/ComicPolicy.build/DerivedSources -include /var/folders/9t/9tAWA3i9EJKIk6x4yDSF-U+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/ComicPolicy_Prefix-hektsumcavziegfosrvkkgalyzpm/ComicPolicy_Prefix.pch -c /Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/Classes/ComicPolicyAppDelegate.m -o /Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphonesimulator/ComicPolicy.build/Objects-normal/i386/ComicPolicyAppDelegate.o0#
+
+CCompileC build/ComicPolicy.build/Debug-iphonesimulator/ComicPolicy.build/Objects-normal/i386/ComicPolicyViewController.o /Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/Classes/ComicPolicyViewController.m normal i386 objective-c com.apple.compilers.gcc.4_2
+s320153605.216472
+e320153607.050543
+r1
+xCompileC
+xbuild/ComicPolicy.build/Debug-iphonesimulator/ComicPolicy.build/Objects-normal/i386/ComicPolicyViewController.o
+x/Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/Classes/ComicPolicyViewController.m
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.gcc.4_2
+lSLF07#2@102"Compile /Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/Classes/ComicPolicyViewController.m320153605#320153607#0(0"0(0#0#94"/Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/Classes/ComicPolicyViewController.m8632467840#2305"    cd /Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -D__IPHONE_OS_VERSION_MIN_REQUIRED=30200 -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator3.2.sdk -fexceptions -fvisibility=hidden -mmacosx-version-min=10.5 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -D__IPHONE_OS_VERSION_MIN_REQUIRED=30200 -iquote /Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphonesimulator/ComicPolicy.build/ComicPolicy-generated-files.hmap -I/Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphonesimulator/ComicPolicy.build/ComicPolicy-own-target-headers.hmap -I/Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphonesimulator/ComicPolicy.build/ComicPolicy-all-target-headers.hmap -iquote /Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphonesimulator/ComicPolicy.build/ComicPolicy-project-headers.hmap -F/Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/Debug-iphonesimulator -I/Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/Debug-iphonesimulator/include -I/Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphonesimulator/ComicPolicy.build/DerivedSources/i386 -I/Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphonesimulator/ComicPolicy.build/DerivedSources -include /var/folders/9t/9tAWA3i9EJKIk6x4yDSF-U+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/ComicPolicy_Prefix-hektsumcavziegfosrvkkgalyzpm/ComicPolicy_Prefix.pch -c /Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/Classes/ComicPolicyViewController.m -o /Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphonesimulator/ComicPolicy.build/Objects-normal/i386/ComicPolicyViewController.o0#
+
+CCompileC build/ComicPolicy.build/Debug-iphonesimulator/ComicPolicy.build/Objects-normal/i386/main.o /Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/main.m normal i386 objective-c com.apple.compilers.gcc.4_2
+s320153605.119692
+e320153605.216340
+r1
+xCompileC
+xbuild/ComicPolicy.build/Debug-iphonesimulator/ComicPolicy.build/Objects-normal/i386/main.o
+x/Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/main.m
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.gcc.4_2
+lSLF07#2@73"Compile /Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/main.m320153605#320153605#0(0"0(0#0#65"/Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/main.m8633610176#2255"    cd /Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -D__IPHONE_OS_VERSION_MIN_REQUIRED=30200 -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator3.2.sdk -fexceptions -fvisibility=hidden -mmacosx-version-min=10.5 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -D__IPHONE_OS_VERSION_MIN_REQUIRED=30200 -iquote /Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphonesimulator/ComicPolicy.build/ComicPolicy-generated-files.hmap -I/Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphonesimulator/ComicPolicy.build/ComicPolicy-own-target-headers.hmap -I/Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphonesimulator/ComicPolicy.build/ComicPolicy-all-target-headers.hmap -iquote /Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphonesimulator/ComicPolicy.build/ComicPolicy-project-headers.hmap -F/Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/Debug-iphonesimulator -I/Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/Debug-iphonesimulator/include -I/Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphonesimulator/ComicPolicy.build/DerivedSources/i386 -I/Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphonesimulator/ComicPolicy.build/DerivedSources -include /var/folders/9t/9tAWA3i9EJKIk6x4yDSF-U+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/ComicPolicy_Prefix-hektsumcavziegfosrvkkgalyzpm/ComicPolicy_Prefix.pch -c /Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/main.m -o /Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphonesimulator/ComicPolicy.build/Objects-normal/i386/main.o0#
+
+CCompileXIB /Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/ComicPolicyViewController.xib
+s320153598.695973
+e320153600.627258
+r1
+xCompileXIB
+x/Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/ComicPolicyViewController.xib
+lSLF07#2@40"CompileXIB ComicPolicyViewController.xib320153598#320153600#0(0"0(0#0#88"/Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/ComicPolicyViewController.xib8631063168#664"    cd /Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy    setenv IBC_MINIMUM_COMPATIBILITY_VERSION 3.2    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/usr/bin/ibtool --errors --warnings --notices --output-format human-readable-text --compile /Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/Debug-iphonesimulator/ComicPolicy.app/ComicPolicyViewController.nib /Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/ComicPolicyViewController.xib --sdk /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator3.2.sdk0#
+
+CCompileXIB /Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/MainWindow.xib
+s320153598.690903
+e320153600.627687
+r1
+xCompileXIB
+x/Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/MainWindow.xib
+lSLF07#2@25"CompileXIB MainWindow.xib320153598#320153600#0(0"0(0#0#73"/Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/MainWindow.xib8631372544#634"    cd /Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy    setenv IBC_MINIMUM_COMPATIBILITY_VERSION 3.2    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/usr/bin/ibtool --errors --warnings --notices --output-format human-readable-text --compile /Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/Debug-iphonesimulator/ComicPolicy.app/MainWindow.nib /Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/MainWindow.xib --sdk /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator3.2.sdk0#
+
+CGenerateDSYMFile /Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/Debug-iphonesimulator/ComicPolicy.app.dSYM /Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/Debug-iphonesimulator/ComicPolicy.app/ComicPolicy
+s320153607.354861
+e320153607.610068
+r1
+xGenerateDSYMFile
+x/Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/Debug-iphonesimulator/ComicPolicy.app.dSYM
+x/Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/Debug-iphonesimulator/ComicPolicy.app/ComicPolicy
+lSLF07#2@121"GenerateDSYMFile build/Debug-iphonesimulator/ComicPolicy.app.dSYM build/Debug-iphonesimulator/ComicPolicy.app/ComicPolicy320153607#320153607#0(0"0(0#0#114"/Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/Debug-iphonesimulator/ComicPolicy.app/ComicPolicy8633423776#455"    cd /Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/usr/bin/dsymutil /Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/Debug-iphonesimulator/ComicPolicy.app/ComicPolicy -o /Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/Debug-iphonesimulator/ComicPolicy.app.dSYM0#
+
+CLd /Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/Debug-iphonesimulator/ComicPolicy.app/ComicPolicy normal i386
+s320153607.050764
+e320153607.354684
+r1
+xLd
+x/Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/Debug-iphonesimulator/ComicPolicy.app/ComicPolicy
+xnormal
+xi386
+lSLF07#2@119"Link /Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/Debug-iphonesimulator/ComicPolicy.app/ComicPolicy320153607#320153607#0(0"0(0#0#0"8631588864#1020"    cd /Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy    setenv MACOSX_DEPLOYMENT_TARGET 10.5    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -arch i386 -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator3.2.sdk -L/Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/Debug-iphonesimulator -F/Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/Debug-iphonesimulator -filelist /Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphonesimulator/ComicPolicy.build/Objects-normal/i386/ComicPolicy.LinkFileList -mmacosx-version-min=10.5 -Xlinker -objc_abi_version -Xlinker 2 -framework Foundation -framework UIKit -framework CoreGraphics -o /Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/Debug-iphonesimulator/ComicPolicy.app/ComicPolicy0#
+
+CProcessInfoPlistFile /Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/Debug-iphonesimulator/ComicPolicy.app/Info.plist ComicPolicy-Info.plist
+s320153598.674737
+e320153598.690786
+r1
+xProcessInfoPlistFile
+x/Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/Debug-iphonesimulator/ComicPolicy.app/Info.plist
+xComicPolicy-Info.plist
+lSLF07#2@30"Process ComicPolicy-Info.plist320153598#320153598#0(0"0(0#0#81"/Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/ComicPolicy-Info.plist8632314880#551"    cd /Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-infoPlistUtility ComicPolicy-Info.plist -genpkginfo /Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/Debug-iphonesimulator/ComicPolicy.app/PkgInfo -expandbuildsettings -format binary -platform iphonesimulator -o /Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/Debug-iphonesimulator/ComicPolicy.app/Info.plist0#
+
+CProcessPCH /var/folders/9t/9tAWA3i9EJKIk6x4yDSF-U+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/ComicPolicy_Prefix-hektsumcavziegfosrvkkgalyzpm/ComicPolicy_Prefix.pch.gch ComicPolicy_Prefix.pch normal i386 objective-c com.apple.compilers.gcc.4_2
+s320153600.630470
+e320153605.119346
+r1
+xProcessPCH
+x/var/folders/9t/9tAWA3i9EJKIk6x4yDSF-U+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/ComicPolicy_Prefix-hektsumcavziegfosrvkkgalyzpm/ComicPolicy_Prefix.pch.gch
+xComicPolicy_Prefix.pch
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.gcc.4_2
+lSLF07#2@33"Precompile ComicPolicy_Prefix.pch320153600#320153605#0(0"0(0#0#81"/Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/ComicPolicy_Prefix.pch8633153088#2123"    cd /Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c-header -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -D__IPHONE_OS_VERSION_MIN_REQUIRED=30200 -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator3.2.sdk -fexceptions -fvisibility=hidden -mmacosx-version-min=10.5 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -D__IPHONE_OS_VERSION_MIN_REQUIRED=30200 -iquote /Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphonesimulator/ComicPolicy.build/ComicPolicy-generated-files.hmap -I/Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphonesimulator/ComicPolicy.build/ComicPolicy-own-target-headers.hmap -I/Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphonesimulator/ComicPolicy.build/ComicPolicy-all-target-headers.hmap -iquote /Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphonesimulator/ComicPolicy.build/ComicPolicy-project-headers.hmap -F/Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/Debug-iphonesimulator -I/Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/Debug-iphonesimulator/include -I/Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphonesimulator/ComicPolicy.build/DerivedSources/i386 -I/Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphonesimulator/ComicPolicy.build/DerivedSources -c /Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/ComicPolicy_Prefix.pch -o /var/folders/9t/9tAWA3i9EJKIk6x4yDSF-U+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/ComicPolicy_Prefix-hektsumcavziegfosrvkkgalyzpm/ComicPolicy_Prefix.pch.gch0#
+
+CTouch /Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/Debug-iphonesimulator/ComicPolicy.app
+s320153607.610196
+e320153607.618306
+r1
+xTouch
+x/Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/Debug-iphonesimulator/ComicPolicy.app
+lSLF07#2@108"Touch /Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/Debug-iphonesimulator/ComicPolicy.app320153607#320153607#0(0"0(0#0#0"8632688576#322"    cd /Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /usr/bin/touch -c /Users/tlodge/iphone/SplitViewTest/ComicPolicy/ComicPolicy/build/Debug-iphonesimulator/ComicPolicy.app0#
+
