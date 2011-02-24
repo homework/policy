@@ -11,17 +11,18 @@
 
 @implementation ResultView
 @synthesize monitorImage;
-@synthesize resultImage;
+@synthesize resultMainImage;
+
 
 - (id)initWithFrame:(CGRect)frame {
     if ((self = [super initWithFrame:frame])) {
 		
-		UIImageView *tmpResult = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"resultright.png"]];
-		tmpResult.frame = CGRectMake(897-459, 0, 458, 300);
-		[self addSubview:tmpResult];
-		self.resultImage = tmpResult;
-		[tmpResult release];
-
+		UIImageView *tmpResultBack = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dadwaiting.png"]];
+		tmpResultBack.frame = CGRectMake(897-459, 0, 458, 300);
+		[self addSubview:tmpResultBack];
+		self.resultMainImage = tmpResultBack;
+		[tmpResultBack release];
+		
 		UIImageView *tmpMonitor = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"resultbandwidth.png"]];
 		[self addSubview:tmpMonitor];
 		self.monitorImage = tmpMonitor;

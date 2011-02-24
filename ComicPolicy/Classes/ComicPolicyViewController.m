@@ -27,7 +27,7 @@
 	subjectViewController = [[SubjectViewController alloc] init];
 	[self.view addSubview:subjectViewController.view];
 	
-	eventViewController = [[ConditionViewController alloc] init];
+	eventViewController = [[RootConditionViewController alloc] init];
 	[self.view addSubview:eventViewController.view];
 	
 	actionViewController = [[ActionViewController alloc] init];

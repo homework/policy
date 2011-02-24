@@ -9,9 +9,12 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 #import "ResultView.h"
+#import "Lookup.h"
 
 @interface ResultViewController : UIViewController {
 	ResultView* resultView;
+	NSString* currentMonitorScene;
+	NSString* currentActionScene;
 }
 
 @end

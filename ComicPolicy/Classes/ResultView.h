@@ -11,10 +11,12 @@
 
 @interface ResultView : UIView {
 	UIImageView *monitorImage;
-	UIImageView *resultImage;
+	UIImageView *resultMainImage;
 }
 
 @property(nonatomic,retain) UIImageView *monitorImage;
-@property(nonatomic,retain) UIImageView *resultImage;
+@property(nonatomic,retain) UIImageView *resultBackgroundImage;
+@property(nonatomic,retain) UIImageView *resultMainImage;
+
 
 @end

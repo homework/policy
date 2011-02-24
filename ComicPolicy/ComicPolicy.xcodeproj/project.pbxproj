@@ -69,18 +69,10 @@
 		A30ADF8B131528F80060D2F1 /* gate.png in Resources */ = {isa = PBXBuildFile; fileRef = A30ADF3F131528F80060D2F1 /* gate.png */; };
 		A30ADF8C131528F80060D2F1 /* bed.png in Resources */ = {isa = PBXBuildFile; fileRef = A30ADF41131528F80060D2F1 /* bed.png */; };
 		A30ADF8D131528F80060D2F1 /* lounge.png in Resources */ = {isa = PBXBuildFile; fileRef = A30ADF42131528F80060D2F1 /* lounge.png */; };
-		A30ADF92131528F80060D2F1 /* dadtold.png in Resources */ = {isa = PBXBuildFile; fileRef = A30ADF49131528F80060D2F1 /* dadtold.png */; };
-		A30ADF93131528F80060D2F1 /* dadwaiting.png in Resources */ = {isa = PBXBuildFile; fileRef = A30ADF4A131528F80060D2F1 /* dadwaiting.png */; };
-		A30ADF94131528F80060D2F1 /* johntold.png in Resources */ = {isa = PBXBuildFile; fileRef = A30ADF4B131528F80060D2F1 /* johntold.png */; };
-		A30ADF95131528F80060D2F1 /* johnwaiting.png in Resources */ = {isa = PBXBuildFile; fileRef = A30ADF4C131528F80060D2F1 /* johnwaiting.png */; };
-		A30ADF96131528F80060D2F1 /* katietold.png in Resources */ = {isa = PBXBuildFile; fileRef = A30ADF4D131528F80060D2F1 /* katietold.png */; };
-		A30ADF97131528F80060D2F1 /* katiewaiting.png in Resources */ = {isa = PBXBuildFile; fileRef = A30ADF4E131528F80060D2F1 /* katiewaiting.png */; };
-		A30ADF98131528F80060D2F1 /* mumtold.png in Resources */ = {isa = PBXBuildFile; fileRef = A30ADF4F131528F80060D2F1 /* mumtold.png */; };
-		A30ADF99131528F80060D2F1 /* mumwaiting.png in Resources */ = {isa = PBXBuildFile; fileRef = A30ADF50131528F80060D2F1 /* mumwaiting.png */; };
 		A30ADF9A131528F80060D2F1 /* Thumbs.db in Resources */ = {isa = PBXBuildFile; fileRef = A30ADF51131528F80060D2F1 /* Thumbs.db */; };
 		A30ADFCE13152BF20060D2F1 /* SubjectView.m in Sources */ = {isa = PBXBuildFile; fileRef = A30ADFCD13152BF20060D2F1 /* SubjectView.m */; };
 		A30AE003131537750060D2F1 /* SubjectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A30AE002131537750060D2F1 /* SubjectViewController.m */; };
-		A30AE03313153C6D0060D2F1 /* ConditionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A30AE03213153C6D0060D2F1 /* ConditionViewController.m */; };
+		A30AE03313153C6D0060D2F1 /* RootConditionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A30AE03213153C6D0060D2F1 /* RootConditionViewController.m */; };
 		A30AE03813153C950060D2F1 /* ConditionView.m in Sources */ = {isa = PBXBuildFile; fileRef = A30AE03713153C950060D2F1 /* ConditionView.m */; };
 		A30AE04C13153DFB0060D2F1 /* ActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A30AE04B13153DFB0060D2F1 /* ActionViewController.m */; };
 		A30AE05113153E600060D2F1 /* ActionNotifyView.m in Sources */ = {isa = PBXBuildFile; fileRef = A30AE05013153E600060D2F1 /* ActionNotifyView.m */; };
@@ -95,6 +87,17 @@
 		A30AE1DB131574DA0060D2F1 /* resulttype.png in Resources */ = {isa = PBXBuildFile; fileRef = A30AE1D6131574DA0060D2F1 /* resulttype.png */; };
 		A30AE1DC131574DA0060D2F1 /* resultvisits.png in Resources */ = {isa = PBXBuildFile; fileRef = A30AE1D7131574DA0060D2F1 /* resultvisits.png */; };
 		A30AE207131578200060D2F1 /* resultright.png in Resources */ = {isa = PBXBuildFile; fileRef = A30AE206131578200060D2F1 /* resultright.png */; };
+		A30AE22E13169B2B0060D2F1 /* Lookup.m in Sources */ = {isa = PBXBuildFile; fileRef = A30AE22D13169B2B0060D2F1 /* Lookup.m */; };
+		A30AE2841316B6B80060D2F1 /* dadtold.png in Resources */ = {isa = PBXBuildFile; fileRef = A30AE27C1316B6B80060D2F1 /* dadtold.png */; };
+		A30AE2851316B6B80060D2F1 /* dadwaiting.png in Resources */ = {isa = PBXBuildFile; fileRef = A30AE27D1316B6B80060D2F1 /* dadwaiting.png */; };
+		A30AE2861316B6B80060D2F1 /* johntold.png in Resources */ = {isa = PBXBuildFile; fileRef = A30AE27E1316B6B80060D2F1 /* johntold.png */; };
+		A30AE2871316B6B80060D2F1 /* johnwaiting.png in Resources */ = {isa = PBXBuildFile; fileRef = A30AE27F1316B6B80060D2F1 /* johnwaiting.png */; };
+		A30AE2881316B6B80060D2F1 /* katietold.png in Resources */ = {isa = PBXBuildFile; fileRef = A30AE2801316B6B80060D2F1 /* katietold.png */; };
+		A30AE2891316B6B80060D2F1 /* katiewaiting.png in Resources */ = {isa = PBXBuildFile; fileRef = A30AE2811316B6B80060D2F1 /* katiewaiting.png */; };
+		A30AE28A1316B6B80060D2F1 /* mumtold.png in Resources */ = {isa = PBXBuildFile; fileRef = A30AE2821316B6B80060D2F1 /* mumtold.png */; };
+		A30AE28B1316B6B80060D2F1 /* mumwaiting.png in Resources */ = {isa = PBXBuildFile; fileRef = A30AE2831316B6B80060D2F1 /* mumwaiting.png */; };
+		A30AE2AD1316BABB0060D2F1 /* ConditionBandwidthView.m in Sources */ = {isa = PBXBuildFile; fileRef = A30AE2AC1316BABB0060D2F1 /* ConditionBandwidthView.m */; };
+		A30AE3741316CE0C0060D2F1 /* ConditionBandwidthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A30AE3731316CE0C0060D2F1 /* ConditionBandwidthViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -165,21 +168,13 @@
 		A30ADF3F131528F80060D2F1 /* gate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gate.png; sourceTree = "<group>"; };
 		A30ADF41131528F80060D2F1 /* bed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bed.png; sourceTree = "<group>"; };
 		A30ADF42131528F80060D2F1 /* lounge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lounge.png; sourceTree = "<group>"; };
-		A30ADF49131528F80060D2F1 /* dadtold.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dadtold.png; sourceTree = "<group>"; };
-		A30ADF4A131528F80060D2F1 /* dadwaiting.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dadwaiting.png; sourceTree = "<group>"; };
-		A30ADF4B131528F80060D2F1 /* johntold.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = johntold.png; sourceTree = "<group>"; };
-		A30ADF4C131528F80060D2F1 /* johnwaiting.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = johnwaiting.png; sourceTree = "<group>"; };
-		A30ADF4D131528F80060D2F1 /* katietold.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = katietold.png; sourceTree = "<group>"; };
-		A30ADF4E131528F80060D2F1 /* katiewaiting.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = katiewaiting.png; sourceTree = "<group>"; };
-		A30ADF4F131528F80060D2F1 /* mumtold.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mumtold.png; sourceTree = "<group>"; };
-		A30ADF50131528F80060D2F1 /* mumwaiting.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mumwaiting.png; sourceTree = "<group>"; };
 		A30ADF51131528F80060D2F1 /* Thumbs.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = Thumbs.db; sourceTree = "<group>"; };
 		A30ADFCC13152BF20060D2F1 /* SubjectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubjectView.h; sourceTree = "<group>"; };
 		A30ADFCD13152BF20060D2F1 /* SubjectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubjectView.m; sourceTree = "<group>"; };
 		A30AE001131537750060D2F1 /* SubjectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubjectViewController.h; sourceTree = "<group>"; };
 		A30AE002131537750060D2F1 /* SubjectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubjectViewController.m; sourceTree = "<group>"; };
-		A30AE03113153C6D0060D2F1 /* ConditionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConditionViewController.h; sourceTree = "<group>"; };
-		A30AE03213153C6D0060D2F1 /* ConditionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConditionViewController.m; sourceTree = "<group>"; };
+		A30AE03113153C6D0060D2F1 /* RootConditionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootConditionViewController.h; sourceTree = "<group>"; };
+		A30AE03213153C6D0060D2F1 /* RootConditionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootConditionViewController.m; sourceTree = "<group>"; };
 		A30AE03613153C950060D2F1 /* ConditionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConditionView.h; sourceTree = "<group>"; };
 		A30AE03713153C950060D2F1 /* ConditionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConditionView.m; sourceTree = "<group>"; };
 		A30AE04A13153DFB0060D2F1 /* ActionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionViewController.h; sourceTree = "<group>"; };
@@ -199,6 +194,20 @@
 		A30AE1D6131574DA0060D2F1 /* resulttype.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = resulttype.png; sourceTree = "<group>"; };
 		A30AE1D7131574DA0060D2F1 /* resultvisits.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = resultvisits.png; sourceTree = "<group>"; };
 		A30AE206131578200060D2F1 /* resultright.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = resultright.png; sourceTree = "<group>"; };
+		A30AE22C13169B2B0060D2F1 /* Lookup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Lookup.h; sourceTree = "<group>"; };
+		A30AE22D13169B2B0060D2F1 /* Lookup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Lookup.m; sourceTree = "<group>"; };
+		A30AE27C1316B6B80060D2F1 /* dadtold.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dadtold.png; sourceTree = "<group>"; };
+		A30AE27D1316B6B80060D2F1 /* dadwaiting.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dadwaiting.png; sourceTree = "<group>"; };
+		A30AE27E1316B6B80060D2F1 /* johntold.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = johntold.png; sourceTree = "<group>"; };
+		A30AE27F1316B6B80060D2F1 /* johnwaiting.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = johnwaiting.png; sourceTree = "<group>"; };
+		A30AE2801316B6B80060D2F1 /* katietold.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = katietold.png; sourceTree = "<group>"; };
+		A30AE2811316B6B80060D2F1 /* katiewaiting.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = katiewaiting.png; sourceTree = "<group>"; };
+		A30AE2821316B6B80060D2F1 /* mumtold.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mumtold.png; sourceTree = "<group>"; };
+		A30AE2831316B6B80060D2F1 /* mumwaiting.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mumwaiting.png; sourceTree = "<group>"; };
+		A30AE2AB1316BABB0060D2F1 /* ConditionBandwidthView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConditionBandwidthView.h; sourceTree = "<group>"; };
+		A30AE2AC1316BABB0060D2F1 /* ConditionBandwidthView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConditionBandwidthView.m; sourceTree = "<group>"; };
+		A30AE3721316CE0C0060D2F1 /* ConditionBandwidthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConditionBandwidthViewController.h; sourceTree = "<group>"; };
+		A30AE3731316CE0C0060D2F1 /* ConditionBandwidthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConditionBandwidthViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -219,6 +228,8 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				A30AE22C13169B2B0060D2F1 /* Lookup.h */,
+				A30AE22D13169B2B0060D2F1 /* Lookup.m */,
 				1D3623240D0F684500981E51 /* ComicPolicyAppDelegate.h */,
 				1D3623250D0F684500981E51 /* ComicPolicyAppDelegate.m */,
 				28D7ACF60DDB3853001CB0EB /* ComicPolicyViewController.h */,
@@ -227,10 +238,14 @@
 				A30AE002131537750060D2F1 /* SubjectViewController.m */,
 				A30ADFCC13152BF20060D2F1 /* SubjectView.h */,
 				A30ADFCD13152BF20060D2F1 /* SubjectView.m */,
-				A30AE03113153C6D0060D2F1 /* ConditionViewController.h */,
-				A30AE03213153C6D0060D2F1 /* ConditionViewController.m */,
+				A30AE03113153C6D0060D2F1 /* RootConditionViewController.h */,
+				A30AE03213153C6D0060D2F1 /* RootConditionViewController.m */,
 				A30AE03613153C950060D2F1 /* ConditionView.h */,
 				A30AE03713153C950060D2F1 /* ConditionView.m */,
+				A30AE3721316CE0C0060D2F1 /* ConditionBandwidthViewController.h */,
+				A30AE3731316CE0C0060D2F1 /* ConditionBandwidthViewController.m */,
+				A30AE2AB1316BABB0060D2F1 /* ConditionBandwidthView.h */,
+				A30AE2AC1316BABB0060D2F1 /* ConditionBandwidthView.m */,
 				A30AE04A13153DFB0060D2F1 /* ActionViewController.h */,
 				A30AE04B13153DFB0060D2F1 /* ActionViewController.m */,
 				A30AE04F13153E600060D2F1 /* ActionNotifyView.h */,
@@ -479,14 +494,14 @@
 		A30ADF48131528F80060D2F1 /* characters */ = {
 			isa = PBXGroup;
 			children = (
-				A30ADF49131528F80060D2F1 /* dadtold.png */,
-				A30ADF4A131528F80060D2F1 /* dadwaiting.png */,
-				A30ADF4B131528F80060D2F1 /* johntold.png */,
-				A30ADF4C131528F80060D2F1 /* johnwaiting.png */,
-				A30ADF4D131528F80060D2F1 /* katietold.png */,
-				A30ADF4E131528F80060D2F1 /* katiewaiting.png */,
-				A30ADF4F131528F80060D2F1 /* mumtold.png */,
-				A30ADF50131528F80060D2F1 /* mumwaiting.png */,
+				A30AE27C1316B6B80060D2F1 /* dadtold.png */,
+				A30AE27D1316B6B80060D2F1 /* dadwaiting.png */,
+				A30AE27E1316B6B80060D2F1 /* johntold.png */,
+				A30AE27F1316B6B80060D2F1 /* johnwaiting.png */,
+				A30AE2801316B6B80060D2F1 /* katietold.png */,
+				A30AE2811316B6B80060D2F1 /* katiewaiting.png */,
+				A30AE2821316B6B80060D2F1 /* mumtold.png */,
+				A30AE2831316B6B80060D2F1 /* mumwaiting.png */,
 				A30ADF51131528F80060D2F1 /* Thumbs.db */,
 			);
 			path = characters;
@@ -597,14 +612,6 @@
 				A30ADF8B131528F80060D2F1 /* gate.png in Resources */,
 				A30ADF8C131528F80060D2F1 /* bed.png in Resources */,
 				A30ADF8D131528F80060D2F1 /* lounge.png in Resources */,
-				A30ADF92131528F80060D2F1 /* dadtold.png in Resources */,
-				A30ADF93131528F80060D2F1 /* dadwaiting.png in Resources */,
-				A30ADF94131528F80060D2F1 /* johntold.png in Resources */,
-				A30ADF95131528F80060D2F1 /* johnwaiting.png in Resources */,
-				A30ADF96131528F80060D2F1 /* katietold.png in Resources */,
-				A30ADF97131528F80060D2F1 /* katiewaiting.png in Resources */,
-				A30ADF98131528F80060D2F1 /* mumtold.png in Resources */,
-				A30ADF99131528F80060D2F1 /* mumwaiting.png in Resources */,
 				A30ADF9A131528F80060D2F1 /* Thumbs.db in Resources */,
 				A30AE12B13155C300060D2F1 /* visiting.png in Resources */,
 				A30AE14C13155EC90060D2F1 /* sbluebuttonup.png in Resources */,
@@ -614,6 +621,14 @@
 				A30AE1DB131574DA0060D2F1 /* resulttype.png in Resources */,
 				A30AE1DC131574DA0060D2F1 /* resultvisits.png in Resources */,
 				A30AE207131578200060D2F1 /* resultright.png in Resources */,
+				A30AE2841316B6B80060D2F1 /* dadtold.png in Resources */,
+				A30AE2851316B6B80060D2F1 /* dadwaiting.png in Resources */,
+				A30AE2861316B6B80060D2F1 /* johntold.png in Resources */,
+				A30AE2871316B6B80060D2F1 /* johnwaiting.png in Resources */,
+				A30AE2881316B6B80060D2F1 /* katietold.png in Resources */,
+				A30AE2891316B6B80060D2F1 /* katiewaiting.png in Resources */,
+				A30AE28A1316B6B80060D2F1 /* mumtold.png in Resources */,
+				A30AE28B1316B6B80060D2F1 /* mumwaiting.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -629,12 +644,15 @@
 				28D7ACF80DDB3853001CB0EB /* ComicPolicyViewController.m in Sources */,
 				A30ADFCE13152BF20060D2F1 /* SubjectView.m in Sources */,
 				A30AE003131537750060D2F1 /* SubjectViewController.m in Sources */,
-				A30AE03313153C6D0060D2F1 /* ConditionViewController.m in Sources */,
+				A30AE03313153C6D0060D2F1 /* RootConditionViewController.m in Sources */,
 				A30AE03813153C950060D2F1 /* ConditionView.m in Sources */,
 				A30AE04C13153DFB0060D2F1 /* ActionViewController.m in Sources */,
 				A30AE05113153E600060D2F1 /* ActionNotifyView.m in Sources */,
 				A30AE06D13153F420060D2F1 /* ResultViewController.m in Sources */,
 				A30AE072131540040060D2F1 /* ResultView.m in Sources */,
+				A30AE22E13169B2B0060D2F1 /* Lookup.m in Sources */,
+				A30AE2AD1316BABB0060D2F1 /* ConditionBandwidthView.m in Sources */,
+				A30AE3741316CE0C0060D2F1 /* ConditionBandwidthViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

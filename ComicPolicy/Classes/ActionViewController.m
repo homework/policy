@@ -34,7 +34,7 @@
 		[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight forView:actionNotifyView.personImage cache:YES];
 		actionNotifyView.personImage.image = [UIImage imageNamed:personImage];
 		[UIView commitAnimations];
-		NSDictionary* dict = [NSDictionary dictionaryWithObject:personImage forKey:@"person"];
+		NSDictionary* dict = [NSDictionary dictionaryWithObject:personImage forKey:@"action"];
 		[[NSNotificationCenter defaultCenter] postNotificationName:@"actionSubjectChange" object:nil userInfo:dict];
 		
 		

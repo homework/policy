@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "Lookup.h"
 @class ComicPolicyViewController;
 
 @interface ComicPolicyAppDelegate : NSObject <UIApplicationDelegate> {

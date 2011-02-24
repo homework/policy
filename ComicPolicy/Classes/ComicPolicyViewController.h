@@ -8,13 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "SubjectViewController.h";
-#import "ConditionViewController.h";
+#import "RootConditionViewController.h";
 #import "ActionViewController.h";
 #import "ResultViewController.h";
 
 @interface ComicPolicyViewController : UIViewController {
 	SubjectViewController *subjectViewController;
-	ConditionViewController	 *eventViewController;
+	RootConditionViewController	 *eventViewController;
 	ActionViewController *actionViewController;
 	ResultViewController *resultViewController;
 }

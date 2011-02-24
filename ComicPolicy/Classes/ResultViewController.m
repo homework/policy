@@ -23,40 +23,42 @@
 
 -(void) conditionChange:(NSNotification *) n{
 	NSDictionary *userInfo = [n userInfo];
-	for (NSString * key in userInfo){
+	NSString* newscene = [Lookup lookupmonitor:[userInfo objectForKey:@"condition"]];
 	
-	
+	if (! [currentMonitorScene isEqualToString:newscene]){
+		[UIView beginAnimations:nil context:nil];
+		[UIView setAnimationDuration:0.75];
+		[UIView setAnimationDelegate:self];
+		[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:resultView.monitorImage cache:YES];
+		resultView.monitorImage.image = [UIImage imageNamed:newscene];//@"resulttype.png"];
+		[UIView commitAnimations];
+		currentMonitorScene = newscene;
 	}
-	
-	
-	
-	[UIView beginAnimations:nil context:nil];
-	[UIView setAnimationDuration:0.75];
-	[UIView setAnimationDelegate:self];
-	[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:resultView.monitorImage cache:YES];
-	resultView.monitorImage.image = [UIImage imageNamed:@"resulttype.png"];
-	[UIView commitAnimations];
 }
 
 -(void) actionSubjectChange:(NSNotification *) n{
+	
+		
 	NSDictionary *userInfo = [n userInfo];
-	for (NSString * key in userInfo){
-		
-		
+	NSLog(@"lookuing ip %@", [userInfo objectForKey:@"action"]);
+	NSString* newscene = [Lookup lookupresult:[userInfo objectForKey:@"action"]];
+	if (! [currentActionScene isEqualToString:newscene]){
+		[UIView beginAnimations:nil context:nil];
+		[UIView setAnimationDuration:0.75];
+		[UIView setAnimationDelegate:self];
+		[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:resultView.resultMainImage cache:YES];
+		resultView.resultMainImage.image = [UIImage imageNamed:newscene];
+		[UIView commitAnimations];
+		currentActionScene = newscene;
+
 	}
-	
-	
-	
-	[UIView beginAnimations:nil context:nil];
-	[UIView setAnimationDuration:0.75];
-	[UIView setAnimationDelegate:self];
-	[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:resultView.resultImage cache:YES];
-	resultView.resultImage.image = [UIImage imageNamed:@"resultright.png"];
-	[UIView commitAnimations];
 }
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
 
+ currentMonitorScene = @"resultbandwidth.png";
+ currentActionScene = @"dadwaiting.png";
+	
  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(conditionChange:) name:@"conditionChange" object:nil];	
  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionSubjectChange:) name:@"actionSubjectChange" object:nil];	
 	

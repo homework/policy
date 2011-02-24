@@ -1,0 +1,2 @@
+/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ResultView.m:49: warning: property 'resultBackgroundImage' requires method '-resultBackgroundImage' to be defined - use @synthesize, @dynamic or provide a method implementation
+/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ResultView.m:49: warning: property 'resultBackgroundImage' requires the method 'setResultBackgroundImage:' to be defined - use @synthesize, @dynamic or provide a method implementation

@@ -1,25 +1,23 @@
 //
-//  EventView.m
+//  ConditionBandwidthView.m
 //  ComicPolicy
 //
-//  Created by Tom Lodge on 23/02/2011.
+//  Created by Tom Lodge on 24/02/2011.
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "ConditionView.h"
+#import "ConditionBandwidthView.h"
 
 
-@implementation ConditionView
+@implementation ConditionBandwidthView
 @synthesize conditionImage;
 
 - (id)initWithFrame:(CGRect)frame {
     if ((self = [super initWithFrame:frame])) {
-		UIImageView *tmpImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bandwidth.png"]];
+        UIImageView *tmpImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bandwidth.png"]];
 		self.conditionImage = tmpImage;
 		[self addSubview:conditionImage];
-		[tmpImage release];
-		
-    }
+		[tmpImage release];    }
     return self;
 }
 
