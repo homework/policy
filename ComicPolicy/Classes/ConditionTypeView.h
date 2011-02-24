@@ -1,5 +1,5 @@
 //
-//  ConditionBandwidthView.h
+//  ConditionTypeView.h
 //  ComicPolicy
 //
 //  Created by Tom Lodge on 24/02/2011.
@@ -9,12 +9,11 @@
 #import <UIKit/UIKit.h>
 
 
-@interface ConditionBandwidthView : UIView {
-	UIImageView* conditionImage;
-	UIImageView* moneyImage;
+@interface ConditionTypeView : UIView {
+	UIImageView *conditionImage;
 }
 
+
 @property(nonatomic,retain) UIImageView *conditionImage;
-@property(nonatomic,retain) UIImageView *moneyImage;
 
 @end

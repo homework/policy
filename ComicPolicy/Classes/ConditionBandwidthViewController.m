@@ -15,12 +15,18 @@
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
+		
         // Custom initialization
 		CGRect aframe = CGRectMake(0,0,294,301);
 		ConditionBandwidthView *aconditionbandwidthview = [[ConditionBandwidthView alloc] initWithFrame: aframe];
 		//is this needed??
 		conditionBandwidthView = aconditionbandwidthview;
 		self.view = aconditionbandwidthview;
+		
+		UIPinchGestureRecognizer *pinchGestureRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinch:)];
+		[self.view addGestureRecognizer:pinchGestureRecognizer];
+		[pinchGestureRecognizer release];
+		
 		[aconditionbandwidthview release];
 		
     }
@@ -28,9 +34,41 @@
 }
 
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-	NSLog(@"greate!!!!");
+-(void) handlePinch:(UIGestureRecognizer *) gesture {
+	
+	UIView *view = conditionBandwidthView.moneyImage;
+	
+	UIPinchGestureRecognizer *pinchGesture = (UIPinchGestureRecognizer *) gesture;
+	if (view.frame.size.width >= 165 &&  pinchGesture.scale > 1)
+		return;
+	if (view.frame.size.width <= 30 &&  pinchGesture.scale < 1)
+		return;
+	
+	if (pinchGesture.state == UIGestureRecognizerStateBegan || pinchGesture.state == UIGestureRecognizerStateChanged) {
+		
+		//pinchGesture.view;
+		NSLog(@"scale is %f", pinchGesture.scale);
+		view.transform = CGAffineTransformScale(view.transform, pinchGesture.scale, pinchGesture.scale);
+		pinchGesture.scale = 1;
+		NSLog(@"view scale is %3.0f, %3.0f", view.frame.size.width, view.frame.size.height);
+		
+	}
+	
 }
+
+
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+	UITouch *touch = [[event allTouches] anyObject];
+	CGPoint touchLocation = [touch locationInView:self.view];
+	
+	if (! CGRectContainsPoint(conditionBandwidthView.moneyImage.bounds, touchLocation)){
+	//if( [touches count] == 1){
+		[super touchesBegan:touches withEvent:event];
+		
+	}
+}
+
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
 }

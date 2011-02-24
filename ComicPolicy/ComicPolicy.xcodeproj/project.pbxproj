@@ -46,7 +46,7 @@
 		A30ADF72131528F80060D2F1 /* surfing.png in Resources */ = {isa = PBXBuildFile; fileRef = A30ADF21131528F80060D2F1 /* surfing.png */; };
 		A30ADF74131528F80060D2F1 /* timed.png in Resources */ = {isa = PBXBuildFile; fileRef = A30ADF23131528F80060D2F1 /* timed.png */; };
 		A30ADF75131528F80060D2F1 /* clockface.png in Resources */ = {isa = PBXBuildFile; fileRef = A30ADF25131528F80060D2F1 /* clockface.png */; };
-		A30ADF76131528F80060D2F1 /* eventmoneybag.png in Resources */ = {isa = PBXBuildFile; fileRef = A30ADF26131528F80060D2F1 /* eventmoneybag.png */; };
+		A30ADF76131528F80060D2F1 /* conditionmoneybag.png in Resources */ = {isa = PBXBuildFile; fileRef = A30ADF26131528F80060D2F1 /* conditionmoneybag.png */; };
 		A30ADF78131528F80060D2F1 /* computer.png in Resources */ = {isa = PBXBuildFile; fileRef = A30ADF2A131528F80060D2F1 /* computer.png */; };
 		A30ADF79131528F80060D2F1 /* desktop.png in Resources */ = {isa = PBXBuildFile; fileRef = A30ADF2B131528F80060D2F1 /* desktop.png */; };
 		A30ADF7A131528F80060D2F1 /* laptop.png in Resources */ = {isa = PBXBuildFile; fileRef = A30ADF2C131528F80060D2F1 /* laptop.png */; };
@@ -73,7 +73,6 @@
 		A30ADFCE13152BF20060D2F1 /* SubjectView.m in Sources */ = {isa = PBXBuildFile; fileRef = A30ADFCD13152BF20060D2F1 /* SubjectView.m */; };
 		A30AE003131537750060D2F1 /* SubjectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A30AE002131537750060D2F1 /* SubjectViewController.m */; };
 		A30AE03313153C6D0060D2F1 /* RootConditionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A30AE03213153C6D0060D2F1 /* RootConditionViewController.m */; };
-		A30AE03813153C950060D2F1 /* ConditionView.m in Sources */ = {isa = PBXBuildFile; fileRef = A30AE03713153C950060D2F1 /* ConditionView.m */; };
 		A30AE04C13153DFB0060D2F1 /* ActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A30AE04B13153DFB0060D2F1 /* ActionViewController.m */; };
 		A30AE05113153E600060D2F1 /* ActionNotifyView.m in Sources */ = {isa = PBXBuildFile; fileRef = A30AE05013153E600060D2F1 /* ActionNotifyView.m */; };
 		A30AE06D13153F420060D2F1 /* ResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A30AE06C13153F420060D2F1 /* ResultViewController.m */; };
@@ -98,6 +97,8 @@
 		A30AE28B1316B6B80060D2F1 /* mumwaiting.png in Resources */ = {isa = PBXBuildFile; fileRef = A30AE2831316B6B80060D2F1 /* mumwaiting.png */; };
 		A30AE2AD1316BABB0060D2F1 /* ConditionBandwidthView.m in Sources */ = {isa = PBXBuildFile; fileRef = A30AE2AC1316BABB0060D2F1 /* ConditionBandwidthView.m */; };
 		A30AE3741316CE0C0060D2F1 /* ConditionBandwidthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A30AE3731316CE0C0060D2F1 /* ConditionBandwidthViewController.m */; };
+		A30AE3A01316EC5A0060D2F1 /* ConditionTypeView.m in Sources */ = {isa = PBXBuildFile; fileRef = A30AE39F1316EC5A0060D2F1 /* ConditionTypeView.m */; };
+		A30AE3A51316F6F80060D2F1 /* ConditionTypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A30AE3A41316F6F80060D2F1 /* ConditionTypeViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -145,7 +146,7 @@
 		A30ADF21131528F80060D2F1 /* surfing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = surfing.png; sourceTree = "<group>"; };
 		A30ADF23131528F80060D2F1 /* timed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = timed.png; sourceTree = "<group>"; };
 		A30ADF25131528F80060D2F1 /* clockface.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clockface.png; sourceTree = "<group>"; };
-		A30ADF26131528F80060D2F1 /* eventmoneybag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eventmoneybag.png; sourceTree = "<group>"; };
+		A30ADF26131528F80060D2F1 /* conditionmoneybag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = conditionmoneybag.png; sourceTree = "<group>"; };
 		A30ADF2A131528F80060D2F1 /* computer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = computer.png; sourceTree = "<group>"; };
 		A30ADF2B131528F80060D2F1 /* desktop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = desktop.png; sourceTree = "<group>"; };
 		A30ADF2C131528F80060D2F1 /* laptop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = laptop.png; sourceTree = "<group>"; };
@@ -175,8 +176,6 @@
 		A30AE002131537750060D2F1 /* SubjectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubjectViewController.m; sourceTree = "<group>"; };
 		A30AE03113153C6D0060D2F1 /* RootConditionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootConditionViewController.h; sourceTree = "<group>"; };
 		A30AE03213153C6D0060D2F1 /* RootConditionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootConditionViewController.m; sourceTree = "<group>"; };
-		A30AE03613153C950060D2F1 /* ConditionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConditionView.h; sourceTree = "<group>"; };
-		A30AE03713153C950060D2F1 /* ConditionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConditionView.m; sourceTree = "<group>"; };
 		A30AE04A13153DFB0060D2F1 /* ActionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionViewController.h; sourceTree = "<group>"; };
 		A30AE04B13153DFB0060D2F1 /* ActionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionViewController.m; sourceTree = "<group>"; };
 		A30AE04F13153E600060D2F1 /* ActionNotifyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionNotifyView.h; sourceTree = "<group>"; };
@@ -208,6 +207,10 @@
 		A30AE2AC1316BABB0060D2F1 /* ConditionBandwidthView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConditionBandwidthView.m; sourceTree = "<group>"; };
 		A30AE3721316CE0C0060D2F1 /* ConditionBandwidthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConditionBandwidthViewController.h; sourceTree = "<group>"; };
 		A30AE3731316CE0C0060D2F1 /* ConditionBandwidthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConditionBandwidthViewController.m; sourceTree = "<group>"; };
+		A30AE39E1316EC5A0060D2F1 /* ConditionTypeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConditionTypeView.h; sourceTree = "<group>"; };
+		A30AE39F1316EC5A0060D2F1 /* ConditionTypeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConditionTypeView.m; sourceTree = "<group>"; };
+		A30AE3A31316F6F80060D2F1 /* ConditionTypeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConditionTypeViewController.h; sourceTree = "<group>"; };
+		A30AE3A41316F6F80060D2F1 /* ConditionTypeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConditionTypeViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -240,12 +243,14 @@
 				A30ADFCD13152BF20060D2F1 /* SubjectView.m */,
 				A30AE03113153C6D0060D2F1 /* RootConditionViewController.h */,
 				A30AE03213153C6D0060D2F1 /* RootConditionViewController.m */,
-				A30AE03613153C950060D2F1 /* ConditionView.h */,
-				A30AE03713153C950060D2F1 /* ConditionView.m */,
 				A30AE3721316CE0C0060D2F1 /* ConditionBandwidthViewController.h */,
 				A30AE3731316CE0C0060D2F1 /* ConditionBandwidthViewController.m */,
 				A30AE2AB1316BABB0060D2F1 /* ConditionBandwidthView.h */,
 				A30AE2AC1316BABB0060D2F1 /* ConditionBandwidthView.m */,
+				A30AE3A31316F6F80060D2F1 /* ConditionTypeViewController.h */,
+				A30AE3A41316F6F80060D2F1 /* ConditionTypeViewController.m */,
+				A30AE39E1316EC5A0060D2F1 /* ConditionTypeView.h */,
+				A30AE39F1316EC5A0060D2F1 /* ConditionTypeView.m */,
 				A30AE04A13153DFB0060D2F1 /* ActionViewController.h */,
 				A30AE04B13153DFB0060D2F1 /* ActionViewController.m */,
 				A30AE04F13153E600060D2F1 /* ActionNotifyView.h */,
@@ -410,7 +415,7 @@
 			isa = PBXGroup;
 			children = (
 				A30ADF25131528F80060D2F1 /* clockface.png */,
-				A30ADF26131528F80060D2F1 /* eventmoneybag.png */,
+				A30ADF26131528F80060D2F1 /* conditionmoneybag.png */,
 			);
 			path = extras;
 			sourceTree = "<group>";
@@ -589,7 +594,7 @@
 				A30ADF72131528F80060D2F1 /* surfing.png in Resources */,
 				A30ADF74131528F80060D2F1 /* timed.png in Resources */,
 				A30ADF75131528F80060D2F1 /* clockface.png in Resources */,
-				A30ADF76131528F80060D2F1 /* eventmoneybag.png in Resources */,
+				A30ADF76131528F80060D2F1 /* conditionmoneybag.png in Resources */,
 				A30ADF78131528F80060D2F1 /* computer.png in Resources */,
 				A30ADF79131528F80060D2F1 /* desktop.png in Resources */,
 				A30ADF7A131528F80060D2F1 /* laptop.png in Resources */,
@@ -645,7 +650,6 @@
 				A30ADFCE13152BF20060D2F1 /* SubjectView.m in Sources */,
 				A30AE003131537750060D2F1 /* SubjectViewController.m in Sources */,
 				A30AE03313153C6D0060D2F1 /* RootConditionViewController.m in Sources */,
-				A30AE03813153C950060D2F1 /* ConditionView.m in Sources */,
 				A30AE04C13153DFB0060D2F1 /* ActionViewController.m in Sources */,
 				A30AE05113153E600060D2F1 /* ActionNotifyView.m in Sources */,
 				A30AE06D13153F420060D2F1 /* ResultViewController.m in Sources */,
@@ -653,6 +657,8 @@
 				A30AE22E13169B2B0060D2F1 /* Lookup.m in Sources */,
 				A30AE2AD1316BABB0060D2F1 /* ConditionBandwidthView.m in Sources */,
 				A30AE3741316CE0C0060D2F1 /* ConditionBandwidthViewController.m in Sources */,
+				A30AE3A01316EC5A0060D2F1 /* ConditionTypeView.m in Sources */,
+				A30AE3A51316F6F80060D2F1 /* ConditionTypeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

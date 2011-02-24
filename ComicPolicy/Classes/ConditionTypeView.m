@@ -1,30 +1,25 @@
 //
-//  ConditionBandwidthView.m
+//  ConditionTypeView.m
 //  ComicPolicy
 //
 //  Created by Tom Lodge on 24/02/2011.
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "ConditionBandwidthView.h"
+#import "ConditionTypeView.h"
 
 
-@implementation ConditionBandwidthView
+@implementation ConditionTypeView
+
 @synthesize conditionImage;
-@synthesize moneyImage;
 
 - (id)initWithFrame:(CGRect)frame {
     if ((self = [super initWithFrame:frame])) {
-        UIImageView *tmpImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bandwidth.png"]];
+        UIImageView *tmpImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"surfing.png"]];
 		self.conditionImage = tmpImage;
 		[self addSubview:conditionImage];
 		[tmpImage release];
-		
-		UIImageView *tmpMoneyImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"conditionmoneybag.png"]];
-		self.moneyImage = tmpMoneyImage;
-		[self addSubview:tmpMoneyImage];
-		[tmpMoneyImage release];
-	}
+    }
     return self;
 }
 

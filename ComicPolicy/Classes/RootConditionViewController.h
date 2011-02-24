@@ -7,19 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ConditionView.h"
 #import "ConditionBandwidthViewController.h"
+#import "ConditionTypeViewController.h"
 #import "Lookup.h"
 
 @interface RootConditionViewController : UIViewController {
-	ConditionView* conditionView; ///change to controller eventually...
 	ConditionBandwidthViewController *conditionBandwidthViewController;
-	//ConditionBandwidthView* conditionBandwidthView;
+	ConditionTypeViewController *conditionTypeViewController;
 }
 
-@property(nonatomic,retain) ConditionView *conditionView;
-
 @property(nonatomic,retain) ConditionBandwidthViewController *conditionBandwidthViewController;
-//@property(nonatomic,retain) ConditionBandwidthView *conditionBandwidthView;
+@property(nonatomic,retain) ConditionTypeViewController *conditionTypeViewController;
 
 @end

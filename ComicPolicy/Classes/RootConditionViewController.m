@@ -10,9 +10,8 @@
 #import <QuartzCore/QuartzCore.h>
 
 @implementation RootConditionViewController
-//@synthesize conditionBandwidthView;
-@synthesize conditionView;
 @synthesize conditionBandwidthViewController;
+@synthesize conditionTypeViewController;
 
 /*
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
@@ -25,17 +24,10 @@
 */
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-	
-	
-	UITouch *touch = [[event allTouches] anyObject];
-	CGPoint touchLocation = [touch locationInView:self.view];
-	if (CGRectContainsPoint(conditionView.conditionImage.frame, touchLocation)){
-			
+		UITouch *touch = [[event allTouches] anyObject];
+		CGPoint touchLocation = [touch locationInView:self.view];
 		NSArray* subviews = [self.view subviews];
-			
-			
 		NSString* imageName = [Lookup nextConditionImage]; 
-		
 			
 		[UIView beginAnimations:nil context:nil];
 		[UIView setAnimationDuration:0.75];
@@ -43,51 +35,45 @@
 		[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight forView:self.view cache:YES];
 			
 		if ([imageName isEqualToString:@"bandwidth.png"]){
-			[conditionView removeFromSuperview];
+			[[conditionTypeViewController view] removeFromSuperview];
 			[[self view] addSubview:[conditionBandwidthViewController view]];
-		}//else 
-		//if ([ subviews objectAtIndex:0] == conditionBandwidthView){
-		//	[conditionBandwidthView removeFromSuperview];
-		//	conditionView.conditionImage.image = [UIImage imageNamed:imageName];
-	//		[[self view] addSubview:conditionView];
-	//	}
-	//	else{
-			conditionView.conditionImage.image = [UIImage imageNamed:imageName];
-	//	}
+		}else 
+		if ([ subviews objectAtIndex:0] == [conditionBandwidthViewController view]){
+			[[conditionBandwidthViewController view] removeFromSuperview];
+			[conditionTypeViewController conditionTypeView].conditionImage.image = [UIImage imageNamed:imageName];
+			[[self view] addSubview:[conditionTypeViewController view]];
+		}
+		else{
+			[conditionTypeViewController conditionTypeView].conditionImage.image = [UIImage imageNamed:imageName];
+		}
 		
 		[UIView commitAnimations];
 		NSDictionary* dict = [NSDictionary dictionaryWithObject:imageName forKey:@"condition"];
 		[[NSNotificationCenter defaultCenter] postNotificationName:@"conditionChange" object:nil userInfo:dict];
 		
-	}
+	
 }
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
 		
 	/*
-	 *Set up a bunch of views..
+	 *Set up the root view..
 	 */
 	
 	CGRect aframe = CGRectMake(364,60,294,301);
 	self.view = [[UIView alloc] initWithFrame: aframe];
 	
-	
-	CGRect nframe = CGRectMake(0,0,294,301);
-	ConditionView *aconditionview = [[ConditionView alloc] initWithFrame: nframe];
-	self.conditionView = aconditionview;
-	[self.view addSubview: conditionView];
-	
+	/*
+	 * set up the view condition controllers
+	 */
+	self.conditionTypeViewController = [[ConditionTypeViewController alloc] initWithNibName:nil bundle:nil];
 	self.conditionBandwidthViewController = [[ConditionBandwidthViewController alloc] initWithNibName:nil bundle:nil];
 	
-	//ConditionBandwidthView *aconditionbandwidthview = [[ConditionBandwidthView alloc] initWithFrame: nframe];
-	//self.conditionBandwidthView = aconditionbandwidthview;
-	
-	
-	//[self.view addSubview:conditionBandwidthView];
-	
-	[aconditionview release];
-	//[aconditionbandwidthview release];
+	/*
+	 * Add one of the controller's views as a sub view...
+	 */ 
+	[self.view addSubview:[conditionTypeViewController view]];
 	
 }
 
