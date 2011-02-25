@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 #import "ActionNotifyView.h"
+#import "Lookup.h"
 
 @interface ActionViewController : UIViewController {
 	ActionNotifyView* actionNotifyView;

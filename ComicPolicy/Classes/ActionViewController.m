@@ -27,7 +27,7 @@
 	
 	if (CGRectContainsPoint(actionNotifyView.personImage.frame, touchLocation)){
 		
-		NSString* personImage = [personImages objectAtIndex:++personImageIndex % [personImages count]];
+		NSString* personImage = [Lookup nextNotifyPersonImage];//[personImages objectAtIndex:++personImageIndex % [personImages count]];
 		[UIView beginAnimations:nil context:nil];
 		[UIView setAnimationDuration:0.75];
 		[UIView setAnimationDelegate:self];
@@ -46,7 +46,7 @@
 		[UIView setAnimationDuration:0.75];
 		[UIView setAnimationDelegate:self];
 		[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight forView:actionNotifyView.notifyImage cache:YES];
-		actionNotifyView.notifyImage.image = [UIImage imageNamed:[notifyImages objectAtIndex:++notifyImageIndex % [notifyImages count]]];
+		actionNotifyView.notifyImage.image = [UIImage imageNamed:[Lookup nextNotifyByImage]];// [UIImage imageNamed:[notifyImages objectAtIndex:++notifyImageIndex % [notifyImages count]]];
 		[UIView commitAnimations];
 		
 	}
@@ -55,11 +55,7 @@
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
-	personImageIndex = 0;
-	personImages = [[NSMutableArray alloc] initWithObjects:@"notifydad.png",@"notifymum.png",@"notifyjohn.png",@"notifykatie.png",nil];
 	
-	notifyImageIndex = 0;
-	notifyImages = [[NSMutableArray alloc] initWithObjects:@"notifyby.png",nil];
 	
 	CGRect aframe = CGRectMake(666,60,294,301);
 	ActionNotifyView *aview = [[ActionNotifyView alloc] initWithFrame: aframe];//

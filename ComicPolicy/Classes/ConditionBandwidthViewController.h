@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ConditionBandwidthView.h"
+#import "ConditionImageLookup.h"
 
 @interface ConditionBandwidthViewController : UIViewController {
 	ConditionBandwidthView* conditionBandwidthView;

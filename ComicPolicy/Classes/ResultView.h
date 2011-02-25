@@ -15,7 +15,6 @@
 }
 
 @property(nonatomic,retain) UIImageView *monitorImage;
-@property(nonatomic,retain) UIImageView *resultBackgroundImage;
 @property(nonatomic,retain) UIImageView *resultMainImage;
 
 

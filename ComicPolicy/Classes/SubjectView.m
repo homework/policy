@@ -11,10 +11,8 @@
 
 @implementation SubjectView
 
-@synthesize topImage;
-@synthesize bottomImage;
-
 - (id)initWithFrame:(CGRect)frame {
+	
     if ((self = [super initWithFrame:frame])) {
         bottomImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"conddesktop.png"]];
 		bottomImage.frame = CGRectMake(0, (300-175), 295, 175);
@@ -36,8 +34,8 @@
 
 - (void)dealloc {
     [super dealloc];
-	[bottomImage release];
-	[topImage release];
+	//[bottomImage release];
+	//[topImage release];
 }
 
 

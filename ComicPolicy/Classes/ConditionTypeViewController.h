@@ -7,12 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ConditionTypeView.h";
+#import "ConditionImageLookup.h"
+#import "FrameView.h"
 
 @interface ConditionTypeViewController : UIViewController {
-	ConditionTypeView* conditionTypeView;
 }
 
-@property(nonatomic,retain) ConditionTypeView *conditionTypeView;
 
 @end

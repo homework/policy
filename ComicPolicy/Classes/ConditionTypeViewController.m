@@ -11,13 +11,14 @@
 
 @implementation ConditionTypeViewController
 
-@synthesize conditionTypeView;
+static ConditionImageLookup *lookup;
+
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
 		CGRect nframe = CGRectMake(0,0,294,301);
-		ConditionTypeView *aconditionview = [[ConditionTypeView alloc] initWithFrame: nframe];
-		self.conditionTypeView = aconditionview;
+		lookup = [[ConditionImageLookup alloc] init];
+		FrameView *aconditionview = [[FrameView alloc] initWithFrameAndLookup:nframe lookup:lookup];
 		self.view = aconditionview;
 		[aconditionview release];
 	}
@@ -66,6 +67,7 @@
 
 - (void)dealloc {
     [super dealloc];
+	//[conditionTypeView release];
 }
 
 

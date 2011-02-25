@@ -10,21 +10,30 @@
 
 
 @implementation ConditionBandwidthView
-@synthesize conditionImage;
+//@synthesize conditionImage;
 @synthesize moneyImage;
 
-- (id)initWithFrame:(CGRect)frame {
-    if ((self = [super initWithFrame:frame])) {
-        UIImageView *tmpImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bandwidth.png"]];
-		self.conditionImage = tmpImage;
-		[self addSubview:conditionImage];
+
+- (id)initWithFrameAndLookup:(CGRect)frame lookup:(NSObject<ImageLookup>*)lookup{
+	if ((self = [super initWithFrame:frame])) {
+		
+		UIImageView *tmpImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[lookup getNextTopImage]]];
+		self.mainImage = tmpImage;
+		[self addSubview:mainImage];
 		[tmpImage release];
 		
 		UIImageView *tmpMoneyImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"conditionmoneybag.png"]];
 		self.moneyImage = tmpMoneyImage;
 		[self addSubview:tmpMoneyImage];
 		[tmpMoneyImage release];
-	}
+		
+		UIImageView* tmpframe = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"frame.png"]];
+		[self addSubview:tmpframe];
+		[tmpframe release];
+		
+		NSDictionary* dict = [NSDictionary dictionaryWithObject:[lookup getCurrentTopImage] forKey:@"condition"];
+		[[NSNotificationCenter defaultCenter] postNotificationName:@"conditionChange" object:nil userInfo:dict];
+    }
     return self;
 }
 
@@ -38,6 +47,7 @@
 
 - (void)dealloc {
     [super dealloc];
+	[moneyImage release];
 }
 
 

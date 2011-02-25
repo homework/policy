@@ -12,12 +12,12 @@
 
 
 
-// The designated initializer. Override to perform setup that is required before the view is loaded.
+/* The designated initializer. Override to perform setup that is required before the view is loaded.
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
     }
     return self;
-}
+}*/
 
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
@@ -27,14 +27,18 @@
 	subjectViewController = [[SubjectViewController alloc] init];
 	[self.view addSubview:subjectViewController.view];
 	
+	
 	eventViewController = [[RootConditionViewController alloc] init];
 	[self.view addSubview:eventViewController.view];
+	
 	
 	actionViewController = [[ActionViewController alloc] init];
 	[self.view addSubview:actionViewController.view];
 	
+	
 	resultViewController = [[ResultViewController alloc] init];
 	[self.view addSubview:resultViewController.view];
+	
 }
 
 
@@ -67,6 +71,10 @@
 
 - (void)dealloc {
     [super dealloc];
+	[subjectViewController release];
+	[eventViewController release];
+	[actionViewController release];
+	[resultViewController release];
 }
 
 @end

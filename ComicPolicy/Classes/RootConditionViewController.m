@@ -24,39 +24,31 @@
 */
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-		UITouch *touch = [[event allTouches] anyObject];
-		CGPoint touchLocation = [touch locationInView:self.view];
-		NSArray* subviews = [self.view subviews];
-		NSString* imageName = [Lookup nextConditionImage]; 
-			
+		
+		//NSString* imageName = [Lookup nextConditionImage]; 
 		[UIView beginAnimations:nil context:nil];
 		[UIView setAnimationDuration:0.75];
 		[UIView setAnimationDelegate:self];
 		[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight forView:self.view cache:YES];
-			
-		if ([imageName isEqualToString:@"bandwidth.png"]){
-			[[conditionTypeViewController view] removeFromSuperview];
-			[[self view] addSubview:[conditionBandwidthViewController view]];
-		}else 
-		if ([ subviews objectAtIndex:0] == [conditionBandwidthViewController view]){
-			[[conditionBandwidthViewController view] removeFromSuperview];
-			[conditionTypeViewController conditionTypeView].conditionImage.image = [UIImage imageNamed:imageName];
-			[[self view] addSubview:[conditionTypeViewController view]];
-		}
-		else{
-			[conditionTypeViewController conditionTypeView].conditionImage.image = [UIImage imageNamed:imageName];
-		}
+		NSString *controller = [controllerList objectAtIndex: ++controllerIndex % [controllerList count]];
+		UIViewController *newController = [[[NSClassFromString(controller) alloc] initWithNibName:nil bundle:nil] retain];
+		[currentViewController.view removeFromSuperview];
+		[[self view] addSubview:[newController view]];
+		[currentViewController release];
+		currentViewController = newController;
 		
 		[UIView commitAnimations];
-		NSDictionary* dict = [NSDictionary dictionaryWithObject:imageName forKey:@"condition"];
-		[[NSNotificationCenter defaultCenter] postNotificationName:@"conditionChange" object:nil userInfo:dict];
+		
+	
+		
 		
 	
 }
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
-		
+	
+	controllerIndex = 0;
 	/*
 	 *Set up the root view..
 	 */
@@ -68,12 +60,26 @@
 	 * set up the view condition controllers
 	 */
 	self.conditionTypeViewController = [[ConditionTypeViewController alloc] initWithNibName:nil bundle:nil];
-	self.conditionBandwidthViewController = [[ConditionBandwidthViewController alloc] initWithNibName:nil bundle:nil];
+	
+	//self.conditionBandwidthViewController = [[ConditionBandwidthViewController alloc] initWithNibName:nil bundle:nil];
+		
+	
+	controllerList = [[NSArray arrayWithObjects:@"ConditionTypeViewController", 
+												@"ConditionTypeViewController",
+												@"ConditionTypeViewController",
+												@"ConditionTypeViewController",
+												@"ConditionTypeViewController",
+												@"ConditionBandwidthViewController",
+												@"ConditionTypeViewController",
+					   
+												nil] retain];
+	
 	
 	/*
 	 * Add one of the controller's views as a sub view...
 	 */ 
 	[self.view addSubview:[conditionTypeViewController view]];
+	currentViewController = conditionTypeViewController;
 	
 }
 
@@ -111,6 +117,7 @@
 
 - (void)dealloc {
     [super dealloc];
+	[controllerList release];
 }
 
 

@@ -1,0 +1,3 @@
+/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ConditionImageLookup.m:62: warning: incomplete implementation of class 'ConditionImageLookup'
+/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ConditionImageLookup.m:62: warning: method definition for '-getCurrentImage' not found
+/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ConditionImageLookup.m:62: warning: class 'ConditionImageLookup' does not fully implement the 'ImageLookup' protocol

@@ -40,17 +40,17 @@
 		<data>
 		w8KVZdKsjALJX2nte9VmaL0YDZU=
 		</data>
-		<key>bed.png</key>
+		<key>bigframe.png</key>
 		<data>
-		hYrwgRqME+C5Ac5SCJOZT46ptJk=
+		HxGxgDgCeauQVR0uiS4jCFXY3iU=
 		</data>
-		<key>bgreenbuttonleft.png</key>
+		<key>bigframeleft.png</key>
 		<data>
-		VjYc89Gfy/nfQI61AZDbRNFE2+4=
+		+gFHStovrKeewsPNuMlfm4eeCEA=
 		</data>
-		<key>bgreenbuttonright.png</key>
+		<key>bigframeright.png</key>
 		<data>
-		UVHowv66NX3JNH7V3DiGDEzhRMw=
+		WQzGG1d1rVvYV+xXXMZi/NOdtmw=
 		</data>
 		<key>blockdad.png</key>
 		<data>
@@ -72,10 +72,6 @@
 		<data>
 		B4xeYwiz++M96clH6WudCdySrDA=
 		</data>
-		<key>computer.png</key>
-		<data>
-		+fkfAAFDPdSYF8qlCU0tghXnf1o=
-		</data>
 		<key>condcomputer.png</key>
 		<data>
 		monc5aXY0qH/DHbPq4Rug8G7XS0=
@@ -90,7 +86,7 @@
 		</data>
 		<key>conditionmoneybag.png</key>
 		<data>
-		uAxVDaGiTHx7L6Oc/L0omsSLgIc=
+		IsT134Okajvnmk9QoGBoXrX3nug=
 		</data>
 		<key>condlaptop.png</key>
 		<data>
@@ -112,10 +108,6 @@
 		<data>
 		lcTBUw+F28s4EAzFyYTVJP4hwXA=
 		</data>
-		<key>desktop.png</key>
-		<data>
-		RBF4RIPXcI6rWYn1P/9TEyK+c0E=
-		</data>
 		<key>devices.png</key>
 		<data>
 		Uc+WcCE7LgUh/1ELznX+255zi3k=
@@ -136,17 +128,17 @@
 		<data>
 		oiz9+oG+3vzPROudTkdFhdNynTI=
 		</data>
-		<key>fire.png</key>
+		<key>frame.png</key>
 		<data>
-		luiicxtOwwBwo3+bHKcIx/FgANk=
+		QuUudecz7kKXVIRAOLZ/De7N0X8=
 		</data>
 		<key>gaming.png</key>
 		<data>
 		L8U9M9gKLW/voxllrBReey3vs/w=
 		</data>
-		<key>gate.png</key>
+		<key>hour.png</key>
 		<data>
-		tKaqvwgC4N0SXnF9oYUQV0NgrOU=
+		sNhRea/NtJ7akAw5k2po0q6hF+s=
 		</data>
 		<key>john.png</key>
 		<data>
@@ -172,13 +164,9 @@
 		<data>
 		vKKKvBy5lr1l0R/m2GvgWt8Jgkc=
 		</data>
-		<key>laptop.png</key>
+		<key>minute.png</key>
 		<data>
-		hzhX4EqDwpSN8rJapVFqsVYeRk8=
-		</data>
-		<key>lounge.png</key>
-		<data>
-		x59w5rVYvgCMLvYl005aEURZa0U=
+		PuLsF67FZg6/pB085Uxn6piaId0=
 		</data>
 		<key>mum.png</key>
 		<data>
@@ -195,6 +183,26 @@
 		<key>notifyby.png</key>
 		<data>
 		1U5G24CzoyIOzvpVyWIavJV1wlc=
+		</data>
+		<key>notifybymail.png</key>
+		<data>
+		dE5qJ6bEhvszYBm+Zk92gku8hgw=
+		</data>
+		<key>notifybyphone.png</key>
+		<data>
+		SIK91e+QbVv+oC/eCXkPzeocNGM=
+		</data>
+		<key>notifybyphoto.png</key>
+		<data>
+		SIK91e+QbVv+oC/eCXkPzeocNGM=
+		</data>
+		<key>notifybysound.png</key>
+		<data>
+		QpFXAIhaXr0SOdR2gwGuF0JmxdA=
+		</data>
+		<key>notifybytweet.png</key>
+		<data>
+		cWk2G4GLIQgsBTp+CLgEmOripGM=
 		</data>
 		<key>notifydad.png</key>
 		<data>
@@ -216,18 +224,6 @@
 		<data>
 		YRmY5oUTp+lZRgvI+OUOSYw0e90=
 		</data>
-		<key>phone.png</key>
-		<data>
-		gZv/Xs7vr5cOwdDx68L/gKXikJo=
-		</data>
-		<key>plus.png</key>
-		<data>
-		1PNWY8h/BR2YzqE+NfsukYGm6ug=
-		</data>
-		<key>redcross.png</key>
-		<data>
-		C1tl6nqINcYAcpjaoNWUWHKIo6c=
-		</data>
 		<key>resultbandwidth.png</key>
 		<data>
 		2JEuK0kdMvEwUJcVL+hg0gnkrIo=
@@ -248,46 +244,6 @@
 		<data>
 		aL4IUGIG4/OD+2gJ2kJgILDAskY=
 		</data>
-		<key>sbluebuttonleft.png</key>
-		<data>
-		x+z/pxWlspFcWqSCP2rxuwWWSK8=
-		</data>
-		<key>sbluebuttonright.png</key>
-		<data>
-		lqYmTo11B7qFSfjytHglGM/FQek=
-		</data>
-		<key>sbluebuttonup.png</key>
-		<data>
-		7yyaqyrZRCUY/mV9kau/59/hRVA=
-		</data>
-		<key>sgreenbuttonleft.png</key>
-		<data>
-		GTbZirByYymdKZuR7zfXiV2BmB8=
-		</data>
-		<key>sgreenbuttonright.png</key>
-		<data>
-		Q+K8RmJoN56WoDvkkk7Oc8Ua6G0=
-		</data>
-		<key>sgreenbuttonup.png</key>
-		<data>
-		RjCxxdHD3iXOMcAacHlZLGjE/3k=
-		</data>
-		<key>sorangebuttonleft.png</key>
-		<data>
-		tWEGNlTNDmfhOYnjY7dVtaClS6g=
-		</data>
-		<key>sorangebuttonright.png</key>
-		<data>
-		L1sAEg93w8WWiDCAnUnyGJ4CW74=
-		</data>
-		<key>spinkbuttonleft.png</key>
-		<data>
-		tsyqiyO0HJO7YbweiZCyZOVSOd8=
-		</data>
-		<key>spinkbuttonright.png</key>
-		<data>
-		3mKeFBbmlAgyHRWXDfosd/YC3+I=
-		</data>
 		<key>streaming.png</key>
 		<data>
 		TRh4gpwASQ3JATQJYViR/XRUaLg=
@@ -296,17 +252,9 @@
 		<data>
 		HXuvuvaIM0IiCl9KjZNUFpsn+pw=
 		</data>
-		<key>syellowbuttonleft.png</key>
-		<data>
-		YkJ0Fq1F3macVCuxrqgD8OUVE9s=
-		</data>
-		<key>syellowbuttonright.png</key>
-		<data>
-		tcvKD0FfYOMPBreKTAD/YBZDBk0=
-		</data>
 		<key>timed.png</key>
 		<data>
-		H9BLL0jyCahFBoA+S0pDMQlpt8s=
+		7jlh/u7+AiGBeUSme2vMOtXnAC4=
 		</data>
 		<key>visiting.png</key>
 		<data>

@@ -15,12 +15,16 @@
 
 - (id)initWithFrame:(CGRect)frame {
     if ((self = [super initWithFrame:frame])) {
-		notifyImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"notifyby.png"]];
+		notifyImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"notifybyphone.png"]];
 		notifyImage.frame = CGRectMake(0, (300-142), 295, 142);
 		[self addSubview:notifyImage];
 		
 		personImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"notifydad.png"]];
 		[self addSubview:personImage];		
+		
+		UIImageView* tmpframe = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"frame.png"]];
+		[self addSubview:tmpframe];
+		[tmpframe release]; 
     }
     return self;
 }

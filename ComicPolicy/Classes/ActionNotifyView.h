@@ -12,11 +12,10 @@
 @interface ActionNotifyView : UIView {
 	UIImageView *personImage;
 	UIImageView *notifyImage;
-	UIImageView *upImage;
 }
 
 @property(nonatomic,retain) UIImageView *personImage;
 @property(nonatomic,retain) UIImageView *notifyImage;
-@property(nonatomic,retain) UIImageView *upImage;
+
 
 @end

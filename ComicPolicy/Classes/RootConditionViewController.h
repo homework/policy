@@ -14,6 +14,9 @@
 @interface RootConditionViewController : UIViewController {
 	ConditionBandwidthViewController *conditionBandwidthViewController;
 	ConditionTypeViewController *conditionTypeViewController;
+	UIViewController* currentViewController;
+	NSArray* controllerList;
+	int controllerIndex;
 }
 
 @property(nonatomic,retain) ConditionBandwidthViewController *conditionBandwidthViewController;

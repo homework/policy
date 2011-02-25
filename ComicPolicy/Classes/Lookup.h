@@ -10,13 +10,15 @@
 
 
 @interface Lookup : NSObject {
-	int conditionImageIndex;
+	
 }
 
 +(NSString *) lookupmonitor: (NSString *) conditionscene;
 +(NSString *) lookupresult: (NSString *) actionscene;
 +(NSString *) nextConditionImage;
-
-static NSArray *conditionImages;
++(NSString *) nextPeopleImage;
++(NSString *) nextDeviceImage;
++(NSString *) nextNotifyPersonImage;
++(NSString *) nextNotifyByImage;
 
 @end

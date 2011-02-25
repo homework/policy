@@ -7,14 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FrameView.h"
 
-
-@interface ConditionBandwidthView : UIView {
-	UIImageView* conditionImage;
+@interface ConditionBandwidthView : FrameView {
+	//UIImageView* conditionImage;
 	UIImageView* moneyImage;
 }
 
-@property(nonatomic,retain) UIImageView *conditionImage;
+//@property(nonatomic,retain) UIImageView *conditionImage;
 @property(nonatomic,retain) UIImageView *moneyImage;
 
 @end

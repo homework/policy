@@ -10,6 +10,7 @@
 
 
 @implementation ConditionBandwidthViewController
+static ConditionImageLookup *lookup;
 
 
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
@@ -18,16 +19,18 @@
 		
         // Custom initialization
 		CGRect aframe = CGRectMake(0,0,294,301);
-		ConditionBandwidthView *aconditionbandwidthview = [[ConditionBandwidthView alloc] initWithFrame: aframe];
-		//is this needed??
-		conditionBandwidthView = aconditionbandwidthview;
-		self.view = aconditionbandwidthview;
+		//ConditionBandwidthView *aconditionbandwidthview = [[ConditionBandwidthView alloc] initWithFrame: aframe];
+		
+		lookup = [[ConditionImageLookup alloc] init];
+		ConditionBandwidthView *aconditionview = [[ConditionBandwidthView alloc] initWithFrameAndLookup:aframe lookup:lookup];
+		conditionBandwidthView = aconditionview;
+		self.view = aconditionview;
 		
 		UIPinchGestureRecognizer *pinchGestureRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinch:)];
 		[self.view addGestureRecognizer:pinchGestureRecognizer];
 		[pinchGestureRecognizer release];
 		
-		[aconditionbandwidthview release];
+		[aconditionview release];
 		
     }
     return self;
@@ -38,7 +41,21 @@
 	
 	UIView *view = conditionBandwidthView.moneyImage;
 	
+	
+	if (view.frame.size.width > 165){
+		
+		[UIView beginAnimations:nil context:nil];
+		[UIView setAnimationDuration:0.3];
+		[UIView setAnimationDelegate:self];
+		view.transform = CGAffineTransformScale(view.transform,0.8, 0.8);
+		[UIView commitAnimations];
+		return;
+	}
+	
 	UIPinchGestureRecognizer *pinchGesture = (UIPinchGestureRecognizer *) gesture;
+	NSLog(@"velocity %f", pinchGesture.velocity);
+	if (pinchGesture.velocity > 10)
+		return;
 	if (view.frame.size.width >= 165 &&  pinchGesture.scale > 1)
 		return;
 	if (view.frame.size.width <= 30 &&  pinchGesture.scale < 1)
@@ -46,13 +63,17 @@
 	
 	if (pinchGesture.state == UIGestureRecognizerStateBegan || pinchGesture.state == UIGestureRecognizerStateChanged) {
 		
-		//pinchGesture.view;
-		NSLog(@"scale is %f", pinchGesture.scale);
+	
 		view.transform = CGAffineTransformScale(view.transform, pinchGesture.scale, pinchGesture.scale);
 		pinchGesture.scale = 1;
+		
+		
 		NSLog(@"view scale is %3.0f, %3.0f", view.frame.size.width, view.frame.size.height);
 		
+		
 	}
+	
+	
 	
 }
 
@@ -105,6 +126,7 @@
 
 - (void)dealloc {
     [super dealloc];
+	[conditionBandwidthView release];
 }
 
 

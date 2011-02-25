@@ -7,15 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SplitFrameView.h"
 
-
-@interface SubjectView : UIView {
+@interface SubjectView : SplitFrameView {
 	
-	UIImageView* topImage;
-	UIImageView* bottomImage;
 }
-
-@property(nonatomic,retain) UIImageView *topImage;
-@property(nonatomic,retain) UIImageView *bottomImage;
 
 @end

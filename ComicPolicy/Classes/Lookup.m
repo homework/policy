@@ -16,13 +16,17 @@
 @implementation Lookup
 
 static BOOL init = FALSE;
+
 static NSArray *conditions;
 static NSArray *monitors;
 static NSArray *actions;
 static NSArray *results;
 
+static NSArray *notifyPersonImages;
+static NSArray *notifyByImages;
 
-
+static int notifyPersonImageIndex;
+static int notifyByImageIndex;
 
 NSMutableDictionary *scenemonitor;
 NSMutableDictionary *sceneresult;
@@ -32,13 +36,28 @@ NSMutableDictionary *sceneresult;
 	if (init)
 		return;
 
-	conditionImages = [[NSArray arrayWithObjects:@"surfing.png",
-												 @"downloading.png",
-												 @"gaming.png",
-												 @"streaming.png",
-												 @"timed.png", 
-												 @"bandwidth.png",
-												 @"visiting.png",nil] retain];
+	
+	notifyPersonImageIndex	= 0;
+	notifyByImageIndex		= 0;
+	
+		
+	
+	
+	
+	
+	notifyPersonImages = [[NSArray arrayWithObjects: @"notifydad.png",
+													 @"notifymum.png",
+													 @"notifyjohn.png",
+													 @"notifykatie.png",nil] retain];
+	
+	
+	notifyByImages = [[NSArray arrayWithObjects:@"notifybymail.png",
+					   @"notifybysound.png",
+					   @"notifybytweet.png",
+					   @"notifybyphone.png",
+					   nil] retain];
+	
+	
 	
 	conditions = [[NSArray arrayWithObjects: @"bandwidth.png",
 				   @"downloading.png",
@@ -87,10 +106,16 @@ NSMutableDictionary *sceneresult;
 	
 }
 
-					  
-+(NSString *) nextConditionImage{
-	return [conditionImages objectAtIndex:++conditionImageIndex % [conditionImages count]];
+
++(NSString *) nextNotifyPersonImage{
+	return [notifyPersonImages objectAtIndex:++notifyPersonImageIndex % [notifyPersonImages count]];
 }
+
++(NSString *) nextNotifyByImage{
+	return [notifyByImages objectAtIndex:++notifyByImageIndex % [notifyByImages count]];
+}
+
+
 
 +(void) createSceneResultTable{
 	sceneresult = [[NSMutableDictionary dictionaryWithCapacity:10] retain];

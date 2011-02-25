@@ -40,8 +40,8 @@
 	
 		
 	NSDictionary *userInfo = [n userInfo];
-	NSLog(@"lookuing ip %@", [userInfo objectForKey:@"action"]);
 	NSString* newscene = [Lookup lookupresult:[userInfo objectForKey:@"action"]];
+	
 	if (! [currentActionScene isEqualToString:newscene]){
 		[UIView beginAnimations:nil context:nil];
 		[UIView setAnimationDuration:0.75];

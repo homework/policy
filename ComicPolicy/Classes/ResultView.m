@@ -28,7 +28,13 @@
 		self.monitorImage = tmpMonitor;
 		[tmpMonitor release];
 		
+		UIImageView* tmpframe = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bigframe.png"]];
+		[self addSubview:tmpframe];
+		[tmpframe release]; 
 		
+		//UIImageView* tmpframe = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"frame.png"]];
+		//[self addSubview:tmpframe];
+		//[tmpframe release]; 
 	}
 	return self;
 }
