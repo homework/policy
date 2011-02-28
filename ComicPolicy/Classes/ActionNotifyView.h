@@ -7,15 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NotifyActionImageLookup.h"
+#import "FlipFrameView.h"
 
-
-@interface ActionNotifyView : UIView {
+@interface ActionNotifyView : FlipFrameView {
 	UIImageView *personImage;
 	UIImageView *notifyImage;
 }
 
 @property(nonatomic,retain) UIImageView *personImage;
 @property(nonatomic,retain) UIImageView *notifyImage;
-
 
 @end

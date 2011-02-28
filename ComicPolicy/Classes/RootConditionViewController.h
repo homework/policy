@@ -12,14 +12,9 @@
 #import "Lookup.h"
 
 @interface RootConditionViewController : UIViewController {
-	ConditionBandwidthViewController *conditionBandwidthViewController;
-	ConditionTypeViewController *conditionTypeViewController;
 	UIViewController* currentViewController;
 	NSArray* controllerList;
 	int controllerIndex;
 }
-
-@property(nonatomic,retain) ConditionBandwidthViewController *conditionBandwidthViewController;
-@property(nonatomic,retain) ConditionTypeViewController *conditionTypeViewController;
 
 @end

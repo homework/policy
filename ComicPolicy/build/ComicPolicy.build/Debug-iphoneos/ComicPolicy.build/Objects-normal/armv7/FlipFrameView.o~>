@@ -1,0 +1,6 @@
+In file included from /Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/FlipFrameView.m:9:
+/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/FlipFrameView.h:13: error: statically allocated instance of Objective-C class 'UIImageView'
+/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/FlipFrameView.h:16: error: expected specifier-qualifier-list before 'upImage'
+/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/FlipFrameView.m:13: error: no declaration of property 'upImage' found in the interface
+/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/FlipFrameView.m:35: warning: incomplete implementation of class 'FlipFrameView'
+/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/FlipFrameView.m:35: warning: method definition for '-initWithFrameAndLookup:lookup:' not found

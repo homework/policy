@@ -13,18 +13,24 @@
 @synthesize personImage;
 @synthesize notifyImage;
 
-- (id)initWithFrame:(CGRect)frame {
+
+- (id)initWithFrameAndLookup:(CGRect)frame lookup:(NSObject<ImageLookup>*)lookup{
     if ((self = [super initWithFrame:frame])) {
-		notifyImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"notifybyphone.png"]];
-		notifyImage.frame = CGRectMake(0, (300-142), 295, 142);
+		notifyImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[lookup getNextBottomImage]]];
+		notifyImage.frame = CGRectMake(0, (300-128), 295, 142);
 		[self addSubview:notifyImage];
 		
-		personImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"notifydad.png"]];
+		personImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[lookup getNextTopImage]]];
+		personImage.frame = CGRectMake(0, 14, 295, 160);
 		[self addSubview:personImage];		
 		
-		UIImageView* tmpframe = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"frame.png"]];
+		UIImageView* tmpframe = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"frame2.png"]];
 		[self addSubview:tmpframe];
 		[tmpframe release]; 
+		
+		upImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"greenup.png"]];
+		upImage.frame = CGRectMake(135, 4, 27, 26);
+		[self addSubview:upImage];
     }
     return self;
 }

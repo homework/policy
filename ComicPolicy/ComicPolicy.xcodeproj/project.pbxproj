@@ -47,7 +47,7 @@
 		A30ADFCE13152BF20060D2F1 /* SubjectView.m in Sources */ = {isa = PBXBuildFile; fileRef = A30ADFCD13152BF20060D2F1 /* SubjectView.m */; };
 		A30AE003131537750060D2F1 /* SubjectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A30AE002131537750060D2F1 /* SubjectViewController.m */; };
 		A30AE03313153C6D0060D2F1 /* RootConditionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A30AE03213153C6D0060D2F1 /* RootConditionViewController.m */; };
-		A30AE04C13153DFB0060D2F1 /* ActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A30AE04B13153DFB0060D2F1 /* ActionViewController.m */; };
+		A30AE04C13153DFB0060D2F1 /* RootActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A30AE04B13153DFB0060D2F1 /* RootActionViewController.m */; };
 		A30AE05113153E600060D2F1 /* ActionNotifyView.m in Sources */ = {isa = PBXBuildFile; fileRef = A30AE05013153E600060D2F1 /* ActionNotifyView.m */; };
 		A30AE06D13153F420060D2F1 /* ResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A30AE06C13153F420060D2F1 /* ResultViewController.m */; };
 		A30AE072131540040060D2F1 /* ResultView.m in Sources */ = {isa = PBXBuildFile; fileRef = A30AE071131540040060D2F1 /* ResultView.m */; };
@@ -85,6 +85,17 @@
 		A352A7701317FBEE0053867A /* SplitFrameView.m in Sources */ = {isa = PBXBuildFile; fileRef = A352A76F1317FBEE0053867A /* SplitFrameView.m */; };
 		A352A77C1317FE230053867A /* ConditionImageLookup.m in Sources */ = {isa = PBXBuildFile; fileRef = A352A77B1317FE230053867A /* ConditionImageLookup.m */; };
 		A352A837131815B10053867A /* SubjectImageLookup.m in Sources */ = {isa = PBXBuildFile; fileRef = A352A836131815B10053867A /* SubjectImageLookup.m */; };
+		A352A8C0131BDCAA0053867A /* ActionNotifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A352A8BF131BDCAA0053867A /* ActionNotifyViewController.m */; };
+		A352A8C5131BDD0A0053867A /* NotifyActionImageLookup.m in Sources */ = {isa = PBXBuildFile; fileRef = A352A8C4131BDD0A0053867A /* NotifyActionImageLookup.m */; };
+		A352A8E7131BE55E0053867A /* FlipFrameView.m in Sources */ = {isa = PBXBuildFile; fileRef = A352A8E6131BE55E0053867A /* FlipFrameView.m */; };
+		A352A8E9131BE6780053867A /* sgreenbuttonup.png in Resources */ = {isa = PBXBuildFile; fileRef = A352A8E8131BE6780053867A /* sgreenbuttonup.png */; };
+		A352A8FB131BEEEC0053867A /* frame2.png in Resources */ = {isa = PBXBuildFile; fileRef = A352A8FA131BEEEC0053867A /* frame2.png */; };
+		A352A8FF131BEF450053867A /* sbluebuttonup.png in Resources */ = {isa = PBXBuildFile; fileRef = A352A8FE131BEF450053867A /* sbluebuttonup.png */; };
+		A352A938131BEFE90053867A /* greenbuttonup.png in Resources */ = {isa = PBXBuildFile; fileRef = A352A937131BEFE90053867A /* greenbuttonup.png */; };
+		A352A972131BF83E0053867A /* greenup.png in Resources */ = {isa = PBXBuildFile; fileRef = A352A971131BF83E0053867A /* greenup.png */; };
+		A352A9FA131C02AD0053867A /* ActionBlockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A352A9F9131C02AD0053867A /* ActionBlockViewController.m */; };
+		A352A9FF131C02F90053867A /* ActionBlockView.m in Sources */ = {isa = PBXBuildFile; fileRef = A352A9FE131C02F90053867A /* ActionBlockView.m */; };
+		A352AA89131C132C0053867A /* BlockImageLookup.m in Sources */ = {isa = PBXBuildFile; fileRef = A352AA88131C132C0053867A /* BlockImageLookup.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -136,8 +147,8 @@
 		A30AE002131537750060D2F1 /* SubjectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubjectViewController.m; sourceTree = "<group>"; };
 		A30AE03113153C6D0060D2F1 /* RootConditionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootConditionViewController.h; sourceTree = "<group>"; };
 		A30AE03213153C6D0060D2F1 /* RootConditionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootConditionViewController.m; sourceTree = "<group>"; };
-		A30AE04A13153DFB0060D2F1 /* ActionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionViewController.h; sourceTree = "<group>"; };
-		A30AE04B13153DFB0060D2F1 /* ActionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionViewController.m; sourceTree = "<group>"; };
+		A30AE04A13153DFB0060D2F1 /* RootActionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootActionViewController.h; sourceTree = "<group>"; };
+		A30AE04B13153DFB0060D2F1 /* RootActionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootActionViewController.m; sourceTree = "<group>"; };
 		A30AE04F13153E600060D2F1 /* ActionNotifyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionNotifyView.h; sourceTree = "<group>"; };
 		A30AE05013153E600060D2F1 /* ActionNotifyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionNotifyView.m; sourceTree = "<group>"; };
 		A30AE06B13153F420060D2F1 /* ResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultViewController.h; sourceTree = "<group>"; };
@@ -187,6 +198,23 @@
 		A352A77B1317FE230053867A /* ConditionImageLookup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConditionImageLookup.m; sourceTree = "<group>"; };
 		A352A835131815B10053867A /* SubjectImageLookup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubjectImageLookup.h; sourceTree = "<group>"; };
 		A352A836131815B10053867A /* SubjectImageLookup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubjectImageLookup.m; sourceTree = "<group>"; };
+		A352A8BE131BDCAA0053867A /* ActionNotifyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionNotifyViewController.h; sourceTree = "<group>"; };
+		A352A8BF131BDCAA0053867A /* ActionNotifyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionNotifyViewController.m; sourceTree = "<group>"; };
+		A352A8C3131BDD0A0053867A /* NotifyActionImageLookup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotifyActionImageLookup.h; sourceTree = "<group>"; };
+		A352A8C4131BDD0A0053867A /* NotifyActionImageLookup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotifyActionImageLookup.m; sourceTree = "<group>"; };
+		A352A8E5131BE55E0053867A /* FlipFrameView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlipFrameView.h; sourceTree = "<group>"; };
+		A352A8E6131BE55E0053867A /* FlipFrameView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlipFrameView.m; sourceTree = "<group>"; };
+		A352A8E8131BE6780053867A /* sgreenbuttonup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sgreenbuttonup.png; sourceTree = "<group>"; };
+		A352A8FA131BEEEC0053867A /* frame2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = frame2.png; sourceTree = "<group>"; };
+		A352A8FE131BEF450053867A /* sbluebuttonup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sbluebuttonup.png; sourceTree = "<group>"; };
+		A352A937131BEFE90053867A /* greenbuttonup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greenbuttonup.png; sourceTree = "<group>"; };
+		A352A971131BF83E0053867A /* greenup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greenup.png; sourceTree = "<group>"; };
+		A352A9F8131C02AD0053867A /* ActionBlockViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionBlockViewController.h; sourceTree = "<group>"; };
+		A352A9F9131C02AD0053867A /* ActionBlockViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionBlockViewController.m; sourceTree = "<group>"; };
+		A352A9FD131C02F90053867A /* ActionBlockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionBlockView.h; sourceTree = "<group>"; };
+		A352A9FE131C02F90053867A /* ActionBlockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionBlockView.m; sourceTree = "<group>"; };
+		A352AA87131C132C0053867A /* BlockImageLookup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockImageLookup.h; sourceTree = "<group>"; };
+		A352AA88131C132C0053867A /* BlockImageLookup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockImageLookup.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -207,41 +235,16 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				A352A7751317FDD10053867A /* ImageLookup.h */,
-				A352A77A1317FE230053867A /* ConditionImageLookup.h */,
-				A352A77B1317FE230053867A /* ConditionImageLookup.m */,
-				A352A835131815B10053867A /* SubjectImageLookup.h */,
-				A352A836131815B10053867A /* SubjectImageLookup.m */,
-				A30AE22C13169B2B0060D2F1 /* Lookup.h */,
-				A30AE22D13169B2B0060D2F1 /* Lookup.m */,
+				A352A8A7131BD5F50053867A /* Shared */,
+				A352A8A6131BD5C30053867A /* Util */,
+				A352A89F131BD4BE0053867A /* Subject */,
+				A352A8A0131BD4C70053867A /* Condition */,
+				A352A8A1131BD4D10053867A /* Action */,
+				A352A8A3131BD4E30053867A /* Result */,
 				1D3623240D0F684500981E51 /* ComicPolicyAppDelegate.h */,
 				1D3623250D0F684500981E51 /* ComicPolicyAppDelegate.m */,
 				28D7ACF60DDB3853001CB0EB /* ComicPolicyViewController.h */,
 				28D7ACF70DDB3853001CB0EB /* ComicPolicyViewController.m */,
-				A30AE001131537750060D2F1 /* SubjectViewController.h */,
-				A30AE002131537750060D2F1 /* SubjectViewController.m */,
-				A30ADFCC13152BF20060D2F1 /* SubjectView.h */,
-				A30ADFCD13152BF20060D2F1 /* SubjectView.m */,
-				A30AE03113153C6D0060D2F1 /* RootConditionViewController.h */,
-				A30AE03213153C6D0060D2F1 /* RootConditionViewController.m */,
-				A30AE3721316CE0C0060D2F1 /* ConditionBandwidthViewController.h */,
-				A30AE3731316CE0C0060D2F1 /* ConditionBandwidthViewController.m */,
-				A30AE2AB1316BABB0060D2F1 /* ConditionBandwidthView.h */,
-				A30AE2AC1316BABB0060D2F1 /* ConditionBandwidthView.m */,
-				A30AE3A31316F6F80060D2F1 /* ConditionTypeViewController.h */,
-				A30AE3A41316F6F80060D2F1 /* ConditionTypeViewController.m */,
-				A30AE04A13153DFB0060D2F1 /* ActionViewController.h */,
-				A30AE04B13153DFB0060D2F1 /* ActionViewController.m */,
-				A30AE04F13153E600060D2F1 /* ActionNotifyView.h */,
-				A30AE05013153E600060D2F1 /* ActionNotifyView.m */,
-				A30AE06B13153F420060D2F1 /* ResultViewController.h */,
-				A30AE06C13153F420060D2F1 /* ResultViewController.m */,
-				A30AE070131540040060D2F1 /* ResultView.h */,
-				A30AE071131540040060D2F1 /* ResultView.m */,
-				A352A76E1317FBEE0053867A /* SplitFrameView.h */,
-				A352A76F1317FBEE0053867A /* SplitFrameView.m */,
-				A352A75E1317FA2D0053867A /* FrameView.h */,
-				A352A75F1317FA2D0053867A /* FrameView.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -411,6 +414,11 @@
 		A30ADF28131528F80060D2F1 /* misc */ = {
 			isa = PBXGroup;
 			children = (
+				A352A971131BF83E0053867A /* greenup.png */,
+				A352A937131BEFE90053867A /* greenbuttonup.png */,
+				A352A8FE131BEF450053867A /* sbluebuttonup.png */,
+				A352A8FA131BEEEC0053867A /* frame2.png */,
+				A352A8E8131BE6780053867A /* sgreenbuttonup.png */,
 				A352A6FD1317E0DA0053867A /* bigframe.png */,
 				A352A6F91317E0A10053867A /* bigframeleft.png */,
 				A352A6FA1317E0A10053867A /* bigframeright.png */,
@@ -444,6 +452,91 @@
 				A30AE2831316B6B80060D2F1 /* mumwaiting.png */,
 			);
 			path = characters;
+			sourceTree = "<group>";
+		};
+		A352A89F131BD4BE0053867A /* Subject */ = {
+			isa = PBXGroup;
+			children = (
+				A352A835131815B10053867A /* SubjectImageLookup.h */,
+				A352A836131815B10053867A /* SubjectImageLookup.m */,
+				A30AE001131537750060D2F1 /* SubjectViewController.h */,
+				A30AE002131537750060D2F1 /* SubjectViewController.m */,
+				A30ADFCC13152BF20060D2F1 /* SubjectView.h */,
+				A30ADFCD13152BF20060D2F1 /* SubjectView.m */,
+			);
+			name = Subject;
+			sourceTree = "<group>";
+		};
+		A352A8A0131BD4C70053867A /* Condition */ = {
+			isa = PBXGroup;
+			children = (
+				A30AE03113153C6D0060D2F1 /* RootConditionViewController.h */,
+				A30AE03213153C6D0060D2F1 /* RootConditionViewController.m */,
+				A30AE3721316CE0C0060D2F1 /* ConditionBandwidthViewController.h */,
+				A30AE3731316CE0C0060D2F1 /* ConditionBandwidthViewController.m */,
+				A30AE3A31316F6F80060D2F1 /* ConditionTypeViewController.h */,
+				A30AE3A41316F6F80060D2F1 /* ConditionTypeViewController.m */,
+				A30AE2AB1316BABB0060D2F1 /* ConditionBandwidthView.h */,
+				A30AE2AC1316BABB0060D2F1 /* ConditionBandwidthView.m */,
+				A352A77A1317FE230053867A /* ConditionImageLookup.h */,
+				A352A77B1317FE230053867A /* ConditionImageLookup.m */,
+			);
+			name = Condition;
+			sourceTree = "<group>";
+		};
+		A352A8A1131BD4D10053867A /* Action */ = {
+			isa = PBXGroup;
+			children = (
+				A30AE04A13153DFB0060D2F1 /* RootActionViewController.h */,
+				A30AE04B13153DFB0060D2F1 /* RootActionViewController.m */,
+				A352A8BE131BDCAA0053867A /* ActionNotifyViewController.h */,
+				A352A8BF131BDCAA0053867A /* ActionNotifyViewController.m */,
+				A30AE04F13153E600060D2F1 /* ActionNotifyView.h */,
+				A30AE05013153E600060D2F1 /* ActionNotifyView.m */,
+				A352A9F8131C02AD0053867A /* ActionBlockViewController.h */,
+				A352A9F9131C02AD0053867A /* ActionBlockViewController.m */,
+				A352A9FD131C02F90053867A /* ActionBlockView.h */,
+				A352A9FE131C02F90053867A /* ActionBlockView.m */,
+				A352A8C3131BDD0A0053867A /* NotifyActionImageLookup.h */,
+				A352AA87131C132C0053867A /* BlockImageLookup.h */,
+				A352AA88131C132C0053867A /* BlockImageLookup.m */,
+				A352A8C4131BDD0A0053867A /* NotifyActionImageLookup.m */,
+			);
+			name = Action;
+			sourceTree = "<group>";
+		};
+		A352A8A3131BD4E30053867A /* Result */ = {
+			isa = PBXGroup;
+			children = (
+				A30AE06B13153F420060D2F1 /* ResultViewController.h */,
+				A30AE06C13153F420060D2F1 /* ResultViewController.m */,
+				A30AE070131540040060D2F1 /* ResultView.h */,
+				A30AE071131540040060D2F1 /* ResultView.m */,
+			);
+			name = Result;
+			sourceTree = "<group>";
+		};
+		A352A8A6131BD5C30053867A /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				A30AE22C13169B2B0060D2F1 /* Lookup.h */,
+				A30AE22D13169B2B0060D2F1 /* Lookup.m */,
+				A352A7751317FDD10053867A /* ImageLookup.h */,
+			);
+			name = Util;
+			sourceTree = "<group>";
+		};
+		A352A8A7131BD5F50053867A /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				A352A76E1317FBEE0053867A /* SplitFrameView.h */,
+				A352A76F1317FBEE0053867A /* SplitFrameView.m */,
+				A352A75E1317FA2D0053867A /* FrameView.h */,
+				A352A75F1317FA2D0053867A /* FrameView.m */,
+				A352A8E5131BE55E0053867A /* FlipFrameView.h */,
+				A352A8E6131BE55E0053867A /* FlipFrameView.m */,
+			);
+			name = Shared;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -551,6 +644,11 @@
 				A352A7161317EF3F0053867A /* hour.png in Resources */,
 				A352A7171317EF3F0053867A /* minute.png in Resources */,
 				A352A7181317EF3F0053867A /* timed.png in Resources */,
+				A352A8E9131BE6780053867A /* sgreenbuttonup.png in Resources */,
+				A352A8FB131BEEEC0053867A /* frame2.png in Resources */,
+				A352A8FF131BEF450053867A /* sbluebuttonup.png in Resources */,
+				A352A938131BEFE90053867A /* greenbuttonup.png in Resources */,
+				A352A972131BF83E0053867A /* greenup.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -567,7 +665,7 @@
 				A30ADFCE13152BF20060D2F1 /* SubjectView.m in Sources */,
 				A30AE003131537750060D2F1 /* SubjectViewController.m in Sources */,
 				A30AE03313153C6D0060D2F1 /* RootConditionViewController.m in Sources */,
-				A30AE04C13153DFB0060D2F1 /* ActionViewController.m in Sources */,
+				A30AE04C13153DFB0060D2F1 /* RootActionViewController.m in Sources */,
 				A30AE05113153E600060D2F1 /* ActionNotifyView.m in Sources */,
 				A30AE06D13153F420060D2F1 /* ResultViewController.m in Sources */,
 				A30AE072131540040060D2F1 /* ResultView.m in Sources */,
@@ -579,6 +677,12 @@
 				A352A7701317FBEE0053867A /* SplitFrameView.m in Sources */,
 				A352A77C1317FE230053867A /* ConditionImageLookup.m in Sources */,
 				A352A837131815B10053867A /* SubjectImageLookup.m in Sources */,
+				A352A8C0131BDCAA0053867A /* ActionNotifyViewController.m in Sources */,
+				A352A8C5131BDD0A0053867A /* NotifyActionImageLookup.m in Sources */,
+				A352A8E7131BE55E0053867A /* FlipFrameView.m in Sources */,
+				A352A9FA131C02AD0053867A /* ActionBlockViewController.m in Sources */,
+				A352A9FF131C02F90053867A /* ActionBlockView.m in Sources */,
+				A352AA89131C132C0053867A /* BlockImageLookup.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

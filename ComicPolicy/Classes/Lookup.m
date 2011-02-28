@@ -37,26 +37,7 @@ NSMutableDictionary *sceneresult;
 		return;
 
 	
-	notifyPersonImageIndex	= 0;
-	notifyByImageIndex		= 0;
-	
 		
-	
-	
-	
-	
-	notifyPersonImages = [[NSArray arrayWithObjects: @"notifydad.png",
-													 @"notifymum.png",
-													 @"notifyjohn.png",
-													 @"notifykatie.png",nil] retain];
-	
-	
-	notifyByImages = [[NSArray arrayWithObjects:@"notifybymail.png",
-					   @"notifybysound.png",
-					   @"notifybytweet.png",
-					   @"notifybyphone.png",
-					   nil] retain];
-	
 	
 	
 	conditions = [[NSArray arrayWithObjects: @"bandwidth.png",

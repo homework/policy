@@ -32,7 +32,7 @@
 	[self.view addSubview:eventViewController.view];
 	
 	
-	actionViewController = [[ActionViewController alloc] init];
+	actionViewController = [[RootActionViewController alloc] init];
 	[self.view addSubview:actionViewController.view];
 	
 	

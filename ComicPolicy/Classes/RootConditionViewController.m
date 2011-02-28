@@ -10,8 +10,6 @@
 #import <QuartzCore/QuartzCore.h>
 
 @implementation RootConditionViewController
-@synthesize conditionBandwidthViewController;
-@synthesize conditionTypeViewController;
 
 /*
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
@@ -59,9 +57,9 @@
 	/*
 	 * set up the view condition controllers
 	 */
-	self.conditionTypeViewController = [[ConditionTypeViewController alloc] initWithNibName:nil bundle:nil];
 	
-	//self.conditionBandwidthViewController = [[ConditionBandwidthViewController alloc] initWithNibName:nil bundle:nil];
+	
+	ConditionTypeViewController* conditionTypeViewController = [[ConditionTypeViewController alloc] initWithNibName:nil bundle:nil];
 		
 	
 	controllerList = [[NSArray arrayWithObjects:@"ConditionTypeViewController", 
@@ -75,10 +73,12 @@
 												nil] retain];
 	
 	
+		
 	/*
 	 * Add one of the controller's views as a sub view...
 	 */ 
 	[self.view addSubview:[conditionTypeViewController view]];
+	
 	currentViewController = conditionTypeViewController;
 	
 }
