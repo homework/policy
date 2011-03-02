@@ -16,7 +16,8 @@
 
 - (id)initWithFrameAndLookup:(CGRect)frame lookup:(NSObject<ImageLookup>*)lookup{
 	if ((self = [super initWithFrame:frame])) {
-		blockImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[lookup getNextBottomImage]]];
+		NSString *deviceImage = [lookup getNextBottomImage];
+		blockImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:deviceImage]];
 		blockImage.frame = CGRectMake(0, (300-128), 295, 142);
 		[self addSubview:blockImage];
 		
@@ -31,6 +32,9 @@
 		upImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"greenup.png"]];
 		upImage.frame = CGRectMake(135, 4, 27, 26);
 		[self addSubview:upImage];
+		
+		NSDictionary* dict = [NSDictionary dictionaryWithObject:deviceImage forKey:@"action"];
+		[[NSNotificationCenter defaultCenter] postNotificationName:@"actionSubjectChange" object:nil userInfo:dict];
     }
     return self;
 	

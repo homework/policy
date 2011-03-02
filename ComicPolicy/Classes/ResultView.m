@@ -23,7 +23,7 @@
 		self.resultMainImage = tmpResultBack;
 		[tmpResultBack release];
 		
-		UIImageView *tmpMonitor = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"resultbandwidth.png"]];
+		UIImageView *tmpMonitor = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"resulttype.png"]];
 		[self addSubview:tmpMonitor];
 		self.monitorImage = tmpMonitor;
 		[tmpMonitor release];

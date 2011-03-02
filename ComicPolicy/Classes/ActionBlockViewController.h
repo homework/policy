@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "NotifyActionImageLookup.h"
+#import "BlockActionImageLookup.h"
 #import "ActionBlockView.h"
 
 @interface ActionBlockViewController : UIViewController {

@@ -11,13 +11,12 @@
 
 @implementation ConditionTypeViewController
 
-static ConditionImageLookup *lookup;
 
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
 		CGRect nframe = CGRectMake(0,0,294,301);
-		lookup = [[ConditionImageLookup alloc] init];
+		//lookup = [[ConditionImageLookup alloc] init];
 		FrameView *aconditionview = [[FrameView alloc] initWithFrameAndLookup:nframe lookup:lookup];
 		self.view = aconditionview;
 		[aconditionview release];

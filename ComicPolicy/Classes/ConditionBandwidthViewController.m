@@ -10,18 +10,14 @@
 
 
 @implementation ConditionBandwidthViewController
-static ConditionImageLookup *lookup;
+
 
 
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
 		
-        // Custom initialization
 		CGRect aframe = CGRectMake(0,0,294,301);
-		//ConditionBandwidthView *aconditionbandwidthview = [[ConditionBandwidthView alloc] initWithFrame: aframe];
-		
-		lookup = [[ConditionImageLookup alloc] init];
 		ConditionBandwidthView *aconditionview = [[ConditionBandwidthView alloc] initWithFrameAndLookup:aframe lookup:lookup];
 		conditionBandwidthView = aconditionview;
 		self.view = aconditionview;
@@ -53,7 +49,7 @@ static ConditionImageLookup *lookup;
 	}
 	
 	UIPinchGestureRecognizer *pinchGesture = (UIPinchGestureRecognizer *) gesture;
-	NSLog(@"velocity %f", pinchGesture.velocity);
+	
 	if (pinchGesture.velocity > 10)
 		return;
 	if (view.frame.size.width >= 165 &&  pinchGesture.scale > 1)
@@ -68,7 +64,7 @@ static ConditionImageLookup *lookup;
 		pinchGesture.scale = 1;
 		
 		
-		NSLog(@"view scale is %3.0f, %3.0f", view.frame.size.width, view.frame.size.height);
+		//NSLog(@"view scale is %3.0f, %3.0f", view.frame.size.width, view.frame.size.height);
 		
 		
 	}

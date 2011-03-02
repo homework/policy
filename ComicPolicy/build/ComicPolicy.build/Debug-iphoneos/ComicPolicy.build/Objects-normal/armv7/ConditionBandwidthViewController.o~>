@@ -1,0 +1,10 @@
+/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ConditionBandwidthViewController.m: In function '-[ConditionBandwidthViewController initWithNibName:bundle:]':
+/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ConditionBandwidthViewController.m:22: error: 'conditionBandwidthView' undeclared (first use in this function)
+/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ConditionBandwidthViewController.m:22: error: (Each undeclared identifier is reported only once
+/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ConditionBandwidthViewController.m:22: error: for each function it appears in.)
+/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ConditionBandwidthViewController.m: In function '-[ConditionBandwidthViewController handlePinch:]':
+/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ConditionBandwidthViewController.m:38: error: 'conditionBandwidthView' undeclared (first use in this function)
+/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ConditionBandwidthViewController.m: In function '-[ConditionBandwidthViewController touchesBegan:withEvent:]':
+/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ConditionBandwidthViewController.m:82: error: 'conditionBandwidthView' undeclared (first use in this function)
+/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ConditionBandwidthViewController.m: In function '-[ConditionBandwidthViewController dealloc]':
+/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ConditionBandwidthViewController.m:125: error: 'conditionBandwidthView' undeclared (first use in this function)

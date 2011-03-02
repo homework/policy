@@ -54,6 +54,10 @@ NSMutableDictionary *sceneresult;
 				   @"notifyjohn.png",
 				   @"notifykatie.png",
 				   @"notifymum.png",
+				   @"ascomputer.png",
+				   @"asdesktop.png",
+				   @"aslaptop.png",
+				   @"asphone.png",
 				   nil] retain];
 	
 	results		= [[NSArray arrayWithObjects: @"dadwaiting.png",
@@ -61,6 +65,10 @@ NSMutableDictionary *sceneresult;
 					@"johnwaiting.png",
 					@"katiewaiting.png",
 					@"mumwaiting.png",
+					@"computerunblocked.png",
+					@"desktopunblocked.png",
+					@"laptopunblocked.png",
+					@"phoneunblocked.png",
 					nil] retain];
 	
 	monitors	= [[NSArray arrayWithObjects: @"resultbandwidth.png",

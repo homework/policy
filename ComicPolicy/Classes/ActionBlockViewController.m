@@ -17,7 +17,7 @@ static NotifyActionImageLookup *lookup;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
 		CGRect aframe = CGRectMake(0,0,294,321);
-		lookup = [[NotifyActionImageLookup alloc] init];
+		lookup = [[BlockActionImageLookup alloc] init];
 		ActionBlockView *aview = [[ActionBlockView alloc] initWithFrameAndLookup:aframe lookup:lookup];//
 		actionBlockView = aview;
 		self.view = aview;
@@ -25,6 +25,43 @@ static NotifyActionImageLookup *lookup;
         // Custom initialization
     }
     return self;
+}
+
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+	
+	
+	
+	UITouch *touch = [[event allTouches] anyObject];
+	CGPoint touchLocation = [touch locationInView:self.view];
+	
+	if (CGRectContainsPoint(actionBlockView.personImage.frame, touchLocation)){
+		
+		NSString* personImage = [lookup getNextTopImage];//[personImages objectAtIndex:++personImageIndex % [personImages count]];
+		[UIView beginAnimations:nil context:nil];
+		[UIView setAnimationDuration:0.75];
+		[UIView setAnimationDelegate:self];
+		[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight forView:actionBlockView.personImage cache:YES];
+		actionBlockView.personImage.image = [UIImage imageNamed:personImage];
+		[UIView commitAnimations];
+		
+		
+	}
+	else if (CGRectContainsPoint(actionBlockView.blockImage.frame, touchLocation)){
+		NSString* deviceImage = [lookup getNextBottomImage];//[personImages objectAtIndex:++personImageIndex % [personImages count]];
+		
+		[UIView beginAnimations:nil context:nil];
+		[UIView setAnimationDuration:0.75];
+		[UIView setAnimationDelegate:self];
+		[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight forView:actionBlockView.blockImage cache:YES];
+		actionBlockView.blockImage.image = [UIImage imageNamed:deviceImage];// [UIImage imageNamed:[notifyImages objectAtIndex:++notifyImageIndex % [notifyImages count]]];
+		[UIView commitAnimations];
+		NSDictionary* dict = [NSDictionary dictionaryWithObject:deviceImage forKey:@"action"];
+		[[NSNotificationCenter defaultCenter] postNotificationName:@"actionSubjectChange" object:nil userInfo:dict];
+		
+	}
+	[super touchesBegan:touches withEvent:event];
+	
 }
 
 

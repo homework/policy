@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ConditionImageLookup.h"
+#import "ConditionViewController.h"
 #import "FrameView.h"
 
-@interface ConditionTypeViewController : UIViewController {
+@interface ConditionTypeViewController : ConditionViewController {
 }
 
 

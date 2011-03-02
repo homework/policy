@@ -20,7 +20,8 @@
 		notifyImage.frame = CGRectMake(0, (300-128), 295, 142);
 		[self addSubview:notifyImage];
 		
-		personImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[lookup getNextTopImage]]];
+		NSString *notifyPersonImage = [lookup getNextTopImage];
+		personImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:notifyPersonImage]];
 		personImage.frame = CGRectMake(0, 14, 295, 160);
 		[self addSubview:personImage];		
 		
@@ -31,6 +32,10 @@
 		upImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"greenup.png"]];
 		upImage.frame = CGRectMake(135, 4, 27, 26);
 		[self addSubview:upImage];
+		
+		NSDictionary* dict = [NSDictionary dictionaryWithObject:notifyPersonImage forKey:@"action"];
+		[[NSNotificationCenter defaultCenter] postNotificationName:@"actionSubjectChange" object:nil userInfo:dict];
+		
     }
     return self;
 }

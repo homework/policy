@@ -10,11 +10,9 @@
 #import "FrameView.h"
 
 @interface ConditionBandwidthView : FrameView {
-	//UIImageView* conditionImage;
 	UIImageView* moneyImage;
 }
 
-//@property(nonatomic,retain) UIImageView *conditionImage;
 @property(nonatomic,retain) UIImageView *moneyImage;
 
 @end

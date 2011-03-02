@@ -1,0 +1,5 @@
+/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/BlockImageLookup.m:17: error: expected '=', ',', ';', 'asm' or '__attribute__' before '*' token
+/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/BlockImageLookup.m: In function '+[BlockImageLookup initialize]':
+/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/BlockImageLookup.m:43: error: 'sharedSingleton' undeclared (first use in this function)
+/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/BlockImageLookup.m:43: error: (Each undeclared identifier is reported only once
+/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/BlockImageLookup.m:43: error: for each function it appears in.)

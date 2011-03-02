@@ -72,6 +72,14 @@
 		<data>
 		B4xeYwiz++M96clH6WudCdySrDA=
 		</data>
+		<key>clockface2.png</key>
+		<data>
+		vXwJb1AAdEEdPRPf2QuTkUuHFjg=
+		</data>
+		<key>computerunblocked.png</key>
+		<data>
+		BX+hzIEHPcMd9BEUVQSeDiJ2jHc=
+		</data>
 		<key>condcomputer.png</key>
 		<data>
 		monc5aXY0qH/DHbPq4Rug8G7XS0=
@@ -107,6 +115,10 @@
 		<key>dadwaiting.png</key>
 		<data>
 		lcTBUw+F28s4EAzFyYTVJP4hwXA=
+		</data>
+		<key>desktopunblocked.png</key>
+		<data>
+		IGtkipLwerNRlB9NQaJI5VL7+qY=
 		</data>
 		<key>devices.png</key>
 		<data>
@@ -152,6 +164,10 @@
 		<data>
 		sNhRea/NtJ7akAw5k2po0q6hF+s=
 		</data>
+		<key>hour2.png</key>
+		<data>
+		6EsdawAVl8yrufmioPc9LBWnXKU=
+		</data>
 		<key>john.png</key>
 		<data>
 		fRwF4+9zKCm55vB5ill4B83efFs=
@@ -176,9 +192,17 @@
 		<data>
 		vKKKvBy5lr1l0R/m2GvgWt8Jgkc=
 		</data>
+		<key>laptopunblocked.png</key>
+		<data>
+		2jkLfqLkGjf3VzPs9erRu/ZELi0=
+		</data>
 		<key>minute.png</key>
 		<data>
 		PuLsF67FZg6/pB085Uxn6piaId0=
+		</data>
+		<key>minute2.png</key>
+		<data>
+		EO8Lcp4rdJ/Hnhpz8HMVtTg4GuI=
 		</data>
 		<key>mum.png</key>
 		<data>
@@ -236,6 +260,10 @@
 		<data>
 		YRmY5oUTp+lZRgvI+OUOSYw0e90=
 		</data>
+		<key>phoneunblocked.png</key>
+		<data>
+		RMERdhvWtQtpDo5z0+4oDUjqJdo=
+		</data>
 		<key>resultbandwidth.png</key>
 		<data>
 		2JEuK0kdMvEwUJcVL+hg0gnkrIo=
@@ -274,7 +302,7 @@
 		</data>
 		<key>timed.png</key>
 		<data>
-		7jlh/u7+AiGBeUSme2vMOtXnAC4=
+		JTAWbASVrTh8vWWlVpyZacr3X2o=
 		</data>
 		<key>visiting.png</key>
 		<data>

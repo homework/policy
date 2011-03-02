@@ -22,25 +22,21 @@
 */
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-		
+		NSString *controller = [controllerList objectAtIndex: ++controllerIndex % [controllerList count]];
+		UIViewController *newController = [[[NSClassFromString(controller) alloc] initWithNibName:nil bundle:nil] retain];
+	
 		//NSString* imageName = [Lookup nextConditionImage]; 
 		[UIView beginAnimations:nil context:nil];
 		[UIView setAnimationDuration:0.75];
 		[UIView setAnimationDelegate:self];
 		[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight forView:self.view cache:YES];
-		NSString *controller = [controllerList objectAtIndex: ++controllerIndex % [controllerList count]];
-		UIViewController *newController = [[[NSClassFromString(controller) alloc] initWithNibName:nil bundle:nil] retain];
 		[currentViewController.view removeFromSuperview];
 		[[self view] addSubview:[newController view]];
+		[UIView commitAnimations];
+	
 		[currentViewController release];
 		currentViewController = newController;
 		
-		[UIView commitAnimations];
-		
-	
-		
-		
-	
 }
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
@@ -66,7 +62,7 @@
 												@"ConditionTypeViewController",
 												@"ConditionTypeViewController",
 												@"ConditionTypeViewController",
-												@"ConditionTypeViewController",
+												@"ConditionTimeViewController",
 												@"ConditionBandwidthViewController",
 												@"ConditionTypeViewController",
 					   

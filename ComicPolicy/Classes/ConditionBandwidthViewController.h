@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "ConditionBandwidthView.h"
-#import "ConditionImageLookup.h"
+#import "ConditionViewController.h"
 
-@interface ConditionBandwidthViewController : UIViewController {
+@interface ConditionBandwidthViewController : ConditionViewController {
 	ConditionBandwidthView* conditionBandwidthView;
 }
 

@@ -28,13 +28,14 @@
 	[self.view addSubview:subjectViewController.view];
 	
 	
-	eventViewController = [[RootConditionViewController alloc] init];
-	[self.view addSubview:eventViewController.view];
+	
 	
 	
 	actionViewController = [[RootActionViewController alloc] init];
 	[self.view addSubview:actionViewController.view];
 	
+	eventViewController = [[RootConditionViewController alloc] init];
+	[self.view addSubview:eventViewController.view];
 	
 	resultViewController = [[ResultViewController alloc] init];
 	[self.view addSubview:resultViewController.view];

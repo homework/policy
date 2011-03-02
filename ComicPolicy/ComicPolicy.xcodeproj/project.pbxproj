@@ -95,7 +95,18 @@
 		A352A972131BF83E0053867A /* greenup.png in Resources */ = {isa = PBXBuildFile; fileRef = A352A971131BF83E0053867A /* greenup.png */; };
 		A352A9FA131C02AD0053867A /* ActionBlockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A352A9F9131C02AD0053867A /* ActionBlockViewController.m */; };
 		A352A9FF131C02F90053867A /* ActionBlockView.m in Sources */ = {isa = PBXBuildFile; fileRef = A352A9FE131C02F90053867A /* ActionBlockView.m */; };
-		A352AA89131C132C0053867A /* BlockImageLookup.m in Sources */ = {isa = PBXBuildFile; fileRef = A352AA88131C132C0053867A /* BlockImageLookup.m */; };
+		A352AA89131C132C0053867A /* BlockActionImageLookup.m in Sources */ = {isa = PBXBuildFile; fileRef = A352AA88131C132C0053867A /* BlockActionImageLookup.m */; };
+		A352AA95131D03B10053867A /* computerunblocked.png in Resources */ = {isa = PBXBuildFile; fileRef = A352AA91131D03B10053867A /* computerunblocked.png */; };
+		A352AA96131D03B10053867A /* desktopunblocked.png in Resources */ = {isa = PBXBuildFile; fileRef = A352AA92131D03B10053867A /* desktopunblocked.png */; };
+		A352AA97131D03B10053867A /* laptopunblocked.png in Resources */ = {isa = PBXBuildFile; fileRef = A352AA93131D03B10053867A /* laptopunblocked.png */; };
+		A352AA98131D03B10053867A /* phoneunblocked.png in Resources */ = {isa = PBXBuildFile; fileRef = A352AA94131D03B10053867A /* phoneunblocked.png */; };
+		A352AAE3131D0A570053867A /* ConditionTimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A352AAE2131D0A570053867A /* ConditionTimeViewController.m */; };
+		A352AAED131D0B8F0053867A /* ConditionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A352AAEC131D0B8F0053867A /* ConditionViewController.m */; };
+		A352AB23131D10300053867A /* ConditionTimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = A352AB22131D10300053867A /* ConditionTimeView.m */; };
+		A352ABAE131D7F5A0053867A /* clockface2.png in Resources */ = {isa = PBXBuildFile; fileRef = A352ABAD131D7F5A0053867A /* clockface2.png */; };
+		A352ABDB131D88B30053867A /* hour2.png in Resources */ = {isa = PBXBuildFile; fileRef = A352ABD9131D88B30053867A /* hour2.png */; };
+		A352ABDC131D88B30053867A /* minute2.png in Resources */ = {isa = PBXBuildFile; fileRef = A352ABDA131D88B30053867A /* minute2.png */; };
+		A352AC03131E55290053867A /* HandView.m in Sources */ = {isa = PBXBuildFile; fileRef = A352AC02131E55290053867A /* HandView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -213,8 +224,23 @@
 		A352A9F9131C02AD0053867A /* ActionBlockViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionBlockViewController.m; sourceTree = "<group>"; };
 		A352A9FD131C02F90053867A /* ActionBlockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionBlockView.h; sourceTree = "<group>"; };
 		A352A9FE131C02F90053867A /* ActionBlockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionBlockView.m; sourceTree = "<group>"; };
-		A352AA87131C132C0053867A /* BlockImageLookup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockImageLookup.h; sourceTree = "<group>"; };
-		A352AA88131C132C0053867A /* BlockImageLookup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockImageLookup.m; sourceTree = "<group>"; };
+		A352AA87131C132C0053867A /* BlockActionImageLookup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockActionImageLookup.h; sourceTree = "<group>"; };
+		A352AA88131C132C0053867A /* BlockActionImageLookup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockActionImageLookup.m; sourceTree = "<group>"; };
+		A352AA91131D03B10053867A /* computerunblocked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = computerunblocked.png; sourceTree = "<group>"; };
+		A352AA92131D03B10053867A /* desktopunblocked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = desktopunblocked.png; sourceTree = "<group>"; };
+		A352AA93131D03B10053867A /* laptopunblocked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = laptopunblocked.png; sourceTree = "<group>"; };
+		A352AA94131D03B10053867A /* phoneunblocked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = phoneunblocked.png; sourceTree = "<group>"; };
+		A352AAE1131D0A570053867A /* ConditionTimeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConditionTimeViewController.h; sourceTree = "<group>"; };
+		A352AAE2131D0A570053867A /* ConditionTimeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConditionTimeViewController.m; sourceTree = "<group>"; };
+		A352AAEB131D0B8F0053867A /* ConditionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConditionViewController.h; sourceTree = "<group>"; };
+		A352AAEC131D0B8F0053867A /* ConditionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConditionViewController.m; sourceTree = "<group>"; };
+		A352AB21131D10300053867A /* ConditionTimeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConditionTimeView.h; sourceTree = "<group>"; };
+		A352AB22131D10300053867A /* ConditionTimeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConditionTimeView.m; sourceTree = "<group>"; };
+		A352ABAD131D7F5A0053867A /* clockface2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clockface2.png; sourceTree = "<group>"; };
+		A352ABD9131D88B30053867A /* hour2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hour2.png; sourceTree = "<group>"; };
+		A352ABDA131D88B30053867A /* minute2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = minute2.png; sourceTree = "<group>"; };
+		A352AC01131E55290053867A /* HandView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HandView.h; sourceTree = "<group>"; };
+		A352AC02131E55290053867A /* HandView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HandView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -405,6 +431,9 @@
 		A30ADF24131528F80060D2F1 /* extras */ = {
 			isa = PBXGroup;
 			children = (
+				A352ABD9131D88B30053867A /* hour2.png */,
+				A352ABDA131D88B30053867A /* minute2.png */,
+				A352ABAD131D7F5A0053867A /* clockface2.png */,
 				A30AE54D1317CA830060D2F1 /* conditionmoneybag.png */,
 				A30ADF25131528F80060D2F1 /* clockface.png */,
 			);
@@ -430,6 +459,7 @@
 		A30ADF43131528F80060D2F1 /* resultscene */ = {
 			isa = PBXGroup;
 			children = (
+				A352AA90131D03B10053867A /* devices */,
 				A30AE1D3131574DA0060D2F1 /* resultbandwidth.png */,
 				A30AE1D5131574DA0060D2F1 /* resulttime.png */,
 				A30AE1D6131574DA0060D2F1 /* resulttype.png */,
@@ -472,14 +502,22 @@
 			children = (
 				A30AE03113153C6D0060D2F1 /* RootConditionViewController.h */,
 				A30AE03213153C6D0060D2F1 /* RootConditionViewController.m */,
+				A352AAEB131D0B8F0053867A /* ConditionViewController.h */,
+				A352AAEC131D0B8F0053867A /* ConditionViewController.m */,
 				A30AE3721316CE0C0060D2F1 /* ConditionBandwidthViewController.h */,
 				A30AE3731316CE0C0060D2F1 /* ConditionBandwidthViewController.m */,
 				A30AE3A31316F6F80060D2F1 /* ConditionTypeViewController.h */,
 				A30AE3A41316F6F80060D2F1 /* ConditionTypeViewController.m */,
+				A352AAE1131D0A570053867A /* ConditionTimeViewController.h */,
+				A352AAE2131D0A570053867A /* ConditionTimeViewController.m */,
 				A30AE2AB1316BABB0060D2F1 /* ConditionBandwidthView.h */,
 				A30AE2AC1316BABB0060D2F1 /* ConditionBandwidthView.m */,
+				A352AB21131D10300053867A /* ConditionTimeView.h */,
+				A352AB22131D10300053867A /* ConditionTimeView.m */,
 				A352A77A1317FE230053867A /* ConditionImageLookup.h */,
 				A352A77B1317FE230053867A /* ConditionImageLookup.m */,
+				A352AC01131E55290053867A /* HandView.h */,
+				A352AC02131E55290053867A /* HandView.m */,
 			);
 			name = Condition;
 			sourceTree = "<group>";
@@ -497,9 +535,9 @@
 				A352A9F9131C02AD0053867A /* ActionBlockViewController.m */,
 				A352A9FD131C02F90053867A /* ActionBlockView.h */,
 				A352A9FE131C02F90053867A /* ActionBlockView.m */,
+				A352AA87131C132C0053867A /* BlockActionImageLookup.h */,
+				A352AA88131C132C0053867A /* BlockActionImageLookup.m */,
 				A352A8C3131BDD0A0053867A /* NotifyActionImageLookup.h */,
-				A352AA87131C132C0053867A /* BlockImageLookup.h */,
-				A352AA88131C132C0053867A /* BlockImageLookup.m */,
 				A352A8C4131BDD0A0053867A /* NotifyActionImageLookup.m */,
 			);
 			name = Action;
@@ -537,6 +575,17 @@
 				A352A8E6131BE55E0053867A /* FlipFrameView.m */,
 			);
 			name = Shared;
+			sourceTree = "<group>";
+		};
+		A352AA90131D03B10053867A /* devices */ = {
+			isa = PBXGroup;
+			children = (
+				A352AA91131D03B10053867A /* computerunblocked.png */,
+				A352AA92131D03B10053867A /* desktopunblocked.png */,
+				A352AA93131D03B10053867A /* laptopunblocked.png */,
+				A352AA94131D03B10053867A /* phoneunblocked.png */,
+			);
+			path = devices;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -649,6 +698,13 @@
 				A352A8FF131BEF450053867A /* sbluebuttonup.png in Resources */,
 				A352A938131BEFE90053867A /* greenbuttonup.png in Resources */,
 				A352A972131BF83E0053867A /* greenup.png in Resources */,
+				A352AA95131D03B10053867A /* computerunblocked.png in Resources */,
+				A352AA96131D03B10053867A /* desktopunblocked.png in Resources */,
+				A352AA97131D03B10053867A /* laptopunblocked.png in Resources */,
+				A352AA98131D03B10053867A /* phoneunblocked.png in Resources */,
+				A352ABAE131D7F5A0053867A /* clockface2.png in Resources */,
+				A352ABDB131D88B30053867A /* hour2.png in Resources */,
+				A352ABDC131D88B30053867A /* minute2.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -682,7 +738,11 @@
 				A352A8E7131BE55E0053867A /* FlipFrameView.m in Sources */,
 				A352A9FA131C02AD0053867A /* ActionBlockViewController.m in Sources */,
 				A352A9FF131C02F90053867A /* ActionBlockView.m in Sources */,
-				A352AA89131C132C0053867A /* BlockImageLookup.m in Sources */,
+				A352AA89131C132C0053867A /* BlockActionImageLookup.m in Sources */,
+				A352AAE3131D0A570053867A /* ConditionTimeViewController.m in Sources */,
+				A352AAED131D0B8F0053867A /* ConditionViewController.m in Sources */,
+				A352AB23131D10300053867A /* ConditionTimeView.m in Sources */,
+				A352AC03131E55290053867A /* HandView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
