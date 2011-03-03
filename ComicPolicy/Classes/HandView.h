@@ -13,6 +13,6 @@
 
 }
 
-//- (id)initWithFrameAndImage:(CGRect)frame image:(NSString*)image;
+- (id)initWithFrameAndImage:(CGRect)frame image:(NSString*)image;
 
 @end

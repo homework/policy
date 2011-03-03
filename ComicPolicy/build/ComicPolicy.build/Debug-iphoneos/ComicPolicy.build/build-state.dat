@@ -1,7 +1,7 @@
 TComicPolicy
 v7
 r0
-t320794205.140651
+t320860585.431113
 cCheck dependencies
 cCpResource build/Debug-iphoneos/ComicPolicy.app/ResourceRules.plist /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.2.sdk/ResourceRules.plist
 cProcessInfoPlistFile /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app/Info.plist ComicPolicy-Info.plist
@@ -367,18 +367,18 @@ s1476
 i"ConditionImageLookup.h"
 
 N/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ConditionTimeView.h
-c000000004D6EB169000000000000042C
-t1299100009
-s1068
+c000000004D6F9F2E000000000000026F
+t1299160878
+s623
 i<UIKit/UIKit.h>
 i<QuartzCore/QuartzCore.h>
 i"FrameView.h"
 i"HandView.h"
 
 N/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ConditionTimeView.m
-c000000004D6EB6D50000000000001C0D
-t1299101397
-s7181
+c000000004D6FBA100000000000001C68
+t1299167760
+s7272
 i"ConditionTimeView.h"
 
 N/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ConditionTimeViewController.h
@@ -499,16 +499,16 @@ s1197
 i"FrameView.h"
 
 N/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/HandView.h
-c000000004D6E4E2A0000000000000134
-t1299074602
-s308
+c000000004D6F98D00000000000000132
+t1299159248
+s306
 i<UIKit/UIKit.h>
 i<QuartzCore/QuartzCore.h>
 
 N/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/HandView.m
-c000000004D6E99E000000000000006F4
-t1299093984
-s1780
+c000000004D6F99FA00000000000003C9
+t1299159546
+s969
 i"HandView.h"
 
 N/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/HandViewController.h
@@ -863,12 +863,12 @@ t1298977062
 s12952
 
 N/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/Objects-normal/armv7/ConditionTimeView.o
-t1299101404
-s35656
+t1299167785
+s35436
 
 N/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/Objects-normal/armv7/ConditionTimeViewController.o
-t1299100010
-s38672
+t1299161135
+s38384
 
 N/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/Objects-normal/armv7/ConditionTypeView.o
 t1298649704
@@ -903,8 +903,8 @@ t1298978561
 s14056
 
 N/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/Objects-normal/armv7/HandView.o
-t1299094095
-s13076
+t1299159575
+s13180
 
 N/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/Objects-normal/armv7/HandViewController.o
 t1299074606
@@ -959,16 +959,16 @@ t1298468172
 s6444
 
 N/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app
-t1299101405
+t1299167785
 s2822
 
 N/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app.dSYM
-t1299101404
+t1299167785
 s102
 
 N/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app/ComicPolicy
-t1299101404
-s107064
+t1299167785
+s108984
 
 N/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app/ComicPolicyViewController.nib
 t1298468161
@@ -1211,8 +1211,8 @@ t1298644300
 s1336
 
 N/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app/minute2.png
-t1299009847
-s3619
+t1299160725
+s2495
 
 N/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app/mum.png
 t1298468164
@@ -1363,8 +1363,8 @@ t2
 s0
 
 N/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app/timed.png
-t1299007551
-s29427
+t1299163235
+s14574
 
 N/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app/visiting.png
 t1298474215
@@ -1481,9 +1481,9 @@ t1299009658
 s3436
 
 N/Users/tlodge/iphone/ComicPolicy/ComicPolicy/event/extras/minute2.png
-c000000004D6D50540000000000000BF0
-t1299009620
-s3056
+c000000004D6F9E7C0000000000000B23
+t1299160700
+s2851
 
 N/Users/tlodge/iphone/ComicPolicy/ComicPolicy/event/gaming.png
 c000000004D63F19C00000000000095BF
@@ -1511,9 +1511,9 @@ t1298395526
 s27461
 
 N/Users/tlodge/iphone/ComicPolicy/ComicPolicy/event/timed.png
-c000000004D6D47A2000000000000733B
-t1299007394
-s29499
+c000000004D6FA8460000000000003D46
+t1299163206
+s15686
 
 N/Users/tlodge/iphone/ComicPolicy/ComicPolicy/event/visiting.png
 c000000004D6524720000000000003D7F
@@ -1792,15 +1792,15 @@ s1195
 
 CCheck dependencies
 r0
-lSLF07#2@18"Check dependencies320794204#320794204#0(0"0(0#1#0"8778674624#0"0#
+lSLF07#2@18"Check dependencies320860584#320860584#0(0"0(0#1#0"8657996512#0"0#
 
 CCodeSign /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app
-s320794204.926840
-e320794205.140607
+s320860585.221109
+e320860585.431068
 r1
 xCodeSign
 x/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app
-lSLF07#2@45"CodeSign build/Debug-iphoneos/ComicPolicy.app320794204#320794205#0(0"0(0#0#81"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app8774133536#689"    cd /Users/tlodge/iphone/ComicPolicy/ComicPolicy    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    setenv _CODESIGN_ALLOCATE_ /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/codesign_allocate    /usr/bin/codesign -f -s "iPhone Developer: Tom Lodge (C4DACQ32K3)" --resource-rules=/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app/ResourceRules.plist --entitlements /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy.xcent /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app0#
+lSLF07#2@45"CodeSign build/Debug-iphoneos/ComicPolicy.app320860585#320860585#0(0"0(0#0#81"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app8657481184#689"    cd /Users/tlodge/iphone/ComicPolicy/ComicPolicy    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    setenv _CODESIGN_ALLOCATE_ /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/codesign_allocate    /usr/bin/codesign -f -s "iPhone Developer: Tom Lodge (C4DACQ32K3)" --resource-rules=/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app/ResourceRules.plist --entitlements /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy.xcent /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app0#
 
 CCompileC build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/Objects-normal/armv7/ActionBlockView.o /Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ActionBlockView.m normal armv7 objective-c com.apple.compilers.gcc.4_2
 s320669444.432578
@@ -1988,8 +1988,8 @@ xcom.apple.compilers.gcc.4_2
 lSLF07#2@83"Compile /Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ConditionImageLookup.m320669862#320669862#0(0"0(0#0#75"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ConditionImageLookup.m8707793568#1910"    cd /Users/tlodge/iphone/ComicPolicy/ComicPolicy    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch armv7 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.2.sdk -fvisibility=hidden -gdwarf-2 -mthumb -miphoneos-version-min=3.2 -iquote /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-generated-files.hmap -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-own-target-headers.hmap -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-all-target-headers.hmap -iquote /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-project-headers.hmap -F/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/include -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/DerivedSources/armv7 -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/DerivedSources -include /var/folders/9t/9tAWA3i9EJKIk6x4yDSF-U+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/ComicPolicy_Prefix-agyvkojkqnabjqfkdmommnatypyu/ComicPolicy_Prefix.pch -c /Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ConditionImageLookup.m -o /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/Objects-normal/armv7/ConditionImageLookup.o0#
 
 CCompileC build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/Objects-normal/armv7/ConditionTimeView.o /Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ConditionTimeView.m normal armv7 objective-c com.apple.compilers.gcc.4_2
-s320794204.617799
-e320794204.768364
+s320860584.906371
+e320860585.055419
 r1
 xCompileC
 xbuild/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/Objects-normal/armv7/ConditionTimeView.o
@@ -1998,14 +1998,13 @@ xnormal
 xarmv7
 xobjective-c
 xcom.apple.compilers.gcc.4_2
-o/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ConditionTimeView.m:27: warning: 'delta' defined but not used
-o/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ConditionTimeView.m:28: warning: 'deltaAngle' defined but not used
-o/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ConditionTimeView.m:29: warning: 'currentAngle' defined but not used
-lSLF07#2@80"Compile /Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ConditionTimeView.m320794204#320794204#0(357"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ConditionTimeView.m:27: warning: 'delta' defined but not used/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ConditionTimeView.m:28: warning: 'deltaAngle' defined but not used/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ConditionTimeView.m:29: warning: 'currentAngle' defined but not used3(22@28"'delta' defined but not used320794204#0#115#0(6@72"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ConditionTimeView.m320794197#27#0#27#0#24"'*' defined but not used0(22@33"'deltaAngle' defined but not used320794204#115#120#0(6@72"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ConditionTimeView.m320794197#28#0#28#0#24"'*' defined but not used0(22@35"'currentAngle' defined but not used320794204#235#122#0(6@72"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ConditionTimeView.m320794197#29#0#29#0#24"'*' defined but not used0(0#0#72"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ConditionTimeView.m8779640864#1904"    cd /Users/tlodge/iphone/ComicPolicy/ComicPolicy    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch armv7 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.2.sdk -fvisibility=hidden -gdwarf-2 -mthumb -miphoneos-version-min=3.2 -iquote /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-generated-files.hmap -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-own-target-headers.hmap -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-all-target-headers.hmap -iquote /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-project-headers.hmap -F/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/include -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/DerivedSources/armv7 -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/DerivedSources -include /var/folders/9t/9tAWA3i9EJKIk6x4yDSF-U+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/ComicPolicy_Prefix-agyvkojkqnabjqfkdmommnatypyu/ComicPolicy_Prefix.pch -c /Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ConditionTimeView.m -o /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/Objects-normal/armv7/ConditionTimeView.o0#
+o/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ConditionTimeView.m:258: warning: property 'toMinuteHand' requires method '-toMinuteHand' to be defined - use @synthesize, @dynamic or provide a method implementation
+o/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ConditionTimeView.m:258: warning: property 'toMinuteHand' requires the method 'setToMinuteHand:' to be defined - use @synthesize, @dynamic or provide a method implementation
+lSLF07#2@80"Compile /Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ConditionTimeView.m320860584#320860585#0(447"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ConditionTimeView.m:258: warning: property 'toMinuteHand' requires method '-toMinuteHand' to be defined - use @synthesize, @dynamic or provide a method implementation/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ConditionTimeView.m:258: warning: property 'toMinuteHand' requires the method 'setToMinuteHand:' to be defined - use @synthesize, @dynamic or provide a method implementation2(22@132"Property 'toMinuteHand' requires method '-toMinuteHand' to be defined - use @synthesize, @dynamic or provide a method implementation320860585#0#220#0(6@72"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ConditionTimeView.m320860560#258#0#258#0#0"0(22@139"Property 'toMinuteHand' requires the method 'setToMinuteHand:' to be defined - use @synthesize, @dynamic or provide a method implementation320860585#220#227#0(6@72"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ConditionTimeView.m320860560#258#0#258#0#0"0(0#0#72"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ConditionTimeView.m8655880704#1904"    cd /Users/tlodge/iphone/ComicPolicy/ComicPolicy    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch armv7 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.2.sdk -fvisibility=hidden -gdwarf-2 -mthumb -miphoneos-version-min=3.2 -iquote /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-generated-files.hmap -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-own-target-headers.hmap -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-all-target-headers.hmap -iquote /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-project-headers.hmap -F/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/include -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/DerivedSources/armv7 -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/DerivedSources -include /var/folders/9t/9tAWA3i9EJKIk6x4yDSF-U+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/ComicPolicy_Prefix-agyvkojkqnabjqfkdmommnatypyu/ComicPolicy_Prefix.pch -c /Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ConditionTimeView.m -o /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/Objects-normal/armv7/ConditionTimeView.o0#
 
 CCompileC build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/Objects-normal/armv7/ConditionTimeViewController.o /Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ConditionTimeViewController.m normal armv7 objective-c com.apple.compilers.gcc.4_2
-s320792810.738553
-e320792810.916901
+s320853935.059135
+e320853935.231335
 r1
 xCompileC
 xbuild/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/Objects-normal/armv7/ConditionTimeViewController.o
@@ -2014,7 +2013,7 @@ xnormal
 xarmv7
 xobjective-c
 xcom.apple.compilers.gcc.4_2
-lSLF07#2@90"Compile /Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ConditionTimeViewController.m320792810#320792810#0(0"0(0#0#82"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ConditionTimeViewController.m8771144800#1924"    cd /Users/tlodge/iphone/ComicPolicy/ComicPolicy    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch armv7 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.2.sdk -fvisibility=hidden -gdwarf-2 -mthumb -miphoneos-version-min=3.2 -iquote /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-generated-files.hmap -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-own-target-headers.hmap -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-all-target-headers.hmap -iquote /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-project-headers.hmap -F/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/include -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/DerivedSources/armv7 -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/DerivedSources -include /var/folders/9t/9tAWA3i9EJKIk6x4yDSF-U+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/ComicPolicy_Prefix-agyvkojkqnabjqfkdmommnatypyu/ComicPolicy_Prefix.pch -c /Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ConditionTimeViewController.m -o /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/Objects-normal/armv7/ConditionTimeViewController.o0#
+lSLF07#2@90"Compile /Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ConditionTimeViewController.m320853935#320853935#0(0"0(0#0#82"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ConditionTimeViewController.m8602244032#1924"    cd /Users/tlodge/iphone/ComicPolicy/ComicPolicy    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch armv7 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.2.sdk -fvisibility=hidden -gdwarf-2 -mthumb -miphoneos-version-min=3.2 -iquote /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-generated-files.hmap -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-own-target-headers.hmap -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-all-target-headers.hmap -iquote /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-project-headers.hmap -F/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/include -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/DerivedSources/armv7 -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/DerivedSources -include /var/folders/9t/9tAWA3i9EJKIk6x4yDSF-U+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/ComicPolicy_Prefix-agyvkojkqnabjqfkdmommnatypyu/ComicPolicy_Prefix.pch -c /Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ConditionTimeViewController.m -o /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/Objects-normal/armv7/ConditionTimeViewController.o0#
 
 CCompileC build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/Objects-normal/armv7/ConditionTypeView.o /Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ConditionTypeView.m normal armv7 objective-c com.apple.compilers.gcc.4_2
 s320342504.466299
@@ -2129,8 +2128,8 @@ xcom.apple.compilers.gcc.4_2
 lSLF07#2@72"Compile /Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/FrameView.m320671361#320671361#0(0"0(0#0#64"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/FrameView.m8690155520#1888"    cd /Users/tlodge/iphone/ComicPolicy/ComicPolicy    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch armv7 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.2.sdk -fvisibility=hidden -gdwarf-2 -mthumb -miphoneos-version-min=3.2 -iquote /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-generated-files.hmap -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-own-target-headers.hmap -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-all-target-headers.hmap -iquote /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-project-headers.hmap -F/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/include -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/DerivedSources/armv7 -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/DerivedSources -include /var/folders/9t/9tAWA3i9EJKIk6x4yDSF-U+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/ComicPolicy_Prefix-agyvkojkqnabjqfkdmommnatypyu/ComicPolicy_Prefix.pch -c /Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/FrameView.m -o /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/Objects-normal/armv7/FrameView.o0#
 
 CCompileC build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/Objects-normal/armv7/HandView.o /Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/HandView.m normal armv7 objective-c com.apple.compilers.gcc.4_2
-s320786895.517507
-e320786895.680636
+s320852375.178179
+e320852375.342179
 r1
 xCompileC
 xbuild/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/Objects-normal/armv7/HandView.o
@@ -2139,7 +2138,7 @@ xnormal
 xarmv7
 xobjective-c
 xcom.apple.compilers.gcc.4_2
-lSLF07#2@71"Compile /Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/HandView.m320786895#320786895#0(0"0(0#0#63"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/HandView.m8763692864#1886"    cd /Users/tlodge/iphone/ComicPolicy/ComicPolicy    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch armv7 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.2.sdk -fvisibility=hidden -gdwarf-2 -mthumb -miphoneos-version-min=3.2 -iquote /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-generated-files.hmap -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-own-target-headers.hmap -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-all-target-headers.hmap -iquote /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-project-headers.hmap -F/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/include -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/DerivedSources/armv7 -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/DerivedSources -include /var/folders/9t/9tAWA3i9EJKIk6x4yDSF-U+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/ComicPolicy_Prefix-agyvkojkqnabjqfkdmommnatypyu/ComicPolicy_Prefix.pch -c /Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/HandView.m -o /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/Objects-normal/armv7/HandView.o0#
+lSLF07#2@71"Compile /Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/HandView.m320852375#320852375#0(0"0(0#0#63"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/HandView.m8649655552#1886"    cd /Users/tlodge/iphone/ComicPolicy/ComicPolicy    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch armv7 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.2.sdk -fvisibility=hidden -gdwarf-2 -mthumb -miphoneos-version-min=3.2 -iquote /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-generated-files.hmap -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-own-target-headers.hmap -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-all-target-headers.hmap -iquote /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-project-headers.hmap -F/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/include -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/DerivedSources/armv7 -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/DerivedSources -include /var/folders/9t/9tAWA3i9EJKIk6x4yDSF-U+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/ComicPolicy_Prefix-agyvkojkqnabjqfkdmommnatypyu/ComicPolicy_Prefix.pch -c /Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/HandView.m -o /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/Objects-normal/armv7/HandView.o0#
 
 CCompileC build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/Objects-normal/armv7/HandViewController.o /Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/HandViewController.m normal armv7 objective-c com.apple.compilers.gcc.4_2
 s320767406.684276
@@ -2834,13 +2833,13 @@ xevent/minute.png
 lSLF07#2@76"CopyPNGFile build/Debug-iphoneos/ComicPolicy.app/minute.png event/minute.png320337100#320337100#0(0"0(0#0#61"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/event/minute.png8617663680#588"    cd /Users/tlodge/iphone/ComicPolicy/ComicPolicy    setenv COPY_COMMAND /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    "/Developer/Platforms/iPhoneOS.platform/Developer/Library/Xcode/Plug-ins/iPhoneOS Build System Support.xcplugin/Contents/Resources/copypng" -compress "" /Users/tlodge/iphone/ComicPolicy/ComicPolicy/event/minute.png /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app/minute.png0#
 
 CCopyPNGFile /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app/minute2.png event/extras/minute2.png
-s320702647.323712
-e320702647.390058
+s320853524.997118
+e320853525.033887
 r1
 xCopyPNGFile
 x/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app/minute2.png
 xevent/extras/minute2.png
-lSLF07#2@85"CopyPNGFile build/Debug-iphoneos/ComicPolicy.app/minute2.png event/extras/minute2.png320702647#320702647#0(0"0(0#0#69"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/event/extras/minute2.png8700180864#597"    cd /Users/tlodge/iphone/ComicPolicy/ComicPolicy    setenv COPY_COMMAND /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    "/Developer/Platforms/iPhoneOS.platform/Developer/Library/Xcode/Plug-ins/iPhoneOS Build System Support.xcplugin/Contents/Resources/copypng" -compress "" /Users/tlodge/iphone/ComicPolicy/ComicPolicy/event/extras/minute2.png /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app/minute2.png0#
+lSLF07#2@85"CopyPNGFile build/Debug-iphoneos/ComicPolicy.app/minute2.png event/extras/minute2.png320853524#320853525#0(0"0(0#0#69"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/event/extras/minute2.png8648969856#597"    cd /Users/tlodge/iphone/ComicPolicy/ComicPolicy    setenv COPY_COMMAND /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    "/Developer/Platforms/iPhoneOS.platform/Developer/Library/Xcode/Plug-ins/iPhoneOS Build System Support.xcplugin/Contents/Resources/copypng" -compress "" /Users/tlodge/iphone/ComicPolicy/ComicPolicy/event/extras/minute2.png /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app/minute2.png0#
 
 CCopyPNGFile /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app/mum.png conditionsubject/people/mum.png
 s320160964.320360
@@ -3218,13 +3217,13 @@ oCan't find /Users/tlodge/iphone/ComicPolicy/ComicPolicy/misc/buttons/syellowbut
 lSLF07#2@107"CopyPNGFile build/Debug-iphoneos/ComicPolicy.app/syellowbuttonright.png misc/buttons/syellowbuttonright.png320327239#320327240#0(262"Can't find /Users/tlodge/iphone/ComicPolicy/ComicPolicy/misc/buttons/syellowbuttonright.pngCommand /Developer/Platforms/iPhoneOS.platform/Developer/Library/Xcode/Plug-ins/iPhoneOS Build System Support.xcplugin/Contents/Resources/copypng failed with exit code 11(4@169"Command /Developer/Platforms/iPhoneOS.platform/Developer/Library/Xcode/Plug-ins/iPhoneOS Build System Support.xcplugin/Contents/Resources/copypng failed with exit code 1320327239#18446744073709551615#0#0(1@0"0(0#0#80"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/misc/buttons/syellowbuttonright.png8687831840#619"    cd /Users/tlodge/iphone/ComicPolicy/ComicPolicy    setenv COPY_COMMAND /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    "/Developer/Platforms/iPhoneOS.platform/Developer/Library/Xcode/Plug-ins/iPhoneOS Build System Support.xcplugin/Contents/Resources/copypng" -compress "" /Users/tlodge/iphone/ComicPolicy/ComicPolicy/misc/buttons/syellowbuttonright.png /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app/syellowbuttonright.png1#
 
 CCopyPNGFile /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app/timed.png event/timed.png
-s320700348.593971
-e320700351.206994
+s320856035.721181
+e320856035.885734
 r1
 xCopyPNGFile
 x/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app/timed.png
 xevent/timed.png
-lSLF07#2@74"CopyPNGFile build/Debug-iphoneos/ComicPolicy.app/timed.png event/timed.png320700348#320700351#0(0"0(0#0#60"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/event/timed.png8682126240#586"    cd /Users/tlodge/iphone/ComicPolicy/ComicPolicy    setenv COPY_COMMAND /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    "/Developer/Platforms/iPhoneOS.platform/Developer/Library/Xcode/Plug-ins/iPhoneOS Build System Support.xcplugin/Contents/Resources/copypng" -compress "" /Users/tlodge/iphone/ComicPolicy/ComicPolicy/event/timed.png /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app/timed.png0#
+lSLF07#2@74"CopyPNGFile build/Debug-iphoneos/ComicPolicy.app/timed.png event/timed.png320856035#320856035#0(0"0(0#0#60"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/event/timed.png8648261888#586"    cd /Users/tlodge/iphone/ComicPolicy/ComicPolicy    setenv COPY_COMMAND /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    "/Developer/Platforms/iPhoneOS.platform/Developer/Library/Xcode/Plug-ins/iPhoneOS Build System Support.xcplugin/Contents/Resources/copypng" -compress "" /Users/tlodge/iphone/ComicPolicy/ComicPolicy/event/timed.png /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app/timed.png0#
 
 CCopyPNGFile /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app/visiting.png event/visiting.png
 s320167015.429031
@@ -3254,23 +3253,23 @@ xresultscene/characters/Thumbs.db
 lSLF07#2@37"Copy resultscene/characters/Thumbs.db320160967#320160967#0(0"0(0#0#77"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/resultscene/characters/Thumbs.db8665556128#484"    cd /Users/tlodge/iphone/ComicPolicy/ComicPolicy    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -resolve-src-symlinks /Users/tlodge/iphone/ComicPolicy/ComicPolicy/resultscene/characters/Thumbs.db /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app0#
 
 CGenerateDSYMFile /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app.dSYM /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app/ComicPolicy
-s320794204.826072
-e320794204.922169
+s320860585.111050
+e320860585.215322
 r1
 xGenerateDSYMFile
 x/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app.dSYM
 x/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app/ComicPolicy
-lSLF07#2@107"GenerateDSYMFile build/Debug-iphoneos/ComicPolicy.app.dSYM build/Debug-iphoneos/ComicPolicy.app/ComicPolicy320794204#320794204#0(0"0(0#0#93"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app/ComicPolicy8775255360#392"    cd /Users/tlodge/iphone/ComicPolicy/ComicPolicy    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/usr/bin/dsymutil /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app/ComicPolicy -o /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app.dSYM0#
+lSLF07#2@107"GenerateDSYMFile build/Debug-iphoneos/ComicPolicy.app.dSYM build/Debug-iphoneos/ComicPolicy.app/ComicPolicy320860585#320860585#0(0"0(0#0#93"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app/ComicPolicy8656269696#392"    cd /Users/tlodge/iphone/ComicPolicy/ComicPolicy    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/usr/bin/dsymutil /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app/ComicPolicy -o /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app.dSYM0#
 
 CLd /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app/ComicPolicy normal armv7
-s320794204.768468
-e320794204.825941
+s320860585.055525
+e320860585.110923
 r1
 xLd
 x/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app/ComicPolicy
 xnormal
 xarmv7
-lSLF07#2@98"Link /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app/ComicPolicy320794204#320794204#0(0"0(0#0#0"8779437056#894"    cd /Users/tlodge/iphone/ComicPolicy/ComicPolicy    setenv IPHONEOS_DEPLOYMENT_TARGET 3.2    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/gcc-4.2 -arch armv7 -isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.2.sdk -L/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos -F/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos -filelist /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/Objects-normal/armv7/ComicPolicy.LinkFileList -dead_strip -miphoneos-version-min=3.2 -framework Foundation -framework UIKit -framework CoreGraphics -framework QuartzCore -o /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app/ComicPolicy0#
+lSLF07#2@98"Link /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app/ComicPolicy320860585#320860585#0(0"0(0#0#0"8656703008#894"    cd /Users/tlodge/iphone/ComicPolicy/ComicPolicy    setenv IPHONEOS_DEPLOYMENT_TARGET 3.2    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/gcc-4.2 -arch armv7 -isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.2.sdk -L/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos -F/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos -filelist /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/Objects-normal/armv7/ComicPolicy.LinkFileList -dead_strip -miphoneos-version-min=3.2 -framework Foundation -framework UIKit -framework CoreGraphics -framework QuartzCore -o /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app/ComicPolicy0#
 
 CProcessInfoPlistFile /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app/Info.plist ComicPolicy-Info.plist
 s320160955.371487
@@ -3313,10 +3312,10 @@ x/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-ipho
 lSLF07#2@187"ProcessProductPackaging /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.2.sdk/Entitlements.plist build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy.xcent320160973#320160973#0(0"0(0#0#119"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy.xcent8634044032#456"    cd /Users/tlodge/iphone/ComicPolicy/ComicPolicy    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    <com.apple.tools.product-pkg-utility> /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.2.sdk/Entitlements.plist -entitlements -format xml -o /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy.xcent0#
 
 CTouch /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app
-s320794204.922637
-e320794204.926621
+s320860585.215550
+e320860585.220887
 r1
 xTouch
 x/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app
-lSLF07#2@87"Touch /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app320794204#320794204#0(0"0(0#0#0"8775426016#280"    cd /Users/tlodge/iphone/ComicPolicy/ComicPolicy    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /usr/bin/touch -c /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app0#
+lSLF07#2@87"Touch /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app320860585#320860585#0(0"0(0#0#0"8657696864#280"    cd /Users/tlodge/iphone/ComicPolicy/ComicPolicy    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /usr/bin/touch -c /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app0#
 

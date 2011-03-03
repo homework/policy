@@ -10,27 +10,19 @@
 
 
 @implementation ConditionTimeView
-@synthesize fromHourHand;
-@synthesize fromMinuteHand;
-@synthesize toHourHand;
-@synthesize toMinuteHand;
+
 @synthesize fromClockFace;
 @synthesize toClockFace;
-@synthesize fromHourView;
 
 
-@synthesize initialTransform,currentValue;
 
 BOOL fromScaled = NO;
 BOOL toScaled = NO;
 
-static CGPoint delta;
-static float deltaAngle;
-static float currentAngle;
-
 /*
  * NB: ImageView subviews are NOT passed touch events i.e. TouchesBegan etc will not be called!
  */
+
 
 - (id)initWithFrameAndLookup:(CGRect)frame lookup:(NSObject<ImageLookup>*)lookup{
 	if ((self = [super initWithFrame:frame])) {
@@ -40,26 +32,11 @@ static float currentAngle;
 		clockToFrame= CGRectMake(164,11,120,121);
 		
 		
-		
 		UIImageView *tmpImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[lookup getNextTopImage]]];
 		self.mainImage = tmpImage;
 		[self addSubview:mainImage];
 		[tmpImage release];
 		
-		
-		/*UIImageView *thh = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"hour.png"]];
-		 thh.frame = CGRectMake(219, 25, 11, 51);
-		 self.fromHourHand = thh;
-		 [[self.fromHourHand layer] setAnchorPoint:CGPointMake(0.5, 0.5)];
-		 self.fromHourHand.transform = CGAffineTransformMakeRotation(M_PI/12);
-		 [self addSubview:thh];
-		 [thh release];*/
-		
-		/*UIImageView *tmh = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"minute.png"]];
-		 tmh.frame = CGRectMake(221, 30, 11, 60);
-		 self.fromMinuteHand = tmh;
-		 [self addSubview:tmh];
-		 [tmh release];*/	
 		
 		UIImageView* tmpframe = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"frame.png"]];
 		[self addSubview:tmpframe];
@@ -69,50 +46,37 @@ static float currentAngle;
 		fromClockFace = [[UIView alloc] initWithFrame:clockFromFrame];
 		UIImageView* tmpfromclock = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"clockface2.png"]];
 		tmpfromclock.frame = CGRectMake(0,0,120,121);
-		
 		[fromClockFace addSubview:tmpfromclock];
 		[tmpfromclock release];
 		
-		fhh = [[HandView alloc] initWithFrame:CGRectMake(56,36,11,51)];
-		
-		//fhh = [[HandView alloc] initWithFrame:clockFromFrame];
+		fhh = [[HandView alloc] initWithFrameAndImage:CGRectMake(56,36,11,51) image:@"hour2.png"];
 		[fromClockFace addSubview:fhh];
 		[fhh release];
+		
+		fmh = [[HandView alloc] initWithFrameAndImage:CGRectMake(56,32,11,60) image:@"minute2.png"];
+		[fromClockFace addSubview:fmh];
+		[fmh release];
 		
 		[self addSubview:fromClockFace];
 		
 		
+		toClockFace = [[UIView alloc] initWithFrame:clockToFrame];
+		UIImageView* tmptoclock = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"clockface2.png"]];
+		tmptoclock.frame = CGRectMake(0,0,120,121);
+		[toClockFace addSubview:tmptoclock];
+		[tmptoclock release];
 		
-		//[fhh becomeFirstResponder];
-		//[rootView addSubview:fhh];
-		//		[self addSubview:tmpfromclock];
+		thh = [[HandView alloc] initWithFrameAndImage:CGRectMake(56,36,11,51) image:@"hour2.png"];
+		[toClockFace addSubview:thh];
+		[thh release];
 		
+		tmh = [[HandView alloc] initWithFrameAndImage:CGRectMake(56,32,11,60) image:@"minute2.png"];
+		[toClockFace addSubview:tmh];
+		[tmh release];
 		
+		[self addSubview:toClockFace];
 		
-		
-		
-		//UIImageView *fhh = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"hour2.png"]];
-		//fhh.frame = CGRectMake(55, 15, 11, 51);
-		//self.fromHourHand = fhh;
-		//[self addSubview:fhh];
-		//[fhh release];
-		
-		//UIImageView *fmh = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"minute2.png"]];
-		//fmh.frame = CGRectMake(55, 4, 11, 60);
-		//self.fromMinuteHand = fmh;
-		//[self.fromClockFace addSubview:fmh];
-		//[fmh release];
-		
-		
-		
-		
-		//UIImageView* tmptoclock = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"clockface2.png"]];
-		//tmptoclock.frame = clockToFrame;
-		//self.toClockFace = tmptoclock;
-		//[self addSubview:tmptoclock];
-		//[tmptoclock release];
-		
-		
+				 
 		NSDictionary* dict = [NSDictionary dictionaryWithObject:[lookup getCurrentTopImage] forKey:@"condition"];
 		[[NSNotificationCenter defaultCenter] postNotificationName:@"conditionChange" object:nil userInfo:dict];
     }
@@ -121,67 +85,102 @@ static float currentAngle;
 
 
 -(void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event{
-	UITouch *touch = [touches anyObject];
-	CGPoint pt = [touch locationInView:fhh];
 	
-	if ([touch view] == fhh){
-		float dx = pt.x;
-		float dy = pt.y;
-		float ang = atan2(dx,dy);
-		CGAffineTransform newTrans = CGAffineTransformRotate(fhh.transform, ang);
-		fhh.transform = newTrans;
+	UITouch *touch = [[event allTouches] anyObject];
+	
+	if ([touch view] == fhh || [touch view] == fmh || [touch view] == thh || [touch view] == tmh){
+		
+		UIView* container = [[touch view] superview];
+		
+		float centerx = (container.bounds.size.width / 2);
+		float centery = (container.bounds.size.height / 2);
+		
+		CGPoint touchLocation = [touch locationInView: container];  
+		
+		float x, y;
+		
+		if (touchLocation.y > centery){
+			y = -(touchLocation.y-centery);
+		}
+		else if (touchLocation.y < centery){
+			y = centery-touchLocation.y;
+		}
+		
+		if (touchLocation.x > centerx){
+			x = touchLocation.x-centerx;
+		}
+		else if (touchLocation.x < centerx){
+			x = -(centerx-touchLocation.x);
+		}
+		
+		float ang = atan(y/x);
+	
+		if (x > 0){
+			[touch view].transform = CGAffineTransformMakeRotation(-ang + (M_PI/2));
+		}else{
+			[touch view].transform = CGAffineTransformMakeRotation(-ang - (M_PI/2));
+		}
 	}
 }
-
-/*
- -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
- UITouch *thisTouch = [touches anyObject];
- delta = [thisTouch locationInView:self];
- 
- float dx = delta.x  - fhh.center.x;
- float dy = delta.y  - fhh.center.y;
- deltaAngle = atan2(dy,dx); 
- 
- //set an initial transform so we can access these properties through the rotations
- initialTransform = fhh.transform;	
- }*/
 
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
 	UITouch *touch = [[event allTouches] anyObject];
 	CGPoint touchLocation = [touch locationInView:self];
 	
-	if ([touch view] == fhh){
-		//return;
-		fhh.transform = CGAffineTransformMakeRotation([[fhh.layer valueForKeyPath:@"transform.rotation.z"] floatValue] + (2 * M_PI) / 12);
+	toClockFace.userInteractionEnabled = YES;
+	fromClockFace.userInteractionEnabled = YES;
+	
+	if ([touch view] == fhh || [touch view] == fmh || [touch view] == thh || [touch view] == tmh){
 		return;
 	}
-	if (CGRectContainsPoint(clockFromFrame, touchLocation)){
+	if (CGRectContainsPoint(fromClockFace.frame, touchLocation)){
+		
+		[fromClockFace removeFromSuperview];
+		[self addSubview:fromClockFace];
+
 		[UIView beginAnimations:nil context:nil];
 		[UIView setAnimationDelegate:self];
 		[UIView setAnimationDuration:0.5];
 		[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-		//[UIView setAnimationDidStopSelector:@selector(scaleUp:finished:context:)];
-		//[fromClockFace setTransform:CGAffineTransformMakeTranslation(150.0, 0.0)];
 		[fromClockFace setTransform:CGAffineTransformMakeScale(2.2, 2.2)];
+		CGRect frame = fromClockFace.frame;
+		frame.origin.x = 5.0;
+		fromClockFace.frame = frame;
 		
 		if (toScaled){
 			[toClockFace setTransform:CGAffineTransformMakeScale(1.0, 1.0)];
+			CGRect frame = toClockFace.frame;
+			frame.origin.x = 164.0;
+			frame.origin.y = 10.0;
+			toClockFace.frame = frame;
 			toScaled = NO;
 		}
-		[UIView commitAnimations];
 		
+		[UIView commitAnimations];
+		toClockFace.userInteractionEnabled = NO;
 		fromScaled = YES;
 	}
-	else if (CGRectContainsPoint(clockToFrame, touchLocation)){
+	else if (CGRectContainsPoint(toClockFace.frame, touchLocation)){
+		[toClockFace removeFromSuperview];
+		[self addSubview:toClockFace];
+	
+		
 		[UIView beginAnimations:nil context:nil];
 		[UIView setAnimationDelegate:self];
 		[UIView setAnimationDuration:0.5];
 		[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
 		[toClockFace setTransform:CGAffineTransformMakeScale(2.2, 2.2)];
+		CGRect frame = toClockFace.frame;
+		frame.origin.x = 10.0;
+		frame.origin.y = 10.0;
+		toClockFace.frame = frame;
 		
 		if (fromScaled){
 			[fromClockFace setTransform:CGAffineTransformMakeScale(1.0, 1.0)];
+			CGRect frame = fromClockFace.frame;
+			frame.origin.x = 5.0;
+			fromClockFace.frame = frame;
 			fromScaled = NO;
 		}
 		[UIView commitAnimations];
@@ -193,33 +192,41 @@ static float currentAngle;
 		[UIView setAnimationDelegate:self];
 		[UIView setAnimationDuration:0.5];
 		[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+		
 		if (fromScaled){
+			toClockFace.userInteractionEnabled = NO;
 			[fromClockFace setTransform:CGAffineTransformMakeScale(1.0, 1.0)];
+			CGRect frame = fromClockFace.frame;
+			frame.origin.x = 5.0;
+			fromClockFace.frame = frame;
 			fromScaled = NO;
 		}
 		if (toScaled){
+			fromClockFace.userInteractionEnabled = NO;
 			[toClockFace setTransform:CGAffineTransformMakeScale(1.0, 1.0)];
+			CGRect frame = toClockFace.frame;
+			frame.origin.x = 164.0;
+			frame.origin.y = 10.0;
+			toClockFace.frame = frame;
 			toScaled =NO;
 		}
 		[UIView commitAnimations];			
 	}
 	else{
-		
 		[super touchesBegan:touches withEvent:event];
 	}
-	
 }
 
-/*													  
- -(void) scaleUp:(NSString*) animationID finished:(NSNumber *)finshed context:(void*) context{
- [UIView beginAnimations:nil context:nil];
- [UIView setAnimationDelegate:self];
- [UIView setAnimationDuration:1.5];
- [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
- [fromClockFace setTransform:CGAffineTransformMakeScale(2.2, 2.2)];
- [UIView commitAnimations];
- }
- */
+
+-(void) translate:(NSString*) animationID finished:(NSNumber *)finshed context:(void*) context{
+	[UIView beginAnimations:nil context:nil];
+	[UIView setAnimationDelegate:self];
+	[UIView setAnimationDuration:1.5];
+	[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+	[fromClockFace setTransform:CGAffineTransformMakeTranslation(50.0, 0.0)];
+	[UIView commitAnimations];
+}
+
 
 - (id)initWithFrame:(CGRect)frame {
     if ((self = [super initWithFrame:frame])) {
