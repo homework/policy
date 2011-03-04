@@ -10,6 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "ResultView.h"
 #import "Lookup.h"
+#import "SubjectView.h"
 
 @interface ResultViewController : UIViewController {
 	ResultView* resultView;

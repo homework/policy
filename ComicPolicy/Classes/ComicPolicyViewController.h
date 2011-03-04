@@ -11,12 +11,15 @@
 #import "RootConditionViewController.h";
 #import "RootActionViewController.h";
 #import "ResultViewController.h";
+#import "ActionTimeViewController.h";
 
 @interface ComicPolicyViewController : UIViewController {
 	SubjectViewController *subjectViewController;
 	RootConditionViewController	 *eventViewController;
 	RootActionViewController *actionViewController;
 	ResultViewController *resultViewController;
+	ActionTimeViewController *actionTimeViewController;
+	
 }
 
 @end

@@ -16,7 +16,7 @@ static NotifyActionImageLookup *lookup;
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
-		CGRect aframe = CGRectMake(0,0,294,321);
+		CGRect aframe = CGRectMake(0,20,294,321);
 		lookup = [[BlockActionImageLookup alloc] init];
 		ActionBlockView *aview = [[ActionBlockView alloc] initWithFrameAndLookup:aframe lookup:lookup];//
 		actionBlockView = aview;

@@ -53,6 +53,47 @@
 
 	}
 }
+
+-(void) actionTypeChange:(NSNotification *) n{
+	NSDictionary *userInfo = [n userInfo];
+	NSString* controller = [userInfo objectForKey:@"controller"];
+	NSLog(@"resultView.frame = %@", NSStringFromCGRect(resultView.frame));
+	
+	
+	[UIView beginAnimations:nil context:nil];
+	[UIView setAnimationDuration:0.75];
+	[UIView setAnimationDelegate:self];
+	
+	
+	
+
+	
+	if ([controller isEqualToString:@"ActionBlockViewController"]){
+		
+				
+		CGRect aframe = resultView.frame;
+		aframe.origin.x += 300;
+		aframe.size.width = 600;
+		resultView.comicframe.frame = aframe;
+		resultView.resultMainImage.alpha = 0.0;
+		resultView.monitorImage.alpha = 0.0;
+		
+		
+	}else{
+		CGRect aframe = resultView.frame;
+		aframe.origin.x += 0;
+		aframe.size.width = 897;
+		resultView.comicframe.frame = aframe;
+		resultView.resultMainImage.alpha = 1.0;
+		resultView.monitorImage.alpha = 1.0;
+		
+	}
+	
+	[UIView commitAnimations];
+	
+}
+
+
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
 
@@ -61,12 +102,17 @@
 	
  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(conditionChange:) name:@"conditionChange" object:nil];	
  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionSubjectChange:) name:@"actionSubjectChange" object:nil];	
+ [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionTypeChange:) name:@"actionTypeChange" object:nil];	
 	
  CGRect aframe = CGRectMake(64,367,897,301);
- ResultView *aview = [[ResultView alloc] initWithFrame: aframe];//
+ UIView *rootView = [[UIView alloc] initWithFrame:aframe];	
+ self.view = rootView;
+ [rootView release];
+	
+ ResultView *aview = [[ResultView alloc] initWithFrame: CGRectMake(0,0,897,301)];
  resultView = aview;
- self.view = resultView;
- [aview release];
+ [self.view addSubview: resultView];
+ //[aview release];
 }
 
 

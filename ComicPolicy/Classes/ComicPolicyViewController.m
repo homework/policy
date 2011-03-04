@@ -27,10 +27,6 @@
 	subjectViewController = [[SubjectViewController alloc] init];
 	[self.view addSubview:subjectViewController.view];
 	
-	
-	
-	
-	
 	actionViewController = [[RootActionViewController alloc] init];
 	[self.view addSubview:actionViewController.view];
 	
@@ -40,8 +36,42 @@
 	resultViewController = [[ResultViewController alloc] init];
 	[self.view addSubview:resultViewController.view];
 	
+	actionTimeViewController = [[ActionTimeViewController alloc] init];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionTypeChange:) name:@"actionTypeChange" object:nil];	
+
 }
 
+-(void) actionTypeChange:(NSNotification *) n{
+	
+	NSDictionary *userInfo = [n userInfo];
+	NSString* controller = [userInfo objectForKey:@"controller"];
+	CGRect deadFrame = CGRectMake(64, 800, 294, 301);
+	CGRect liveFrame = CGRectMake(64, 367, 294, 301);
+	
+	if ([controller isEqualToString:@"ActionBlockViewController"]){
+		actionTimeViewController.view.frame = deadFrame;
+		[self.view addSubview:actionTimeViewController.view];
+		[UIView beginAnimations:nil context:nil];
+		[UIView setAnimationDuration:0.75];
+		[UIView setAnimationDelegate:self];
+		actionTimeViewController.view.frame = liveFrame;
+		[UIView commitAnimations];
+	}else{
+		
+		[UIView beginAnimations:nil context:nil];
+		[UIView setAnimationDuration:0.75];
+		[UIView setAnimationDelegate:self];
+		[UIView setAnimationDidStopSelector:@selector(actionOffScreen:finished:context:)];
+		
+		actionTimeViewController.view.frame = deadFrame;
+		[UIView commitAnimations];
+	}
+}
+
+-(void) actionOffScreen:(NSString *)animationID finished:(BOOL)finished context:(void *)context {
+	[actionTimeViewController.view removeFromSuperview];	
+}
 
 
 

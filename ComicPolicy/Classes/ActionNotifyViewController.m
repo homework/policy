@@ -16,7 +16,7 @@ static NotifyActionImageLookup *lookup;
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
-		CGRect aframe = CGRectMake(0,0,294,321);
+		CGRect aframe = CGRectMake(0,20,294,321);
 		lookup = [[NotifyActionImageLookup alloc] init];
 		ActionNotifyView *aview = [[ActionNotifyView alloc] initWithFrameAndLookup:aframe lookup:lookup];//
 		actionNotifyView = aview;
@@ -54,6 +54,7 @@ static NotifyActionImageLookup *lookup;
 		[UIView beginAnimations:nil context:nil];
 		[UIView setAnimationDuration:0.75];
 		[UIView setAnimationDelegate:self];
+		
 		[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight forView:actionNotifyView.personImage cache:YES];
 		actionNotifyView.personImage.image = [UIImage imageNamed:personImage];
 		[UIView commitAnimations];

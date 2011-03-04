@@ -31,6 +31,14 @@
     return self;
 }
 
+- (id)initWithFrame:(CGRect) frame{
+	if ((self = [super initWithFrame:frame])) {
+		UIImageView* tmpframe = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"frame.png"]];
+		[self addSubview:tmpframe];
+		[tmpframe release];
+	}
+	return self;
+}
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

@@ -71,6 +71,8 @@
 		A30AE3A51316F6F80060D2F1 /* ConditionTypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A30AE3A41316F6F80060D2F1 /* ConditionTypeViewController.m */; };
 		A30AE54E1317CA830060D2F1 /* conditionmoneybag.png in Resources */ = {isa = PBXBuildFile; fileRef = A30AE54D1317CA830060D2F1 /* conditionmoneybag.png */; };
 		A30AE5521317CC1D0060D2F1 /* frame.png in Resources */ = {isa = PBXBuildFile; fileRef = A30AE5501317CC1D0060D2F1 /* frame.png */; };
+		A337D64413213E6F00DA13C8 /* ActionTimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A337D64313213E6F00DA13C8 /* ActionTimeViewController.m */; };
+		A337D64913213E9300DA13C8 /* ActionTimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = A337D64813213E9300DA13C8 /* ActionTimeView.m */; };
 		A352A6FB1317E0A10053867A /* bigframeleft.png in Resources */ = {isa = PBXBuildFile; fileRef = A352A6F91317E0A10053867A /* bigframeleft.png */; };
 		A352A6FC1317E0A10053867A /* bigframeright.png in Resources */ = {isa = PBXBuildFile; fileRef = A352A6FA1317E0A10053867A /* bigframeright.png */; };
 		A352A6FE1317E0DA0053867A /* bigframe.png in Resources */ = {isa = PBXBuildFile; fileRef = A352A6FD1317E0DA0053867A /* bigframe.png */; };
@@ -190,6 +192,10 @@
 		A30AE3A41316F6F80060D2F1 /* ConditionTypeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConditionTypeViewController.m; sourceTree = "<group>"; };
 		A30AE54D1317CA830060D2F1 /* conditionmoneybag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = conditionmoneybag.png; sourceTree = "<group>"; };
 		A30AE5501317CC1D0060D2F1 /* frame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = frame.png; sourceTree = "<group>"; };
+		A337D64213213E6F00DA13C8 /* ActionTimeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionTimeViewController.h; sourceTree = "<group>"; };
+		A337D64313213E6F00DA13C8 /* ActionTimeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionTimeViewController.m; sourceTree = "<group>"; };
+		A337D64713213E9300DA13C8 /* ActionTimeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionTimeView.h; sourceTree = "<group>"; };
+		A337D64813213E9300DA13C8 /* ActionTimeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionTimeView.m; sourceTree = "<group>"; };
 		A352A6F91317E0A10053867A /* bigframeleft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bigframeleft.png; sourceTree = "<group>"; };
 		A352A6FA1317E0A10053867A /* bigframeright.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bigframeright.png; sourceTree = "<group>"; };
 		A352A6FD1317E0DA0053867A /* bigframe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bigframe.png; sourceTree = "<group>"; };
@@ -533,6 +539,10 @@
 				A30AE05013153E600060D2F1 /* ActionNotifyView.m */,
 				A352A9F8131C02AD0053867A /* ActionBlockViewController.h */,
 				A352A9F9131C02AD0053867A /* ActionBlockViewController.m */,
+				A337D64213213E6F00DA13C8 /* ActionTimeViewController.h */,
+				A337D64313213E6F00DA13C8 /* ActionTimeViewController.m */,
+				A337D64713213E9300DA13C8 /* ActionTimeView.h */,
+				A337D64813213E9300DA13C8 /* ActionTimeView.m */,
 				A352A9FD131C02F90053867A /* ActionBlockView.h */,
 				A352A9FE131C02F90053867A /* ActionBlockView.m */,
 				A352AA87131C132C0053867A /* BlockActionImageLookup.h */,
@@ -743,6 +753,8 @@
 				A352AAED131D0B8F0053867A /* ConditionViewController.m in Sources */,
 				A352AB23131D10300053867A /* ConditionTimeView.m in Sources */,
 				A352AC03131E55290053867A /* HandView.m in Sources */,
+				A337D64413213E6F00DA13C8 /* ActionTimeViewController.m in Sources */,
+				A337D64913213E9300DA13C8 /* ActionTimeView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

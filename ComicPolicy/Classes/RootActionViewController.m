@@ -25,7 +25,9 @@
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
-	CGRect aframe = CGRectMake(666,46,294,301);
+	//CGRect aframe = CGRectMake(666,46,294,301);
+	
+	CGRect aframe = CGRectMake(666,26,294,334);
 	self.view = [[UIView alloc] initWithFrame: aframe];
 	
 	/*
@@ -53,8 +55,11 @@
 	CGPoint touchLocation = [touch locationInView:self.view];
 	
 	FlipFrameView *currentView = (FlipFrameView *) currentViewController.view;
+	//NSLog(@"resultView.frame = %@", NSStringFromCGRect(currentView.upImage.frame));
+	//NSLog(@"tloc = %f", touchLocation.y);
 	
-	if (CGRectContainsPoint(currentView.upImage.frame, touchLocation)){
+	if (
+		/*CGRectContainsPoint(currentView.upImage.frame, touchLocation)*/ touchLocation.y < 60){
 		NSString *controller = [controllerList objectAtIndex: ++controllerIndex % [controllerList count]];
 		UIViewController *newController = [[[NSClassFromString(controller) alloc] initWithNibName:nil bundle:nil] retain];
 		[UIView beginAnimations:nil context:nil];
@@ -66,6 +71,8 @@
 		[[self view] addSubview:[newController view]];
 		[UIView commitAnimations];
 		currentViewController = newController;
+		NSDictionary* dict = [NSDictionary dictionaryWithObject:controller forKey:@"controller"];
+		[[NSNotificationCenter defaultCenter] postNotificationName:@"actionTypeChange" object:nil userInfo:dict];
 	}
 	
 	
