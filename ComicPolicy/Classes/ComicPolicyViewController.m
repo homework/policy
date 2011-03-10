@@ -33,7 +33,7 @@
 	eventViewController = [[RootConditionViewController alloc] init];
 	[self.view addSubview:eventViewController.view];
 	
-	resultViewController = [[ResultViewController alloc] init];
+	resultViewController = [[RootResultViewController alloc] init];
 	[self.view addSubview:resultViewController.view];
 	
 	actionTimeViewController = [[ActionTimeViewController alloc] init];

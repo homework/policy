@@ -71,13 +71,22 @@ NSMutableDictionary *sceneresult;
 					@"phoneunblocked.png",
 					nil] retain];
 	
-	monitors	= [[NSArray arrayWithObjects: @"resultbandwidth.png",
+	/*monitors	= [[NSArray arrayWithObjects: @"resultbandwidth.png",
 					@"resulttype.png",
 					@"resulttype.png",
 					@"resulttype.png",
 					@"resulttype.png",
 					@"resulttime.png",
 					@"resultvisits.png",
+					nil] retain];*/
+	
+	monitors	= [[NSArray arrayWithObjects: @"http://192.168.1.1:8080/bandwidth-monitor/",
+					@"http://news.bbc.co.uk",
+					@"http://www.google.com",
+					@"http://www.yahoo.com",
+					@"http://192.168.1.1:8080/bandwidth-monitor/",
+					@"http://www.drupal.org",
+					@"http://192.168.1.1:8080",
 					nil] retain];
 	
 	[self createSceneMonitorTable];

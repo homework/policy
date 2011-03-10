@@ -49,7 +49,7 @@
 		A30AE03313153C6D0060D2F1 /* RootConditionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A30AE03213153C6D0060D2F1 /* RootConditionViewController.m */; };
 		A30AE04C13153DFB0060D2F1 /* RootActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A30AE04B13153DFB0060D2F1 /* RootActionViewController.m */; };
 		A30AE05113153E600060D2F1 /* ActionNotifyView.m in Sources */ = {isa = PBXBuildFile; fileRef = A30AE05013153E600060D2F1 /* ActionNotifyView.m */; };
-		A30AE06D13153F420060D2F1 /* ResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A30AE06C13153F420060D2F1 /* ResultViewController.m */; };
+		A30AE06D13153F420060D2F1 /* RootResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A30AE06C13153F420060D2F1 /* RootResultViewController.m */; };
 		A30AE072131540040060D2F1 /* ResultView.m in Sources */ = {isa = PBXBuildFile; fileRef = A30AE071131540040060D2F1 /* ResultView.m */; };
 		A30AE0D113154DED0060D2F1 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A30AE0D013154DED0060D2F1 /* QuartzCore.framework */; };
 		A30AE12B13155C300060D2F1 /* visiting.png in Resources */ = {isa = PBXBuildFile; fileRef = A30AE12A13155C300060D2F1 /* visiting.png */; };
@@ -109,6 +109,7 @@
 		A352ABDB131D88B30053867A /* hour2.png in Resources */ = {isa = PBXBuildFile; fileRef = A352ABD9131D88B30053867A /* hour2.png */; };
 		A352ABDC131D88B30053867A /* minute2.png in Resources */ = {isa = PBXBuildFile; fileRef = A352ABDA131D88B30053867A /* minute2.png */; };
 		A352AC03131E55290053867A /* HandView.m in Sources */ = {isa = PBXBuildFile; fileRef = A352AC02131E55290053867A /* HandView.m */; };
+		A3CD11A11329173C00D3720E /* whitemask.png in Resources */ = {isa = PBXBuildFile; fileRef = A3CD11A01329173C00D3720E /* whitemask.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -164,8 +165,8 @@
 		A30AE04B13153DFB0060D2F1 /* RootActionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootActionViewController.m; sourceTree = "<group>"; };
 		A30AE04F13153E600060D2F1 /* ActionNotifyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionNotifyView.h; sourceTree = "<group>"; };
 		A30AE05013153E600060D2F1 /* ActionNotifyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionNotifyView.m; sourceTree = "<group>"; };
-		A30AE06B13153F420060D2F1 /* ResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultViewController.h; sourceTree = "<group>"; };
-		A30AE06C13153F420060D2F1 /* ResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultViewController.m; sourceTree = "<group>"; };
+		A30AE06B13153F420060D2F1 /* RootResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootResultViewController.h; sourceTree = "<group>"; };
+		A30AE06C13153F420060D2F1 /* RootResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootResultViewController.m; sourceTree = "<group>"; };
 		A30AE070131540040060D2F1 /* ResultView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultView.h; sourceTree = "<group>"; };
 		A30AE071131540040060D2F1 /* ResultView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultView.m; sourceTree = "<group>"; };
 		A30AE0D013154DED0060D2F1 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -247,6 +248,7 @@
 		A352ABDA131D88B30053867A /* minute2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = minute2.png; sourceTree = "<group>"; };
 		A352AC01131E55290053867A /* HandView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HandView.h; sourceTree = "<group>"; };
 		A352AC02131E55290053867A /* HandView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HandView.m; sourceTree = "<group>"; };
+		A3CD11A01329173C00D3720E /* whitemask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = whitemask.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -468,6 +470,7 @@
 				A352AA90131D03B10053867A /* devices */,
 				A30AE1D3131574DA0060D2F1 /* resultbandwidth.png */,
 				A30AE1D5131574DA0060D2F1 /* resulttime.png */,
+				A3CD11A01329173C00D3720E /* whitemask.png */,
 				A30AE1D6131574DA0060D2F1 /* resulttype.png */,
 				A30AE1D7131574DA0060D2F1 /* resultvisits.png */,
 				A30ADF48131528F80060D2F1 /* characters */,
@@ -556,8 +559,8 @@
 		A352A8A3131BD4E30053867A /* Result */ = {
 			isa = PBXGroup;
 			children = (
-				A30AE06B13153F420060D2F1 /* ResultViewController.h */,
-				A30AE06C13153F420060D2F1 /* ResultViewController.m */,
+				A30AE06B13153F420060D2F1 /* RootResultViewController.h */,
+				A30AE06C13153F420060D2F1 /* RootResultViewController.m */,
 				A30AE070131540040060D2F1 /* ResultView.h */,
 				A30AE071131540040060D2F1 /* ResultView.m */,
 			);
@@ -715,6 +718,7 @@
 				A352ABAE131D7F5A0053867A /* clockface2.png in Resources */,
 				A352ABDB131D88B30053867A /* hour2.png in Resources */,
 				A352ABDC131D88B30053867A /* minute2.png in Resources */,
+				A3CD11A11329173C00D3720E /* whitemask.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -733,7 +737,7 @@
 				A30AE03313153C6D0060D2F1 /* RootConditionViewController.m in Sources */,
 				A30AE04C13153DFB0060D2F1 /* RootActionViewController.m in Sources */,
 				A30AE05113153E600060D2F1 /* ActionNotifyView.m in Sources */,
-				A30AE06D13153F420060D2F1 /* ResultViewController.m in Sources */,
+				A30AE06D13153F420060D2F1 /* RootResultViewController.m in Sources */,
 				A30AE072131540040060D2F1 /* ResultView.m in Sources */,
 				A30AE22E13169B2B0060D2F1 /* Lookup.m in Sources */,
 				A30AE2AD1316BABB0060D2F1 /* ConditionBandwidthView.m in Sources */,
