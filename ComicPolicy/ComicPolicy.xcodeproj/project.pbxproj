@@ -71,6 +71,12 @@
 		A30AE3A51316F6F80060D2F1 /* ConditionTypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A30AE3A41316F6F80060D2F1 /* ConditionTypeViewController.m */; };
 		A30AE54E1317CA830060D2F1 /* conditionmoneybag.png in Resources */ = {isa = PBXBuildFile; fileRef = A30AE54D1317CA830060D2F1 /* conditionmoneybag.png */; };
 		A30AE5521317CC1D0060D2F1 /* frame.png in Resources */ = {isa = PBXBuildFile; fileRef = A30AE5501317CC1D0060D2F1 /* frame.png */; };
+		A32749471340A10C00212CAB /* ok.png in Resources */ = {isa = PBXBuildFile; fileRef = A32749451340A10C00212CAB /* ok.png */; };
+		A32749481340A10C00212CAB /* cancel.png in Resources */ = {isa = PBXBuildFile; fileRef = A32749461340A10C00212CAB /* cancel.png */; };
+		A32749631340A7EC00212CAB /* ComicNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = A32749621340A7EC00212CAB /* ComicNavigationController.m */; };
+		A32749681340AAAD00212CAB /* NavigationView.m in Sources */ = {isa = PBXBuildFile; fileRef = A32749671340AAAD00212CAB /* NavigationView.m */; };
+		A327496B1340AB4100212CAB /* addnew.png in Resources */ = {isa = PBXBuildFile; fileRef = A32749691340AB4100212CAB /* addnew.png */; };
+		A327496C1340AB4100212CAB /* empty.png in Resources */ = {isa = PBXBuildFile; fileRef = A327496A1340AB4100212CAB /* empty.png */; };
 		A337D64413213E6F00DA13C8 /* ActionTimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A337D64313213E6F00DA13C8 /* ActionTimeViewController.m */; };
 		A337D64913213E9300DA13C8 /* ActionTimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = A337D64813213E9300DA13C8 /* ActionTimeView.m */; };
 		A352A6FB1317E0A10053867A /* bigframeleft.png in Resources */ = {isa = PBXBuildFile; fileRef = A352A6F91317E0A10053867A /* bigframeleft.png */; };
@@ -193,6 +199,14 @@
 		A30AE3A41316F6F80060D2F1 /* ConditionTypeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConditionTypeViewController.m; sourceTree = "<group>"; };
 		A30AE54D1317CA830060D2F1 /* conditionmoneybag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = conditionmoneybag.png; sourceTree = "<group>"; };
 		A30AE5501317CC1D0060D2F1 /* frame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = frame.png; sourceTree = "<group>"; };
+		A32749451340A10C00212CAB /* ok.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ok.png; sourceTree = "<group>"; };
+		A32749461340A10C00212CAB /* cancel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cancel.png; sourceTree = "<group>"; };
+		A32749611340A7EC00212CAB /* ComicNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComicNavigationController.h; sourceTree = "<group>"; };
+		A32749621340A7EC00212CAB /* ComicNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComicNavigationController.m; sourceTree = "<group>"; };
+		A32749661340AAAD00212CAB /* NavigationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationView.h; sourceTree = "<group>"; };
+		A32749671340AAAD00212CAB /* NavigationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationView.m; sourceTree = "<group>"; };
+		A32749691340AB4100212CAB /* addnew.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addnew.png; sourceTree = "<group>"; };
+		A327496A1340AB4100212CAB /* empty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = empty.png; sourceTree = "<group>"; };
 		A337D64213213E6F00DA13C8 /* ActionTimeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionTimeViewController.h; sourceTree = "<group>"; };
 		A337D64313213E6F00DA13C8 /* ActionTimeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionTimeViewController.m; sourceTree = "<group>"; };
 		A337D64713213E9300DA13C8 /* ActionTimeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionTimeView.h; sourceTree = "<group>"; };
@@ -279,6 +293,10 @@
 				1D3623250D0F684500981E51 /* ComicPolicyAppDelegate.m */,
 				28D7ACF60DDB3853001CB0EB /* ComicPolicyViewController.h */,
 				28D7ACF70DDB3853001CB0EB /* ComicPolicyViewController.m */,
+				A32749611340A7EC00212CAB /* ComicNavigationController.h */,
+				A32749621340A7EC00212CAB /* ComicNavigationController.m */,
+				A32749661340AAAD00212CAB /* NavigationView.h */,
+				A32749671340AAAD00212CAB /* NavigationView.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -451,6 +469,10 @@
 		A30ADF28131528F80060D2F1 /* misc */ = {
 			isa = PBXGroup;
 			children = (
+				A32749691340AB4100212CAB /* addnew.png */,
+				A327496A1340AB4100212CAB /* empty.png */,
+				A32749451340A10C00212CAB /* ok.png */,
+				A32749461340A10C00212CAB /* cancel.png */,
 				A352A971131BF83E0053867A /* greenup.png */,
 				A352A937131BEFE90053867A /* greenbuttonup.png */,
 				A352A8FE131BEF450053867A /* sbluebuttonup.png */,
@@ -719,6 +741,10 @@
 				A352ABDB131D88B30053867A /* hour2.png in Resources */,
 				A352ABDC131D88B30053867A /* minute2.png in Resources */,
 				A3CD11A11329173C00D3720E /* whitemask.png in Resources */,
+				A32749471340A10C00212CAB /* ok.png in Resources */,
+				A32749481340A10C00212CAB /* cancel.png in Resources */,
+				A327496B1340AB4100212CAB /* addnew.png in Resources */,
+				A327496C1340AB4100212CAB /* empty.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -759,6 +785,8 @@
 				A352AC03131E55290053867A /* HandView.m in Sources */,
 				A337D64413213E6F00DA13C8 /* ActionTimeViewController.m in Sources */,
 				A337D64913213E9300DA13C8 /* ActionTimeView.m in Sources */,
+				A32749631340A7EC00212CAB /* ComicNavigationController.m in Sources */,
+				A32749681340AAAD00212CAB /* NavigationView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

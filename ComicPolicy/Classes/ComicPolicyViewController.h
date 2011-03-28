@@ -12,6 +12,7 @@
 #import "RootActionViewController.h";
 #import "RootResultViewController.h";
 #import "ActionTimeViewController.h";
+#import "ComicNavigationController.h";
 
 @interface ComicPolicyViewController : UIViewController {
 	SubjectViewController *subjectViewController;

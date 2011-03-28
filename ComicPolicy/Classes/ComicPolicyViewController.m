@@ -38,8 +38,25 @@
 	
 	actionTimeViewController = [[ActionTimeViewController alloc] init];
 	
+	ComicNavigationController *cnvc = [[ComicNavigationController alloc] init];
+	[self.view addSubview:cnvc.view];
+	
+	UIImageView *tmpCancel = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cancel.png"]];
+	tmpCancel.frame = CGRectMake(900, 680, 55, 57);
+	[self.view addSubview:tmpCancel];
+	[tmpCancel release];
+	
+	UIImageView *tmpSave = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ok.png"]];
+	tmpSave.frame = CGRectMake(820, 680, 55, 57);
+	[self.view addSubview:tmpSave];
+	[tmpSave release];
+	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionTypeChange:) name:@"actionTypeChange" object:nil];	
 
+}
+
+-(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+	NSLog(@"got here..");
 }
 
 -(void) actionTypeChange:(NSNotification *) n{
