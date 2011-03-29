@@ -10,35 +10,38 @@
 
 
 @implementation NavigationView
-@synthesize  addNew;
-
+@synthesize addNew;
+@synthesize buttons;
 static float PADDING = 15;
 
-- (id)initWithFrameAndButtons:(CGRect)frame buttons:(NSMutableArray*) buttons {
+- (id)initWithFrameAndButtons:(CGRect)frame buttons:(NSMutableArray*) btns {
     if ((self = [super initWithFrame:frame])) {
-		
-		int buttoncount = [buttons count] + 1;
-		
-		float barlen = (buttoncount * 26) + (PADDING * buttoncount-1);
-		
-		CGFloat xlen = [[UIScreen mainScreen] bounds].size.height;
-
-		float origin = (xlen / 2) - (barlen / 2);
-		
-		for (UIImageView *button in buttons){
-			UIImageView *tmpView = button;
-			tmpView.frame =  CGRectMake(origin, frame.size.height/2, 26, 27);
-			[self addSubview:tmpView];
-		}
-		
+		self.buttons = btns;
 		UIImageView *tmpAdd = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"addnew.png"]];
-		tmpAdd.frame = CGRectMake(origin + barlen - (PADDING + 26), frame.size.height/2, 26, 27);
 		addNew = tmpAdd;
-		[self addSubview:tmpAdd];
+		[self.buttons addObject:addNew];
 		[tmpAdd release];
-		
+		[self createButtons];		
     }
     return self;
+}
+
+-(void) createButtons{
+	
+	int buttoncount = [buttons count];
+	float barlen = (buttoncount * 26) + (PADDING * buttoncount-1);
+	CGFloat xlen = [[UIScreen mainScreen] bounds].size.height;
+	float origin = (xlen / 2) - (barlen / 2);
+	int count = 0;
+	
+	for (UIImageView *button in buttons){
+		UIImageView *tmpView = button;
+		tmpView.frame = CGRectMake(origin + (count * (26 + PADDING)), self.frame.size.height/2, 26, 27);
+		if (tmpView.superview != self){
+			[self addSubview:tmpView];
+		}
+		count++;
+	}
 }
 
 /*
@@ -51,13 +54,19 @@ static float PADDING = 15;
 
 -(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
 	
-	NSLog(@"adding new policy...");
+	
 	
 	UITouch *touch = [[event allTouches] anyObject];
 	CGPoint touchLocation = [touch locationInView:self];
 	
 	if (CGRectContainsPoint( addNew.frame , touchLocation)){
-		NSLog(@"in here...");
+		UIImageView *tmpButton = [[UIImageView alloc] initWithImage: [UIImage imageNamed:@"empty.png"]];
+		UILabel *tmp = [[UILabel alloc] initWithFrame:CGRectMake(9,0,26,27)];
+		tmp.backgroundColor = [UIColor clearColor];
+		tmp.text = [NSString stringWithFormat:@"%d", [buttons count]];
+		[tmpButton addSubview:tmp];
+		[buttons insertObject: tmpButton atIndex:[buttons count]-1];
+		[self createButtons];
 	}
 
 }

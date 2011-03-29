@@ -77,6 +77,13 @@
 		A32749681340AAAD00212CAB /* NavigationView.m in Sources */ = {isa = PBXBuildFile; fileRef = A32749671340AAAD00212CAB /* NavigationView.m */; };
 		A327496B1340AB4100212CAB /* addnew.png in Resources */ = {isa = PBXBuildFile; fileRef = A32749691340AB4100212CAB /* addnew.png */; };
 		A327496C1340AB4100212CAB /* empty.png in Resources */ = {isa = PBXBuildFile; fileRef = A327496A1340AB4100212CAB /* empty.png */; };
+		A3274ACA1342255200212CAB /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3274AC91342255200212CAB /* CoreData.framework */; };
+		A3274B0B13422EA400212CAB /* policy.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = A3274B0A13422EA400212CAB /* policy.xcdatamodel */; };
+		A3274B721342398600212CAB /* Action.m in Sources */ = {isa = PBXBuildFile; fileRef = A3274B691342398600212CAB /* Action.m */; };
+		A3274B731342398600212CAB /* Policy.m in Sources */ = {isa = PBXBuildFile; fileRef = A3274B6B1342398600212CAB /* Policy.m */; };
+		A3274B741342398600212CAB /* Subject.m in Sources */ = {isa = PBXBuildFile; fileRef = A3274B6D1342398600212CAB /* Subject.m */; };
+		A3274B751342398600212CAB /* Condition.m in Sources */ = {isa = PBXBuildFile; fileRef = A3274B6F1342398600212CAB /* Condition.m */; };
+		A3274B761342398600212CAB /* StringOperand.m in Sources */ = {isa = PBXBuildFile; fileRef = A3274B711342398600212CAB /* StringOperand.m */; };
 		A337D64413213E6F00DA13C8 /* ActionTimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A337D64313213E6F00DA13C8 /* ActionTimeViewController.m */; };
 		A337D64913213E9300DA13C8 /* ActionTimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = A337D64813213E9300DA13C8 /* ActionTimeView.m */; };
 		A352A6FB1317E0A10053867A /* bigframeleft.png in Resources */ = {isa = PBXBuildFile; fileRef = A352A6F91317E0A10053867A /* bigframeleft.png */; };
@@ -207,6 +214,18 @@
 		A32749671340AAAD00212CAB /* NavigationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationView.m; sourceTree = "<group>"; };
 		A32749691340AB4100212CAB /* addnew.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addnew.png; sourceTree = "<group>"; };
 		A327496A1340AB4100212CAB /* empty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = empty.png; sourceTree = "<group>"; };
+		A3274AC91342255200212CAB /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		A3274B0A13422EA400212CAB /* policy.xcdatamodel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.xcdatamodel; path = policy.xcdatamodel; sourceTree = "<group>"; };
+		A3274B681342398600212CAB /* Action.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Action.h; sourceTree = "<group>"; };
+		A3274B691342398600212CAB /* Action.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Action.m; sourceTree = "<group>"; };
+		A3274B6A1342398600212CAB /* Policy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Policy.h; sourceTree = "<group>"; };
+		A3274B6B1342398600212CAB /* Policy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Policy.m; sourceTree = "<group>"; };
+		A3274B6C1342398600212CAB /* Subject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Subject.h; sourceTree = "<group>"; };
+		A3274B6D1342398600212CAB /* Subject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Subject.m; sourceTree = "<group>"; };
+		A3274B6E1342398600212CAB /* Condition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Condition.h; sourceTree = "<group>"; };
+		A3274B6F1342398600212CAB /* Condition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Condition.m; sourceTree = "<group>"; };
+		A3274B701342398600212CAB /* StringOperand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringOperand.h; sourceTree = "<group>"; };
+		A3274B711342398600212CAB /* StringOperand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StringOperand.m; sourceTree = "<group>"; };
 		A337D64213213E6F00DA13C8 /* ActionTimeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionTimeViewController.h; sourceTree = "<group>"; };
 		A337D64313213E6F00DA13C8 /* ActionTimeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionTimeViewController.m; sourceTree = "<group>"; };
 		A337D64713213E9300DA13C8 /* ActionTimeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionTimeView.h; sourceTree = "<group>"; };
@@ -274,6 +293,7 @@
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */,
 				A30AE0D113154DED0060D2F1 /* QuartzCore.framework in Frameworks */,
+				A3274ACA1342255200212CAB /* CoreData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -283,6 +303,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				A3274AC2134224B400212CAB /* Model */,
 				A352A8A7131BD5F50053867A /* Shared */,
 				A352A8A6131BD5C30053867A /* Util */,
 				A352A89F131BD4BE0053867A /* Subject */,
@@ -353,6 +374,7 @@
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				288765A40DF7441C002DB57D /* CoreGraphics.framework */,
 				A30AE0D013154DED0060D2F1 /* QuartzCore.framework */,
+				A3274AC91342255200212CAB /* CoreData.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -513,6 +535,24 @@
 				A30AE2831316B6B80060D2F1 /* mumwaiting.png */,
 			);
 			path = characters;
+			sourceTree = "<group>";
+		};
+		A3274AC2134224B400212CAB /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A3274B681342398600212CAB /* Action.h */,
+				A3274B691342398600212CAB /* Action.m */,
+				A3274B6A1342398600212CAB /* Policy.h */,
+				A3274B6B1342398600212CAB /* Policy.m */,
+				A3274B6C1342398600212CAB /* Subject.h */,
+				A3274B6D1342398600212CAB /* Subject.m */,
+				A3274B6E1342398600212CAB /* Condition.h */,
+				A3274B6F1342398600212CAB /* Condition.m */,
+				A3274B701342398600212CAB /* StringOperand.h */,
+				A3274B711342398600212CAB /* StringOperand.m */,
+				A3274B0A13422EA400212CAB /* policy.xcdatamodel */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 		A352A89F131BD4BE0053867A /* Subject */ = {
@@ -787,6 +827,12 @@
 				A337D64913213E9300DA13C8 /* ActionTimeView.m in Sources */,
 				A32749631340A7EC00212CAB /* ComicNavigationController.m in Sources */,
 				A32749681340AAAD00212CAB /* NavigationView.m in Sources */,
+				A3274B0B13422EA400212CAB /* policy.xcdatamodel in Sources */,
+				A3274B721342398600212CAB /* Action.m in Sources */,
+				A3274B731342398600212CAB /* Policy.m in Sources */,
+				A3274B741342398600212CAB /* Subject.m in Sources */,
+				A3274B751342398600212CAB /* Condition.m in Sources */,
+				A3274B761342398600212CAB /* StringOperand.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

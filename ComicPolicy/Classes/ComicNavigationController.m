@@ -25,8 +25,14 @@
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
 	buttons = [[NSMutableArray alloc] init];
-	[buttons addObject: [[UIImageView alloc] initWithImage: [UIImage imageNamed:@"empty.png"]]];
-	 
+	UIImageView *buttonOne = [[UIImageView alloc] initWithImage: [UIImage imageNamed:@"empty.png"]];
+	UILabel *tmp = [[UILabel alloc] initWithFrame:CGRectMake(8,0,26,27)];
+	tmp.backgroundColor = [UIColor clearColor];
+	tmp.text = @"1";
+	[buttonOne addSubview:tmp];
+	[buttons addObject: buttonOne];
+	[buttonOne release];
+	[tmp release];				 
 	CGFloat ylen = [[UIScreen mainScreen] bounds].size.height;
 	
 	NavigationView *tmpNav = [[NavigationView alloc] initWithFrameAndButtons:CGRectMake(0,0, ylen,40) buttons:buttons];

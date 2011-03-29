@@ -10,7 +10,7 @@
 
 @implementation ComicPolicyViewController
 
-
+@synthesize managedObjectContext;
 
 /* The designated initializer. Override to perform setup that is required before the view is loaded.
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -22,6 +22,11 @@
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
+	
+	// add some policy test data...
+	
+		
+	
 	self.view = [[[UIView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame] autorelease];
 	
 	subjectViewController = [[SubjectViewController alloc] init];

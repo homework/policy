@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreData/CoreData.h>
 #import "SubjectViewController.h";
 #import "RootConditionViewController.h";
 #import "RootActionViewController.h";
@@ -15,6 +16,7 @@
 #import "ComicNavigationController.h";
 
 @interface ComicPolicyViewController : UIViewController {
+	NSManagedObjectContext *managedObjectContext;
 	SubjectViewController *subjectViewController;
 	RootConditionViewController	 *eventViewController;
 	RootActionViewController *actionViewController;
@@ -22,6 +24,7 @@
 	ActionTimeViewController *actionTimeViewController;
 	
 }
+@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 
 @end
 

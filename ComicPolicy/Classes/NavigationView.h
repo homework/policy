@@ -11,9 +11,11 @@
 
 @interface NavigationView : UIView {
 	UIImageView *addNew;
+	NSMutableArray *buttons;
 }
 
 @property(nonatomic,retain) UIImageView* addNew;
+@property(nonatomic,retain) NSMutableArray* buttons;
 
 -(id) initWithFrameAndButtons: (CGRect) frame buttons:(NSArray*) buttons;
 
