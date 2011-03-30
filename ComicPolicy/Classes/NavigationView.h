@@ -11,12 +11,12 @@
 
 @interface NavigationView : UIView {
 	UIImageView *addNew;
-	NSMutableArray *buttons;
+
 }
 
-@property(nonatomic,retain) UIImageView* addNew;
-@property(nonatomic,retain) NSMutableArray* buttons;
+@property(nonatomic,retain) UIImageView *addNew;
 
--(id) initWithFrameAndButtons: (CGRect) frame buttons:(NSArray*) buttons;
+-(void) updateNavigation:(NSMutableArray *) policyids;
+
 
 @end

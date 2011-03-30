@@ -37,9 +37,6 @@ NSMutableDictionary *sceneresult;
 		return;
 
 	
-		
-	
-	
 	conditions = [[NSArray arrayWithObjects: @"bandwidth.png",
 				   @"downloading.png",
 				   @"gaming.png",

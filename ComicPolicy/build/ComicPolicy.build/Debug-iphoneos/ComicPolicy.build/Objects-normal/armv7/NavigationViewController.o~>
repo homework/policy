@@ -1,0 +1,6 @@
+/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/NavigationViewController.m: In function '-[NavigationViewController loadView]':
+/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/NavigationViewController.m:30: error: 'navigationView' undeclared (first use in this function)
+/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/NavigationViewController.m:30: error: (Each undeclared identifier is reported only once
+/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/NavigationViewController.m:30: error: for each function it appears in.)
+/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/NavigationViewController.m: In function '-[NavigationViewController updatePolicyIds:]':
+/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/NavigationViewController.m:37: error: 'navigationView' undeclared (first use in this function)

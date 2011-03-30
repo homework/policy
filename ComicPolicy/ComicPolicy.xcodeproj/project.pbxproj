@@ -73,7 +73,6 @@
 		A30AE5521317CC1D0060D2F1 /* frame.png in Resources */ = {isa = PBXBuildFile; fileRef = A30AE5501317CC1D0060D2F1 /* frame.png */; };
 		A32749471340A10C00212CAB /* ok.png in Resources */ = {isa = PBXBuildFile; fileRef = A32749451340A10C00212CAB /* ok.png */; };
 		A32749481340A10C00212CAB /* cancel.png in Resources */ = {isa = PBXBuildFile; fileRef = A32749461340A10C00212CAB /* cancel.png */; };
-		A32749631340A7EC00212CAB /* ComicNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = A32749621340A7EC00212CAB /* ComicNavigationController.m */; };
 		A32749681340AAAD00212CAB /* NavigationView.m in Sources */ = {isa = PBXBuildFile; fileRef = A32749671340AAAD00212CAB /* NavigationView.m */; };
 		A327496B1340AB4100212CAB /* addnew.png in Resources */ = {isa = PBXBuildFile; fileRef = A32749691340AB4100212CAB /* addnew.png */; };
 		A327496C1340AB4100212CAB /* empty.png in Resources */ = {isa = PBXBuildFile; fileRef = A327496A1340AB4100212CAB /* empty.png */; };
@@ -123,6 +122,7 @@
 		A352ABDC131D88B30053867A /* minute2.png in Resources */ = {isa = PBXBuildFile; fileRef = A352ABDA131D88B30053867A /* minute2.png */; };
 		A352AC03131E55290053867A /* HandView.m in Sources */ = {isa = PBXBuildFile; fileRef = A352AC02131E55290053867A /* HandView.m */; };
 		A3CD11A11329173C00D3720E /* whitemask.png in Resources */ = {isa = PBXBuildFile; fileRef = A3CD11A01329173C00D3720E /* whitemask.png */; };
+		A3DCB58C13437F7B00A38D5E /* NavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A3DCB58B13437F7B00A38D5E /* NavigationViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -208,8 +208,6 @@
 		A30AE5501317CC1D0060D2F1 /* frame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = frame.png; sourceTree = "<group>"; };
 		A32749451340A10C00212CAB /* ok.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ok.png; sourceTree = "<group>"; };
 		A32749461340A10C00212CAB /* cancel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cancel.png; sourceTree = "<group>"; };
-		A32749611340A7EC00212CAB /* ComicNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComicNavigationController.h; sourceTree = "<group>"; };
-		A32749621340A7EC00212CAB /* ComicNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComicNavigationController.m; sourceTree = "<group>"; };
 		A32749661340AAAD00212CAB /* NavigationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationView.h; sourceTree = "<group>"; };
 		A32749671340AAAD00212CAB /* NavigationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationView.m; sourceTree = "<group>"; };
 		A32749691340AB4100212CAB /* addnew.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addnew.png; sourceTree = "<group>"; };
@@ -282,6 +280,8 @@
 		A352AC01131E55290053867A /* HandView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HandView.h; sourceTree = "<group>"; };
 		A352AC02131E55290053867A /* HandView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HandView.m; sourceTree = "<group>"; };
 		A3CD11A01329173C00D3720E /* whitemask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = whitemask.png; sourceTree = "<group>"; };
+		A3DCB58A13437F7B00A38D5E /* NavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationViewController.h; sourceTree = "<group>"; };
+		A3DCB58B13437F7B00A38D5E /* NavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -314,8 +314,8 @@
 				1D3623250D0F684500981E51 /* ComicPolicyAppDelegate.m */,
 				28D7ACF60DDB3853001CB0EB /* ComicPolicyViewController.h */,
 				28D7ACF70DDB3853001CB0EB /* ComicPolicyViewController.m */,
-				A32749611340A7EC00212CAB /* ComicNavigationController.h */,
-				A32749621340A7EC00212CAB /* ComicNavigationController.m */,
+				A3DCB58A13437F7B00A38D5E /* NavigationViewController.h */,
+				A3DCB58B13437F7B00A38D5E /* NavigationViewController.m */,
 				A32749661340AAAD00212CAB /* NavigationView.h */,
 				A32749671340AAAD00212CAB /* NavigationView.m */,
 			);
@@ -825,7 +825,6 @@
 				A352AC03131E55290053867A /* HandView.m in Sources */,
 				A337D64413213E6F00DA13C8 /* ActionTimeViewController.m in Sources */,
 				A337D64913213E9300DA13C8 /* ActionTimeView.m in Sources */,
-				A32749631340A7EC00212CAB /* ComicNavigationController.m in Sources */,
 				A32749681340AAAD00212CAB /* NavigationView.m in Sources */,
 				A3274B0B13422EA400212CAB /* policy.xcdatamodel in Sources */,
 				A3274B721342398600212CAB /* Action.m in Sources */,
@@ -833,6 +832,7 @@
 				A3274B741342398600212CAB /* Subject.m in Sources */,
 				A3274B751342398600212CAB /* Condition.m in Sources */,
 				A3274B761342398600212CAB /* StringOperand.m in Sources */,
+				A3DCB58C13437F7B00A38D5E /* NavigationViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

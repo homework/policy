@@ -11,39 +11,51 @@
 
 @implementation NavigationView
 @synthesize addNew;
-@synthesize buttons;
+
 static float PADDING = 15;
 
-- (id)initWithFrameAndButtons:(CGRect)frame buttons:(NSMutableArray*) btns {
+- (id)initWithFrame:(CGRect)frame{
     if ((self = [super initWithFrame:frame])) {
-		self.buttons = btns;
-		UIImageView *tmpAdd = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"addnew.png"]];
-		addNew = tmpAdd;
-		[self.buttons addObject:addNew];
-		[tmpAdd release];
-		[self createButtons];		
+					
     }
     return self;
 }
 
--(void) createButtons{
+-(void) updateNavigation:(NSMutableArray *) policyids{
 	
-	int buttoncount = [buttons count];
+	
+	int buttoncount = [policyids count] + 1;
+		
 	float barlen = (buttoncount * 26) + (PADDING * buttoncount-1);
 	CGFloat xlen = [[UIScreen mainScreen] bounds].size.height;
 	float origin = (xlen / 2) - (barlen / 2);
 	int count = 0;
 	
-	for (UIImageView *button in buttons){
-		UIImageView *tmpView = button;
-		tmpView.frame = CGRectMake(origin + (count * (26 + PADDING)), self.frame.size.height/2, 26, 27);
-		if (tmpView.superview != self){
-			[self addSubview:tmpView];
-		}
+	for (UIView *view in self.subviews){
+		[view removeFromSuperview];	
+	}
+	
+	
+	for (NSNumber *policy in policyids){
+		UIImageView *button = [[UIImageView alloc] initWithImage: [UIImage imageNamed:@"empty.png"]];
+		button.tag = [policy intValue];
+		UILabel *tmp = [[UILabel alloc] initWithFrame:CGRectMake(8,0,26,27)];
+		tmp.backgroundColor = [UIColor clearColor];
+		tmp.text = [NSString stringWithFormat:@"%d", count+1];
+		[button addSubview:tmp];
+		button.frame = CGRectMake(origin + (count * (26 + PADDING)), 20, 26, 27);
+		button.transform = CGAffineTransformMakeScale(0.8, 0.8);	
+		[self addSubview:button];
 		count++;
 	}
+	
+	UIImageView *tmpAdd = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"addnew.png"]];
+	tmpAdd.frame = CGRectMake(origin + (count * (26 + PADDING)), 20, 26, 27);
+	addNew = tmpAdd;
+	[self addSubview:tmpAdd];
+	[tmpAdd release];
+	
 }
-
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
@@ -52,24 +64,6 @@ static float PADDING = 15;
 }
 */
 
--(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
-	
-	
-	
-	UITouch *touch = [[event allTouches] anyObject];
-	CGPoint touchLocation = [touch locationInView:self];
-	
-	if (CGRectContainsPoint( addNew.frame , touchLocation)){
-		UIImageView *tmpButton = [[UIImageView alloc] initWithImage: [UIImage imageNamed:@"empty.png"]];
-		UILabel *tmp = [[UILabel alloc] initWithFrame:CGRectMake(9,0,26,27)];
-		tmp.backgroundColor = [UIColor clearColor];
-		tmp.text = [NSString stringWithFormat:@"%d", [buttons count]];
-		[tmpButton addSubview:tmp];
-		[buttons insertObject: tmpButton atIndex:[buttons count]-1];
-		[self createButtons];
-	}
-
-}
 
 - (void)dealloc {
     [super dealloc];

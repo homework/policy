@@ -13,11 +13,17 @@
 #import "RootActionViewController.h";
 #import "RootResultViewController.h";
 #import "ActionTimeViewController.h";
-#import "ComicNavigationController.h";
+#import "NavigationViewController.h";
+#import "Subject.h";
 
 @interface ComicPolicyViewController : UIViewController {
 	NSManagedObjectContext *managedObjectContext;
-	SubjectViewController *subjectViewController;
+	NSMutableArray *policyids;
+	UIImageView *deleteButton;
+	UIImageView *saveButton;
+	
+	NavigationViewController	*navigationViewController;
+	SubjectViewController		*subjectViewController;
 	RootConditionViewController	 *eventViewController;
 	RootActionViewController *actionViewController;
 	RootResultViewController *resultViewController;
@@ -25,6 +31,10 @@
 	
 }
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
-
+@property (nonatomic, retain) NSMutableArray *buttons;
+@property (nonatomic, retain) UIImageView *addNew;
+@property (nonatomic, retain) UIImageView *deleteButton;
+@property (nonatomic, retain) UIImageView *saveButton;
+@property (nonatomic, retain) NSMutableArray *policyids;
 @end
 

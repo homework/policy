@@ -11,6 +11,9 @@
 @implementation ComicPolicyViewController
 
 @synthesize managedObjectContext;
+@synthesize saveButton;
+@synthesize deleteButton;
+@synthesize policyids;
 
 /* The designated initializer. Override to perform setup that is required before the view is loaded.
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -20,12 +23,19 @@
 }*/
 
 
+-(void) loadPolicies{
+	self.policyids = [[NSMutableArray alloc] init];
+	[policyids addObject: [NSNumber numberWithInt:1]];
+	[policyids addObject: [NSNumber numberWithInt:10]];
+	[policyids addObject: [NSNumber numberWithInt:9]];
+	[policyids addObject: [NSNumber numberWithInt:11]];
+}
+
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
 	
+	[self loadPolicies];
 	// add some policy test data...
-	
-		
 	
 	self.view = [[[UIView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame] autorelease];
 	
@@ -43,25 +53,73 @@
 	
 	actionTimeViewController = [[ActionTimeViewController alloc] init];
 	
-	ComicNavigationController *cnvc = [[ComicNavigationController alloc] init];
-	[self.view addSubview:cnvc.view];
-	
-	UIImageView *tmpCancel = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cancel.png"]];
-	tmpCancel.frame = CGRectMake(900, 680, 55, 57);
-	[self.view addSubview:tmpCancel];
-	[tmpCancel release];
-	
-	UIImageView *tmpSave = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ok.png"]];
-	tmpSave.frame = CGRectMake(820, 680, 55, 57);
-	[self.view addSubview:tmpSave];
-	[tmpSave release];
+	[self addNavigationView];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionTypeChange:) name:@"actionTypeChange" object:nil];	
 
 }
 
+-(void) addNavigationView{
+	navigationViewController = [[NavigationViewController alloc] init];
+	[self.view addSubview: [navigationViewController view]];
+	[navigationViewController updatePolicyIds:policyids];
+	[self addSaveAndCancel];
+	
+}
+
+-(void) addSaveAndCancel{
+	UIImageView *tmpCancel = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cancel.png"]];
+	tmpCancel.frame = CGRectMake(900, 680, 55, 57);
+	self.deleteButton = tmpCancel;
+	[self.view addSubview:tmpCancel];
+	[tmpCancel release];
+	
+	UIImageView *tmpSave = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ok.png"]];
+	tmpSave.frame = CGRectMake(820, 680, 55, 57);
+	self.saveButton = tmpSave;
+	[self.view addSubview:tmpSave];
+	[tmpSave release];
+	
+}
+
+
+
 -(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
-	NSLog(@"got here..");
+	
+	//NSLog(@"touched %d", [navigationView getSelectedPolicy]);
+	
+	UITouch *touch = [[event allTouches] anyObject];
+	CGPoint touchLocation = [touch locationInView:self.view];
+	/*
+	if (CGRectContainsPoint( addNew.frame , touchLocation)){
+		UIImageView *tmpButton = [[UIImageView alloc] initWithImage: [UIImage imageNamed:@"empty.png"]];
+		UILabel *tmp = [[UILabel alloc] initWithFrame:CGRectMake(9,0,26,27)];
+		tmp.backgroundColor = [UIColor clearColor];
+		tmp.text = [NSString stringWithFormat:@"%d", [buttons count]];
+		[tmpButton addSubview:tmp];
+		[buttons insertObject: tmpButton atIndex:[buttons count]-1];
+		[navigationView updateButtons:buttons];
+	}*/
+	
+	if (CGRectContainsPoint( deleteButton.frame , touchLocation)){
+		NSLog(@"would delete this");
+	}
+	
+	else if (CGRectContainsPoint( saveButton.frame , touchLocation)){
+		NSLog(@"would save this");
+		
+		/*Subject *subject = (Subject *) [NSEntityDescription insertNewObjectForEntityForName:@"Subject" inManagedObjectContext:managedObjectContext];
+		[subject setName:@"mac air"];
+		[subject setIdentity:@"deadbeef"];
+		[subject setOwner:@"dad"];
+		
+		NSError *error = nil;
+		if (![managedObjectContext save:&error]){
+			NSLog(@"error saving");
+		}*/
+	}
+	
+	
 }
 
 -(void) actionTypeChange:(NSNotification *) n{
