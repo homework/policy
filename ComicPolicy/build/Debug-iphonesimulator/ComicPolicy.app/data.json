@@ -1,0 +1,138 @@
+{
+    "catalogue" {
+        "subjects":[
+            {
+                "name" : "dad",
+                "image"  : "dad.png",
+                "blocked": "blockdad.png",
+                "notify" : "notifydad.png",
+                
+                "devices" :[
+                    {
+                        "name": "dads mac air",
+                        "identity": "0000ffff",
+                        "image": "condlaptop.png",
+                        "blocked": "aslaptop.png",
+                    },
+                    {
+                        "name": "dads iphone",
+                        "identity": "0000aaaa",
+                        "image": "condphone.png",
+                        "blocked": "asphone.png"
+                    }
+                ]
+            },
+            
+            {
+                "name" : "katie",
+                "image" : "katie.png",
+                "blocked": "blockkatie.png",
+                "notify" : "notifykatie.png",
+                
+                "devices" :[
+                    {
+                        "name": "katies desktop computer",
+                        "identity": "0000cccc",
+                        "image": "conddesktop.png"
+                        "blocked": "asdesktop.png",
+                    },
+                    {
+                        "name": "katies iphone",
+                        "identity": "0000aaaa",
+                        "image": "condphone.png"
+                        "blocked": "asphone.png",
+                    }
+                ]
+            }
+        ],
+     
+        
+        "conditions":[
+            {
+                "name": "bandwidth",
+                "vc" : "ConditionBandwidthViewController"
+            },
+            {
+                "name": "gaming",
+                "vc" : "ConditionTypeViewController"
+            },
+            {
+                "name": "surfing",
+                "vc" : "ConditionTypeViewController"
+            },
+            {
+                "name": "downloading",
+                "vc" : "ConditionTypeViewController"
+            },
+            {
+                "name": "streaming",
+                "vc" : "ConditionTypeViewController"
+            },
+            {
+                "name": "time",
+                "vc" : "ConditionTimeViewController"
+            },
+            {
+                "name": "site",
+                "vc" : "ConditionViewController"
+            },
+        ],
+        
+        
+        "actions":[
+            
+            "notify":{
+                "subjects":[
+                    {
+                        "name" : "dad"
+                    },
+                    {
+                        "name" : "mum"
+                    },
+                    {
+                        "name" : "katie"
+                    },
+                    {
+                        "name" : "john"
+                    },
+                    
+                ],
+                "actions":[
+                    {
+                        "name" : "tweet"
+                        "image" : "notifybytweet.png"
+                    },
+                    {
+                        "name" : "phone"
+                        "image" : "notifybyphone.png"
+                    },
+                    {
+                        "name" : "sound"
+                        "image" : "notifybysound.png"
+                    },
+                    {
+                        "name" : "mail"
+                        "image" : "notifybymail.png"
+                    },
+                ],
+            },
+            
+            "block":{
+                "subjects":[
+                    {
+                        "name" : "dad"
+                    },
+                    {
+                        "name" : "mum"
+                    },
+                    {
+                        "name" : "katie"
+                    },
+                    {
+                        "name" : "john"
+                    },
+                ],
+            }
+        ]
+    }
+}

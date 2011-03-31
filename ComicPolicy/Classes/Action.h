@@ -2,27 +2,29 @@
 //  Action.h
 //  ComicPolicy
 //
-//  Created by Tom Lodge on 29/03/2011.
+//  Created by Tom Lodge on 31/03/2011.
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
 #import <CoreData/CoreData.h>
 
-@class StringOperand;
+@class StringTuple;
+@class Subject;
 
 @interface Action :  NSManagedObject  
 {
 }
 
-@property (nonatomic, retain) NSString * type;
+@property (nonatomic, retain) Subject * subject;
+@property (nonatomic, retain) StringTuple * type;
 @property (nonatomic, retain) NSSet* operands;
 
 @end
 
 
 @interface Action (CoreDataGeneratedAccessors)
-- (void)addOperandsObject:(StringOperand *)value;
-- (void)removeOperandsObject:(StringOperand *)value;
+- (void)addOperandsObject:(StringTuple *)value;
+- (void)removeOperandsObject:(StringTuple *)value;
 - (void)addOperands:(NSSet *)value;
 - (void)removeOperands:(NSSet *)value;
 
