@@ -133,8 +133,7 @@
 		A3DCB6411344D2E000A38D5E /* Policy.m in Sources */ = {isa = PBXBuildFile; fileRef = A3DCB63A1344D2E000A38D5E /* Policy.m */; };
 		A3DCB6421344D2E000A38D5E /* Subject.m in Sources */ = {isa = PBXBuildFile; fileRef = A3DCB63C1344D2E000A38D5E /* Subject.m */; };
 		A3DCB6431344D2E000A38D5E /* Condition.m in Sources */ = {isa = PBXBuildFile; fileRef = A3DCB63E1344D2E000A38D5E /* Condition.m */; };
-		A3DCB6BB1344DC3100A38D5E /* data.json in Resources */ = {isa = PBXBuildFile; fileRef = A3DCB6681344D7E800A38D5E /* data.json */; };
-		A3DCB7091344EDB300A38D5E /* json2.json in Resources */ = {isa = PBXBuildFile; fileRef = A3DCB7081344EDAD00A38D5E /* json2.json */; };
+		A3DCB7091344EDB300A38D5E /* data.json in Resources */ = {isa = PBXBuildFile; fileRef = A3DCB7081344EDAD00A38D5E /* data.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -315,8 +314,7 @@
 		A3DCB63C1344D2E000A38D5E /* Subject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Subject.m; sourceTree = "<group>"; };
 		A3DCB63D1344D2E000A38D5E /* Condition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Condition.h; sourceTree = "<group>"; };
 		A3DCB63E1344D2E000A38D5E /* Condition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Condition.m; sourceTree = "<group>"; };
-		A3DCB6681344D7E800A38D5E /* data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = data.json; sourceTree = "<group>"; };
-		A3DCB7081344EDAD00A38D5E /* json2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = json2.json; sourceTree = "<group>"; };
+		A3DCB7081344EDAD00A38D5E /* data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = data.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -389,8 +387,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				A3DCB6681344D7E800A38D5E /* data.json */,
-				A3DCB7081344EDAD00A38D5E /* json2.json */,
+				A3DCB7081344EDAD00A38D5E /* data.json */,
 				A30ADEF9131528F70060D2F1 /* action */,
 				A30ADF06131528F70060D2F1 /* actionsubject */,
 				A30ADF0C131528F70060D2F1 /* conditionsubject */,
@@ -851,8 +848,7 @@
 				A32749481340A10C00212CAB /* cancel.png in Resources */,
 				A327496B1340AB4100212CAB /* addnew.png in Resources */,
 				A327496C1340AB4100212CAB /* empty.png in Resources */,
-				A3DCB6BB1344DC3100A38D5E /* data.json in Resources */,
-				A3DCB7091344EDB300A38D5E /* json2.json in Resources */,
+				A3DCB7091344EDB300A38D5E /* data.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -11,22 +11,19 @@
 
 @interface Catalogue : NSObject {
 
-	
 }
 
 
-+(NSString *) resetSubjectOwner:(NSString *) image;
-
++(NSString *) currentSubjectOwner;
++(NSString *) nextSubjectOwner;
 +(NSString *) nextSubjectOwnerImage;
-
++(NSString *) currentSubjectDevice;
++(NSString *) nextSubjectDevice;
 +(NSString *) nextSubjectDeviceImage;
-
++(NSString *) currentSubjectDeviceImage;
 +(NSString *) nextConditionViewController;
-
 +(NSString *) nextActionViewController;
-
 +(NSString *) nextActionSubject;
-
 +(NSString *) nextAction;
 
 @end

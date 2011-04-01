@@ -1,137 +1,156 @@
 {
     "catalogue": {
-        "subjects":[
-            {
-                "name": "dad",
-                "image": "dad.png",
-                "blocked": "blockdad.png",
-                "notify": "notifydad.png",
+    
+        "images":{
+        
+            "dad":
+                {
+                    "main":"dad.png",
+                    "blocked":"blockdad.png",
+                    "notify":"notifydad.png"
+                },
                 
-                "devices":[
-                    {
-                        "name": "dads mac air",
-                        "identity": "0000ffff",
-                        "image": "condlaptop.png",
-                        "blocked": "aslaptop.png"
-                    },
-                    {
-                        "name": "dads iphone",
-                        "identity": "0000aaaa",
-                        "image": "condphone.png",
-                        "blocked": "asphone.png"
-                    }
-                ]
-            },
-            
-            {
-                "name": "katie",
-                "image": "katie.png",
-                "blocked": "blockkatie.png",
-                "notify": "notifykatie.png",
-                "devices":[
-                    {
-                        "name": "katies desktop computer",
-                        "identity": "0000cccc",
-                        "image": "conddesktop.png",
-                        "blocked": "asdesktop.png"
-                    },
-                    {
-                        "name": "katies iphone",
-                        "identity": "0000aaaa",
-                        "image": "condphone.png",
-                        "blocked": "asphone.png"
-                    }
-                ]
-            }
-        ],
-     
+            "katie":
+                {
+                    "main":"katie.png",
+                    "blocked":"blockkatie.png",
+                    "notify":"notifykatie.png"
+                },
+            "mum":
+                {
+                    "main":"mum.png",
+                    "blocked":"blockmum.png",
+                    "notify":"notifymum.png"
+                },
+            "john":
+                {
+                    "main":"john.png",
+                    "blocked":"blockjohn.png",
+                    "notify":"notifyjohn.png"
+                },
+            "everyone":
+                {
+                    "main":"everyone.png",
+                    "blocked":"blockeveryone.png",
+                    "notify":"notifyeveryone.png"
+                },
+            "0000aaaa":
+                {
+                    "main":"condlaptop.png",
+                    "blocked":"aslaptop.png"
+                },
+            "0000bbbb":
+                {
+                    "main":"condphone.png",
+                    "blocked":"asphone.png"
+                },
+            "0000cccc":
+                {
+                    "main":"conddesktop.png",
+                    "blocked":"asdesktop.png"
+                },
+            "0000dddd":
+                {
+                    "main":"condcomputer.png",
+                    "blocked":"ascomputer.png"
+                },
+            "0000eeee":
+                {
+                    "main":"condcomputer.png",
+                    "blocked":"ascomputer.png"
+                },
+            "0000ffff":
+                {
+                    "main":"condcomputer.png",
+                    "blocked":"ascomputer.png"
+                },
+            "notify":
+                {
+                    "tweet":"notifybytweet.png",
+                    "phone":"notifybyphone.png",
+                    "mail":"notofybymail.png",
+                    "sound":"notifybysound.png"
+                }
+        },
         
-        "conditions":[
-            {
-                "name": "bandwidth",
-                "vc": "ConditionBandwidthViewController"
-            },
-            {
-                "name": "gaming",
-                "vc": "ConditionTypeViewController"
-            },
-            {
-                "name": "surfing",
-                "vc": "ConditionTypeViewController"
-            },
-            {
-                "name": "downloading",
-                "vc": "ConditionTypeViewController"
-            },
-            {
-                "name": "streaming",
-                "vc": "ConditionTypeViewController"
-            },
-            {
-                "name": "time",
-                "vc": "ConditionTimeViewController"
-            },
-            {
-                "name": "site",
-                "vc": "ConditionViewController"
-            }
-        ],
+        "owners":{
         
         
-        "actions":[
-            
+        },
+        
+        "devices":{
+            "0000aaaa":
+                {
+                    "name": "dads mac air"
+                },
+            "0000bbbb":
+                {
+                    "name": "dads iphone"
+                },
+            "0000cccc":
+                {
+                    "name": "katies desktop"
+                },
+            "0000dddd":
+                {
+                    "name": "mums computer"
+                },
+            "0000eeee":
+                {
+                    "name": "johns computer"
+                },
+             "0000ffff":
+                {
+                    "name": "lounge computer"
+                }
+        },
+        
+        
+        "ownership":{
+            "dad":[
+                "0000aaaa","0000bbbb"
+            ],
+            "katie":[
+                "0000cccc"
+            ],
+            "mum":[
+                "0000dddd"
+            ],
+            "john":[
+                "0000eeee"
+            ],
+            "everyone":[
+                "0000ffff"
+            ]
+        },
+        
+         "actions":{
             "notify":{
                 "subjects":[
-                    {
-                        "name": "dad"
-                    },
-                    {
-                        "name": "mum"
-                    },
-                    {
-                        "name": "katie"
-                    },
-                    {
-                        "name": "john"
-                    }
-                    
+                    {"identity": "dad"},
+                    {"identity": "mum"},
+                    {"identity": "katie"},
+                    {"identity": "john"}
                 ],
                 "actions":[
-                    {
-                        "name": "tweet",
-                        "image": "notifybytweet.png"
-                    },
-                    {
-                        "name": "phone",
-                        "image": "notifybyphone.png"
-                    },
-                    {
-                        "name": "sound",
-                        "image": "notifybysound.png"
-                    },
-                    {
-                        "name": "mail",
-                        "image": "notifybymail.png"
-                    }
+                    {"identity": "tweet"},
+                    {"identity": "phone"},
+                    {"identity": "sound"},
+                    {"identity": "mail"}
                 ]
             },
-            
             "block":{
                 "subjects":[
-                    {
-                        "name": "dad"
-                    },
-                    {
-                        "name": "mum"
-                    },
-                    {
-                        "name": "katie"
-                    },
-                    {
-                        "name": "john"
-                    }
+                    {"identity": "dad"},
+                    {"identity": "mum"},
+                    {"identity": "katie"},
+                    {"identity": "john"},
+                    {"identity": "everyone"}
                 ]
             }
-        ]
+        }
     }
 }
+                
+            
+        

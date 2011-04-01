@@ -1,7 +1,7 @@
 TComicPolicy
 v7
 r0
-t323285538.679839
+t323358281.773815
 cCheck dependencies
 cCpResource build/Debug-iphoneos/ComicPolicy.app/ResourceRules.plist /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.2.sdk/ResourceRules.plist
 cProcessInfoPlistFile /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app/Info.plist ComicPolicy-Info.plist
@@ -79,7 +79,6 @@ cCopyPNGFile /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/C
 cCopyPNGFile /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app/addnew.png misc/addnew.png
 cCopyPNGFile /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app/empty.png misc/empty.png
 cCpResource build/Debug-iphoneos/ComicPolicy.app/data.json data.json
-cCpResource build/Debug-iphoneos/ComicPolicy.app/json2.json json2.json
 cProcessPCH /var/folders/9t/9tAWA3i9EJKIk6x4yDSF-U+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/ComicPolicy_Prefix-agyvkojkqnabjqfkdmommnatypyu/ComicPolicy_Prefix.pch.gch ComicPolicy_Prefix.pch normal armv7 objective-c com.apple.compilers.gcc.4_2
 cDataModelCompile /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app/policy.mom /Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/policy.xcdatamodel
 cCompileC build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/Objects-normal/armv7/main.o /Users/tlodge/iphone/ComicPolicy/ComicPolicy/main.m normal armv7 objective-c com.apple.compilers.gcc.4_2
@@ -374,16 +373,16 @@ s1746
 i"BlockImageLookup.h"
 
 N/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/Catalogue.h
-c000000004D949E700000000000000203
-t1301585520
-s515
+c000000004D95D6630000000000000278
+t1301665379
+s632
 i<Foundation/Foundation.h>
 i"JSON.h"
 
 N/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/Catalogue.m
-c000000004D94B93E0000000000000678
-t1301592382
-s1656
+c000000004D95D6C70000000000000FED
+t1301665479
+s4077
 i"Catalogue.h"
 
 N/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicNavigationController.h
@@ -1020,19 +1019,20 @@ s902
 i"SubjectView.h"
 
 N/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/SubjectViewController.h
-c000000004D67E43600000000000001EF
-t1298654262
-s495
+c000000004D95CFEC0000000000000205
+t1301663724
+s517
 i<UIKit/UIKit.h>
 i<QuartzCore/QuartzCore.h>
 i"SubjectView.h"
 i"Lookup.h"
 i"SubjectImageLookup.h"
+i"Catalogue.h"
 
 N/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/SubjectViewController.m
-c000000004D67E4FB0000000000000ABE
-t1298654459
-s2750
+c000000004D95D5150000000000000CEA
+t1301665045
+s3306
 i"SubjectViewController.h"
 
 N/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/policy.xcdatamodel
@@ -1214,8 +1214,8 @@ t2
 s0
 
 N/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/Objects-normal/armv7/Catalogue.o
-t1301592387
-s11448
+t1301665481
+s18632
 
 N/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/Objects-normal/armv7/ComicNavigationController.o
 t1301485651
@@ -1227,11 +1227,11 @@ t1301584740
 s6753
 
 N/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/Objects-normal/armv7/ComicPolicyAppDelegate.o
-t1301586079
+t1301665379
 s58612
 
 N/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/Objects-normal/armv7/ComicPolicyViewController.o
-t1301584740
+t1301665379
 s62268
 
 N/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/Objects-normal/armv7/Condition.o
@@ -1419,24 +1419,24 @@ t1298654620
 s12492
 
 N/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/Objects-normal/armv7/SubjectViewController.o
-t1298654621
-s43932
+t1301665379
+s46080
 
 N/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/Objects-normal/armv7/main.o
 t1298468172
 s6444
 
 N/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app
-t1301592738
+t1301665481
 s3094
 
 N/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app.dSYM
-t1301592387
+t1301665481
 s102
 
 N/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app/ComicPolicy
-t1301592387
-s230608
+t1301665481
+s228868
 
 N/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app/ComicPolicyViewController.nib
 t1298468161
@@ -1583,8 +1583,8 @@ t1298562878
 s16404
 
 N/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app/data.json
-t1301592283
-s3921
+t1301662920
+s4164
 
 N/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app/desktop.png
 t2
@@ -1667,8 +1667,8 @@ t1298562879
 s20654
 
 N/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app/json2.json
-t1301592738
-s2431
+t1301653489
+s6032
 
 N/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app/katie.png
 t1298468164
@@ -1950,9 +1950,9 @@ t1298394754
 s16978
 
 N/Users/tlodge/iphone/ComicPolicy/ComicPolicy/data.json
-c000000004D94B8CD0000000000000F51
-t1301592269
-s3921
+c000000004D95CCC40000000000001044
+t1301662916
+s4164
 
 N/Users/tlodge/iphone/ComicPolicy/ComicPolicy/event/bandwidth.png
 c000000004D64E4380000000000004005
@@ -2030,9 +2030,9 @@ t1298474098
 s15743
 
 N/Users/tlodge/iphone/ComicPolicy/ComicPolicy/json2.json
-c000000004D94BA9C000000000000097F
-t1301592732
-s2431
+c000000004D95A7EE0000000000001790
+t1301653486
+s6032
 
 N/Users/tlodge/iphone/ComicPolicy/ComicPolicy/main.m
 c000000004D64EF3F000000000000016D
@@ -2336,16 +2336,15 @@ s1195
 
 CCheck dependencies
 r0
-lSLF07#2@18"Check dependencies323285538#323285538#0(0"0(0#1#0"8656737408#0"0#
+lSLF07#2@18"Check dependencies323358281#323358281#0(0"0(0#1#0"8700113184#0"0#
 
 CCodeSign /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app
-s323285538.440186
-e323285538.679794
+s323358281.502466
+e323358281.773765
 r1
 xCodeSign
 x/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app
-o/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app: replacing existing signature
-lSLF07#2@45"CodeSign build/Debug-iphoneos/ComicPolicy.app323285538#323285538#0(112"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app: replacing existing signature0(0#0#81"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app8662070496#689"    cd /Users/tlodge/iphone/ComicPolicy/ComicPolicy    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    setenv _CODESIGN_ALLOCATE_ /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/codesign_allocate    /usr/bin/codesign -f -s "iPhone Developer: Tom Lodge (C4DACQ32K3)" --resource-rules=/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app/ResourceRules.plist --entitlements /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy.xcent /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app0#
+lSLF07#2@45"CodeSign build/Debug-iphoneos/ComicPolicy.app323358281#323358281#0(0"0(0#0#81"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app8700832864#689"    cd /Users/tlodge/iphone/ComicPolicy/ComicPolicy    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    setenv _CODESIGN_ALLOCATE_ /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/codesign_allocate    /usr/bin/codesign -f -s "iPhone Developer: Tom Lodge (C4DACQ32K3)" --resource-rules=/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app/ResourceRules.plist --entitlements /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy.xcent /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app0#
 
 CCompileC build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/Objects-normal/armv7/Action.o /Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/Action.m normal armv7 objective-c com.apple.compilers.gcc.4_2
 s323277540.910692
@@ -2507,8 +2506,8 @@ CCompileC build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/Objects-norma
 r0
 
 CCompileC build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/Objects-normal/armv7/Catalogue.o /Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/Catalogue.m normal armv7 objective-c com.apple.compilers.gcc.4_2
-s323285187.337056
-e323285187.493240
+s323358281.176971
+e323358281.345401
 r1
 xCompileC
 xbuild/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/Objects-normal/armv7/Catalogue.o
@@ -2517,21 +2516,7 @@ xnormal
 xarmv7
 xobjective-c
 xcom.apple.compilers.gcc.4_2
-o/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/Catalogue.m: In function '+[Catalogue resetSubjectOwner:]':
-o/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/Catalogue.m:59: warning: control reaches end of non-void function
-o/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/Catalogue.m: In function '+[Catalogue nextSubjectOwnerImage]':
-o/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/Catalogue.m:62: warning: control reaches end of non-void function
-o/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/Catalogue.m: In function '+[Catalogue nextSubjectDeviceImage]':
-o/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/Catalogue.m:65: warning: control reaches end of non-void function
-o/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/Catalogue.m: In function '+[Catalogue nextConditionViewController]':
-o/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/Catalogue.m:68: warning: control reaches end of non-void function
-o/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/Catalogue.m: In function '+[Catalogue nextActionViewController]':
-o/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/Catalogue.m:71: warning: control reaches end of non-void function
-o/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/Catalogue.m: In function '+[Catalogue nextActionSubject]':
-o/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/Catalogue.m:74: warning: control reaches end of non-void function
-o/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/Catalogue.m: In function '+[Catalogue nextAction]':
-o/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/Catalogue.m:77: warning: control reaches end of non-void function
-lSLF07#2@72"Compile /Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/Catalogue.m323285187#323285187#0(1637"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/Catalogue.m: In function '+[Catalogue resetSubjectOwner:]':/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/Catalogue.m:59: warning: control reaches end of non-void function/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/Catalogue.m: In function '+[Catalogue nextSubjectOwnerImage]':/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/Catalogue.m:62: warning: control reaches end of non-void function/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/Catalogue.m: In function '+[Catalogue nextSubjectDeviceImage]':/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/Catalogue.m:65: warning: control reaches end of non-void function/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/Catalogue.m: In function '+[Catalogue nextConditionViewController]':/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/Catalogue.m:68: warning: control reaches end of non-void function/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/Catalogue.m: In function '+[Catalogue nextActionViewController]':/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/Catalogue.m:71: warning: control reaches end of non-void function/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/Catalogue.m: In function '+[Catalogue nextActionSubject]':/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/Catalogue.m:74: warning: control reaches end of non-void function/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/Catalogue.m: In function '+[Catalogue nextAction]':/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/Catalogue.m:77: warning: control reaches end of non-void function7(22@40"Control reaches end of non-void function323285187#113#119#0(6@64"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/Catalogue.m323285182#59#0#59#0#40"control reaches end of non-void function0(22@40"Control reaches end of non-void function323285187#348#119#0(6@64"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/Catalogue.m323285182#62#0#62#0#40"control reaches end of non-void function0(22@40"Control reaches end of non-void function323285187#584#119#0(6@64"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/Catalogue.m323285182#65#0#65#0#40"control reaches end of non-void function0(22@40"Control reaches end of non-void function323285187#825#119#0(6@64"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/Catalogue.m323285182#68#0#68#0#40"control reaches end of non-void function0(22@40"Control reaches end of non-void function323285187#1063#119#0(6@64"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/Catalogue.m323285182#71#0#71#0#40"control reaches end of non-void function0(22@40"Control reaches end of non-void function323285187#1294#119#0(6@64"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/Catalogue.m323285182#74#0#74#0#40"control reaches end of non-void function0(22@40"Control reaches end of non-void function323285187#1518#119#0(6@64"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/Catalogue.m323285182#77#0#77#0#40"control reaches end of non-void function0(0#0#64"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/Catalogue.m8654747072#1888"    cd /Users/tlodge/iphone/ComicPolicy/ComicPolicy    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch armv7 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.2.sdk -fvisibility=hidden -gdwarf-2 -mthumb -miphoneos-version-min=3.2 -iquote /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-generated-files.hmap -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-own-target-headers.hmap -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-all-target-headers.hmap -iquote /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-project-headers.hmap -F/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/include -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/DerivedSources/armv7 -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/DerivedSources -include /var/folders/9t/9tAWA3i9EJKIk6x4yDSF-U+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/ComicPolicy_Prefix-agyvkojkqnabjqfkdmommnatypyu/ComicPolicy_Prefix.pch -c /Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/Catalogue.m -o /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/Objects-normal/armv7/Catalogue.o0#
+lSLF07#2@72"Compile /Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/Catalogue.m323358281#323358281#0(0"0(0#0#64"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/Catalogue.m8696642656#1888"    cd /Users/tlodge/iphone/ComicPolicy/ComicPolicy    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch armv7 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.2.sdk -fvisibility=hidden -gdwarf-2 -mthumb -miphoneos-version-min=3.2 -iquote /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-generated-files.hmap -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-own-target-headers.hmap -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-all-target-headers.hmap -iquote /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-project-headers.hmap -F/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/include -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/DerivedSources/armv7 -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/DerivedSources -include /var/folders/9t/9tAWA3i9EJKIk6x4yDSF-U+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/ComicPolicy_Prefix-agyvkojkqnabjqfkdmommnatypyu/ComicPolicy_Prefix.pch -c /Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/Catalogue.m -o /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/Objects-normal/armv7/Catalogue.o0#
 
 CCompileC build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/Objects-normal/armv7/ComicNavigationController.o /Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicNavigationController.m normal armv7 objective-c com.apple.compilers.gcc.4_2
 s323178451.794391
@@ -2549,8 +2534,8 @@ o/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicNavigationController.
 lSLF07#2@88"Compile /Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicNavigationController.m323178451#323178451#0(441"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicNavigationController.m:64: warning: property 'buttons' requires method '-buttons' to be defined - use @synthesize, @dynamic or provide a method implementation/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicNavigationController.m:64: warning: property 'buttons' requires the method 'setButtons:' to be defined - use @synthesize, @dynamic or provide a method implementation2(22@122"Property 'buttons' requires method '-buttons' to be defined - use @synthesize, @dynamic or provide a method implementation323178451#0#217#0(6@80"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicNavigationController.m323177264#64#0#64#0#0"0(22@129"Property 'buttons' requires the method 'setButtons:' to be defined - use @synthesize, @dynamic or provide a method implementation323178451#217#224#0(6@80"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicNavigationController.m323177264#64#0#64#0#0"0(0#0#80"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicNavigationController.m8626792640#1920"    cd /Users/tlodge/iphone/ComicPolicy/ComicPolicy    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch armv7 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.2.sdk -fvisibility=hidden -gdwarf-2 -mthumb -miphoneos-version-min=3.2 -iquote /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-generated-files.hmap -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-own-target-headers.hmap -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-all-target-headers.hmap -iquote /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-project-headers.hmap -F/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/include -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/DerivedSources/armv7 -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/DerivedSources -include /var/folders/9t/9tAWA3i9EJKIk6x4yDSF-U+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/ComicPolicy_Prefix-agyvkojkqnabjqfkdmommnatypyu/ComicPolicy_Prefix.pch -c /Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicNavigationController.m -o /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/Objects-normal/armv7/ComicNavigationController.o0#
 
 CCompileC build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/Objects-normal/armv7/ComicPolicyAppDelegate.o /Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyAppDelegate.m normal armv7 objective-c com.apple.compilers.gcc.4_2
-s323278879.153312
-e323278879.313960
+s323358179.599145
+e323358179.811508
 r1
 xCompileC
 xbuild/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/Objects-normal/armv7/ComicPolicyAppDelegate.o
@@ -2564,11 +2549,11 @@ o/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyAppDelegate.m:1
 o/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyAppDelegate.m:103: warning: (Messages without a matching method signature
 o/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyAppDelegate.m:103: warning: will be assumed to return 'id' and accept
 o/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyAppDelegate.m:103: warning: '...' as arguments.)
-lSLF07#2@85"Compile /Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyAppDelegate.m323278879#323278879#0(701"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyAppDelegate.m: In function '-[ComicPolicyAppDelegate persistentStoreCoordinator]':/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyAppDelegate.m:103: warning: 'ComicPolicyAppDelegate' may not respond to '-applicationDocumentsDirectory'/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyAppDelegate.m:103: warning: (Messages without a matching method signature/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyAppDelegate.m:103: warning: will be assumed to return 'id' and accept/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyAppDelegate.m:103: warning: '...' as arguments.)2(22@76"'ComicPolicyAppDelegate' may not respond to '-applicationDocumentsDirectory'323278879#147#169#0(6@77"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyAppDelegate.m323278859#103#0#103#0#26"'*' may not respond to '*'0(13@108"(Messages without a matching method signature will be assumed to return 'id' and accept '...' as arguments.)323278879#316#138#0(6@77"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyAppDelegate.m323278859#103#0#103#0#0"0(0#0#77"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyAppDelegate.m8643713024#1914"    cd /Users/tlodge/iphone/ComicPolicy/ComicPolicy    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch armv7 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.2.sdk -fvisibility=hidden -gdwarf-2 -mthumb -miphoneos-version-min=3.2 -iquote /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-generated-files.hmap -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-own-target-headers.hmap -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-all-target-headers.hmap -iquote /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-project-headers.hmap -F/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/include -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/DerivedSources/armv7 -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/DerivedSources -include /var/folders/9t/9tAWA3i9EJKIk6x4yDSF-U+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/ComicPolicy_Prefix-agyvkojkqnabjqfkdmommnatypyu/ComicPolicy_Prefix.pch -c /Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyAppDelegate.m -o /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/Objects-normal/armv7/ComicPolicyAppDelegate.o0#
+lSLF07#2@85"Compile /Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyAppDelegate.m323358179#323358179#0(701"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyAppDelegate.m: In function '-[ComicPolicyAppDelegate persistentStoreCoordinator]':/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyAppDelegate.m:103: warning: 'ComicPolicyAppDelegate' may not respond to '-applicationDocumentsDirectory'/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyAppDelegate.m:103: warning: (Messages without a matching method signature/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyAppDelegate.m:103: warning: will be assumed to return 'id' and accept/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyAppDelegate.m:103: warning: '...' as arguments.)2(22@76"'ComicPolicyAppDelegate' may not respond to '-applicationDocumentsDirectory'323358179#147#169#0(6@77"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyAppDelegate.m323278859#103#0#103#0#26"'*' may not respond to '*'0(13@108"(Messages without a matching method signature will be assumed to return 'id' and accept '...' as arguments.)323358179#316#138#0(6@77"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyAppDelegate.m323278859#103#0#103#0#0"0(0#0#77"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyAppDelegate.m8698800320#1914"    cd /Users/tlodge/iphone/ComicPolicy/ComicPolicy    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch armv7 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.2.sdk -fvisibility=hidden -gdwarf-2 -mthumb -miphoneos-version-min=3.2 -iquote /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-generated-files.hmap -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-own-target-headers.hmap -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-all-target-headers.hmap -iquote /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-project-headers.hmap -F/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/include -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/DerivedSources/armv7 -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/DerivedSources -include /var/folders/9t/9tAWA3i9EJKIk6x4yDSF-U+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/ComicPolicy_Prefix-agyvkojkqnabjqfkdmommnatypyu/ComicPolicy_Prefix.pch -c /Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyAppDelegate.m -o /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/Objects-normal/armv7/ComicPolicyAppDelegate.o0#
 
 CCompileC build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/Objects-normal/armv7/ComicPolicyViewController.o /Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyViewController.m normal armv7 objective-c com.apple.compilers.gcc.4_2
-s323277540.703190
-e323277540.996695
+s323358179.601932
+e323358179.937292
 r1
 xCompileC
 xbuild/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/Objects-normal/armv7/ComicPolicyViewController.o
@@ -2589,7 +2574,7 @@ o/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyViewController.
 o/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyViewController.m:191: warning: property 'buttons' requires the method 'setButtons:' to be defined - use @synthesize, @dynamic or provide a method implementation
 o/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyViewController.m:191: warning: property 'addNew' requires method '-addNew' to be defined - use @synthesize, @dynamic or provide a method implementation
 o/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyViewController.m:191: warning: property 'addNew' requires the method 'setAddNew:' to be defined - use @synthesize, @dynamic or provide a method implementation
-lSLF07#2@88"Compile /Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyViewController.m323277540#323277541#0(1971"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyViewController.m: In function '-[ComicPolicyViewController loadView]':/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyViewController.m:56: warning: 'ComicPolicyViewController' may not respond to '-addNavigationView'/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyViewController.m:56: warning: (Messages without a matching method signature/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyViewController.m:56: warning: will be assumed to return 'id' and accept/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyViewController.m:56: warning: '...' as arguments.)/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyViewController.m: In function '-[ComicPolicyViewController addNavigationView]':/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyViewController.m:66: warning: 'ComicPolicyViewController' may not respond to '-addSaveAndCancel'/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyViewController.m: At top level:/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyViewController.m:191: warning: property 'buttons' requires method '-buttons' to be defined - use @synthesize, @dynamic or provide a method implementation/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyViewController.m:191: warning: property 'buttons' requires the method 'setButtons:' to be defined - use @synthesize, @dynamic or provide a method implementation/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyViewController.m:191: warning: property 'addNew' requires method '-addNew' to be defined - use @synthesize, @dynamic or provide a method implementation/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyViewController.m:191: warning: property 'addNew' requires the method 'setAddNew:' to be defined - use @synthesize, @dynamic or provide a method implementation8(22@67"'ComicPolicyViewController' may not respond to '-addNavigationView'323277540#135#162#0(6@80"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyViewController.m323191926#56#0#56#0#26"'*' may not respond to '*'0(13@108"(Messages without a matching method signature will be assumed to return 'id' and accept '...' as arguments.)323277540#297#140#0(6@80"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyViewController.m323191926#56#0#56#0#0"0(22@66"'ComicPolicyViewController' may not respond to '-addSaveAndCancel'323277540#832#161#0(6@80"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyViewController.m323191926#66#0#66#0#26"'*' may not respond to '*'0(23@13"At top level:323277540#993#96#0(6@80"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyViewController.m323191926#0#0#0#0#0"0(22@122"Property 'buttons' requires method '-buttons' to be defined - use @synthesize, @dynamic or provide a method implementation323277540#1089#218#0(6@80"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyViewController.m323191926#191#0#191#0#0"0(22@129"Property 'buttons' requires the method 'setButtons:' to be defined - use @synthesize, @dynamic or provide a method implementation323277540#1307#225#0(6@80"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyViewController.m323191926#191#0#191#0#0"0(22@120"Property 'addNew' requires method '-addNew' to be defined - use @synthesize, @dynamic or provide a method implementation323277540#1532#216#0(6@80"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyViewController.m323191926#191#0#191#0#0"0(22@127"Property 'addNew' requires the method 'setAddNew:' to be defined - use @synthesize, @dynamic or provide a method implementation323277540#1748#223#0(6@80"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyViewController.m323191926#191#0#191#0#0"0(0#0#80"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyViewController.m8642050624#1920"    cd /Users/tlodge/iphone/ComicPolicy/ComicPolicy    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch armv7 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.2.sdk -fvisibility=hidden -gdwarf-2 -mthumb -miphoneos-version-min=3.2 -iquote /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-generated-files.hmap -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-own-target-headers.hmap -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-all-target-headers.hmap -iquote /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-project-headers.hmap -F/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/include -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/DerivedSources/armv7 -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/DerivedSources -include /var/folders/9t/9tAWA3i9EJKIk6x4yDSF-U+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/ComicPolicy_Prefix-agyvkojkqnabjqfkdmommnatypyu/ComicPolicy_Prefix.pch -c /Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyViewController.m -o /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/Objects-normal/armv7/ComicPolicyViewController.o0#
+lSLF07#2@88"Compile /Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyViewController.m323358179#323358179#0(1971"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyViewController.m: In function '-[ComicPolicyViewController loadView]':/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyViewController.m:56: warning: 'ComicPolicyViewController' may not respond to '-addNavigationView'/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyViewController.m:56: warning: (Messages without a matching method signature/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyViewController.m:56: warning: will be assumed to return 'id' and accept/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyViewController.m:56: warning: '...' as arguments.)/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyViewController.m: In function '-[ComicPolicyViewController addNavigationView]':/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyViewController.m:66: warning: 'ComicPolicyViewController' may not respond to '-addSaveAndCancel'/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyViewController.m: At top level:/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyViewController.m:191: warning: property 'buttons' requires method '-buttons' to be defined - use @synthesize, @dynamic or provide a method implementation/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyViewController.m:191: warning: property 'buttons' requires the method 'setButtons:' to be defined - use @synthesize, @dynamic or provide a method implementation/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyViewController.m:191: warning: property 'addNew' requires method '-addNew' to be defined - use @synthesize, @dynamic or provide a method implementation/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyViewController.m:191: warning: property 'addNew' requires the method 'setAddNew:' to be defined - use @synthesize, @dynamic or provide a method implementation8(22@67"'ComicPolicyViewController' may not respond to '-addNavigationView'323358179#135#162#0(6@80"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyViewController.m323191926#56#0#56#0#26"'*' may not respond to '*'0(13@108"(Messages without a matching method signature will be assumed to return 'id' and accept '...' as arguments.)323358179#297#140#0(6@80"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyViewController.m323191926#56#0#56#0#0"0(22@66"'ComicPolicyViewController' may not respond to '-addSaveAndCancel'323358179#832#161#0(6@80"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyViewController.m323191926#66#0#66#0#26"'*' may not respond to '*'0(23@13"At top level:323358179#993#96#0(6@80"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyViewController.m323191926#0#0#0#0#0"0(22@122"Property 'buttons' requires method '-buttons' to be defined - use @synthesize, @dynamic or provide a method implementation323358179#1089#218#0(6@80"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyViewController.m323191926#191#0#191#0#0"0(22@129"Property 'buttons' requires the method 'setButtons:' to be defined - use @synthesize, @dynamic or provide a method implementation323358179#1307#225#0(6@80"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyViewController.m323191926#191#0#191#0#0"0(22@120"Property 'addNew' requires method '-addNew' to be defined - use @synthesize, @dynamic or provide a method implementation323358179#1532#216#0(6@80"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyViewController.m323191926#191#0#191#0#0"0(22@127"Property 'addNew' requires the method 'setAddNew:' to be defined - use @synthesize, @dynamic or provide a method implementation323358179#1748#223#0(6@80"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyViewController.m323191926#191#0#191#0#0"0(0#0#80"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyViewController.m8701156448#1920"    cd /Users/tlodge/iphone/ComicPolicy/ComicPolicy    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch armv7 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.2.sdk -fvisibility=hidden -gdwarf-2 -mthumb -miphoneos-version-min=3.2 -iquote /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-generated-files.hmap -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-own-target-headers.hmap -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-all-target-headers.hmap -iquote /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-project-headers.hmap -F/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/include -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/DerivedSources/armv7 -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/DerivedSources -include /var/folders/9t/9tAWA3i9EJKIk6x4yDSF-U+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/ComicPolicy_Prefix-agyvkojkqnabjqfkdmommnatypyu/ComicPolicy_Prefix.pch -c /Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/ComicPolicyViewController.m -o /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/Objects-normal/armv7/ComicPolicyViewController.o0#
 
 CCompileC build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/Objects-normal/armv7/Condition.o /Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/Condition.m normal armv7 objective-c com.apple.compilers.gcc.4_2
 s323277541.090994
@@ -3186,8 +3171,8 @@ xcom.apple.compilers.gcc.4_2
 lSLF07#2@74"Compile /Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/SubjectView.m320347420#320347420#0(0"0(0#0#66"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/SubjectView.m8642966624#1892"    cd /Users/tlodge/iphone/ComicPolicy/ComicPolicy    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch armv7 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.2.sdk -fvisibility=hidden -gdwarf-2 -mthumb -miphoneos-version-min=3.2 -iquote /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-generated-files.hmap -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-own-target-headers.hmap -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-all-target-headers.hmap -iquote /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-project-headers.hmap -F/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/include -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/DerivedSources/armv7 -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/DerivedSources -include /var/folders/9t/9tAWA3i9EJKIk6x4yDSF-U+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/ComicPolicy_Prefix-agyvkojkqnabjqfkdmommnatypyu/ComicPolicy_Prefix.pch -c /Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/SubjectView.m -o /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/Objects-normal/armv7/SubjectView.o0#
 
 CCompileC build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/Objects-normal/armv7/SubjectViewController.o /Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/SubjectViewController.m normal armv7 objective-c com.apple.compilers.gcc.4_2
-s320347420.882554
-e320347421.086744
+s323358179.811766
+e323358179.962184
 r1
 xCompileC
 xbuild/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/Objects-normal/armv7/SubjectViewController.o
@@ -3196,7 +3181,7 @@ xnormal
 xarmv7
 xobjective-c
 xcom.apple.compilers.gcc.4_2
-lSLF07#2@84"Compile /Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/SubjectViewController.m320347420#320347421#0(0"0(0#0#76"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/SubjectViewController.m8642004416#1912"    cd /Users/tlodge/iphone/ComicPolicy/ComicPolicy    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch armv7 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.2.sdk -fvisibility=hidden -gdwarf-2 -mthumb -miphoneos-version-min=3.2 -iquote /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-generated-files.hmap -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-own-target-headers.hmap -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-all-target-headers.hmap -iquote /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-project-headers.hmap -F/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/include -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/DerivedSources/armv7 -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/DerivedSources -include /var/folders/9t/9tAWA3i9EJKIk6x4yDSF-U+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/ComicPolicy_Prefix-agyvkojkqnabjqfkdmommnatypyu/ComicPolicy_Prefix.pch -c /Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/SubjectViewController.m -o /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/Objects-normal/armv7/SubjectViewController.o0#
+lSLF07#2@84"Compile /Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/SubjectViewController.m323358179#323358179#0(0"0(0#0#76"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/SubjectViewController.m8696379648#1912"    cd /Users/tlodge/iphone/ComicPolicy/ComicPolicy    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch armv7 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.2.sdk -fvisibility=hidden -gdwarf-2 -mthumb -miphoneos-version-min=3.2 -iquote /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-generated-files.hmap -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-own-target-headers.hmap -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-all-target-headers.hmap -iquote /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy-project-headers.hmap -F/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/include -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/DerivedSources/armv7 -I/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/DerivedSources -include /var/folders/9t/9tAWA3i9EJKIk6x4yDSF-U+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/ComicPolicy_Prefix-agyvkojkqnabjqfkdmommnatypyu/ComicPolicy_Prefix.pch -c /Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/SubjectViewController.m -o /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/Objects-normal/armv7/SubjectViewController.o0#
 
 CCompileC build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/Objects-normal/armv7/main.o /Users/tlodge/iphone/ComicPolicy/ComicPolicy/main.m normal armv7 objective-c com.apple.compilers.gcc.4_2
 s320160972.634517
@@ -4209,22 +4194,22 @@ xresultscene/characters/Thumbs.db
 lSLF07#2@37"Copy resultscene/characters/Thumbs.db320160967#320160967#0(0"0(0#0#77"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/resultscene/characters/Thumbs.db8665556128#484"    cd /Users/tlodge/iphone/ComicPolicy/ComicPolicy    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -resolve-src-symlinks /Users/tlodge/iphone/ComicPolicy/ComicPolicy/resultscene/characters/Thumbs.db /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app0#
 
 CCpResource build/Debug-iphoneos/ComicPolicy.app/data.json data.json
-s323285083.327484
-e323285083.337746
+s323355720.982211
+e323355720.989121
 r1
 xCpResource
 xbuild/Debug-iphoneos/ComicPolicy.app/data.json
 xdata.json
-lSLF07#2@14"Copy data.json323285083#323285083#0(0"0(0#0#54"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/data.json8657701088#461"    cd /Users/tlodge/iphone/ComicPolicy/ComicPolicy    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -resolve-src-symlinks /Users/tlodge/iphone/ComicPolicy/ComicPolicy/data.json /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app0#
+lSLF07#2@14"Copy data.json323355720#323355720#0(0"0(0#0#54"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/data.json8694976160#461"    cd /Users/tlodge/iphone/ComicPolicy/ComicPolicy    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -resolve-src-symlinks /Users/tlodge/iphone/ComicPolicy/ComicPolicy/data.json /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app0#
 
 CCpResource build/Debug-iphoneos/ComicPolicy.app/json2.json json2.json
-s323285538.419139
-e323285538.426893
+s323346289.093487
+e323346289.100199
 r1
 xCpResource
 xbuild/Debug-iphoneos/ComicPolicy.app/json2.json
 xjson2.json
-lSLF07#2@15"Copy json2.json323285538#323285538#0(0"0(0#0#55"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/json2.json8661742368#462"    cd /Users/tlodge/iphone/ComicPolicy/ComicPolicy    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -resolve-src-symlinks /Users/tlodge/iphone/ComicPolicy/ComicPolicy/json2.json /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app0#
+lSLF07#2@15"Copy json2.json323346289#323346289#0(0"0(0#0#55"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/json2.json8674325536#462"    cd /Users/tlodge/iphone/ComicPolicy/ComicPolicy    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -resolve-src-symlinks /Users/tlodge/iphone/ComicPolicy/ComicPolicy/json2.json /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app0#
 
 CDataModelCompile /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app/policy.mom /Users/tlodge/iphone/ComicPolicy/ComicPolicy/Classes/policy.xcdatamodel
 s323277540.578810
@@ -4248,23 +4233,23 @@ CDataModelCompile /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphon
 r0
 
 CGenerateDSYMFile /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app.dSYM /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app/ComicPolicy
-s323285187.610770
-e323285187.768499
+s323358281.425117
+e323358281.497516
 r1
 xGenerateDSYMFile
 x/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app.dSYM
 x/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app/ComicPolicy
-lSLF07#2@107"GenerateDSYMFile build/Debug-iphoneos/ComicPolicy.app.dSYM build/Debug-iphoneos/ComicPolicy.app/ComicPolicy323285187#323285187#0(0"0(0#0#93"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app/ComicPolicy8653734336#392"    cd /Users/tlodge/iphone/ComicPolicy/ComicPolicy    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/usr/bin/dsymutil /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app/ComicPolicy -o /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app.dSYM0#
+lSLF07#2@107"GenerateDSYMFile build/Debug-iphoneos/ComicPolicy.app.dSYM build/Debug-iphoneos/ComicPolicy.app/ComicPolicy323358281#323358281#0(0"0(0#0#93"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app/ComicPolicy8701046432#392"    cd /Users/tlodge/iphone/ComicPolicy/ComicPolicy    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/usr/bin/dsymutil /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app/ComicPolicy -o /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app.dSYM0#
 
 CLd /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app/ComicPolicy normal armv7
-s323285187.493348
-e323285187.610545
+s323358281.345513
+e323358281.424951
 r1
 xLd
 x/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app/ComicPolicy
 xnormal
 xarmv7
-lSLF07#2@98"Link /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app/ComicPolicy323285187#323285187#0(0"0(0#0#0"8658971520#914"    cd /Users/tlodge/iphone/ComicPolicy/ComicPolicy    setenv IPHONEOS_DEPLOYMENT_TARGET 3.2    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/gcc-4.2 -arch armv7 -isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.2.sdk -L/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos -F/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos -filelist /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/Objects-normal/armv7/ComicPolicy.LinkFileList -dead_strip -miphoneos-version-min=3.2 -framework Foundation -framework UIKit -framework CoreGraphics -framework QuartzCore -framework CoreData -o /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app/ComicPolicy0#
+lSLF07#2@98"Link /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app/ComicPolicy323358281#323358281#0(0"0(0#0#0"8699365248#914"    cd /Users/tlodge/iphone/ComicPolicy/ComicPolicy    setenv IPHONEOS_DEPLOYMENT_TARGET 3.2    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/gcc-4.2 -arch armv7 -isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.2.sdk -L/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos -F/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos -filelist /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/Objects-normal/armv7/ComicPolicy.LinkFileList -dead_strip -miphoneos-version-min=3.2 -framework Foundation -framework UIKit -framework CoreGraphics -framework QuartzCore -framework CoreData -o /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app/ComicPolicy0#
 
 CProcessInfoPlistFile /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app/Info.plist ComicPolicy-Info.plist
 s320160955.371487
@@ -4307,10 +4292,10 @@ x/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-ipho
 lSLF07#2@187"ProcessProductPackaging /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.2.sdk/Entitlements.plist build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy.xcent320160973#320160973#0(0"0(0#0#119"/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy.xcent8634044032#456"    cd /Users/tlodge/iphone/ComicPolicy/ComicPolicy    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    <com.apple.tools.product-pkg-utility> /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.2.sdk/Entitlements.plist -entitlements -format xml -o /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/ComicPolicy.build/Debug-iphoneos/ComicPolicy.build/ComicPolicy.xcent0#
 
 CTouch /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app
-s323285538.433530
-e323285538.439952
+s323358281.497748
+e323358281.502243
 r1
 xTouch
 x/Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app
-lSLF07#2@87"Touch /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app323285538#323285538#0(0"0(0#0#0"8662021472#280"    cd /Users/tlodge/iphone/ComicPolicy/ComicPolicy    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /usr/bin/touch -c /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app0#
+lSLF07#2@87"Touch /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app323358281#323358281#0(0"0(0#0#0"8695116640#280"    cd /Users/tlodge/iphone/ComicPolicy/ComicPolicy    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /usr/bin/touch -c /Users/tlodge/iphone/ComicPolicy/ComicPolicy/build/Debug-iphoneos/ComicPolicy.app0#
 

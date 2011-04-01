@@ -34,7 +34,7 @@ static SubjectImageLookup *lookup;
 		[UIView setAnimationDuration:0.75];
 		[UIView setAnimationDelegate:self];
 		[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight forView:subjectView.topImage cache:NO];
-		subjectView.topImage.image = [UIImage imageNamed:[lookup getNextTopImage]];
+		subjectView.topImage.image = [UIImage imageNamed: [Catalogue nextSubjectOwnerImage]];
 		[UIView commitAnimations];
 	}
 	else if (CGRectContainsPoint(subjectView.bottomImage.frame, touchLocation)){
@@ -42,7 +42,7 @@ static SubjectImageLookup *lookup;
 		[UIView setAnimationDuration:0.75];
 		[UIView setAnimationDelegate:self];
 		[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:subjectView.bottomImage cache:NO];
-		subjectView.bottomImage.image = [UIImage imageNamed:[lookup getNextBottomImage]];
+		subjectView.bottomImage.image = [UIImage imageNamed:[Catalogue nextSubjectDeviceImage]];
 		[UIView commitAnimations];
 	}
 
@@ -60,9 +60,18 @@ static SubjectImageLookup *lookup;
 	subjectView = aview;
 	self.view = subjectView;
 	[aview release];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(subjectOwnerChange:) name:@"subjectOwnerChange" object:nil];	
 
 }
 
+-(void) subjectOwnerChange:(NSNotification *) n{
+	[UIView beginAnimations:nil context:nil];
+	[UIView setAnimationDuration:1.00];
+	[UIView setAnimationDelegate:self];
+	[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:subjectView.bottomImage cache:NO];
+	subjectView.bottomImage.image = [UIImage imageNamed:[Catalogue currentSubjectDeviceImage]];
+	[UIView commitAnimations];
+}
 
 /*
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
