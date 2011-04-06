@@ -11,6 +11,7 @@
 
 @interface ResultView : UIView {
 	UIWebView *monitorWebView;
+	UIImageView *monitorImage;
 	UIActivityIndicatorView *activityIndicatorView;
 	UIImageView *resultMainImage;
 	UIImageView *comicframe;
@@ -18,6 +19,7 @@
 
 @property(nonatomic,retain) UIWebView *monitorWebView;
 @property(nonatomic,retain) UIImageView *resultMainImage;
+@property(nonatomic,retain) UIImageView *monitorImage;
 @property(nonatomic,retain) UIImageView *comicframe;
 @property(nonatomic,retain) UIActivityIndicatorView *activityIndicatorView;
 

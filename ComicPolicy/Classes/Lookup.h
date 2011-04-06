@@ -15,6 +15,7 @@
 
 +(NSString *) lookupmonitor: (NSString *) conditionscene;
 +(NSString *) lookupresult: (NSString *) actionscene;
++(NSString *) lookupmonitorvc: (NSString *) actionscene;
 +(NSString *) nextConditionImage;
 +(NSString *) nextPeopleImage;
 +(NSString *) nextDeviceImage;

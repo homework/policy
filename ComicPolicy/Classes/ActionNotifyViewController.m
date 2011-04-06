@@ -17,14 +17,21 @@ static NotifyActionImageLookup *lookup;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
 		CGRect aframe = CGRectMake(0,20,294,321);
-		lookup = [[NotifyActionImageLookup alloc] init];
-		ActionNotifyView *aview = [[ActionNotifyView alloc] initWithFrameAndLookup:aframe lookup:lookup];//
+		//lookup = [[NotifyActionImageLookup alloc] init];
+		
+		NSString *topImage = [Catalogue currentActionSubjectImage];
+		NSString *bottomImage = [Catalogue currentActionImage];
+		
+		ActionNotifyView *aview = [[ActionNotifyView alloc] initWithFrameAndImages:aframe topImage:topImage bottomImage:bottomImage];
 		actionNotifyView = aview;
 		self.view = aview;
 		[aview release];
+		
+			
 	}
     return self;
 }
+
 
 
 
@@ -50,7 +57,7 @@ static NotifyActionImageLookup *lookup;
 	
 	if (CGRectContainsPoint(actionNotifyView.personImage.frame, touchLocation)){
 		
-		NSString* personImage = [lookup getNextTopImage];//[personImages objectAtIndex:++personImageIndex % [personImages count]];
+		NSString* personImage = [Catalogue nextActionSubjectImage];//[lookup getNextTopImage];//[personImages objectAtIndex:++personImageIndex % [personImages count]];
 		[UIView beginAnimations:nil context:nil];
 		[UIView setAnimationDuration:0.75];
 		[UIView setAnimationDelegate:self];
@@ -58,19 +65,16 @@ static NotifyActionImageLookup *lookup;
 		[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight forView:actionNotifyView.personImage cache:YES];
 		actionNotifyView.personImage.image = [UIImage imageNamed:personImage];
 		[UIView commitAnimations];
-		NSDictionary* dict = [NSDictionary dictionaryWithObject:personImage forKey:@"action"];
-		[[NSNotificationCenter defaultCenter] postNotificationName:@"actionSubjectChange" object:nil userInfo:dict];
-		
-		
+		//NSLog(@"sendng notification .......%@", personImage);
 	}
 	else if (CGRectContainsPoint(actionNotifyView.notifyImage.frame, touchLocation)){
 		
-		
+		NSString *nextImage = [Catalogue nextActionImage];
 		[UIView beginAnimations:nil context:nil];
 		[UIView setAnimationDuration:0.75];
 		[UIView setAnimationDelegate:self];
 		[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight forView:actionNotifyView.notifyImage cache:YES];
-		actionNotifyView.notifyImage.image = [UIImage imageNamed:[lookup getNextBottomImage]];// [UIImage imageNamed:[notifyImages objectAtIndex:++notifyImageIndex % [notifyImages count]]];
+		actionNotifyView.notifyImage.image = [UIImage imageNamed:nextImage];// [UIImage imageNamed:[notifyImages objectAtIndex:++notifyImageIndex % [notifyImages count]]];
 		[UIView commitAnimations];
 		
 	}

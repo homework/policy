@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
+#import <AVFoundation/AVFoundation.h>
 #import "SubjectViewController.h";
 #import "RootConditionViewController.h";
 #import "RootActionViewController.h";
@@ -21,6 +22,8 @@
 	NSMutableArray *policyids;
 	UIImageView *deleteButton;
 	UIImageView *saveButton;
+	AVAudioPlayer *tickPlayer;
+	AVAudioPlayer *tockPlayer;
 	
 	NavigationViewController	*navigationViewController;
 	SubjectViewController		*subjectViewController;
@@ -30,11 +33,15 @@
 	ActionTimeViewController *actionTimeViewController;
 	
 }
+-(void) playTock:(NSTimer *)timer;
+
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, retain) NSMutableArray *buttons;
 @property (nonatomic, retain) UIImageView *addNew;
 @property (nonatomic, retain) UIImageView *deleteButton;
 @property (nonatomic, retain) UIImageView *saveButton;
 @property (nonatomic, retain) NSMutableArray *policyids;
+@property (nonatomic, retain) AVAudioPlayer *tickPlayer;
+@property (nonatomic, retain) AVAudioPlayer *tockPlayer;
 @end
 

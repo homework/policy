@@ -15,5 +15,5 @@
 
 @property(nonatomic, retain) UIImageView* upImage;
 - (id)initWithFrameAndLookup:(CGRect)frame lookup:(NSObject<ImageLookup>*)lookup;
-
+- (id)initWithFrameAndImages:(CGRect)frame topImage:(NSString*) topImage bottomImage: (NSString *) bottomImage;
 @end

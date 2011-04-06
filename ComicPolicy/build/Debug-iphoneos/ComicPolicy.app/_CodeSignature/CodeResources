@@ -86,7 +86,7 @@
 		</data>
 		<key>computerunblocked.png</key>
 		<data>
-		BX+hzIEHPcMd9BEUVQSeDiJ2jHc=
+		ItKcZ52S2RHsjc8tHm4cJGSSc1c=
 		</data>
 		<key>condcomputer.png</key>
 		<data>
@@ -126,11 +126,11 @@
 		</data>
 		<key>data.json</key>
 		<data>
-		5t2Kj7uM3fdpAbAsZxjYGKxxsVs=
+		7QvyiTXiIZnUy4D5lSBdC/bEf7A=
 		</data>
 		<key>desktopunblocked.png</key>
 		<data>
-		IGtkipLwerNRlB9NQaJI5VL7+qY=
+		iq+ufJyiI5jsh8SimrXBr9bXHYY=
 		</data>
 		<key>devices.png</key>
 		<data>
@@ -214,7 +214,7 @@
 		</data>
 		<key>laptopunblocked.png</key>
 		<data>
-		2jkLfqLkGjf3VzPs9erRu/ZELi0=
+		i6ULSMLEOsGKTXEyqm3NZ8P0dFU=
 		</data>
 		<key>minute.png</key>
 		<data>
@@ -286,7 +286,7 @@
 		</data>
 		<key>phoneunblocked.png</key>
 		<data>
-		RMERdhvWtQtpDo5z0+4oDUjqJdo=
+		qNQ46rwmTmdJniYJ+ydnDV/C+kk=
 		</data>
 		<key>policy.mom</key>
 		<data>
@@ -316,6 +316,10 @@
 		<data>
 		z5oITOVrekrwj2LmAFswkmnHpE4=
 		</data>
+		<key>selecthours.png</key>
+		<data>
+		xENnSid8hGzUobmb015bTxxMl5Q=
+		</data>
 		<key>sgreenbuttonup.png</key>
 		<data>
 		Crt3Uas4A3bnsIaqH9K15vrHYE0=
@@ -328,9 +332,17 @@
 		<data>
 		HXuvuvaIM0IiCl9KjZNUFpsn+pw=
 		</data>
+		<key>tick.caf</key>
+		<data>
+		eRWN8s4E+oldy0WhHqRHuO5SvE8=
+		</data>
 		<key>timed.png</key>
 		<data>
 		z6FYQuQD6cQTrucHqqzjDgNZyA8=
+		</data>
+		<key>tock.caf</key>
+		<data>
+		AVghouEsqzQ6BxLiFwbQhIWhTV4=
 		</data>
 		<key>visiting.png</key>
 		<data>

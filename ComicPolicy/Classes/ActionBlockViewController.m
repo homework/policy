@@ -16,15 +16,37 @@ static NotifyActionImageLookup *lookup;
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
+		NSLog(@"ading notiofcation suppiort");
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionChange:) name:@"actionChange" object:nil];	
+		
 		CGRect aframe = CGRectMake(0,20,294,321);
-		lookup = [[BlockActionImageLookup alloc] init];
-		ActionBlockView *aview = [[ActionBlockView alloc] initWithFrameAndLookup:aframe lookup:lookup];//
+		//lookup = [[BlockActionImageLookup alloc] init];
+		NSString *topImage = [Catalogue currentActionSubjectImage];
+		NSString *bottomImage = [Catalogue currentActionImage];
+
+		ActionBlockView *aview = [[ActionBlockView alloc] initWithFrameAndImages:aframe topImage:topImage bottomImage:bottomImage];//
 		actionBlockView = aview;
 		self.view = aview;
 		[aview release];
         // Custom initialization
+		//NSLog(@"ading notification suppiort");
+		//[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionChange:) name:@"actionChange" object:nil];	
+		
+		
     }
     return self;
+}
+
+-(void) actionChange:(NSNotification *) n{
+	
+	NSString* deviceImage =  [Catalogue currentActionImage];// [lookup getNextBottomImage];//[personImages objectAtIndex:++personImageIndex % [personImages count]];
+	[UIView beginAnimations:nil context:nil];
+	[UIView setAnimationDuration:0.75];
+	[UIView setAnimationDelay:0.75];
+	[UIView setAnimationDelegate:self];
+	[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:actionBlockView.blockImage cache:YES];
+	actionBlockView.blockImage.image = [UIImage imageNamed:deviceImage];// [UIImage imageNamed:[notifyImages objectAtIndex:++notifyImageIndex % [notifyImages count]]];
+	[UIView commitAnimations];	
 }
 
 
@@ -37,7 +59,8 @@ static NotifyActionImageLookup *lookup;
 	
 	if (CGRectContainsPoint(actionBlockView.personImage.frame, touchLocation)){
 		
-		NSString* personImage = [lookup getNextTopImage];//[personImages objectAtIndex:++personImageIndex % [personImages count]];
+		NSString* personImage = [Catalogue nextActionSubjectImage];//[personImages objectAtIndex:++personImageIndex % [personImages count]];
+		NSLog(@"block: loading up image %@", personImage);
 		[UIView beginAnimations:nil context:nil];
 		[UIView setAnimationDuration:0.75];
 		[UIView setAnimationDelegate:self];
@@ -48,7 +71,7 @@ static NotifyActionImageLookup *lookup;
 		
 	}
 	else if (CGRectContainsPoint(actionBlockView.blockImage.frame, touchLocation)){
-		NSString* deviceImage = [lookup getNextBottomImage];//[personImages objectAtIndex:++personImageIndex % [personImages count]];
+		NSString* deviceImage =  [Catalogue nextActionImage];// [lookup getNextBottomImage];//[personImages objectAtIndex:++personImageIndex % [personImages count]];
 		
 		[UIView beginAnimations:nil context:nil];
 		[UIView setAnimationDuration:0.75];
@@ -56,8 +79,9 @@ static NotifyActionImageLookup *lookup;
 		[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight forView:actionBlockView.blockImage cache:YES];
 		actionBlockView.blockImage.image = [UIImage imageNamed:deviceImage];// [UIImage imageNamed:[notifyImages objectAtIndex:++notifyImageIndex % [notifyImages count]]];
 		[UIView commitAnimations];
-		NSDictionary* dict = [NSDictionary dictionaryWithObject:deviceImage forKey:@"action"];
-		[[NSNotificationCenter defaultCenter] postNotificationName:@"actionSubjectChange" object:nil userInfo:dict];
+		
+		//NSDictionary* dict = [NSDictionary dictionaryWithObject:deviceImage forKey:@"action"];
+		//[[NSNotificationCenter defaultCenter] postNotificationName:@"actionSubjectChange" object:nil userInfo:dict];
 		
 	}
 	[super touchesBegan:touches withEvent:event];
@@ -65,18 +89,22 @@ static NotifyActionImageLookup *lookup;
 }
 
 
-/*
-// Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView {
-}
-*/
 
-/*
+
+
+// Implement loadView to create a view hierarchy programmatically, without using a nib.
+/*- (void)loadView {
+	
+
+}*/
+
+
+
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
 }
-*/
+
 
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {

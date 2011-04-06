@@ -6,69 +6,69 @@
             "dad":
                 {
                     "main":"dad.png",
-                    "blocked":"blockdad.png",
+                    "block":"blockdad.png",
                     "notify":"notifydad.png"
                 },
                 
             "katie":
                 {
                     "main":"katie.png",
-                    "blocked":"blockkatie.png",
+                    "block":"blockkatie.png",
                     "notify":"notifykatie.png"
                 },
             "mum":
                 {
                     "main":"mum.png",
-                    "blocked":"blockmum.png",
+                    "block":"blockmum.png",
                     "notify":"notifymum.png"
                 },
             "john":
                 {
                     "main":"john.png",
-                    "blocked":"blockjohn.png",
+                    "block":"blockjohn.png",
                     "notify":"notifyjohn.png"
                 },
             "everyone":
                 {
                     "main":"everyone.png",
-                    "blocked":"blockeveryone.png",
+                    "block":"blockeveryone.png",
                     "notify":"notifyeveryone.png"
                 },
             "0000aaaa":
                 {
                     "main":"condlaptop.png",
-                    "blocked":"aslaptop.png"
+                    "block":"aslaptop.png"
                 },
             "0000bbbb":
                 {
                     "main":"condphone.png",
-                    "blocked":"asphone.png"
+                    "block":"asphone.png"
                 },
             "0000cccc":
                 {
                     "main":"conddesktop.png",
-                    "blocked":"asdesktop.png"
+                    "block":"asdesktop.png"
                 },
             "0000dddd":
                 {
                     "main":"condcomputer.png",
-                    "blocked":"ascomputer.png"
+                    "block":"ascomputer.png"
                 },
             "0000eeee":
                 {
                     "main":"condcomputer.png",
-                    "blocked":"ascomputer.png"
+                    "block":"ascomputer.png"
                 },
             "0000ffff":
                 {
                     "main":"condcomputer.png",
-                    "blocked":"ascomputer.png"
+                    "block":"ascomputer.png"
                 },
             "notify":
                 {
                     "tweet":"notifybytweet.png",
                     "phone":"notifybyphone.png",
-                    "mail":"notofybymail.png",
+                    "mail":"notifybymail.png",
                     "sound":"notifybysound.png"
                 }
         },
@@ -104,49 +104,31 @@
                     "name": "lounge computer"
                 }
         },
-        
+		
+		"vcs":{
+			"actions":{
+                            "notify": "ActionNotifyViewController",
+                            "block":  "ActionBlockViewController"
+                       },
+                       
+			"conditions":[]
+		},
         
         "ownership":{
-            "dad":[
-                "0000aaaa","0000bbbb"
-            ],
-            "katie":[
-                "0000cccc"
-            ],
-            "mum":[
-                "0000dddd"
-            ],
-            "john":[
-                "0000eeee"
-            ],
-            "everyone":[
-                "0000ffff"
-            ]
+            "dad":["0000aaaa","0000bbbb"],
+            "katie":["0000cccc"],
+            "mum":["0000dddd"],
+            "john":["0000eeee"],
+            "everyone":["0000ffff"]
         },
         
          "actions":{
             "notify":{
-                "subjects":[
-                    {"identity": "dad"},
-                    {"identity": "mum"},
-                    {"identity": "katie"},
-                    {"identity": "john"}
-                ],
-                "actions":[
-                    {"identity": "tweet"},
-                    {"identity": "phone"},
-                    {"identity": "sound"},
-                    {"identity": "mail"}
-                ]
+                "subjects":["dad","mum","katie","john"],
+                "actions":["tweet","phone","sound","mail"]
             },
             "block":{
-                "subjects":[
-                    {"identity": "dad"},
-                    {"identity": "mum"},
-                    {"identity": "katie"},
-                    {"identity": "john"},
-                    {"identity": "everyone"}
-                ]
+                "subjects":["dad","mum","katie","john"]
             }
         }
     }

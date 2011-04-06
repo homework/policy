@@ -22,6 +22,7 @@
 		conditionBandwidthView = aconditionview;
 		self.view = aconditionview;
 		
+		
 		UIPinchGestureRecognizer *pinchGestureRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinch:)];
 		[self.view addGestureRecognizer:pinchGestureRecognizer];
 		[pinchGestureRecognizer release];
@@ -69,7 +70,9 @@
 		
 	}
 	
+	int x = ((float) view.frame.size.width / 150) * 100;
 	
+	conditionBandwidthView.bandwidthLabel.text = [NSString stringWithFormat:@"%d%%", x];
 	
 }
 

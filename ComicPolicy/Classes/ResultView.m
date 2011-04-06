@@ -11,28 +11,15 @@
 
 @implementation ResultView
 @synthesize monitorWebView;
+@synthesize monitorImage;
 @synthesize resultMainImage;
 @synthesize comicframe;
 @synthesize activityIndicatorView;
 
 - (id)initWithFrame:(CGRect)frame {
     if ((self = [super initWithFrame:frame])) {
-		//self.autoresizingMask = UIViewAutoresizingNone;
 		
 		
-		UIWebView *tmpWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0,0,500,300)];
-		NSString *urlAddress = @"http://192.168.1.1:8080/bandwidth-monitor/";
-		NSURL *url = [NSURL URLWithString:urlAddress];
-		NSURLRequest *requestObject = [NSURLRequest requestWithURL:url];
-		[tmpWebView loadRequest:requestObject];
-		[self addSubview:tmpWebView];
-		self.monitorWebView = tmpWebView;
-		[tmpWebView release];
-		
-		UIImageView *whiteMask = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"whitemask.png"]];
-		whiteMask.frame = CGRectMake(439, 0, 130, 298);
-		[self addSubview:whiteMask];
-		[whiteMask release];
 		
 		UIImageView *tmpResultBack = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dadwaiting.png"]];
 		tmpResultBack.autoresizingMask = UIViewContentModeScaleAspectFit;// | UIViewAutoresizingFlexibleHeight;
@@ -49,12 +36,11 @@
 		[tmpIndicatorView release];
 		
 											
-		//UIImageView *tmpMonitor = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"resulttype.png"]];
-		//tmpMonitor.autoresizingMask = UIViewContentModeScaleAspectFit;// UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-		//[self addSubview:tmpMonitor];
-		//self.monitorImage = tmpMonitor;
-		//[tmpMonitor release];
-		
+		/*UIImageView *tmpMonitor = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"resulttype.png"]];
+		tmpMonitor.autoresizingMask = UIViewContentModeScaleAspectFit;// UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+		[self addSubview:tmpMonitor];
+		self.monitorImage = tmpMonitor;
+		[tmpMonitor release];		*/
 		
 		
 		UIImageView* tmpframe = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bigframe.png"]];

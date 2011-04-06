@@ -11,11 +11,14 @@
 #import "ResultView.h"
 #import "Lookup.h"
 #import "SubjectView.h"
+#import "ResultViewController.h"
 
 @interface RootResultViewController : UIViewController <UIWebViewDelegate>{
-	ResultView* resultView;
-	NSString* currentMonitorScene;
-	NSString* currentActionScene;
+	//ResultView* resultView;
+	ResultViewController * currentController;
+	
 }
+
+@property(nonatomic, retain) ResultViewController* currentController;
 
 @end

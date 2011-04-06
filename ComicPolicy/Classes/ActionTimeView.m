@@ -15,6 +15,14 @@
 - (id)initWithFrame:(CGRect)frame {
     if ((self = [super initWithFrame:frame])) {
         // Initialization code
+		UIImageView *tmp = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"selecthours.png"]];
+	
+		[self addSubview:tmp];
+		[tmp release];
+		UIImageView* tmpframe = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"frame.png"]];
+		[self addSubview:tmpframe];
+		[tmpframe release];
+		
     }
     return self;
 }

@@ -19,6 +19,7 @@ static BOOL init = FALSE;
 
 static NSArray *conditions;
 static NSArray *monitors;
+static NSArray *monitorvcs;
 static NSArray *actions;
 static NSArray *results;
 
@@ -30,7 +31,7 @@ static int notifyByImageIndex;
 
 NSMutableDictionary *scenemonitor;
 NSMutableDictionary *sceneresult;
-
+NSMutableDictionary *monitorvcresult;
 
 +(void) initialize{
 	if (init)
@@ -68,23 +69,32 @@ NSMutableDictionary *sceneresult;
 					@"phoneunblocked.png",
 					nil] retain];
 	
-	/*monitors	= [[NSArray arrayWithObjects: @"resultbandwidth.png",
+	monitors	= [[NSArray arrayWithObjects: @"resultbandwidth.png",
 					@"resulttype.png",
 					@"resulttype.png",
 					@"resulttype.png",
 					@"resulttype.png",
 					@"resulttime.png",
 					@"resultvisits.png",
-					nil] retain];*/
+					nil] retain];
 	
-	monitors	= [[NSArray arrayWithObjects: @"http://192.168.1.1:8080/bandwidth-monitor/",
+	monitorvcs = [[NSArray arrayWithObjects: @"ResultBandwidthViewController",
+				   @"ResultTypeViewController",
+				   @"ResultTypeViewController",
+				   @"ResultTypeViewController",
+				   @"ResultTypeViewController",
+				   @"ResultTimeViewController",
+				   @"ResultVisitsViewController",
+				   nil] retain];
+	
+	/*monitors	= [[NSArray arrayWithObjects: @"http://192.168.1.1:8080/bandwidth-monitor/",
 					@"http://news.bbc.co.uk",
 					@"http://www.google.com",
 					@"http://www.yahoo.com",
 					@"http://192.168.1.1:8080/bandwidth-monitor/",
 					@"http://www.drupal.org",
 					@"http://192.168.1.1:8080",
-					nil] retain];
+					nil] retain];*/
 	
 	[self createSceneMonitorTable];
 	[self createSceneResultTable];
@@ -94,9 +104,11 @@ NSMutableDictionary *sceneresult;
 +(void) createSceneMonitorTable{
 	
 	scenemonitor = [[NSMutableDictionary dictionaryWithCapacity:10] retain];
+	monitorvcresult= [[NSMutableDictionary dictionaryWithCapacity:10] retain];
 
 	for (int i = 0; i < MIN([conditions count], [monitors count]); i++){
 		[scenemonitor setObject:[monitors objectAtIndex:i] forKey:[conditions objectAtIndex:i]];
+		[monitorvcresult setObject:[monitorvcs objectAtIndex:i] forKey:[conditions objectAtIndex:i]];
 	}
 	
 }
@@ -122,6 +134,10 @@ NSMutableDictionary *sceneresult;
 
 +(NSString *) lookupmonitor: (NSString *) conditionscene{
 	return [scenemonitor objectForKey:conditionscene];
+}
+
++(NSString *) lookupmonitorvc: (NSString *) conditionscene{
+	return [monitorvcresult objectForKey:conditionscene];
 }
 
 +(NSString *) lookupresult: (NSString *) actionscene{

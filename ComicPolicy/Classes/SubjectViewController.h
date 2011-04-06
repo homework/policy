@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
+
 #import "SubjectView.h"
 #import "Lookup.h"
 #import "SubjectImageLookup.h"
@@ -16,6 +17,7 @@
 @interface SubjectViewController : UIViewController {
 	
 	SubjectView* subjectView;
+	
 	//NSMutableArray *peopleImages;
 	//NSMutableArray *deviceImages;
 	//int peopleImageIndex ;

@@ -7,7 +7,7 @@
 //
 
 #import "RootActionViewController.h"
-#import "ActionNotifyViewController.h"
+#import "ActionBlockViewController.h"
 
 @implementation RootActionViewController
 
@@ -30,23 +30,11 @@
 	CGRect aframe = CGRectMake(666,26,294,334);
 	self.view = [[UIView alloc] initWithFrame: aframe];
 	
-	/*
-	 * set up the view condition controllers
-	 */
-	ActionNotifyViewController* actionNotifyViewController = [[[ActionNotifyViewController alloc] initWithNibName:nil bundle:nil] retain];
+	NSString *controller = [Catalogue nextActionViewController];
 	
-	
-	controllerList = [[NSArray arrayWithObjects:@"ActionNotifyViewController", 
-					   @"ActionBlockViewController", nil] retain];
-	
-	
-		
-	/*
-	 * Add one of the controller's views as a sub view...
-	 */ 
-	[self.view addSubview:[actionNotifyViewController view]];
-	currentViewController = actionNotifyViewController;
-	controllerIndex = 0;
+	UIViewController *newController = [[[NSClassFromString(controller) alloc] initWithNibName:nil bundle:nil] retain];
+	[[self view] addSubview:[newController view]];
+	currentViewController = newController;
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -54,13 +42,14 @@
 	UITouch *touch = [[event allTouches] anyObject];
 	CGPoint touchLocation = [touch locationInView:self.view];
 	
-	FlipFrameView *currentView = (FlipFrameView *) currentViewController.view;
-	//NSLog(@"resultView.frame = %@", NSStringFromCGRect(currentView.upImage.frame));
-	//NSLog(@"tloc = %f", touchLocation.y);
+	//FlipFrameView *currentView = (FlipFrameView *) currentViewController.view;
+	
 	
 	if (
 		/*CGRectContainsPoint(currentView.upImage.frame, touchLocation)*/ touchLocation.y < 60){
-		NSString *controller = [controllerList objectAtIndex: ++controllerIndex % [controllerList count]];
+		NSString *nextvc = [Catalogue nextActionViewController];
+		NSLog(@"loading up vc %@", nextvc);
+		NSString *controller = nextvc; //[controllerList objectAtIndex: ++controllerIndex % [controllerList count]];
 		UIViewController *newController = [[[NSClassFromString(controller) alloc] initWithNibName:nil bundle:nil] retain];
 		[UIView beginAnimations:nil context:nil];
 		[UIView setAnimationDuration:0.75];

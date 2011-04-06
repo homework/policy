@@ -26,7 +26,7 @@ static SubjectImageLookup *lookup;
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
 	
 	UITouch *touch = [[event allTouches] anyObject];
-	CGPoint touchLocation = [touch locationInView:self.view];
+	CGPoint touchLocation = [touch locationInView:self.view];	
 	
 	if (CGRectContainsPoint(subjectView.topImage.frame, touchLocation)){
 		
@@ -54,6 +54,8 @@ static SubjectImageLookup *lookup;
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
 	
+	
+	
 	lookup = [[SubjectImageLookup alloc] init];
 	CGRect aframe = CGRectMake(64,60,294,301);
 	SubjectView *aview = [[SubjectView alloc] initWithFrameAndLookup:aframe lookup:lookup];//
@@ -65,13 +67,20 @@ static SubjectImageLookup *lookup;
 }
 
 -(void) subjectOwnerChange:(NSNotification *) n{
-	[UIView beginAnimations:nil context:nil];
-	[UIView setAnimationDuration:1.00];
+	
+	
+  	[UIView beginAnimations:nil context:nil];
+	[UIView setAnimationDuration:0.75];
+	[UIView setAnimationDelay:0.70];
 	[UIView setAnimationDelegate:self];
+	//[UIView setAnimationWillStartSelector:@selector(playSound:finished:context:)];
 	[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:subjectView.bottomImage cache:NO];
+	
 	subjectView.bottomImage.image = [UIImage imageNamed:[Catalogue currentSubjectDeviceImage]];
 	[UIView commitAnimations];
 }
+
+
 
 /*
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.

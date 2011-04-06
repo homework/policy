@@ -2,7 +2,7 @@
 //  ResultViewController.m
 //  ComicPolicy
 //
-//  Created by Tom Lodge on 23/02/2011.
+//  Created by Tom Lodge on 05/04/2011.
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
@@ -10,7 +10,10 @@
 
 
 @implementation ResultViewController
-
+@synthesize currentMonitorScene;
+@synthesize currentActionScene;
+@synthesize resultView;
+@synthesize monitorView;
 /*
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -21,99 +24,29 @@
 }
 */
 
--(void) conditionChange:(NSNotification *) n{
-	NSDictionary *userInfo = [n userInfo];
-	NSString* newscene = [Lookup lookupmonitor:[userInfo objectForKey:@"condition"]];
-	
-	if (! [currentMonitorScene isEqualToString:newscene]){
-		[UIView beginAnimations:nil context:nil];
-		[UIView setAnimationDuration:0.75];
-		[UIView setAnimationDelegate:self];
-		[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:resultView.monitorImage cache:YES];
-		resultView.monitorImage.image = [UIImage imageNamed:newscene];//@"resulttype.png"];
-		[UIView commitAnimations];
-		currentMonitorScene = newscene;
-	}
-}
-
--(void) actionSubjectChange:(NSNotification *) n{
-	
-		
-	NSDictionary *userInfo = [n userInfo];
-	NSString* newscene = [Lookup lookupresult:[userInfo objectForKey:@"action"]];
-	
-	if (! [currentActionScene isEqualToString:newscene]){
-		[UIView beginAnimations:nil context:nil];
-		[UIView setAnimationDuration:0.75];
-		[UIView setAnimationDelegate:self];
-		[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:resultView.resultMainImage cache:YES];
-		resultView.resultMainImage.image = [UIImage imageNamed:newscene];
-		[UIView commitAnimations];
-		currentActionScene = newscene;
-
-	}
-}
-
--(void) actionTypeChange:(NSNotification *) n{
-	NSDictionary *userInfo = [n userInfo];
-	NSString* controller = [userInfo objectForKey:@"controller"];
-	NSLog(@"resultView.frame = %@", NSStringFromCGRect(resultView.frame));
-	
-	
-	[UIView beginAnimations:nil context:nil];
-	[UIView setAnimationDuration:0.75];
-	[UIView setAnimationDelegate:self];
-	
-	
-	
-
-	
-	if ([controller isEqualToString:@"ActionBlockViewController"]){
-		
-				
-		CGRect aframe = resultView.frame;
-		aframe.origin.x += 300;
-		aframe.size.width = 600;
-		resultView.comicframe.frame = aframe;
-		resultView.resultMainImage.alpha = 0.0;
-		resultView.monitorImage.alpha = 0.0;
-		
-		
-	}else{
-		CGRect aframe = resultView.frame;
-		aframe.origin.x += 0;
-		aframe.size.width = 897;
-		resultView.comicframe.frame = aframe;
-		resultView.resultMainImage.alpha = 1.0;
-		resultView.monitorImage.alpha = 1.0;
-		
-	}
-	
-	[UIView commitAnimations];
-	
-}
-
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
-
- currentMonitorScene = @"resultbandwidth.png";
- currentActionScene = @"dadwaiting.png";
+	currentMonitorScene = @"resultbandwidth.png";
+	currentActionScene = @"dadwaiting.png";
 	
- [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(conditionChange:) name:@"conditionChange" object:nil];	
- [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionSubjectChange:) name:@"actionSubjectChange" object:nil];	
- [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionTypeChange:) name:@"actionTypeChange" object:nil];	
+	CGRect aframe = CGRectMake(0,0,897,301);
+	UIView *rootView = [[UIView alloc] initWithFrame:aframe];	
+	self.view = rootView;
+	[rootView release];
 	
- CGRect aframe = CGRectMake(64,367,897,301);
- UIView *rootView = [[UIView alloc] initWithFrame:aframe];	
- self.view = rootView;
- [rootView release];
+	ResultView *aview = [[ResultView alloc] initWithFrame: CGRectMake(0,0,897,301)];
+	resultView = aview;
 	
- ResultView *aview = [[ResultView alloc] initWithFrame: CGRectMake(0,0,897,301)];
- resultView = aview;
- [self.view addSubview: resultView];
- //[aview release];
+	MonitorView *mview = [[MonitorView alloc] initWithFrame: CGRectMake(0,0,497,301)];
+	monitorView = mview;
+	
+	[resultView.monitorWebView setDelegate:self];
+	[self.view addSubview: monitorView];
+	[self.view addSubview: resultView];
+	
 }
+
 
 
 /*
@@ -122,6 +55,9 @@
     [super viewDidLoad];
 }
 */
+
+
+
 
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {

@@ -11,8 +11,9 @@
 
 @interface ConditionBandwidthView : FrameView {
 	UIImageView* moneyImage;
+	UILabel *bandwidthLabel;
 }
 
 @property(nonatomic,retain) UIImageView *moneyImage;
-
+@property(nonatomic,retain) UILabel *bandwidthLabel;
 @end

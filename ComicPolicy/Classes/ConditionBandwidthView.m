@@ -12,7 +12,7 @@
 @implementation ConditionBandwidthView
 //@synthesize conditionImage;
 @synthesize moneyImage;
-
+@synthesize bandwidthLabel;
 
 - (id)initWithFrameAndLookup:(CGRect)frame lookup:(NSObject<ImageLookup>*)lookup{
 	if ((self = [super initWithFrame:frame])) {
@@ -30,6 +30,14 @@
 		UIImageView* tmpframe = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"frame.png"]];
 		[self addSubview:tmpframe];
 		[tmpframe release];
+		
+		bandwidthLabel = [[UILabel alloc] initWithFrame:CGRectMake(180, 20,100,100)];
+		bandwidthLabel.text = @"100%";
+		[bandwidthLabel setFont:[UIFont fontWithName:@"Copperplate" size:25]];
+		bandwidthLabel.textAlignment = UITextAlignmentCenter;
+		bandwidthLabel.shadowColor = [UIColor blackColor];
+		bandwidthLabel.backgroundColor = [UIColor clearColor];
+		[self addSubview:bandwidthLabel];
 		
 		NSDictionary* dict = [NSDictionary dictionaryWithObject:[lookup getCurrentTopImage] forKey:@"condition"];
 		[[NSNotificationCenter defaultCenter] postNotificationName:@"conditionChange" object:nil userInfo:dict];

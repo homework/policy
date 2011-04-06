@@ -14,7 +14,8 @@
 @synthesize saveButton;
 @synthesize deleteButton;
 @synthesize policyids;
-
+@synthesize tickPlayer;
+@synthesize tockPlayer;
 /* The designated initializer. Override to perform setup that is required before the view is loaded.
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
@@ -26,13 +27,33 @@
 -(void) loadPolicies{
 	self.policyids = [[NSMutableArray alloc] init];
 	[policyids addObject: [NSNumber numberWithInt:1]];
-	[policyids addObject: [NSNumber numberWithInt:10]];
-	[policyids addObject: [NSNumber numberWithInt:9]];
-	[policyids addObject: [NSNumber numberWithInt:11]];
+	//[policyids addObject: [NSNumber numberWithInt:10]];
+	//[policyids addObject: [NSNumber numberWithInt:9]];
+	//[policyids addObject: [NSNumber numberWithInt:11]];
 }
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
+	
+	NSBundle *mainBundle = [NSBundle mainBundle];
+	NSError *error;
+	
+	NSURL *tickURL = [NSURL fileURLWithPath:[mainBundle pathForResource:@"tick" ofType:@"caf"]];
+	
+	
+	tickPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:tickURL error:&error];
+	if (!tickPlayer) {
+		NSLog(@"no tickPlayer: %@", [error localizedDescription]);	
+	}
+	[tickPlayer prepareToPlay];
+	
+	NSURL *tockURL = [NSURL fileURLWithPath:[mainBundle pathForResource:@"tock" ofType:@"caf"]];
+	tockPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:tockURL error:&error];
+	if (!tockPlayer) {
+		NSLog(@"no tockPlayer: %@", [error localizedDescription]);	
+	}
+	[tockPlayer prepareToPlay];
+	
 	
 	[self loadPolicies];
 	// add some policy test data...
@@ -56,7 +77,11 @@
 	[self addNavigationView];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionTypeChange:) name:@"actionTypeChange" object:nil];	
-
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(conditionChange:) name:@"conditionChange" object:nil];	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionSubjectChange:) name:@"actionSubjectChange" object:nil];	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(subjectOwnerChange:) name:@"subjectOwnerChange" object:nil];	
+	
+	
 }
 
 -(void) addNavigationView{
@@ -122,7 +147,36 @@
 	
 }
 
+- (void)playTick{
+	AVAudioPlayer *currentPlayer = tockPlayer;
+	[currentPlayer play];
+}
+
+- (void)playTock:(NSTimer*)timer{
+	AVAudioPlayer *currentPlayer = tockPlayer;
+	[currentPlayer play];
+}
+
+-(void) subjectOwnerChange:(NSNotification *) n{
+	[self playTick];
+	[NSTimer scheduledTimerWithTimeInterval:0.7 target:self selector:@selector(playTock:) userInfo:nil repeats:NO]; 
+}
+
+-(void) actionSubjectChange:(NSNotification *) n{
+	[self playTick];
+	[NSTimer scheduledTimerWithTimeInterval:0.7 target:self selector:@selector(playTock:) userInfo:nil repeats:NO]; 
+}
+
+-(void) conditionChange:(NSNotification *) n{
+	[NSTimer scheduledTimerWithTimeInterval:0.7 target:self selector:@selector(playTock:) userInfo:nil repeats:NO]; 
+	
+}
+
 -(void) actionTypeChange:(NSNotification *) n{
+	
+	
+	AVAudioPlayer *currentPlayer = tickPlayer;
+	[currentPlayer play];
 	
 	NSDictionary *userInfo = [n userInfo];
 	NSString* controller = [userInfo objectForKey:@"controller"];

@@ -14,14 +14,14 @@
 @synthesize notifyImage;
 
 
-- (id)initWithFrameAndLookup:(CGRect)frame lookup:(NSObject<ImageLookup>*)lookup{
+- (id)initWithFrameAndImages:(CGRect)frame topImage:(NSString *) topImage bottomImage:(NSString *) bottomImage{
     if ((self = [super initWithFrame:frame])) {
-		notifyImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[lookup getNextBottomImage]]];
+		notifyImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:bottomImage]];
 		notifyImage.frame = CGRectMake(0, (300-128), 295, 142);
 		[self addSubview:notifyImage];
 		
-		NSString *notifyPersonImage = [lookup getNextTopImage];
-		personImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:notifyPersonImage]];
+	
+		personImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:topImage]];
 		personImage.frame = CGRectMake(0, 14, 295, 160);
 		[self addSubview:personImage];		
 		
@@ -33,8 +33,8 @@
 		upImage.frame = CGRectMake(135, 4, 27, 26);
 		[self addSubview:upImage];
 		
-		NSDictionary* dict = [NSDictionary dictionaryWithObject:notifyPersonImage forKey:@"action"];
-		[[NSNotificationCenter defaultCenter] postNotificationName:@"actionSubjectChange" object:nil userInfo:dict];
+		//NSDictionary* dict = [NSDictionary dictionaryWithObject:bottomImage forKey:@"action"];
+		//[[NSNotificationCenter defaultCenter] postNotificationName:@"actionSubjectChange" object:nil userInfo:dict];
 		
     }
     return self;
