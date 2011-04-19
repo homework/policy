@@ -8,7 +8,6 @@
 
 #import "ConditionTypeViewController.h"
 
-
 @implementation ConditionTypeViewController
 
 
@@ -17,7 +16,7 @@
     if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
 		CGRect nframe = CGRectMake(0,0,294,301);
 		//lookup = [[ConditionImageLookup alloc] init];
-		FrameView *aconditionview = [[FrameView alloc] initWithFrameAndLookup:nframe lookup:lookup];
+		FrameView *aconditionview = [[FrameView alloc] initWithFrameAndImage:nframe image: [[Catalogue sharedCatalogue] nextConditionImage]];
 		self.view = aconditionview;
 		[aconditionview release];
 	}

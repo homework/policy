@@ -12,9 +12,13 @@
 
 @implementation Catalogue
 
-static BOOL init = FALSE;
+
+
 static NSDictionary* imageLookup;
 static NSDictionary* ownerLookup;
+static NSDictionary* conditiontomonitor;
+static NSDictionary* conditiontomonitorvc;
+static NSDictionary* actiontoresult;
 
 static NSArray* ownership;
 static int ownershipindex;
@@ -33,57 +37,122 @@ static int actionsubjectarrayindex;
 
 static NSArray* actionarray;
 static int actionarrayindex;
+
 static NSArray* actiondevices;
 static int actiondevicesindex;
 
+static NSArray* conditions;
+static int conditionindex;
+
 static NSString* currentActionType;
 
-+(void) initialize{
-	
-	if (init)
-		return;
-	
-	NSString *filePath = [[NSBundle mainBundle] pathForResource:@"data" ofType:@"json"];
-	NSString *content = [[NSString alloc] initWithContentsOfFile:filePath];
-	SBJsonParser *jsonParser = [SBJsonParser new];
-	
-	
-	NSDictionary *data  = (NSDictionary *) [jsonParser objectWithString:content error:nil];
-	
-	if (data == nil){
-		NSLog(@"DATA IS NIL>>>>");
-	}
-	else{
-		NSDictionary *main = (NSDictionary *) [data objectForKey:@"catalogue"];
-		imageLookup = [(NSDictionary *) [main objectForKey:@"images"] retain];
-		ownerLookup = [(NSDictionary *) [main objectForKey:@"ownership"] retain];
-		actionLookup = [(NSDictionary *) [main objectForKey:@"actions"] retain];
-		
-		
-		NSDictionary *vcs = (NSDictionary *) [main objectForKey:@"vcs"];
-		actionvcs = (NSDictionary *) [[vcs objectForKey:@"actions"] retain];
-
-		for (NSString *key in vcs){
-			NSLog(@"vcs...%@", key);
-			
-		}
-		
-		[self initActions];
-		
-		ownership = [[ownerLookup allKeys] retain];
-		ownershipindex = 0;
-		
-		devices =  [[ownerLookup objectForKey:[self currentSubjectOwner]] retain];
-		devicesindex = 0;
-		
-		
-	}
-	
-	init = TRUE;
-}	
 
 
-+(void) updateActionSelections:(NSString *)subject{
++ (Catalogue *)sharedCatalogue
+{
+    static  Catalogue * sCatalogue;
+    
+    if (sCatalogue == nil) {
+        @synchronized (self) {
+            sCatalogue = [[Catalogue alloc] init];
+            assert(sCatalogue != nil);
+        }
+    }
+    return sCatalogue;
+}
+
+- (id)init
+{
+    // any thread, but serialised by +sharedManager
+    self = [super init];
+    if (self != nil) {
+        NSString *filePath = [[NSBundle mainBundle] pathForResource:@"data" ofType:@"json"];
+        NSString *content = [[NSString alloc] initWithContentsOfFile:filePath];
+        SBJsonParser *jsonParser = [SBJsonParser new];
+        
+        
+        NSDictionary *data  = (NSDictionary *) [jsonParser objectWithString:content error:nil];
+        
+        if (data == nil){
+            NSLog(@"DATA IS NIL>>>>");
+        }
+        else{
+            NSDictionary *main = (NSDictionary *) [data objectForKey:@"catalogue"];
+            imageLookup = [(NSDictionary *) [main objectForKey:@"images"] retain];
+            
+            NSDictionary *navigation =  (NSDictionary *) [main objectForKey:@"navigation"];
+            ownerLookup = [(NSDictionary *) [navigation objectForKey:@"subjects"] retain];
+            
+            actionLookup = [(NSDictionary *) [navigation objectForKey:@"actions"] retain];
+            
+            //NSDictionary *images = (NSDictionary *) [main objectForKey:@"images"];
+            conditions = (NSArray *) [[navigation objectForKey:@"conditions"] retain];
+            conditionindex = -1;//0;
+
+            
+            NSDictionary *controllers = (NSDictionary *) [main objectForKey:@"controllers"];
+            actionvcs = (NSDictionary *) [[controllers objectForKey:@"actions"] retain];
+            
+                        
+            NSDictionary *mappings = (NSDictionary *) [main objectForKey:@"mappings"];
+            conditiontomonitor = (NSDictionary *) [[mappings objectForKey:@"conditiontomonitor"] retain];
+            conditiontomonitorvc = (NSDictionary *) [[mappings objectForKey:@"conditiontomonitorvc"] retain];
+            actiontoresult = (NSDictionary *) [[mappings objectForKey:@"actiontoresult"] retain];
+            
+            
+            
+            [self initActions];
+            
+            ownership = [[ownerLookup allKeys] retain];
+            ownershipindex = 0;
+            
+            devices =  [[ownerLookup objectForKey:[self currentSubjectOwner]] retain];
+            devicesindex = 0;
+            
+            
+        }
+    }
+    return self;
+}
+
+
+//-(NSString *) lookupmonitor: (NSString *) conditionscene{
+//	return [conditiontomonitor objectForKey:conditionscene];
+//}
+
+-(NSString *) lookupmonitorvc: (NSString *) conditionscene{
+	return [conditiontomonitorvc objectForKey:conditionscene];
+}
+
+-(NSString *) lookupresult: (NSString *) actionscene{
+	return [actiontoresult objectForKey:actionscene];
+}
+
+
+-(NSString*) nextCondition{
+    return (NSString*) [conditions objectAtIndex:++conditionindex % [conditions count]];
+}
+
+-(NSString*) nextConditionImage{
+    NSString* condition = [self nextCondition];
+    NSString *conditionImage = [self getConditionImage:condition];
+    NSDictionary* dict = [NSDictionary dictionaryWithObject:condition forKey:@"condition"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"conditionChange" object:nil userInfo:dict];
+    return conditionImage;
+}
+
+-(NSString*) getConditionImage:(NSString *) condition{
+    NSDictionary *dict = (NSDictionary *) [imageLookup objectForKey:condition];
+    return [dict objectForKey:@"main"];
+}
+
+-(NSString*) getConditionResult:(NSString *) condition{
+    NSDictionary *dict = (NSDictionary *) [imageLookup objectForKey:condition];
+    return [dict objectForKey:@"result"];
+}
+
+
+-(void) updateActionSelections:(NSString *)subject{
 	
 	if ([currentActionType isEqualToString:@"block"]){
 		if (actiondevices != NULL)
@@ -94,7 +163,7 @@ static NSString* currentActionType;
 	}
 }
 
-+(void) initActions{
+-(void) initActions{
 	
 	actionvcsarray = (NSArray *) [[actionvcs allKeys] retain];
 	actionvcsindex = 0;
@@ -118,16 +187,16 @@ static NSString* currentActionType;
 	[self updateActionSelections:subject];	
 }
 
-+(NSString *) lookupImage:(NSString*)identity state:(NSString*)state{
+-(NSString *) lookupImage:(NSString*)identity state:(NSString*)state{
 	NSDictionary *images = (NSDictionary *) [imageLookup objectForKey:identity];
 	return [images objectForKey:state];
 }
 
-+(NSString *) currentSubjectOwner{
+-(NSString *) currentSubjectOwner{
 	return [ownership objectAtIndex:ownershipindex % [ownership count]];	
 }
 
-+(NSString *) nextSubjectOwner{
+-(NSString *) nextSubjectOwner{
 	NSString *next =  [ownership objectAtIndex:++ownershipindex % [ownership count]];
 	[devices release];
 	devices =  [[ownerLookup objectForKey:[self currentSubjectOwner]] retain];
@@ -136,32 +205,32 @@ static NSString* currentActionType;
 	return next;
 }
 
-+(NSString *) nextSubjectOwnerImage{
+-(NSString *) nextSubjectOwnerImage{
 	return [self lookupImage: [self nextSubjectOwner] state:@"main"];
 }
 
-+(NSString *) currentSubjectDevice{
+-(NSString *) currentSubjectDevice{
 	return [devices objectAtIndex:devicesindex % [devices count]];
 }
 
-+(NSString *) nextSubjectDevice{
+-(NSString *) nextSubjectDevice{
 	return [devices objectAtIndex:++devicesindex % [devices count]];
 }
 
-+(NSString *) nextSubjectDeviceImage{
+-(NSString *) nextSubjectDeviceImage{
 	return [self lookupImage: [self nextSubjectDevice] state:@"main"];
 }
 
-+(NSString *) currentSubjectDeviceImage{
+-(NSString *) currentSubjectDeviceImage{
 	return [self lookupImage: [self currentSubjectDevice] state:@"main"];
 }
 
 
-+(NSString *) nextConditionViewController{
+-(NSString *) nextConditionViewController{
 	return nil;
 }
 
-+(NSString *) nextActionViewController{
+-(NSString *) nextActionViewController{
 	
 	currentActionType = [actionvcsarray objectAtIndex:++actionvcsindex % [actionvcsarray count]];
 	//reset all of our indexes.
@@ -184,8 +253,8 @@ static NSString* currentActionType;
 		[self updateActionSelections:subject];
 	}
 	
-	if ([tmp objectForKey:@"actions"] != NULL){
-		actionarray = [[tmp objectForKey:@"actions"] retain];
+	if ([tmp objectForKey:@"options"] != NULL){
+		actionarray = [[tmp objectForKey:@"options"] retain];
 	}else{
 		actionarray = NULL;	
 	}
@@ -193,11 +262,11 @@ static NSString* currentActionType;
 	return [actionvcs objectForKey:currentActionType];
 }
 
-+(NSString *) currentActionSubject{
+-(NSString *) currentActionSubject{
 	return [actionsubjectarray objectAtIndex:actionsubjectarrayindex % [actionsubjectarray count]];
 }
 
-+(NSString *) nextActionSubject{
+-(NSString *) nextActionSubject{
 	if (actionsubjectarray == NULL)
 		return NULL;
 	
@@ -208,22 +277,20 @@ static NSString* currentActionType;
 	return subject;
 }
 
-+(NSString *) currentActionSubjectImage{
+-(NSString *) currentActionSubjectImage{
 	NSString *subject = [self currentActionSubject];
 	NSDictionary *images = (NSDictionary *) [imageLookup objectForKey:subject];
 	NSString *image = [images objectForKey:currentActionType];
-		NSLog(@"firing a notificaton change for imahe %@", image);
-	NSDictionary* dict = [NSDictionary dictionaryWithObject:image forKey:@"action"];
+    NSDictionary* dict = [NSDictionary dictionaryWithObject:image forKey:@"action"];
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"actionSubjectChange" object:nil userInfo:dict];
 	
 	return image;//[images objectForKey:currentActionType];
 }
 
-+(NSString *) nextActionSubjectImage{
+-(NSString *) nextActionSubjectImage{
 	NSString *subject = [self nextActionSubject];
 	NSDictionary *images = (NSDictionary *) [imageLookup objectForKey:subject];
 	NSString *image = [images objectForKey:currentActionType];
-		NSLog(@"firing a notificaton change for imahe %@", image);
 	NSDictionary* dict = [NSDictionary dictionaryWithObject:image forKey:@"action"];
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"actionSubjectChange" object:nil userInfo:dict];
 	return image;
@@ -231,7 +298,7 @@ static NSString* currentActionType;
 }
 
 
-+(NSString *) nextAction{
+-(NSString *) nextAction{
 	if (actionarray == NULL){
 		return NULL;
 	}
@@ -239,11 +306,13 @@ static NSString* currentActionType;
 }
 
 
-+(NSString *) currentAction{
+-(NSString *) currentAction{
+    if (actionarrayindex == 0)
+       return [actionarray objectAtIndex:0];
 	return [actionarray objectAtIndex:actionarrayindex % [actionarray count]];
 }
 
-+(NSString *) currentActionImage{
+-(NSString *) currentActionImage{
 	NSString *action = [self currentAction];
 	
 	if (action == NULL){
@@ -260,7 +329,7 @@ static NSString* currentActionType;
 
 //TODO: This is nasty - need to fix to stop hardcoding 
 
-+(NSString *) nextActionImage{
+-(NSString *) nextActionImage{
 	
 	NSString *action = [self nextAction];
 	

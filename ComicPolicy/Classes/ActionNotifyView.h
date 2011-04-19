@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "NotifyActionImageLookup.h"
+//#import "NotifyActionImageLookup.h"
 #import "FlipFrameView.h"
 
 @interface ActionNotifyView : FlipFrameView {

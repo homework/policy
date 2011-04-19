@@ -22,8 +22,8 @@
     
     // Override point for customization after app launch. 
 	viewController.managedObjectContext = self.managedObjectContext;
-	[Lookup initialize];
-	[Catalogue initialize];
+	//[Lookup initialize];
+	//[Catalogue initialize];
     [window addSubview:viewController.view];
     [window makeKeyAndVisible];
 	return YES;

@@ -12,6 +12,20 @@
 @implementation FrameView
 @synthesize mainImage;
 
+- (id)initWithFrameAndImage:(CGRect)frame image:(NSString*) image{
+	if ((self = [super initWithFrame:frame])) {
+		
+		UIImageView *tmpImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:image]];
+		self.mainImage = tmpImage;
+		[self addSubview:mainImage];
+		[tmpImage release];
+		
+		UIImageView* tmpframe = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"frame.png"]];
+		[self addSubview:tmpframe];
+		[tmpframe release];
+    }
+    return self;
+}
 
 - (id)initWithFrameAndLookup:(CGRect)frame lookup:(NSObject<ImageLookup>*)lookup{
 	if ((self = [super initWithFrame:frame])) {

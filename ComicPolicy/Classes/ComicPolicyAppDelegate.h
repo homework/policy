@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
-#import "Lookup.h"
+//#import "Lookup.h"
 #import "Catalogue.h"
 
 @class ComicPolicyViewController;

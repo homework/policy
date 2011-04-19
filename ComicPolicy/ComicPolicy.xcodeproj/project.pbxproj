@@ -57,7 +57,6 @@
 		A30AE1DA131574DA0060D2F1 /* resulttime.png in Resources */ = {isa = PBXBuildFile; fileRef = A30AE1D5131574DA0060D2F1 /* resulttime.png */; };
 		A30AE1DB131574DA0060D2F1 /* resulttype.png in Resources */ = {isa = PBXBuildFile; fileRef = A30AE1D6131574DA0060D2F1 /* resulttype.png */; };
 		A30AE1DC131574DA0060D2F1 /* resultvisits.png in Resources */ = {isa = PBXBuildFile; fileRef = A30AE1D7131574DA0060D2F1 /* resultvisits.png */; };
-		A30AE22E13169B2B0060D2F1 /* Lookup.m in Sources */ = {isa = PBXBuildFile; fileRef = A30AE22D13169B2B0060D2F1 /* Lookup.m */; };
 		A30AE2841316B6B80060D2F1 /* dadtold.png in Resources */ = {isa = PBXBuildFile; fileRef = A30AE27C1316B6B80060D2F1 /* dadtold.png */; };
 		A30AE2851316B6B80060D2F1 /* dadwaiting.png in Resources */ = {isa = PBXBuildFile; fileRef = A30AE27D1316B6B80060D2F1 /* dadwaiting.png */; };
 		A30AE2861316B6B80060D2F1 /* johntold.png in Resources */ = {isa = PBXBuildFile; fileRef = A30AE27E1316B6B80060D2F1 /* johntold.png */; };
@@ -100,10 +99,7 @@
 		A352A7181317EF3F0053867A /* timed.png in Resources */ = {isa = PBXBuildFile; fileRef = A352A7151317EF3F0053867A /* timed.png */; };
 		A352A7601317FA2D0053867A /* FrameView.m in Sources */ = {isa = PBXBuildFile; fileRef = A352A75F1317FA2D0053867A /* FrameView.m */; };
 		A352A7701317FBEE0053867A /* SplitFrameView.m in Sources */ = {isa = PBXBuildFile; fileRef = A352A76F1317FBEE0053867A /* SplitFrameView.m */; };
-		A352A77C1317FE230053867A /* ConditionImageLookup.m in Sources */ = {isa = PBXBuildFile; fileRef = A352A77B1317FE230053867A /* ConditionImageLookup.m */; };
-		A352A837131815B10053867A /* SubjectImageLookup.m in Sources */ = {isa = PBXBuildFile; fileRef = A352A836131815B10053867A /* SubjectImageLookup.m */; };
 		A352A8C0131BDCAA0053867A /* ActionNotifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A352A8BF131BDCAA0053867A /* ActionNotifyViewController.m */; };
-		A352A8C5131BDD0A0053867A /* NotifyActionImageLookup.m in Sources */ = {isa = PBXBuildFile; fileRef = A352A8C4131BDD0A0053867A /* NotifyActionImageLookup.m */; };
 		A352A8E7131BE55E0053867A /* FlipFrameView.m in Sources */ = {isa = PBXBuildFile; fileRef = A352A8E6131BE55E0053867A /* FlipFrameView.m */; };
 		A352A8E9131BE6780053867A /* sgreenbuttonup.png in Resources */ = {isa = PBXBuildFile; fileRef = A352A8E8131BE6780053867A /* sgreenbuttonup.png */; };
 		A352A8FB131BEEEC0053867A /* frame2.png in Resources */ = {isa = PBXBuildFile; fileRef = A352A8FA131BEEEC0053867A /* frame2.png */; };
@@ -112,7 +108,6 @@
 		A352A972131BF83E0053867A /* greenup.png in Resources */ = {isa = PBXBuildFile; fileRef = A352A971131BF83E0053867A /* greenup.png */; };
 		A352A9FA131C02AD0053867A /* ActionBlockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A352A9F9131C02AD0053867A /* ActionBlockViewController.m */; };
 		A352A9FF131C02F90053867A /* ActionBlockView.m in Sources */ = {isa = PBXBuildFile; fileRef = A352A9FE131C02F90053867A /* ActionBlockView.m */; };
-		A352AA89131C132C0053867A /* BlockActionImageLookup.m in Sources */ = {isa = PBXBuildFile; fileRef = A352AA88131C132C0053867A /* BlockActionImageLookup.m */; };
 		A352AA95131D03B10053867A /* computerunblocked.png in Resources */ = {isa = PBXBuildFile; fileRef = A352AA91131D03B10053867A /* computerunblocked.png */; };
 		A352AA96131D03B10053867A /* desktopunblocked.png in Resources */ = {isa = PBXBuildFile; fileRef = A352AA92131D03B10053867A /* desktopunblocked.png */; };
 		A352AA97131D03B10053867A /* laptopunblocked.png in Resources */ = {isa = PBXBuildFile; fileRef = A352AA93131D03B10053867A /* laptopunblocked.png */; };
@@ -210,8 +205,6 @@
 		A30AE1D5131574DA0060D2F1 /* resulttime.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = resulttime.png; sourceTree = "<group>"; };
 		A30AE1D6131574DA0060D2F1 /* resulttype.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = resulttype.png; sourceTree = "<group>"; };
 		A30AE1D7131574DA0060D2F1 /* resultvisits.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = resultvisits.png; sourceTree = "<group>"; };
-		A30AE22C13169B2B0060D2F1 /* Lookup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Lookup.h; sourceTree = "<group>"; };
-		A30AE22D13169B2B0060D2F1 /* Lookup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Lookup.m; sourceTree = "<group>"; };
 		A30AE27C1316B6B80060D2F1 /* dadtold.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dadtold.png; sourceTree = "<group>"; };
 		A30AE27D1316B6B80060D2F1 /* dadwaiting.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dadwaiting.png; sourceTree = "<group>"; };
 		A30AE27E1316B6B80060D2F1 /* johntold.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = johntold.png; sourceTree = "<group>"; };
@@ -266,15 +259,8 @@
 		A352A75F1317FA2D0053867A /* FrameView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FrameView.m; sourceTree = "<group>"; };
 		A352A76E1317FBEE0053867A /* SplitFrameView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplitFrameView.h; sourceTree = "<group>"; };
 		A352A76F1317FBEE0053867A /* SplitFrameView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplitFrameView.m; sourceTree = "<group>"; };
-		A352A7751317FDD10053867A /* ImageLookup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageLookup.h; sourceTree = "<group>"; };
-		A352A77A1317FE230053867A /* ConditionImageLookup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConditionImageLookup.h; sourceTree = "<group>"; };
-		A352A77B1317FE230053867A /* ConditionImageLookup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConditionImageLookup.m; sourceTree = "<group>"; };
-		A352A835131815B10053867A /* SubjectImageLookup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubjectImageLookup.h; sourceTree = "<group>"; };
-		A352A836131815B10053867A /* SubjectImageLookup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubjectImageLookup.m; sourceTree = "<group>"; };
 		A352A8BE131BDCAA0053867A /* ActionNotifyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionNotifyViewController.h; sourceTree = "<group>"; };
 		A352A8BF131BDCAA0053867A /* ActionNotifyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionNotifyViewController.m; sourceTree = "<group>"; };
-		A352A8C3131BDD0A0053867A /* NotifyActionImageLookup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotifyActionImageLookup.h; sourceTree = "<group>"; };
-		A352A8C4131BDD0A0053867A /* NotifyActionImageLookup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotifyActionImageLookup.m; sourceTree = "<group>"; };
 		A352A8E5131BE55E0053867A /* FlipFrameView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlipFrameView.h; sourceTree = "<group>"; };
 		A352A8E6131BE55E0053867A /* FlipFrameView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlipFrameView.m; sourceTree = "<group>"; };
 		A352A8E8131BE6780053867A /* sgreenbuttonup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sgreenbuttonup.png; sourceTree = "<group>"; };
@@ -286,8 +272,6 @@
 		A352A9F9131C02AD0053867A /* ActionBlockViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionBlockViewController.m; sourceTree = "<group>"; };
 		A352A9FD131C02F90053867A /* ActionBlockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionBlockView.h; sourceTree = "<group>"; };
 		A352A9FE131C02F90053867A /* ActionBlockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionBlockView.m; sourceTree = "<group>"; };
-		A352AA87131C132C0053867A /* BlockActionImageLookup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockActionImageLookup.h; sourceTree = "<group>"; };
-		A352AA88131C132C0053867A /* BlockActionImageLookup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockActionImageLookup.m; sourceTree = "<group>"; };
 		A352AA91131D03B10053867A /* computerunblocked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = computerunblocked.png; sourceTree = "<group>"; };
 		A352AA92131D03B10053867A /* desktopunblocked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = desktopunblocked.png; sourceTree = "<group>"; };
 		A352AA93131D03B10053867A /* laptopunblocked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = laptopunblocked.png; sourceTree = "<group>"; };
@@ -635,8 +619,6 @@
 		A352A89F131BD4BE0053867A /* Subject */ = {
 			isa = PBXGroup;
 			children = (
-				A352A835131815B10053867A /* SubjectImageLookup.h */,
-				A352A836131815B10053867A /* SubjectImageLookup.m */,
 				A30AE001131537750060D2F1 /* SubjectViewController.h */,
 				A30AE002131537750060D2F1 /* SubjectViewController.m */,
 				A30ADFCC13152BF20060D2F1 /* SubjectView.h */,
@@ -662,8 +644,6 @@
 				A30AE2AC1316BABB0060D2F1 /* ConditionBandwidthView.m */,
 				A352AB21131D10300053867A /* ConditionTimeView.h */,
 				A352AB22131D10300053867A /* ConditionTimeView.m */,
-				A352A77A1317FE230053867A /* ConditionImageLookup.h */,
-				A352A77B1317FE230053867A /* ConditionImageLookup.m */,
 				A352AC01131E55290053867A /* HandView.h */,
 				A352AC02131E55290053867A /* HandView.m */,
 			);
@@ -687,10 +667,6 @@
 				A337D64813213E9300DA13C8 /* ActionTimeView.m */,
 				A352A9FD131C02F90053867A /* ActionBlockView.h */,
 				A352A9FE131C02F90053867A /* ActionBlockView.m */,
-				A352AA87131C132C0053867A /* BlockActionImageLookup.h */,
-				A352AA88131C132C0053867A /* BlockActionImageLookup.m */,
-				A352A8C3131BDD0A0053867A /* NotifyActionImageLookup.h */,
-				A352A8C4131BDD0A0053867A /* NotifyActionImageLookup.m */,
 			);
 			name = Action;
 			sourceTree = "<group>";
@@ -722,9 +698,6 @@
 			isa = PBXGroup;
 			children = (
 				A3DCB6021344D1D200A38D5E /* JSON */,
-				A30AE22C13169B2B0060D2F1 /* Lookup.h */,
-				A30AE22D13169B2B0060D2F1 /* Lookup.m */,
-				A352A7751317FDD10053867A /* ImageLookup.h */,
 				A3DCB5FC1344C90900A38D5E /* Catalogue.h */,
 				A3DCB5FD1344C90900A38D5E /* Catalogue.m */,
 			);
@@ -927,20 +900,15 @@
 				A30AE05113153E600060D2F1 /* ActionNotifyView.m in Sources */,
 				A30AE06D13153F420060D2F1 /* RootResultViewController.m in Sources */,
 				A30AE072131540040060D2F1 /* ResultView.m in Sources */,
-				A30AE22E13169B2B0060D2F1 /* Lookup.m in Sources */,
 				A30AE2AD1316BABB0060D2F1 /* ConditionBandwidthView.m in Sources */,
 				A30AE3741316CE0C0060D2F1 /* ConditionBandwidthViewController.m in Sources */,
 				A30AE3A51316F6F80060D2F1 /* ConditionTypeViewController.m in Sources */,
 				A352A7601317FA2D0053867A /* FrameView.m in Sources */,
 				A352A7701317FBEE0053867A /* SplitFrameView.m in Sources */,
-				A352A77C1317FE230053867A /* ConditionImageLookup.m in Sources */,
-				A352A837131815B10053867A /* SubjectImageLookup.m in Sources */,
 				A352A8C0131BDCAA0053867A /* ActionNotifyViewController.m in Sources */,
-				A352A8C5131BDD0A0053867A /* NotifyActionImageLookup.m in Sources */,
 				A352A8E7131BE55E0053867A /* FlipFrameView.m in Sources */,
 				A352A9FA131C02AD0053867A /* ActionBlockViewController.m in Sources */,
 				A352A9FF131C02F90053867A /* ActionBlockView.m in Sources */,
-				A352AA89131C132C0053867A /* BlockActionImageLookup.m in Sources */,
 				A352AAE3131D0A570053867A /* ConditionTimeViewController.m in Sources */,
 				A352AAED131D0B8F0053867A /* ConditionViewController.m in Sources */,
 				A352AB23131D10300053867A /* ConditionTimeView.m in Sources */,

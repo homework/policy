@@ -9,14 +9,11 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 #import "ResultView.h"
-#import "Lookup.h"
 #import "SubjectView.h"
 #import "ResultViewController.h"
 
 @interface RootResultViewController : UIViewController <UIWebViewDelegate>{
-	//ResultView* resultView;
 	ResultViewController * currentController;
-	
 }
 
 @property(nonatomic, retain) ResultViewController* currentController;

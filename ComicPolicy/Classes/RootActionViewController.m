@@ -8,6 +8,7 @@
 
 #import "RootActionViewController.h"
 #import "ActionBlockViewController.h"
+#import "Catalogue.h"
 
 @implementation RootActionViewController
 
@@ -30,7 +31,7 @@
 	CGRect aframe = CGRectMake(666,26,294,334);
 	self.view = [[UIView alloc] initWithFrame: aframe];
 	
-	NSString *controller = [Catalogue nextActionViewController];
+	NSString *controller = [[Catalogue sharedCatalogue] nextActionViewController];
 	
 	UIViewController *newController = [[[NSClassFromString(controller) alloc] initWithNibName:nil bundle:nil] retain];
 	[[self view] addSubview:[newController view]];
@@ -47,7 +48,7 @@
 	
 	if (
 		/*CGRectContainsPoint(currentView.upImage.frame, touchLocation)*/ touchLocation.y < 60){
-		NSString *nextvc = [Catalogue nextActionViewController];
+		NSString *nextvc = [[Catalogue sharedCatalogue] nextActionViewController];
 		NSLog(@"loading up vc %@", nextvc);
 		NSString *controller = nextvc; //[controllerList objectAtIndex: ++controllerIndex % [controllerList count]];
 		UIViewController *newController = [[[NSClassFromString(controller) alloc] initWithNibName:nil bundle:nil] retain];
@@ -59,8 +60,10 @@
 		[currentViewController release];
 		[[self view] addSubview:[newController view]];
 		[UIView commitAnimations];
-		currentViewController = newController;
-		NSDictionary* dict = [NSDictionary dictionaryWithObject:controller forKey:@"controller"];
+        currentViewController = newController;
+        
+		//move this notifcation elsewhere...
+        NSDictionary* dict = [NSDictionary dictionaryWithObject:controller forKey:@"controller"];
 		[[NSNotificationCenter defaultCenter] postNotificationName:@"actionTypeChange" object:nil userInfo:dict];
 	}
 	

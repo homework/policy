@@ -18,7 +18,7 @@
     if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
 		
 		CGRect aframe = CGRectMake(0,0,294,301);
-		ConditionBandwidthView *aconditionview = [[ConditionBandwidthView alloc] initWithFrameAndLookup:aframe lookup:lookup];
+		ConditionBandwidthView *aconditionview = [[ConditionBandwidthView alloc] initWithFrameAndImage:aframe image: [[Catalogue sharedCatalogue] nextConditionImage]];
 		conditionBandwidthView = aconditionview;
 		self.view = aconditionview;
 		

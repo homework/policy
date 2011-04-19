@@ -8,7 +8,6 @@
 
 #import "ConditionTimeViewController.h"
 
-
 @implementation ConditionTimeViewController
 
 
@@ -16,7 +15,7 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
 		CGRect aframe = CGRectMake(0,0,294,301);
-		ConditionTimeView *aconditionview = [[ConditionTimeView alloc] initWithFrameAndLookup:aframe lookup:lookup];
+		ConditionTimeView *aconditionview = [[ConditionTimeView alloc] initWithFrameAndImage:aframe image: [[Catalogue sharedCatalogue] nextConditionImage]];
 		conditionTimeView = aconditionview;
 		self.view = aconditionview;
 	}

@@ -9,13 +9,13 @@
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 #import <AVFoundation/AVFoundation.h>
-#import "SubjectViewController.h";
-#import "RootConditionViewController.h";
-#import "RootActionViewController.h";
-#import "RootResultViewController.h";
-#import "ActionTimeViewController.h";
-#import "NavigationViewController.h";
-#import "Subject.h";
+#import "SubjectViewController.h"
+#import "RootConditionViewController.h"
+#import "RootActionViewController.h"
+#import "RootResultViewController.h"
+#import "ActionTimeViewController.h"
+#import "NavigationViewController.h"
+#import "Subject.h"
 
 @interface ComicPolicyViewController : UIViewController {
 	NSManagedObjectContext *managedObjectContext;

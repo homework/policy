@@ -24,15 +24,14 @@ BOOL toScaled = NO;
  */
 
 
-- (id)initWithFrameAndLookup:(CGRect)frame lookup:(NSObject<ImageLookup>*)lookup{
+- (id)initWithFrameAndImage:(CGRect)frame image:(NSString *)image{
 	if ((self = [super initWithFrame:frame])) {
 		
 		clockFromFrame = CGRectMake(5,93,120,121);
 		
 		clockToFrame= CGRectMake(164,11,120,121);
 		
-		
-		UIImageView *tmpImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[lookup getNextTopImage]]];
+        UIImageView *tmpImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:image]];
 		self.mainImage = tmpImage;
 		[self addSubview:mainImage];
 		[tmpImage release];
@@ -75,10 +74,6 @@ BOOL toScaled = NO;
 		[tmh release];
 		
 		[self addSubview:toClockFace];
-		
-				 
-		NSDictionary* dict = [NSDictionary dictionaryWithObject:[lookup getCurrentTopImage] forKey:@"condition"];
-		[[NSNotificationCenter defaultCenter] postNotificationName:@"conditionChange" object:nil userInfo:dict];
     }
     return self;
 }

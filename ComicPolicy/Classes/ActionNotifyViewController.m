@@ -7,11 +7,11 @@
 //
 
 #import "ActionNotifyViewController.h"
-
+#import "Catalogue.h"
 
 @implementation ActionNotifyViewController
 
-static NotifyActionImageLookup *lookup;
+//static NotifyActionImageLookup *lookup;
 
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -19,8 +19,8 @@ static NotifyActionImageLookup *lookup;
 		CGRect aframe = CGRectMake(0,20,294,321);
 		//lookup = [[NotifyActionImageLookup alloc] init];
 		
-		NSString *topImage = [Catalogue currentActionSubjectImage];
-		NSString *bottomImage = [Catalogue currentActionImage];
+		NSString *topImage = [[Catalogue sharedCatalogue] currentActionSubjectImage];
+		NSString *bottomImage = [[Catalogue sharedCatalogue ]currentActionImage];
 		
 		ActionNotifyView *aview = [[ActionNotifyView alloc] initWithFrameAndImages:aframe topImage:topImage bottomImage:bottomImage];
 		actionNotifyView = aview;
@@ -57,7 +57,7 @@ static NotifyActionImageLookup *lookup;
 	
 	if (CGRectContainsPoint(actionNotifyView.personImage.frame, touchLocation)){
 		
-		NSString* personImage = [Catalogue nextActionSubjectImage];//[lookup getNextTopImage];//[personImages objectAtIndex:++personImageIndex % [personImages count]];
+		NSString* personImage = [[Catalogue sharedCatalogue] nextActionSubjectImage];//[lookup getNextTopImage];//[personImages objectAtIndex:++personImageIndex % [personImages count]];
 		[UIView beginAnimations:nil context:nil];
 		[UIView setAnimationDuration:0.75];
 		[UIView setAnimationDelegate:self];
@@ -69,7 +69,7 @@ static NotifyActionImageLookup *lookup;
 	}
 	else if (CGRectContainsPoint(actionNotifyView.notifyImage.frame, touchLocation)){
 		
-		NSString *nextImage = [Catalogue nextActionImage];
+		NSString *nextImage = [[Catalogue sharedCatalogue] nextActionImage];
 		[UIView beginAnimations:nil context:nil];
 		[UIView setAnimationDuration:0.75];
 		[UIView setAnimationDelegate:self];

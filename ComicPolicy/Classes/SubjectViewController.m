@@ -11,7 +11,7 @@
 
 @implementation SubjectViewController
 
-static SubjectImageLookup *lookup;
+//static SubjectImageLookup *lookup;
 
 /*
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
@@ -34,7 +34,7 @@ static SubjectImageLookup *lookup;
 		[UIView setAnimationDuration:0.75];
 		[UIView setAnimationDelegate:self];
 		[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight forView:subjectView.topImage cache:NO];
-		subjectView.topImage.image = [UIImage imageNamed: [Catalogue nextSubjectOwnerImage]];
+		subjectView.topImage.image = [UIImage imageNamed: [[Catalogue sharedCatalogue] nextSubjectOwnerImage]];
 		[UIView commitAnimations];
 	}
 	else if (CGRectContainsPoint(subjectView.bottomImage.frame, touchLocation)){
@@ -42,7 +42,7 @@ static SubjectImageLookup *lookup;
 		[UIView setAnimationDuration:0.75];
 		[UIView setAnimationDelegate:self];
 		[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:subjectView.bottomImage cache:NO];
-		subjectView.bottomImage.image = [UIImage imageNamed:[Catalogue nextSubjectDeviceImage]];
+		subjectView.bottomImage.image = [UIImage imageNamed:[[Catalogue sharedCatalogue] nextSubjectDeviceImage]];
 		[UIView commitAnimations];
 	}
 
@@ -56,9 +56,9 @@ static SubjectImageLookup *lookup;
 	
 	
 	
-	lookup = [[SubjectImageLookup alloc] init];
+	//lookup = [[SubjectImageLookup alloc] init];
 	CGRect aframe = CGRectMake(64,60,294,301);
-	SubjectView *aview = [[SubjectView alloc] initWithFrameAndLookup:aframe lookup:lookup];//
+	SubjectView *aview = [[SubjectView alloc] initWithFrame:aframe];//  lookup:nil];//
 	subjectView = aview;
 	self.view = subjectView;
 	[aview release];
@@ -76,7 +76,7 @@ static SubjectImageLookup *lookup;
 	//[UIView setAnimationWillStartSelector:@selector(playSound:finished:context:)];
 	[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:subjectView.bottomImage cache:NO];
 	
-	subjectView.bottomImage.image = [UIImage imageNamed:[Catalogue currentSubjectDeviceImage]];
+	subjectView.bottomImage.image = [UIImage imageNamed:[[Catalogue sharedCatalogue] currentSubjectDeviceImage]];
 	[UIView commitAnimations];
 }
 

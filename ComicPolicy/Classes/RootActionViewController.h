@@ -9,8 +9,6 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 #import "ActionNotifyView.h"
-#import "Lookup.h"
-#import "Catalogue.h"
 
 @interface RootActionViewController : UIViewController {
 	UIViewController* currentViewController;

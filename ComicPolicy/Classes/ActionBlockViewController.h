@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BlockActionImageLookup.h"
+//#import "BlockActionImageLookup.h"
 #import "ActionBlockView.h"
-#import "Catalogue.h"
+
 
 @interface ActionBlockViewController : UIViewController {
 	ActionBlockView *actionBlockView;

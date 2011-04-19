@@ -14,10 +14,10 @@
 @synthesize moneyImage;
 @synthesize bandwidthLabel;
 
-- (id)initWithFrameAndLookup:(CGRect)frame lookup:(NSObject<ImageLookup>*)lookup{
+- (id)initWithFrameAndImage:(CGRect)frame image:(NSString *) image{
 	if ((self = [super initWithFrame:frame])) {
 		
-		UIImageView *tmpImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[lookup getNextTopImage]]];
+		UIImageView *tmpImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:image]];
 		self.mainImage = tmpImage;
 		[self addSubview:mainImage];
 		[tmpImage release];
@@ -38,9 +38,6 @@
 		bandwidthLabel.shadowColor = [UIColor blackColor];
 		bandwidthLabel.backgroundColor = [UIColor clearColor];
 		[self addSubview:bandwidthLabel];
-		
-		NSDictionary* dict = [NSDictionary dictionaryWithObject:[lookup getCurrentTopImage] forKey:@"condition"];
-		[[NSNotificationCenter defaultCenter] postNotificationName:@"conditionChange" object:nil userInfo:dict];
     }
     return self;
 }

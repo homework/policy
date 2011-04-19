@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "ActionNotifyView.h"
-#import "NotifyActionImageLookup.h"
-#import "Catalogue.h"
+//#import "NotifyActionImageLookup.h"
+
 
 @interface ActionNotifyViewController : UIViewController {
 	ActionNotifyView *actionNotifyView;

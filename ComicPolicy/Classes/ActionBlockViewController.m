@@ -7,11 +7,11 @@
 //
 
 #import "ActionBlockViewController.h"
-
+#import "Catalogue.h"
 
 @implementation ActionBlockViewController
 
-static NotifyActionImageLookup *lookup;
+//static NotifyActionImageLookup *lookup;
 
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -21,8 +21,8 @@ static NotifyActionImageLookup *lookup;
 		
 		CGRect aframe = CGRectMake(0,20,294,321);
 		//lookup = [[BlockActionImageLookup alloc] init];
-		NSString *topImage = [Catalogue currentActionSubjectImage];
-		NSString *bottomImage = [Catalogue currentActionImage];
+		NSString *topImage = [[Catalogue sharedCatalogue ]currentActionSubjectImage];
+		NSString *bottomImage = [[Catalogue sharedCatalogue] currentActionImage];
 
 		ActionBlockView *aview = [[ActionBlockView alloc] initWithFrameAndImages:aframe topImage:topImage bottomImage:bottomImage];//
 		actionBlockView = aview;
@@ -39,7 +39,7 @@ static NotifyActionImageLookup *lookup;
 
 -(void) actionChange:(NSNotification *) n{
 	
-	NSString* deviceImage =  [Catalogue currentActionImage];// [lookup getNextBottomImage];//[personImages objectAtIndex:++personImageIndex % [personImages count]];
+	NSString* deviceImage =  [[Catalogue sharedCatalogue] currentActionImage];// [lookup getNextBottomImage];//[personImages objectAtIndex:++personImageIndex % [personImages count]];
 	[UIView beginAnimations:nil context:nil];
 	[UIView setAnimationDuration:0.75];
 	[UIView setAnimationDelay:0.75];
@@ -59,7 +59,7 @@ static NotifyActionImageLookup *lookup;
 	
 	if (CGRectContainsPoint(actionBlockView.personImage.frame, touchLocation)){
 		
-		NSString* personImage = [Catalogue nextActionSubjectImage];//[personImages objectAtIndex:++personImageIndex % [personImages count]];
+		NSString* personImage = [[Catalogue sharedCatalogue] nextActionSubjectImage];//[personImages objectAtIndex:++personImageIndex % [personImages count]];
 		NSLog(@"block: loading up image %@", personImage);
 		[UIView beginAnimations:nil context:nil];
 		[UIView setAnimationDuration:0.75];
@@ -71,7 +71,7 @@ static NotifyActionImageLookup *lookup;
 		
 	}
 	else if (CGRectContainsPoint(actionBlockView.blockImage.frame, touchLocation)){
-		NSString* deviceImage =  [Catalogue nextActionImage];// [lookup getNextBottomImage];//[personImages objectAtIndex:++personImageIndex % [personImages count]];
+		NSString* deviceImage =  [[Catalogue sharedCatalogue] nextActionImage];// [lookup getNextBottomImage];//[personImages objectAtIndex:++personImageIndex % [personImages count]];
 		
 		[UIView beginAnimations:nil context:nil];
 		[UIView setAnimationDuration:0.75];

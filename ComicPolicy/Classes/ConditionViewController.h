@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ConditionImageLookup.h"
+//#import "ConditionImageLookup.h"
+#import "Catalogue.h"
 
 @interface ConditionViewController : UIViewController {
 	
-	ConditionImageLookup *lookup;
 }
 
 

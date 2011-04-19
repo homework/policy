@@ -1,6 +1,99 @@
 {
     "catalogue": {
     
+        "navigation":{
+    
+            "subjects":{
+                        "dad":["0000aaaa","0000bbbb"],
+                        "katie":["0000cccc"],   
+                        "mum":["0000dddd"],
+                        "john":["0000eeee"],
+                        "everyone":["0000ffff"]
+            },
+
+            "conditions":["surfing","downloading", "gaming","streaming","timed","bandwidth","visiting"],
+
+            "actions":{
+
+                    "block":{
+                        "subjects":["dad","mum","katie","john","everyone"]
+                    }, 
+                        
+                    "notify":{
+                        "subjects":["dad","mum","katie","john"],  
+                        "options": ["tweet","phone","mail","sound"]
+                    }
+            },
+
+            "monitors":["bandwidth","time","visits","type"],
+
+            "mappings":{
+
+                "conditiontomonitor":{
+                    "surfing":"type",
+                    "downloading":"type",
+                    "gaming":"type",
+                    "streaming":"type",
+                    "timed":"time",
+                    "bandwidth":"bandwidth",
+                    "visiting":"visits"
+                }
+            }
+        },
+        
+        "metadata":{
+            "devices":{
+                "0000aaaa":{
+                    "name": "dads mac air"
+                },
+                "0000bbbb":{
+                    "name": "dads iphone"
+                },
+                "0000cccc":{
+                    "name": "katies desktop"   
+                },
+                    "0000dddd":{
+                    "name": "mums computer"
+                },
+                    "0000eeee":{
+                    "name": "johns computer"
+                },
+                    "0000ffff":{
+                    "name": "lounge computer"
+                }
+            }
+        },
+
+
+        "controllers":{
+
+            "conditions":{
+                "surfing":"ConditionTypeViewController",
+                "downloading":"ConditionTypeViewController",
+                "gaming":"ConditionTypeViewController",
+                "streaming":"ConditionTypeViewController",
+                "timed":"ConditionTimeViewController",
+                "bandwidth":"ConditionBandwidthViewController",
+                "visiting":"ConditionTypeViewController"
+            },
+
+            "actions":{
+                "notify":"ActionNotifyViewController",
+                "block":"ActionBlockViewController"
+            },
+
+            "results":{
+                "surfing":"ResultTypeViewController",
+                "downloading":"ResultTypeViewController",
+                "gaming":"ResultTypeViewController",
+                "streaming":"ResultTypeViewController",
+                "timed":"ResultTimeViewController",
+                "bandwidth":"ResultBandwidthViewController",
+                "visiting":"ResultVisitsViewController"
+            }
+        },
+
+
         "images":{
         
             "dad":
@@ -64,71 +157,81 @@
                     "main":"condcomputer.png",
                     "block":"ascomputer.png"
                 },
+
             "notify":
                 {
                     "tweet":"notifybytweet.png",
                     "phone":"notifybyphone.png",
                     "mail":"notifybymail.png",
                     "sound":"notifybysound.png"
+                },
+
+            "surfing":
+                {
+                    "main":"surfing.png",
+                    "result":"resulttype.png"
+                },
+
+            "downloading":
+                {
+                    "main":"downloading.png",
+                    "result":"resulttype.png"
+                },
+
+            "gaming":
+                {
+                    "main":"gaming.png",
+                    "result":"resulttype.png"
+                },
+
+            "streaming":
+                {
+                    "main":"streaming.png",
+                    "result":"resulttype.png"
+                },
+
+            "timed":
+                {
+                    "main":"timed.png",
+                    "result":"resulttime.png"
+                },
+            
+            "bandwidth":
+                {
+                    "main":"bandwidth.png",
+                    "result":"resultbandwidth.png"      
+                },
+            
+            "visiting":
+                {
+                    "main":"visiting.png",
+                    "result":"resultvisits.png"
                 }
         },
         
-        "owners":{
-        
-        
-        },
-        
-        "devices":{
-            "0000aaaa":
-                {
-                    "name": "dads mac air"
-                },
-            "0000bbbb":
-                {
-                    "name": "dads iphone"
-                },
-            "0000cccc":
-                {
-                    "name": "katies desktop"
-                },
-            "0000dddd":
-                {
-                    "name": "mums computer"
-                },
-            "0000eeee":
-                {
-                    "name": "johns computer"
-                },
-             "0000ffff":
-                {
-                    "name": "lounge computer"
-                }
-        },
-		
-		"vcs":{
-			"actions":{
-                            "notify": "ActionNotifyViewController",
-                            "block":  "ActionBlockViewController"
-                       },
-                       
-			"conditions":[]
-		},
-        
-        "ownership":{
-            "dad":["0000aaaa","0000bbbb"],
-            "katie":["0000cccc"],
-            "mum":["0000dddd"],
-            "john":["0000eeee"],
-            "everyone":["0000ffff"]
-        },
-        
-         "actions":{
-            "notify":{
-                "subjects":["dad","mum","katie","john"],
-                "actions":["tweet","phone","sound","mail"]
+        "mappings":{
+
+         
+            "conditiontomonitorvc":{
+                "bandwidth.png":"ResultBandwidthViewController",
+                "downloading.png":"ResultTypeViewController",
+                "gaming.png":"ResultTypeViewController",
+                "streaming.png":"ResultTypeViewController",
+                "surfing.png":"ResultTypeViewController",
+                "timed.png":"ResultTimeViewController",
+                "visiting.png":"ResultVisitsViewController"
             },
-            "block":{
-                "subjects":["dad","mum","katie","john"]
+
+            "actiontoresult":{
+                "notifydad.png":"dadwaiting.png",
+                "notifyeveryone.png":"everyonewaiting.png",
+                "notifyjohn.png":"johnwaiting.png",
+                "notifykatie.png":"katiewaiting.png",
+                "notifymum.png":"mumwaiting.png",
+                "ascomputer.png":"computerunblocked.png",
+                "asdesktop.png":"desktopunblocked.png",
+                "aslaptop.png":"laptopunblocked.png",
+                "asphone.png":"phoneunblocked.png"
             }
         }
     }

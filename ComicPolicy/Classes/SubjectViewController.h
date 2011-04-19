@@ -11,7 +11,7 @@
 
 #import "SubjectView.h"
 #import "Lookup.h"
-#import "SubjectImageLookup.h"
+//#import "SubjectImageLookup.h"
 #import "Catalogue.h"
 
 @interface SubjectViewController : UIViewController {

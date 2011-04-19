@@ -23,6 +23,7 @@
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
 		NSString *controller = [controllerList objectAtIndex: ++controllerIndex % [controllerList count]];
+        NSLog(@"controller is %@", controller);
 		UIViewController *newController = [[[NSClassFromString(controller) alloc] initWithNibName:nil bundle:nil] retain];
 	
 		//NSString* imageName = [Lookup nextConditionImage]; 

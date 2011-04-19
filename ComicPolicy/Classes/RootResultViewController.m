@@ -7,7 +7,7 @@
 //
 
 #import "RootResultViewController.h"
-
+#import "Catalogue.h"
 
 @implementation RootResultViewController
 @synthesize currentController;
@@ -23,8 +23,11 @@
 
 -(void) conditionChange:(NSNotification *) n{
 	NSDictionary *userInfo = [n userInfo];
-	NSString* newscene = [Lookup lookupmonitor:[userInfo objectForKey:@"condition"]];
-	NSString *newcontroller = [Lookup lookupmonitorvc:[userInfo objectForKey:@"condition"]];
+	
+    NSString* newscene = [[Catalogue sharedCatalogue] getConditionResult:[userInfo objectForKey:@"condition"]];//[[Catalogue sharedCatalogue] lookupmonitor:[userInfo objectForKey:@"condition"]];
+    //[Lookup lookupmonitor:[userInfo objectForKey:@"condition"]];
+	NSString *newcontroller = [[Catalogue sharedCatalogue] lookupmonitorvc:[userInfo objectForKey:@"condition"]];
+    //[Lookup lookupmonitorvc:[userInfo objectForKey:@"condition"]];
 	
 	if (! [currentController.currentMonitorScene isEqualToString:newscene]){
 		//resultView.monitorWebView.alpha = 0.0;
@@ -51,7 +54,8 @@
 	
 	NSDictionary *userInfo = [n userInfo];
 	NSLog(@"looking up key %@",[userInfo objectForKey:@"action"]);
-	NSString* newscene = [Lookup lookupresult:[userInfo objectForKey:@"action"]];
+	NSString* newscene = [[Catalogue sharedCatalogue] lookupresult:[userInfo objectForKey:@"action"]];
+    //[Lookup lookupresult:[userInfo objectForKey:@"action"]];
 	
 	
 	
