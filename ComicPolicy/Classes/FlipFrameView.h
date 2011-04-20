@@ -7,13 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ImageLookup.h"
 
 @interface FlipFrameView : UIView {
 	UIImageView *upImage;
 }
 
 @property(nonatomic, retain) UIImageView* upImage;
-- (id)initWithFrameAndLookup:(CGRect)frame lookup:(NSObject<ImageLookup>*)lookup;
 - (id)initWithFrameAndImage:(CGRect)frame topImage:(NSString*) topImage bottomImage: (NSString *) bottomImage;
 @end

@@ -8,14 +8,21 @@
 
 #import "ComicPolicyViewController.h"
 
+@interface ComicPolicyViewController()
+-(void) loadPolicies;
+-(void) addNavigationView;
+-(void) addSaveAndCancel;
+@end
+
 @implementation ComicPolicyViewController
 
-@synthesize managedObjectContext;
+@synthesize buttons;
 @synthesize saveButton;
 @synthesize deleteButton;
 @synthesize policyids;
 @synthesize tickPlayer;
 @synthesize tockPlayer;
+@synthesize addNew;
 /* The designated initializer. Override to perform setup that is required before the view is loaded.
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
@@ -131,8 +138,8 @@
 	}
 	
 	else if (CGRectContainsPoint( saveButton.frame , touchLocation)){
-		NSLog(@"would save this");
-		
+		NSLog(@"save clicked");
+		[[Catalogue sharedCatalogue] setSubject:@"katie" device:@"0000cccc"];
 		/*Subject *subject = (Subject *) [NSEntityDescription insertNewObjectForEntityForName:@"Subject" inManagedObjectContext:managedObjectContext];
 		[subject setName:@"mac air"];
 		[subject setIdentity:@"deadbeef"];

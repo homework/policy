@@ -13,35 +13,30 @@
 
 }
 + (Catalogue *)sharedCatalogue;
--(void) updateActionSelections:(NSString *)subject;
--(void) initActions;
--(NSString *) lookupImage:(NSString*)identity state:(NSString*)state;
--(NSString *) currentSubjectOwner;
--(NSString *) nextSubjectOwner;
--(NSString *) nextSubjectOwnerImage;
--(NSString *) currentSubjectDevice;
--(NSString *) nextSubjectDevice;
--(NSString *) nextSubjectDeviceImage;
--(NSString *) currentSubjectDeviceImage;
--(NSString *) nextConditionViewController;
+
+#pragma mark * Public controller getters
+
 -(NSString *) nextActionViewController;
--(NSString *) currentActionSubject;
--(NSString *) nextActionSubject;
+-(NSString *) nextConditionViewController;
+-(NSString *) getConditionResultController:(NSString*) condition;
+-(NSString *) nextConditionImage;
+-(NSString *) getConditionImage:(NSString *) condition;
+-(NSString *) getConditionResultImage:(NSString *) condition;
 -(NSString *) currentActionSubjectImage;
 -(NSString *) nextActionSubjectImage;
--(NSString *) nextAction;
--(NSString *) currentAction;
--(NSString *) currentActionImage;
+-(NSString *) currentActionImage; 
 -(NSString *) nextActionImage;
 
--(NSString*)  nextCondition;
--(NSString*) nextConditionImage;
--(NSString *) getConditionImage:(NSString*)condition;
--(NSString *) getConditionResult:(NSString*)condition;
+-(NSString *) nextSubjectOwnerImage;
+-(NSString *) currentSubjectOwnerImage;
+
+-(NSString *) nextSubjectDeviceImage;
+-(NSString *) currentSubjectDeviceImage;
+
+-(NSString *) getActionResultImage:(NSString*) subject action:(NSString*)action;
 
 
--(NSString *) lookupmonitor: (NSString *) conditionscene;
--(NSString *) lookupmonitorvc: (NSString *) conditionscene;
--(NSString *) lookupresult: (NSString *) actionscene;
-	
+-(void) setSubject:(NSString *)owner device:(NSString*) device;
+
+    
 @end

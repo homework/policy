@@ -12,6 +12,13 @@
 @implementation FlipFrameView
 @synthesize upImage;
 
+- (id)initWithFrameAndImage:(CGRect)frame topImage:(NSString *)topImage bottomImage:(NSString *)bottomImage {
+    if ((self = [super initWithFrame:frame])) {
+        
+    }
+    return self;
+}
+
 - (id)initWithFrame:(CGRect)frame {
     if ((self = [super initWithFrame:frame])) {
         

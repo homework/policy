@@ -99,63 +99,117 @@
             "dad":
                 {
                     "main":"dad.png",
-                    "block":"blockdad.png",
-                    "notify":"notifydad.png"
+                    "block":{
+                            "action": "blockdad.png"
+                    },
+                    "notify":{
+                            "action":"notifydad.png",
+                            "result":"dadwaiting.png",
+                            "fired":"dadnotified.png"
+                    }
                 },
                 
             "katie":
                 {
                     "main":"katie.png",
-                    "block":"blockkatie.png",
-                    "notify":"notifykatie.png"
+                    "block":{
+                            "action":"blockkatie.png"
+                    },
+                    "notify":{
+                            "action":"notifykatie.png",
+                            "result":"katiewaiting.png",
+                            "fired":"katienotified.png"
+                    }
                 },
             "mum":
                 {
                     "main":"mum.png",
-                    "block":"blockmum.png",
-                    "notify":"notifymum.png"
+                    "block":{
+                            "action":"blockmum.png"
+                    },
+                    "notify":{
+                            "action":"notifymum.png",
+                            "result":"mumwaiting.png",
+                            "fired":"mumnotified.png"
+                    }
                 },
             "john":
                 {
                     "main":"john.png",
-                    "block":"blockjohn.png",
-                    "notify":"notifyjohn.png"
+                    "block":{   
+                        "action":"blockjohn.png"
+                    },
+                    "notify":{
+                            "action":"notifyjohn.png",
+                            "result":"johnwaiting.png",
+                            "fired":"johnnotified.png"
+                    }
                 },
             "everyone":
                 {
                     "main":"everyone.png",
-                    "block":"blockeveryone.png",
-                    "notify":"notifyeveryone.png"
+                    "block":{
+                            "action":"blockeveryone.png"
+                    },
+                    "notify":{
+                            "action":"notifyeveryone.png",
+                            "result":"everyonewaiting.png",
+                            "fired":"everyonenotified.png"
+                    }
                 },
             "0000aaaa":
                 {
                     "main":"condlaptop.png",
-                    "block":"aslaptop.png"
+                    "block":{
+                            "action":"aslaptop.png",
+                            "result":"laptopunblocked.png",
+                            "fired":"laptopblocked.png"
+                    }
                 },
             "0000bbbb":
                 {
                     "main":"condphone.png",
-                    "block":"asphone.png"
+                    "block":{
+                            "action":"asphone.png",
+                            "result":"phoneunblocked.png",
+                            "fired":"phoneblocked.png"
+                    }
                 },
             "0000cccc":
                 {
                     "main":"conddesktop.png",
-                    "block":"asdesktop.png"
+                    "block":{
+                            "action":"asdesktop.png",
+                            "result":"desktopunblocked.png",
+                            "fired":"desktopblocked.png"
+                    }
                 },
             "0000dddd":
                 {
                     "main":"condcomputer.png",
-                    "block":"ascomputer.png"
+                    "block":{
+                            "action":"ascomputer.png",
+                            "result":"computerunblocked.png",
+                            "fired":"computerblocked.png"
+                    }
                 },
             "0000eeee":
                 {
                     "main":"condcomputer.png",
-                    "block":"ascomputer.png"
+                    "block":{
+                            "action":"ascomputer.png",
+                            "result":"computerunblocked.png",
+                            "fired":"computerblocked.png"
+                    }
                 },
             "0000ffff":
                 {
                     "main":"condcomputer.png",
-                    "block":"ascomputer.png"
+                    "block":{
+                        "action":"ascomputer.png",
+                        "result":"computerunblocked.png",
+                        "fired":"computerblocked.png"
+                    }
                 },
 
             "notify":
@@ -207,32 +261,6 @@
                     "main":"visiting.png",
                     "result":"resultvisits.png"
                 }
-        },
-        
-        "mappings":{
-
-         
-            "conditiontomonitorvc":{
-                "bandwidth.png":"ResultBandwidthViewController",
-                "downloading.png":"ResultTypeViewController",
-                "gaming.png":"ResultTypeViewController",
-                "streaming.png":"ResultTypeViewController",
-                "surfing.png":"ResultTypeViewController",
-                "timed.png":"ResultTimeViewController",
-                "visiting.png":"ResultVisitsViewController"
-            },
-
-            "actiontoresult":{
-                "notifydad.png":"dadwaiting.png",
-                "notifyeveryone.png":"everyonewaiting.png",
-                "notifyjohn.png":"johnwaiting.png",
-                "notifykatie.png":"katiewaiting.png",
-                "notifymum.png":"mumwaiting.png",
-                "ascomputer.png":"computerunblocked.png",
-                "asdesktop.png":"desktopunblocked.png",
-                "aslaptop.png":"laptopunblocked.png",
-                "asphone.png":"phoneunblocked.png"
-            }
         }
     }
 }

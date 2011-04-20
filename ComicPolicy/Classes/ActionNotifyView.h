@@ -17,5 +17,5 @@
 
 @property(nonatomic,retain) UIImageView *personImage;
 @property(nonatomic,retain) UIImageView *notifyImage;
-
+- (id)initWithFrameAndImages:(CGRect)frame topImage:(NSString *) topImage bottomImage:(NSString *) bottomImage;
 @end

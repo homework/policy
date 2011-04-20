@@ -64,6 +64,19 @@
 	[aview release];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(subjectOwnerChange:) name:@"subjectOwnerChange" object:nil];	
 
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(subjectOwnerLoaded:) name:@"subjectOwnerLoaded" object:nil];
+}
+
+-(void) subjectOwnerLoaded:(NSNotification *) n{
+    [UIView beginAnimations:nil context:nil];
+	[UIView setAnimationDuration:0.75];
+	[UIView setAnimationDelay:0.70];
+	[UIView setAnimationDelegate:self];
+	
+	[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:subjectView.bottomImage cache:NO];
+	subjectView.topImage.image = [UIImage imageNamed:[[Catalogue sharedCatalogue] currentSubjectOwnerImage]];
+	subjectView.bottomImage.image = [UIImage imageNamed:[[Catalogue sharedCatalogue] currentSubjectDeviceImage]];
+	[UIView commitAnimations];
 }
 
 -(void) subjectOwnerChange:(NSNotification *) n{

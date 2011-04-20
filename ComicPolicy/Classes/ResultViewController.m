@@ -41,7 +41,7 @@
 	MonitorView *mview = [[MonitorView alloc] initWithFrame: CGRectMake(0,0,497,301)];
 	monitorView = mview;
 	
-	[resultView.monitorWebView setDelegate:self];
+	//[resultView.monitorWebView setDelegate:self];
 	[self.view addSubview: monitorView];
 	[self.view addSubview: resultView];
 	

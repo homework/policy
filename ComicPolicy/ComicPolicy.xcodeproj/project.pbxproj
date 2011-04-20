@@ -76,7 +76,6 @@
 		A327496B1340AB4100212CAB /* addnew.png in Resources */ = {isa = PBXBuildFile; fileRef = A32749691340AB4100212CAB /* addnew.png */; };
 		A327496C1340AB4100212CAB /* empty.png in Resources */ = {isa = PBXBuildFile; fileRef = A327496A1340AB4100212CAB /* empty.png */; };
 		A3274ACA1342255200212CAB /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3274AC91342255200212CAB /* CoreData.framework */; };
-		A3274B0B13422EA400212CAB /* policy.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = A3274B0A13422EA400212CAB /* policy.xcdatamodel */; };
 		A337D64413213E6F00DA13C8 /* ActionTimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A337D64313213E6F00DA13C8 /* ActionTimeViewController.m */; };
 		A337D64913213E9300DA13C8 /* ActionTimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = A337D64813213E9300DA13C8 /* ActionTimeView.m */; };
 		A3476047134C630D00430CE0 /* ResultTypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A3476046134C630D00430CE0 /* ResultTypeViewController.m */; };
@@ -100,7 +99,6 @@
 		A352A7601317FA2D0053867A /* FrameView.m in Sources */ = {isa = PBXBuildFile; fileRef = A352A75F1317FA2D0053867A /* FrameView.m */; };
 		A352A7701317FBEE0053867A /* SplitFrameView.m in Sources */ = {isa = PBXBuildFile; fileRef = A352A76F1317FBEE0053867A /* SplitFrameView.m */; };
 		A352A8C0131BDCAA0053867A /* ActionNotifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A352A8BF131BDCAA0053867A /* ActionNotifyViewController.m */; };
-		A352A8E7131BE55E0053867A /* FlipFrameView.m in Sources */ = {isa = PBXBuildFile; fileRef = A352A8E6131BE55E0053867A /* FlipFrameView.m */; };
 		A352A8E9131BE6780053867A /* sgreenbuttonup.png in Resources */ = {isa = PBXBuildFile; fileRef = A352A8E8131BE6780053867A /* sgreenbuttonup.png */; };
 		A352A8FB131BEEEC0053867A /* frame2.png in Resources */ = {isa = PBXBuildFile; fileRef = A352A8FA131BEEEC0053867A /* frame2.png */; };
 		A352A8FF131BEF450053867A /* sbluebuttonup.png in Resources */ = {isa = PBXBuildFile; fileRef = A352A8FE131BEF450053867A /* sbluebuttonup.png */; };
@@ -131,15 +129,11 @@
 		A3DCB61C1344D1E500A38D5E /* SBJsonStreamWriterState.m in Sources */ = {isa = PBXBuildFile; fileRef = A3DCB6111344D1E500A38D5E /* SBJsonStreamWriterState.m */; };
 		A3DCB61D1344D1E500A38D5E /* SBJsonTokeniser.m in Sources */ = {isa = PBXBuildFile; fileRef = A3DCB6131344D1E500A38D5E /* SBJsonTokeniser.m */; };
 		A3DCB61E1344D1E500A38D5E /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = A3DCB6151344D1E500A38D5E /* SBJsonWriter.m */; };
-		A3DCB63F1344D2E000A38D5E /* StringTuple.m in Sources */ = {isa = PBXBuildFile; fileRef = A3DCB6361344D2E000A38D5E /* StringTuple.m */; };
-		A3DCB6401344D2E000A38D5E /* Action.m in Sources */ = {isa = PBXBuildFile; fileRef = A3DCB6381344D2E000A38D5E /* Action.m */; };
-		A3DCB6411344D2E000A38D5E /* Policy.m in Sources */ = {isa = PBXBuildFile; fileRef = A3DCB63A1344D2E000A38D5E /* Policy.m */; };
-		A3DCB6421344D2E000A38D5E /* Subject.m in Sources */ = {isa = PBXBuildFile; fileRef = A3DCB63C1344D2E000A38D5E /* Subject.m */; };
-		A3DCB6431344D2E000A38D5E /* Condition.m in Sources */ = {isa = PBXBuildFile; fileRef = A3DCB63E1344D2E000A38D5E /* Condition.m */; };
 		A3DCB7091344EDB300A38D5E /* data.json in Resources */ = {isa = PBXBuildFile; fileRef = A3DCB7081344EDAD00A38D5E /* data.json */; };
 		A3DCBB81134B201000A38D5E /* selecthours.png in Resources */ = {isa = PBXBuildFile; fileRef = A3DCBB80134B201000A38D5E /* selecthours.png */; };
 		A3DCBBEE134B738B00A38D5E /* ResultTimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A3DCBBED134B738B00A38D5E /* ResultTimeViewController.m */; };
 		A3DCBBFC134B769700A38D5E /* ResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A3DCBBFB134B769700A38D5E /* ResultViewController.m */; };
+		A3ED1701135F3A6E001C64EA /* FlipFrameView.m in Sources */ = {isa = PBXBuildFile; fileRef = A3ED1700135F3A6E001C64EA /* FlipFrameView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -228,7 +222,6 @@
 		A32749691340AB4100212CAB /* addnew.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addnew.png; sourceTree = "<group>"; };
 		A327496A1340AB4100212CAB /* empty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = empty.png; sourceTree = "<group>"; };
 		A3274AC91342255200212CAB /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		A3274B0A13422EA400212CAB /* policy.xcdatamodel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.xcdatamodel; path = policy.xcdatamodel; sourceTree = "<group>"; };
 		A337D64213213E6F00DA13C8 /* ActionTimeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionTimeViewController.h; sourceTree = "<group>"; };
 		A337D64313213E6F00DA13C8 /* ActionTimeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionTimeViewController.m; sourceTree = "<group>"; };
 		A337D64713213E9300DA13C8 /* ActionTimeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionTimeView.h; sourceTree = "<group>"; };
@@ -261,8 +254,6 @@
 		A352A76F1317FBEE0053867A /* SplitFrameView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplitFrameView.m; sourceTree = "<group>"; };
 		A352A8BE131BDCAA0053867A /* ActionNotifyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionNotifyViewController.h; sourceTree = "<group>"; };
 		A352A8BF131BDCAA0053867A /* ActionNotifyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionNotifyViewController.m; sourceTree = "<group>"; };
-		A352A8E5131BE55E0053867A /* FlipFrameView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlipFrameView.h; sourceTree = "<group>"; };
-		A352A8E6131BE55E0053867A /* FlipFrameView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlipFrameView.m; sourceTree = "<group>"; };
 		A352A8E8131BE6780053867A /* sgreenbuttonup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sgreenbuttonup.png; sourceTree = "<group>"; };
 		A352A8FA131BEEEC0053867A /* frame2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = frame2.png; sourceTree = "<group>"; };
 		A352A8FE131BEF450053867A /* sbluebuttonup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sbluebuttonup.png; sourceTree = "<group>"; };
@@ -311,22 +302,14 @@
 		A3DCB6131344D1E500A38D5E /* SBJsonTokeniser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonTokeniser.m; sourceTree = "<group>"; };
 		A3DCB6141344D1E500A38D5E /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
 		A3DCB6151344D1E500A38D5E /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
-		A3DCB6351344D2E000A38D5E /* StringTuple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringTuple.h; sourceTree = "<group>"; };
-		A3DCB6361344D2E000A38D5E /* StringTuple.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StringTuple.m; sourceTree = "<group>"; };
-		A3DCB6371344D2E000A38D5E /* Action.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Action.h; sourceTree = "<group>"; };
-		A3DCB6381344D2E000A38D5E /* Action.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Action.m; sourceTree = "<group>"; };
-		A3DCB6391344D2E000A38D5E /* Policy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Policy.h; sourceTree = "<group>"; };
-		A3DCB63A1344D2E000A38D5E /* Policy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Policy.m; sourceTree = "<group>"; };
-		A3DCB63B1344D2E000A38D5E /* Subject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Subject.h; sourceTree = "<group>"; };
-		A3DCB63C1344D2E000A38D5E /* Subject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Subject.m; sourceTree = "<group>"; };
-		A3DCB63D1344D2E000A38D5E /* Condition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Condition.h; sourceTree = "<group>"; };
-		A3DCB63E1344D2E000A38D5E /* Condition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Condition.m; sourceTree = "<group>"; };
 		A3DCB7081344EDAD00A38D5E /* data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = data.json; sourceTree = "<group>"; };
 		A3DCBB80134B201000A38D5E /* selecthours.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selecthours.png; sourceTree = "<group>"; };
 		A3DCBBEC134B738B00A38D5E /* ResultTimeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultTimeViewController.h; sourceTree = "<group>"; };
 		A3DCBBED134B738B00A38D5E /* ResultTimeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultTimeViewController.m; sourceTree = "<group>"; };
 		A3DCBBFA134B769700A38D5E /* ResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultViewController.h; sourceTree = "<group>"; };
 		A3DCBBFB134B769700A38D5E /* ResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultViewController.m; sourceTree = "<group>"; };
+		A3ED16FF135F3A6D001C64EA /* FlipFrameView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlipFrameView.h; sourceTree = "<group>"; };
+		A3ED1700135F3A6E001C64EA /* FlipFrameView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlipFrameView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -351,7 +334,6 @@
 			isa = PBXGroup;
 			children = (
 				A34760C8134C815100430CE0 /* Sounds */,
-				A3274AC2134224B400212CAB /* Model */,
 				A352A8A7131BD5F50053867A /* Shared */,
 				A352A8A6131BD5C30053867A /* Util */,
 				A352A89F131BD4BE0053867A /* Subject */,
@@ -589,24 +571,6 @@
 			path = characters;
 			sourceTree = "<group>";
 		};
-		A3274AC2134224B400212CAB /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				A3DCB6351344D2E000A38D5E /* StringTuple.h */,
-				A3DCB6361344D2E000A38D5E /* StringTuple.m */,
-				A3DCB6371344D2E000A38D5E /* Action.h */,
-				A3DCB6381344D2E000A38D5E /* Action.m */,
-				A3DCB6391344D2E000A38D5E /* Policy.h */,
-				A3DCB63A1344D2E000A38D5E /* Policy.m */,
-				A3DCB63B1344D2E000A38D5E /* Subject.h */,
-				A3DCB63C1344D2E000A38D5E /* Subject.m */,
-				A3DCB63D1344D2E000A38D5E /* Condition.h */,
-				A3DCB63E1344D2E000A38D5E /* Condition.m */,
-				A3274B0A13422EA400212CAB /* policy.xcdatamodel */,
-			);
-			name = Model;
-			sourceTree = "<group>";
-		};
 		A34760C8134C815100430CE0 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
@@ -707,12 +671,12 @@
 		A352A8A7131BD5F50053867A /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				A3ED16FF135F3A6D001C64EA /* FlipFrameView.h */,
+				A3ED1700135F3A6E001C64EA /* FlipFrameView.m */,
 				A352A76E1317FBEE0053867A /* SplitFrameView.h */,
 				A352A76F1317FBEE0053867A /* SplitFrameView.m */,
 				A352A75E1317FA2D0053867A /* FrameView.h */,
 				A352A75F1317FA2D0053867A /* FrameView.m */,
-				A352A8E5131BE55E0053867A /* FlipFrameView.h */,
-				A352A8E6131BE55E0053867A /* FlipFrameView.m */,
 			);
 			name = Shared;
 			sourceTree = "<group>";
@@ -906,7 +870,6 @@
 				A352A7601317FA2D0053867A /* FrameView.m in Sources */,
 				A352A7701317FBEE0053867A /* SplitFrameView.m in Sources */,
 				A352A8C0131BDCAA0053867A /* ActionNotifyViewController.m in Sources */,
-				A352A8E7131BE55E0053867A /* FlipFrameView.m in Sources */,
 				A352A9FA131C02AD0053867A /* ActionBlockViewController.m in Sources */,
 				A352A9FF131C02F90053867A /* ActionBlockView.m in Sources */,
 				A352AAE3131D0A570053867A /* ConditionTimeViewController.m in Sources */,
@@ -916,7 +879,6 @@
 				A337D64413213E6F00DA13C8 /* ActionTimeViewController.m in Sources */,
 				A337D64913213E9300DA13C8 /* ActionTimeView.m in Sources */,
 				A32749681340AAAD00212CAB /* NavigationView.m in Sources */,
-				A3274B0B13422EA400212CAB /* policy.xcdatamodel in Sources */,
 				A3DCB58C13437F7B00A38D5E /* NavigationViewController.m in Sources */,
 				A3DCB5FE1344C90900A38D5E /* Catalogue.m in Sources */,
 				A3DCB6161344D1E500A38D5E /* NSObject+JSON.m in Sources */,
@@ -928,17 +890,13 @@
 				A3DCB61C1344D1E500A38D5E /* SBJsonStreamWriterState.m in Sources */,
 				A3DCB61D1344D1E500A38D5E /* SBJsonTokeniser.m in Sources */,
 				A3DCB61E1344D1E500A38D5E /* SBJsonWriter.m in Sources */,
-				A3DCB63F1344D2E000A38D5E /* StringTuple.m in Sources */,
-				A3DCB6401344D2E000A38D5E /* Action.m in Sources */,
-				A3DCB6411344D2E000A38D5E /* Policy.m in Sources */,
-				A3DCB6421344D2E000A38D5E /* Subject.m in Sources */,
-				A3DCB6431344D2E000A38D5E /* Condition.m in Sources */,
 				A3DCBBEE134B738B00A38D5E /* ResultTimeViewController.m in Sources */,
 				A3DCBBFC134B769700A38D5E /* ResultViewController.m in Sources */,
 				A3476047134C630D00430CE0 /* ResultTypeViewController.m in Sources */,
 				A3476050134C633D00430CE0 /* ResultBandwidthViewController.m in Sources */,
 				A3476055134C637500430CE0 /* ResultVisitsViewController.m in Sources */,
 				A34760AC134C7B5F00430CE0 /* MonitorView.m in Sources */,
+				A3ED1701135F3A6E001C64EA /* FlipFrameView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -955,6 +913,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ComicPolicy_Prefix.pch;
 				INFOPLIST_FILE = "ComicPolicy-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.1;
 				PRODUCT_NAME = ComicPolicy;
 			};
 			name = Debug;
@@ -967,6 +926,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ComicPolicy_Prefix.pch;
 				INFOPLIST_FILE = "ComicPolicy-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.1;
 				PRODUCT_NAME = ComicPolicy;
 				VALIDATE_PRODUCT = YES;
 			};

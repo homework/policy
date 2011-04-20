@@ -235,13 +235,8 @@ BOOL toScaled = NO;
 // An empty implementation adversely affects performance during animation.
 /*
  - (void)drawRect:(CGRect)rect {
- // Drawing code
- CGContextRef context = UIGraphicsGetCurrentContext();
- CGContextSetFillColorWithColor(context, [UIColor redColor].CGColor);
- CGContextAddRect(context, CGRectMake(20,20,100,100));
- CGContextFillPath(context);
- CGContextStrokePath(context);
- }*/
+
+}*/
 
 
 - (void)dealloc {

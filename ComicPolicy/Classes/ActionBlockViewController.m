@@ -11,41 +11,34 @@
 
 @implementation ActionBlockViewController
 
-//static NotifyActionImageLookup *lookup;
-
- // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
+// The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
-		NSLog(@"ading notiofcation suppiort");
+		
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionChange:) name:@"actionChange" object:nil];	
 		
 		CGRect aframe = CGRectMake(0,20,294,321);
-		//lookup = [[BlockActionImageLookup alloc] init];
+	
 		NSString *topImage = [[Catalogue sharedCatalogue ]currentActionSubjectImage];
 		NSString *bottomImage = [[Catalogue sharedCatalogue] currentActionImage];
 
 		ActionBlockView *aview = [[ActionBlockView alloc] initWithFrameAndImages:aframe topImage:topImage bottomImage:bottomImage];//
 		actionBlockView = aview;
 		self.view = aview;
-		[aview release];
-        // Custom initialization
-		//NSLog(@"ading notification suppiort");
-		//[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionChange:) name:@"actionChange" object:nil];	
-		
-		
+		[aview release];		
     }
     return self;
 }
 
 -(void) actionChange:(NSNotification *) n{
 	
-	NSString* deviceImage =  [[Catalogue sharedCatalogue] currentActionImage];// [lookup getNextBottomImage];//[personImages objectAtIndex:++personImageIndex % [personImages count]];
+	NSString* deviceImage = [[Catalogue sharedCatalogue] currentActionImage];
 	[UIView beginAnimations:nil context:nil];
 	[UIView setAnimationDuration:0.75];
 	[UIView setAnimationDelay:0.75];
 	[UIView setAnimationDelegate:self];
 	[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:actionBlockView.blockImage cache:YES];
-	actionBlockView.blockImage.image = [UIImage imageNamed:deviceImage];// [UIImage imageNamed:[notifyImages objectAtIndex:++notifyImageIndex % [notifyImages count]]];
+	actionBlockView.blockImage.image = [UIImage imageNamed:deviceImage];
 	[UIView commitAnimations];	
 }
 
@@ -59,8 +52,7 @@
 	
 	if (CGRectContainsPoint(actionBlockView.personImage.frame, touchLocation)){
 		
-		NSString* personImage = [[Catalogue sharedCatalogue] nextActionSubjectImage];//[personImages objectAtIndex:++personImageIndex % [personImages count]];
-		NSLog(@"block: loading up image %@", personImage);
+		NSString* personImage = [[Catalogue sharedCatalogue] nextActionSubjectImage];		
 		[UIView beginAnimations:nil context:nil];
 		[UIView setAnimationDuration:0.75];
 		[UIView setAnimationDelegate:self];
@@ -71,17 +63,13 @@
 		
 	}
 	else if (CGRectContainsPoint(actionBlockView.blockImage.frame, touchLocation)){
-		NSString* deviceImage =  [[Catalogue sharedCatalogue] nextActionImage];// [lookup getNextBottomImage];//[personImages objectAtIndex:++personImageIndex % [personImages count]];
-		
+		NSString* deviceImage = [[Catalogue sharedCatalogue] nextActionImage];		
 		[UIView beginAnimations:nil context:nil];
 		[UIView setAnimationDuration:0.75];
 		[UIView setAnimationDelegate:self];
 		[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight forView:actionBlockView.blockImage cache:YES];
-		actionBlockView.blockImage.image = [UIImage imageNamed:deviceImage];// [UIImage imageNamed:[notifyImages objectAtIndex:++notifyImageIndex % [notifyImages count]]];
+		actionBlockView.blockImage.image = [UIImage imageNamed:deviceImage];
 		[UIView commitAnimations];
-		
-		//NSDictionary* dict = [NSDictionary dictionaryWithObject:deviceImage forKey:@"action"];
-		//[[NSNotificationCenter defaultCenter] postNotificationName:@"actionSubjectChange" object:nil userInfo:dict];
 		
 	}
 	[super touchesBegan:touches withEvent:event];

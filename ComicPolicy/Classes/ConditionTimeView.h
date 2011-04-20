@@ -24,8 +24,6 @@
 	CGRect clockToFrame;
 }
 
-
-@property(nonatomic, retain) UIImageView *toMinuteHand;
 @property(nonatomic, retain) UIView *fromClockFace;
 @property(nonatomic, retain) UIView *toClockFace;
 

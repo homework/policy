@@ -24,11 +24,11 @@
 -(void) conditionChange:(NSNotification *) n{
 	NSDictionary *userInfo = [n userInfo];
 	
-    NSString* newscene = [[Catalogue sharedCatalogue] getConditionResult:[userInfo objectForKey:@"condition"]];//[[Catalogue sharedCatalogue] lookupmonitor:[userInfo objectForKey:@"condition"]];
-    //[Lookup lookupmonitor:[userInfo objectForKey:@"condition"]];
-	NSString *newcontroller = [[Catalogue sharedCatalogue] lookupmonitorvc:[userInfo objectForKey:@"condition"]];
-    //[Lookup lookupmonitorvc:[userInfo objectForKey:@"condition"]];
-	
+    NSString* newscene = [[Catalogue sharedCatalogue] getConditionResultImage:[userInfo objectForKey:@"condition"]];
+    
+    //NSString *newcontroller = [[Catalogue sharedCatalogue] getConditionResultController:[userInfo objectForKey:@"condition"]];
+    
+   
 	if (! [currentController.currentMonitorScene isEqualToString:newscene]){
 		//resultView.monitorWebView.alpha = 0.0;
 		//NSURL *url = [NSURL URLWithString:newscene];
@@ -53,11 +53,7 @@
 -(void) actionSubjectChange:(NSNotification *) n{
 	
 	NSDictionary *userInfo = [n userInfo];
-	NSLog(@"looking up key %@",[userInfo objectForKey:@"action"]);
-	NSString* newscene = [[Catalogue sharedCatalogue] lookupresult:[userInfo objectForKey:@"action"]];
-    //[Lookup lookupresult:[userInfo objectForKey:@"action"]];
-	
-	
+    NSString *newscene =  [[Catalogue sharedCatalogue] getActionResultImage:[userInfo objectForKey:@"action"] action:[userInfo objectForKey:@"type"]];
 	
 	if (newscene != NULL){
 		if (! [currentController.currentActionScene isEqualToString:newscene]){
@@ -124,10 +120,6 @@
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
-	NSLog(@"loading result view...:");
-	
-	//currentMonitorScene = @"resultbandwidth.png";
-	//currentActionScene = @"dadwaiting.png";
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(conditionChange:) name:@"conditionChange" object:nil];	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionSubjectChange:) name:@"actionSubjectChange" object:nil];	

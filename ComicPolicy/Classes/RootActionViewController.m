@@ -42,12 +42,9 @@
 		
 	UITouch *touch = [[event allTouches] anyObject];
 	CGPoint touchLocation = [touch locationInView:self.view];
+
 	
-	//FlipFrameView *currentView = (FlipFrameView *) currentViewController.view;
-	
-	
-	if (
-		/*CGRectContainsPoint(currentView.upImage.frame, touchLocation)*/ touchLocation.y < 60){
+	if (touchLocation.y < 60){
 		NSString *nextvc = [[Catalogue sharedCatalogue] nextActionViewController];
 		NSLog(@"loading up vc %@", nextvc);
 		NSString *controller = nextvc; //[controllerList objectAtIndex: ++controllerIndex % [controllerList count]];
@@ -61,13 +58,7 @@
 		[[self view] addSubview:[newController view]];
 		[UIView commitAnimations];
         currentViewController = newController;
-        
-		//move this notifcation elsewhere...
-        NSDictionary* dict = [NSDictionary dictionaryWithObject:controller forKey:@"controller"];
-		[[NSNotificationCenter defaultCenter] postNotificationName:@"actionTypeChange" object:nil userInfo:dict];
 	}
-	
-	
 }
 
 

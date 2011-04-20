@@ -15,10 +15,10 @@
 #import "RootResultViewController.h"
 #import "ActionTimeViewController.h"
 #import "NavigationViewController.h"
-#import "Subject.h"
+
 
 @interface ComicPolicyViewController : UIViewController {
-	NSManagedObjectContext *managedObjectContext;
+	
 	NSMutableArray *policyids;
 	UIImageView *deleteButton;
 	UIImageView *saveButton;
@@ -35,7 +35,6 @@
 }
 -(void) playTock:(NSTimer *)timer;
 
-@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, retain) NSMutableArray *buttons;
 @property (nonatomic, retain) UIImageView *addNew;
 @property (nonatomic, retain) UIImageView *deleteButton;

@@ -18,6 +18,7 @@
 
 @property(nonatomic,retain) UIImageView *personImage;
 @property(nonatomic,retain) UIImageView *blockImage;
+- (id)initWithFrameAndImages:(CGRect)frame topImage:(NSString*)topImage bottomImage:(NSString*) bottomImage;
 
 
 

@@ -9,6 +9,22 @@
 #import "Catalogue.h"
 
 
+@interface Catalogue ()
+
+-(void) initActions;
+-(NSString *) lookupImage:(NSString*)identity type:(NSString*)type state:(NSString*)state;
+-(NSString *) currentSubjectDevice;
+-(NSString *) nextSubjectDevice;
+-(NSString *) currentSubjectOwner;
+-(NSString *) nextSubjectOwner;
+-(NSString *) nextCondition;
+-(NSString *) currentActionSubject;
+-(NSString *) nextActionSubject;
+-(NSString *) nextAction;
+-(NSString *) currentAction;
+-(void) updateActionSelections:(NSString *)subject;
+
+@end
 
 @implementation Catalogue
 
@@ -16,9 +32,8 @@
 
 static NSDictionary* imageLookup;
 static NSDictionary* ownerLookup;
-static NSDictionary* conditiontomonitor;
-static NSDictionary* conditiontomonitorvc;
-static NSDictionary* actiontoresult;
+static NSDictionary* conditionresultvcs;
+
 
 static NSArray* ownership;
 static int ownershipindex;
@@ -77,32 +92,25 @@ static NSString* currentActionType;
             NSLog(@"DATA IS NIL>>>>");
         }
         else{
+            
             NSDictionary *main = (NSDictionary *) [data objectForKey:@"catalogue"];
             imageLookup = [(NSDictionary *) [main objectForKey:@"images"] retain];
             
             NSDictionary *navigation =  (NSDictionary *) [main objectForKey:@"navigation"];
             ownerLookup = [(NSDictionary *) [navigation objectForKey:@"subjects"] retain];
-            
             actionLookup = [(NSDictionary *) [navigation objectForKey:@"actions"] retain];
             
-            //NSDictionary *images = (NSDictionary *) [main objectForKey:@"images"];
+            
             conditions = (NSArray *) [[navigation objectForKey:@"conditions"] retain];
             conditionindex = -1;//0;
 
             
             NSDictionary *controllers = (NSDictionary *) [main objectForKey:@"controllers"];
             actionvcs = (NSDictionary *) [[controllers objectForKey:@"actions"] retain];
-            
+            conditionresultvcs = (NSDictionary *) [[controllers objectForKey:@"results"] retain];
                         
-            NSDictionary *mappings = (NSDictionary *) [main objectForKey:@"mappings"];
-            conditiontomonitor = (NSDictionary *) [[mappings objectForKey:@"conditiontomonitor"] retain];
-            conditiontomonitorvc = (NSDictionary *) [[mappings objectForKey:@"conditiontomonitorvc"] retain];
-            actiontoresult = (NSDictionary *) [[mappings objectForKey:@"actiontoresult"] retain];
-            
-            
             
             [self initActions];
-            
             ownership = [[ownerLookup allKeys] retain];
             ownershipindex = 0;
             
@@ -115,53 +123,7 @@ static NSString* currentActionType;
     return self;
 }
 
-
-//-(NSString *) lookupmonitor: (NSString *) conditionscene{
-//	return [conditiontomonitor objectForKey:conditionscene];
-//}
-
--(NSString *) lookupmonitorvc: (NSString *) conditionscene{
-	return [conditiontomonitorvc objectForKey:conditionscene];
-}
-
--(NSString *) lookupresult: (NSString *) actionscene{
-	return [actiontoresult objectForKey:actionscene];
-}
-
-
--(NSString*) nextCondition{
-    return (NSString*) [conditions objectAtIndex:++conditionindex % [conditions count]];
-}
-
--(NSString*) nextConditionImage{
-    NSString* condition = [self nextCondition];
-    NSString *conditionImage = [self getConditionImage:condition];
-    NSDictionary* dict = [NSDictionary dictionaryWithObject:condition forKey:@"condition"];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"conditionChange" object:nil userInfo:dict];
-    return conditionImage;
-}
-
--(NSString*) getConditionImage:(NSString *) condition{
-    NSDictionary *dict = (NSDictionary *) [imageLookup objectForKey:condition];
-    return [dict objectForKey:@"main"];
-}
-
--(NSString*) getConditionResult:(NSString *) condition{
-    NSDictionary *dict = (NSDictionary *) [imageLookup objectForKey:condition];
-    return [dict objectForKey:@"result"];
-}
-
-
--(void) updateActionSelections:(NSString *)subject{
-	
-	if ([currentActionType isEqualToString:@"block"]){
-		if (actiondevices != NULL)
-			[actiondevices release];
-		
-		actiondevices =  [[ownerLookup objectForKey:subject] retain];
-		actiondevicesindex = 0;
-	}
-}
+#pragma mark * Private methods
 
 -(void) initActions{
 	
@@ -187,9 +149,28 @@ static NSString* currentActionType;
 	[self updateActionSelections:subject];	
 }
 
--(NSString *) lookupImage:(NSString*)identity state:(NSString*)state{
+
+-(NSString *) lookupImage:(NSString*)identity type:(NSString*)type state:(NSString*)state{
+    
 	NSDictionary *images = (NSDictionary *) [imageLookup objectForKey:identity];
-	return [images objectForKey:state];
+    if (state == nil){
+        return [images objectForKey:type];
+    }
+    NSDictionary *dict = (NSDictionary *) [images objectForKey:type];
+	return [dict objectForKey:state];
+}
+
+
+
+
+#pragma mark * Subject frames (private)
+
+-(NSString *) currentSubjectDevice{
+	return [devices objectAtIndex:devicesindex % [devices count]];
+}
+
+-(NSString *) nextSubjectDevice{
+	return [devices objectAtIndex:++devicesindex % [devices count]];
 }
 
 -(NSString *) currentSubjectOwner{
@@ -205,36 +186,73 @@ static NSString* currentActionType;
 	return next;
 }
 
--(NSString *) nextSubjectOwnerImage{
-	return [self lookupImage: [self nextSubjectOwner] state:@"main"];
+#pragma mark * Condition frames (private)
+
+-(NSString*) nextCondition{
+    NSString *condition = (NSString*) [conditions objectAtIndex:++conditionindex % [conditions count]];
+    NSDictionary* dict = [NSDictionary dictionaryWithObject:condition forKey:@"condition"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"conditionChange" object:nil userInfo:dict];
+    return condition;
 }
 
--(NSString *) currentSubjectDevice{
-	return [devices objectAtIndex:devicesindex % [devices count]];
-}
+#pragma mark * Action frames (private)
 
--(NSString *) nextSubjectDevice{
-	return [devices objectAtIndex:++devicesindex % [devices count]];
-}
 
--(NSString *) nextSubjectDeviceImage{
-	return [self lookupImage: [self nextSubjectDevice] state:@"main"];
-}
-
--(NSString *) currentSubjectDeviceImage{
-	return [self lookupImage: [self currentSubjectDevice] state:@"main"];
+-(void) updateActionSelections:(NSString *)subject{
+	
+	if ([currentActionType isEqualToString:@"block"]){
+		if (actiondevices != NULL)
+			[actiondevices release];
+		
+		actiondevices =  [[ownerLookup objectForKey:subject] retain];
+		actiondevicesindex = 0;
+	}
 }
 
 
--(NSString *) nextConditionViewController{
-	return nil;
+
+-(NSString *) currentActionSubject{
+    NSString *subject = [actionsubjectarray objectAtIndex:actionsubjectarrayindex % [actionsubjectarray count]];
+    NSDictionary* dict = [NSDictionary dictionaryWithObjectsAndKeys:subject,@"action",currentActionType,@"type",nil];
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"actionSubjectChange" object:nil userInfo:dict];
+    return subject;
 }
+
+-(NSString *) nextActionSubject{
+	if (actionsubjectarray == NULL)
+		return NULL;
+	
+	NSString *subject = [actionsubjectarray objectAtIndex:++actionsubjectarrayindex % [actionsubjectarray count]];
+	[self updateActionSelections:subject];
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"actionChange" object:nil userInfo:nil];
+	
+    NSDictionary* dict = [NSDictionary dictionaryWithObjectsAndKeys:subject,@"action",currentActionType,@"type",nil];
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"actionSubjectChange" object:nil userInfo:dict];
+	
+	return subject;
+}
+
+
+-(NSString *) nextAction{
+	if (actionarray == NULL){
+		return NULL;
+	}
+	return [actionarray objectAtIndex:++actionarrayindex % [actionarray count]];
+}
+
+
+-(NSString *) currentAction{
+    if (actionarray == NULL){
+		return NULL;
+	}
+   return [actionarray objectAtIndex:actionarrayindex % [actionarray count]];
+}
+
+#pragma mark * Public controller getters
 
 -(NSString *) nextActionViewController{
 	
 	currentActionType = [actionvcsarray objectAtIndex:++actionvcsindex % [actionvcsarray count]];
-	//reset all of our indexes.
-	
 	actionsubjectarrayindex = 0;
 	actionarrayindex = 0;
 	actiondevicesindex = 0;
@@ -258,68 +276,65 @@ static NSString* currentActionType;
 	}else{
 		actionarray = NULL;	
 	}
-	
-	return [actionvcs objectForKey:currentActionType];
+    NSString* controller = [actionvcs objectForKey:currentActionType];
+    NSDictionary* dict = [NSDictionary dictionaryWithObject:controller forKey:@"controller"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"actionTypeChange" object:nil userInfo:dict];
+	return controller;
 }
 
--(NSString *) currentActionSubject{
-	return [actionsubjectarray objectAtIndex:actionsubjectarrayindex % [actionsubjectarray count]];
+-(NSString *) nextConditionViewController{
+	return nil;
 }
 
--(NSString *) nextActionSubject{
-	if (actionsubjectarray == NULL)
-		return NULL;
-	
-	NSString *subject = [actionsubjectarray objectAtIndex:++actionsubjectarrayindex % [actionsubjectarray count]];
-	[self updateActionSelections:subject];
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"actionChange" object:nil userInfo:nil];
-	
-	return subject;
+-(NSString*) getConditionResultController:(NSString*) condition{
+    return [conditionresultvcs objectForKey:condition];
+}
+
+#pragma mark * Public image getters
+
+-(NSString*) nextConditionImage{
+    NSString* condition = [self nextCondition];
+    NSString *conditionImage = [self getConditionImage:condition];
+    return conditionImage;
+}
+
+-(NSString*) getConditionImage:(NSString *) condition{
+    NSDictionary *dict = (NSDictionary *) [imageLookup objectForKey:condition];
+    return [dict objectForKey:@"main"];
+}
+
+-(NSString*) getConditionResultImage:(NSString *) condition{
+    NSDictionary *dict = (NSDictionary *) [imageLookup objectForKey:condition];
+    return [dict objectForKey:@"result"];
 }
 
 -(NSString *) currentActionSubjectImage{
 	NSString *subject = [self currentActionSubject];
 	NSDictionary *images = (NSDictionary *) [imageLookup objectForKey:subject];
-	NSString *image = [images objectForKey:currentActionType];
-    NSDictionary* dict = [NSDictionary dictionaryWithObject:image forKey:@"action"];
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"actionSubjectChange" object:nil userInfo:dict];
-	
-	return image;//[images objectForKey:currentActionType];
+    NSDictionary *action =  (NSDictionary*) [images objectForKey:currentActionType];
+    NSString *image = [action objectForKey:@"action"];
+    return image;
 }
 
 -(NSString *) nextActionSubjectImage{
 	NSString *subject = [self nextActionSubject];
 	NSDictionary *images = (NSDictionary *) [imageLookup objectForKey:subject];
-	NSString *image = [images objectForKey:currentActionType];
-	NSDictionary* dict = [NSDictionary dictionaryWithObject:image forKey:@"action"];
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"actionSubjectChange" object:nil userInfo:dict];
-	return image;
-	//return [images objectForKey:currentActionType];
+	NSDictionary *action =  (NSDictionary*) [images objectForKey:currentActionType];
+    NSString *image = [action objectForKey:@"action"];
+    return image;
 }
 
-
--(NSString *) nextAction{
-	if (actionarray == NULL){
-		return NULL;
-	}
-	return [actionarray objectAtIndex:++actionarrayindex % [actionarray count]];
-}
-
-
--(NSString *) currentAction{
-    if (actionarrayindex == 0)
-       return [actionarray objectAtIndex:0];
-	return [actionarray objectAtIndex:actionarrayindex % [actionarray count]];
-}
 
 -(NSString *) currentActionImage{
 	NSString *action = [self currentAction];
-	
+	   
 	if (action == NULL){
 		NSString *device = [actiondevices objectAtIndex:actiondevicesindex % [actiondevices count]];
-		NSString *image = [self lookupImage:device state:currentActionType];
-		NSDictionary* dict = [NSDictionary dictionaryWithObject:image forKey:@"action"];
-		[[NSNotificationCenter defaultCenter] postNotificationName:@"actionSubjectChange" object:nil userInfo:dict];
+		
+        NSString *image = [self lookupImage:device type:currentActionType state:@"action"];
+        
+		NSDictionary* dict = [NSDictionary dictionaryWithObjectsAndKeys:device,@"action",currentActionType,@"type",nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"actionSubjectChange" object:nil userInfo:dict];
 		return image;
 		
 	}
@@ -327,23 +342,71 @@ static NSString* currentActionType;
 	return [images objectForKey:action];
 }
 
-//TODO: This is nasty - need to fix to stop hardcoding 
-
 -(NSString *) nextActionImage{
 	
 	NSString *action = [self nextAction];
-	
+	 
 	if (action == NULL){
 		NSString *device = [actiondevices objectAtIndex:++actiondevicesindex % [actiondevices count]];
-		NSString *image = [self lookupImage:device state:currentActionType];
-		NSDictionary* dict = [NSDictionary dictionaryWithObject:image forKey:@"action"];
-		[[NSNotificationCenter defaultCenter] postNotificationName:@"actionSubjectChange" object:nil userInfo:dict];
+		NSString *image = [self lookupImage:device type:currentActionType state:@"action"];
+		NSDictionary* dict = [NSDictionary dictionaryWithObjectsAndKeys:device,@"action",currentActionType,@"type",nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"actionSubjectChange" object:nil userInfo:dict];
 		return image;
 	}
 	
-	NSDictionary *images = (NSDictionary *) [imageLookup objectForKey:currentActionType];
+    NSDictionary *images = (NSDictionary *) [imageLookup objectForKey:currentActionType];
 	return [images objectForKey:action];
-	
+}
+
+-(NSString *) nextSubjectOwnerImage{
+	return [self lookupImage: [self nextSubjectOwner] type:@"main" state:nil];
+}
+
+-(NSString *) currentSubjectOwnerImage{
+	return [self lookupImage: [self currentSubjectOwner] type:@"main" state:nil];
+}
+
+-(NSString *) nextSubjectDeviceImage{
+	return [self lookupImage: [self nextSubjectDevice] type:@"main" state:nil];
+}
+
+-(NSString *) currentSubjectDeviceImage{
+	return [self lookupImage: [self currentSubjectDevice] type:@"main" state:nil];
+}
+
+-(NSString*) getActionResultImage:(NSString*) subject action:(NSString*)action{
+    NSDictionary *subj = (NSDictionary *) [imageLookup objectForKey:subject];
+    NSDictionary *dict = (NSDictionary *) [subj objectForKey:action];
+    return [dict objectForKey:@"result"];
+}
+
+#pragma mark * Public policy setters
+
+-(void) setSubject:(NSString *)owner device:(NSString*) device{
+   
+    NSDictionary* tmpdevices = [ownerLookup objectForKey:owner];
+    int index = 0;
+    
+    for (NSString *device in tmpdevices){
+        
+        if ([device isEqualToString:device]){
+            [devices release];
+            devices = [tmpdevices retain];
+            devicesindex = index;
+            
+            ownershipindex = 0;
+            
+            for (NSString * tmpowner in ownership){
+                if ([tmpowner isEqualToString:owner]){
+                    break;
+                }
+                ownershipindex+=1;
+            }
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"subjectOwnerLoaded" object:nil userInfo:nil];
+            return;
+        }
+        index += 1;
+    }    
 }
 
 @end
