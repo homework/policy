@@ -134,6 +134,7 @@
 		A3DCBBEE134B738B00A38D5E /* ResultTimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A3DCBBED134B738B00A38D5E /* ResultTimeViewController.m */; };
 		A3DCBBFC134B769700A38D5E /* ResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A3DCBBFB134B769700A38D5E /* ResultViewController.m */; };
 		A3ED1701135F3A6E001C64EA /* FlipFrameView.m in Sources */ = {isa = PBXBuildFile; fileRef = A3ED1700135F3A6E001C64EA /* FlipFrameView.m */; };
+		A3F208521369B1A000270152 /* ExternalWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = A3F208511369B1A000270152 /* ExternalWindow.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -310,6 +311,7 @@
 		A3DCBBFB134B769700A38D5E /* ResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultViewController.m; sourceTree = "<group>"; };
 		A3ED16FF135F3A6D001C64EA /* FlipFrameView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlipFrameView.h; sourceTree = "<group>"; };
 		A3ED1700135F3A6E001C64EA /* FlipFrameView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlipFrameView.m; sourceTree = "<group>"; };
+		A3F208511369B1A000270152 /* ExternalWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExternalWindow.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -393,6 +395,7 @@
 				A30ADF43131528F80060D2F1 /* resultscene */,
 				2899E5210DE3E06400AC0155 /* ComicPolicyViewController.xib */,
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
+				A3F208511369B1A000270152 /* ExternalWindow.xib */,
 				8D1107310486CEB800E47090 /* ComicPolicy-Info.plist */,
 			);
 			name = Resources;
@@ -844,6 +847,7 @@
 				A3DCBB81134B201000A38D5E /* selecthours.png in Resources */,
 				A34760CB134C816700430CE0 /* tick.caf in Resources */,
 				A34760CC134C816700430CE0 /* tock.caf in Resources */,
+				A3F208521369B1A000270152 /* ExternalWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -907,6 +911,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Tom Lodge (C4DACQ32K3)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -915,6 +920,7 @@
 				INFOPLIST_FILE = "ComicPolicy-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.1;
 				PRODUCT_NAME = ComicPolicy;
+				PROVISIONING_PROFILE = "8DC0B753-9FF4-4F09-98DE-E4C7F9038CD2";
 			};
 			name = Debug;
 		};
@@ -922,12 +928,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Tom Lodge (C4DACQ32K3)";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ComicPolicy_Prefix.pch;
 				INFOPLIST_FILE = "ComicPolicy-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.1;
 				PRODUCT_NAME = ComicPolicy;
+				PROVISIONING_PROFILE = "8DC0B753-9FF4-4F09-98DE-E4C7F9038CD2";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -936,12 +944,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Tom Lodge (C4DACQ32K3)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Tom Lodge (C4DACQ32K3)";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
 				PREBINDING = NO;
-				SDKROOT = iphoneos3.2;
+				PROVISIONING_PROFILE = "8DC0B753-9FF4-4F09-98DE-E4C7F9038CD2";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "8DC0B753-9FF4-4F09-98DE-E4C7F9038CD2";
+				SDKROOT = iphoneos4.3;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
@@ -950,13 +962,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Tom Lodge (C4DACQ32K3)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Tom Lodge (C4DACQ32K3)";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PREBINDING = NO;
-				SDKROOT = iphoneos3.2;
+				PROVISIONING_PROFILE = "8DC0B753-9FF4-4F09-98DE-E4C7F9038CD2";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "8DC0B753-9FF4-4F09-98DE-E4C7F9038CD2";
+				SDKROOT = iphoneos4.3;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;

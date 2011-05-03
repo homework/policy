@@ -16,12 +16,24 @@
             "actions":{
 
                     "block":{
-                        "subjects":["dad","mum","katie","john","everyone"]
+                        "subjects":["dad","mum","katie","john","everyone"],
+                        "options":{
+                                "dad":["0000aaaa","0000bbbb"],
+                                "katie":["0000cccc"],   
+                                "mum":["0000dddd"],
+                                "john":["0000eeee"],
+                                "everyone":["0000ffff"]
+                        }
                     }, 
                         
                     "notify":{
                         "subjects":["dad","mum","katie","john"],  
-                        "options": ["tweet","phone","mail","sound"]
+                        "options": {
+                                "dad": ["tweet","phone","mail","sound"],
+                                "katie": ["tweet","phone","mail","sound"],           
+                                "mum": ["tweet","phone","mail","sound"],
+                                "john": ["tweet","phone","mail","sound"]
+                        }
                     }
             },
 
@@ -41,6 +53,8 @@
             }
         },
         
+        
+
         "metadata":{
             "devices":{
                 "0000aaaa":{
@@ -63,7 +77,6 @@
                 }
             }
         },
-
 
         "controllers":{
 
@@ -212,6 +225,31 @@
                     }
                 },
 
+            "tweet":
+                {
+                    "notify":{
+                        "action":"notifybytweet.png"
+                    }
+                },
+
+            "phone":
+                {
+                    "notify":{
+                        "action":"notifybyphone.png"
+                    }
+                },
+            "mail":
+                {
+                    "notify":{
+                        "action":"notifybymail.png"
+                    }
+                },
+            "sound":
+                {
+                    "notify":{
+                        "action":"notifybymail.png"
+                    }
+                },
             "notify":
                 {
                     "tweet":"notifybytweet.png",

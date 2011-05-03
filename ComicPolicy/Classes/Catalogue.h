@@ -17,11 +17,16 @@
 #pragma mark * Public controller getters
 
 -(NSString *) nextActionViewController;
+-(NSString *) currentActionViewController;
+
 -(NSString *) nextConditionViewController;
+-(NSString *) currentConditionViewController;
 -(NSString *) getConditionResultController:(NSString*) condition;
--(NSString *) nextConditionImage;
+-(NSString *) nextCondition;
+-(NSString *) currentCondition;
 -(NSString *) getConditionImage:(NSString *) condition;
 -(NSString *) getConditionResultImage:(NSString *) condition;
+-(NSString *) getConditionViewController:(NSString*)condition;
 -(NSString *) currentActionSubjectImage;
 -(NSString *) nextActionSubjectImage;
 -(NSString *) currentActionImage; 
@@ -37,6 +42,7 @@
 
 
 -(void) setSubject:(NSString *)owner device:(NSString*) device;
-
+-(void) setCondition:(NSString *)condition;
+-(void) setAction:(NSString *) action subject:(NSString*) subject option:(NSString*)option;
     
 @end

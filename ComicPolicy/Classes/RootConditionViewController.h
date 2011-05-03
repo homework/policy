@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "ConditionBandwidthViewController.h"
-#import "ConditionTypeViewController.h"
+@class ConditionTypeViewController;
 //#import "Lookup.h"
 
 @interface RootConditionViewController : UIViewController {
-	UIViewController* currentViewController;
+	ConditionViewController* currentViewController;
 	NSArray* controllerList;
 	int controllerIndex;
 }

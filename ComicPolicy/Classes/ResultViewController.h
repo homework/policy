@@ -21,4 +21,5 @@
 @property(nonatomic,retain) MonitorView *monitorView;
 @property(nonatomic,retain) NSString* currentMonitorScene;
 @property(nonatomic,retain) NSString* currentActionScene;
+
 @end

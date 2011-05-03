@@ -12,11 +12,11 @@
 
 
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+- (id)initWithNibNameAndCondition:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil condition:(NSString*)condition {
     if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
 		CGRect nframe = CGRectMake(0,0,294,301);
 		//lookup = [[ConditionImageLookup alloc] init];
-		FrameView *aconditionview = [[FrameView alloc] initWithFrameAndImage:nframe image: [[Catalogue sharedCatalogue] nextConditionImage]];
+		FrameView *aconditionview = [[FrameView alloc] initWithFrameAndImage:nframe image: [[Catalogue sharedCatalogue] getConditionImage:condition]];
 		self.view = aconditionview;
 		[aconditionview release];
 	}

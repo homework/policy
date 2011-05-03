@@ -12,7 +12,12 @@
 @implementation ConditionViewController
 
 
-
+- (id)initWithNibNameAndCondition:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil condition:(NSString*)condition{
+    if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
+        // lookup = [[ConditionImageLookup alloc] init];
+    }
+    return self;
+}
 
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {

@@ -12,6 +12,7 @@
 @implementation ComicPolicyAppDelegate
 
 @synthesize window;
+@synthesize externalWindow;
 @synthesize viewController;
 
 
@@ -21,9 +22,35 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
     
     [window addSubview:viewController.view];
+    // Make iPad window visible.
+    
     [window makeKeyAndVisible];
+    
+    externalWindow.hidden = YES;
+    
+    int screencount = [[UIScreen screens] count];
+    
+    if (screencount > 1) {
+        screenModes = [externalScreen.availableModes retain];
+    NSString *screens = [NSString stringWithFormat:@"found %d screens", screencount];
+        externalScreen = [[[UIScreen screens] objectAtIndex:1] retain];
+
+		NSLog(@"Found an external screen.");
+        UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"External Display Size" 
+														 message:@"Found an external screen,please select size" 
+														delegate:self 
+											   cancelButtonTitle:nil 
+											   otherButtonTitles:nil] autorelease];
+		for (UIScreenMode *mode in screenModes) {
+			CGSize modeScreenSize = mode.size;
+			[alert addButtonWithTitle:[NSString stringWithFormat:@"%.0f x %.0f pixels", modeScreenSize.width, modeScreenSize.height]];
+		}
+		[alert show];
+
+    }
 	return YES;
 }
+
 
 
 

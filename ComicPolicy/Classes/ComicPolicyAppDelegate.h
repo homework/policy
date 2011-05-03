@@ -14,10 +14,14 @@
 
 @interface ComicPolicyAppDelegate : NSObject <UIApplicationDelegate> {
     UIWindow *window;
+    UIWindow *externalWindow;
     ComicPolicyViewController *viewController;
+    NSArray *screenModes;
+	UIScreen *externalScreen;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
+@property (nonatomic, retain) IBOutlet UIWindow *externalWindow;
 @property (nonatomic, retain) IBOutlet ComicPolicyViewController *viewController;
 @end
 

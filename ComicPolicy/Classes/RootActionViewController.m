@@ -12,22 +12,9 @@
 
 @implementation RootActionViewController
 
-/*
- // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
-        // Custom initialization
-    }
-    return self;
-}
-*/
-
-
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
-	//CGRect aframe = CGRectMake(666,46,294,301);
-	
 	CGRect aframe = CGRectMake(666,26,294,334);
 	self.view = [[UIView alloc] initWithFrame: aframe];
 	
@@ -36,6 +23,21 @@
 	UIViewController *newController = [[[NSClassFromString(controller) alloc] initWithNibName:nil bundle:nil] retain];
 	[[self view] addSubview:[newController view]];
 	currentViewController = newController;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionLoaded:) name:@"actionLoaded" object:nil];
+}
+
+-(void) actionLoaded:(NSNotification *) n{
+    NSString *controller = [[Catalogue sharedCatalogue] currentActionViewController];
+    UIViewController *newController = [[[NSClassFromString(controller) alloc] initWithNibName:nil bundle:nil] retain];
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:0.75];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationTransition:UIViewAnimationTransitionCurlUp forView:self.view cache:YES];
+    [currentViewController.view removeFromSuperview];
+    [currentViewController release];
+    [[self view] addSubview:[newController view]];
+    [UIView commitAnimations];
+    currentViewController = newController;
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -45,9 +47,7 @@
 
 	
 	if (touchLocation.y < 60){
-		NSString *nextvc = [[Catalogue sharedCatalogue] nextActionViewController];
-		NSLog(@"loading up vc %@", nextvc);
-		NSString *controller = nextvc; //[controllerList objectAtIndex: ++controllerIndex % [controllerList count]];
+		NSString *controller = [[Catalogue sharedCatalogue] nextActionViewController];
 		UIViewController *newController = [[[NSClassFromString(controller) alloc] initWithNibName:nil bundle:nil] retain];
 		[UIView beginAnimations:nil context:nil];
 		[UIView setAnimationDuration:0.75];

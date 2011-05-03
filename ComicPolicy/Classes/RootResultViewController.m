@@ -79,32 +79,26 @@
 	[UIView setAnimationDelay:0.70];
 	[UIView setAnimationDelegate:self];
 	
-	
-
-	
 	if ([controller isEqualToString:@"ActionBlockViewController"]){
 		
-		
-		CGRect aframe = currentController.resultView.frame;
-		aframe.origin.x += 300;
+        CGRect aframe = currentController.resultView.frame;
+		aframe.origin.x = 300;
 		aframe.size.width = 600;
 		currentController.resultView.comicframe.frame = aframe;
-		
 		currentController.resultView.resultMainImage.alpha = 1.0;
 		currentController.monitorView.monitorImage.alpha = 1.0;
 		aframe = currentController.monitorView.monitorImage.frame;
-		aframe.origin.x += 300;
+		aframe.origin.x = 300;
 		currentController.monitorView.monitorImage.frame = aframe;
 		
 		
 	}else{
-		CGRect aframe = currentController.resultView.frame;
-		aframe.origin.x += 0;
+        CGRect aframe = currentController.resultView.frame;
 		aframe.size.width = 897;
 		currentController.resultView.comicframe.frame = aframe;
 		currentController.resultView.resultMainImage.alpha = 1.0;
 		aframe = currentController.monitorView.monitorImage.frame;
-		aframe.origin.x -= 300;
+		aframe.origin.x = 0;
 		currentController.monitorView.monitorImage.frame = aframe;
 		currentController.monitorView.monitorImage.alpha = 1.0;
 	}
@@ -121,6 +115,7 @@
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
 	
+   
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(conditionChange:) name:@"conditionChange" object:nil];	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionSubjectChange:) name:@"actionSubjectChange" object:nil];	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionTypeChange:) name:@"actionTypeChange" object:nil];	
@@ -132,12 +127,10 @@
 	[rootView release];
 	
 	ResultViewController *newController = [[NSClassFromString(@"ResultTimeViewController") alloc] initWithNibName:nil bundle:nil];
+   
 	[[self view] addSubview:[newController view]];
 	currentController = newController;
 	//[newController release];
-	
-	NSLog(@"done loading result view...:");
-	
 	
 	/*
 	ResultView *aview = [[ResultView alloc] initWithFrame: CGRectMake(0,0,897,301)];

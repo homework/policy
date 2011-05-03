@@ -140,6 +140,8 @@
 	else if (CGRectContainsPoint( saveButton.frame , touchLocation)){
 		NSLog(@"save clicked");
 		[[Catalogue sharedCatalogue] setSubject:@"katie" device:@"0000cccc"];
+        [[Catalogue sharedCatalogue] setCondition:@"timed"];
+        [[Catalogue sharedCatalogue] setAction:@"block" subject:@"mum" option:@"0000dddd"];
 		/*Subject *subject = (Subject *) [NSEntityDescription insertNewObjectForEntityForName:@"Subject" inManagedObjectContext:managedObjectContext];
 		[subject setName:@"mac air"];
 		[subject setIdentity:@"deadbeef"];

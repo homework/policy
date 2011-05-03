@@ -12,10 +12,10 @@
 
 
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+- (id)initWithNibNameAndCondition:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil condition:(NSString*)condition {
     if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
 		CGRect aframe = CGRectMake(0,0,294,301);
-		ConditionTimeView *aconditionview = [[ConditionTimeView alloc] initWithFrameAndImage:aframe image: [[Catalogue sharedCatalogue] nextConditionImage]];
+		ConditionTimeView *aconditionview = [[ConditionTimeView alloc] initWithFrameAndImage:aframe image: [[Catalogue sharedCatalogue] getConditionImage:condition]];
 		conditionTimeView = aconditionview;
 		self.view = aconditionview;
 	}

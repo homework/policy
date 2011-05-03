@@ -22,6 +22,8 @@
 		NSString *topImage = [[Catalogue sharedCatalogue ]currentActionSubjectImage];
 		NSString *bottomImage = [[Catalogue sharedCatalogue] currentActionImage];
 
+        NSLog(@"block...Loading current action subject image and current action image.. %@ %@",topImage, bottomImage);
+        
 		ActionBlockView *aview = [[ActionBlockView alloc] initWithFrameAndImages:aframe topImage:topImage bottomImage:bottomImage];//
 		actionBlockView = aview;
 		self.view = aview;
