@@ -15,5 +15,4 @@
 	int selectedPolicy;
 }
 
--(void) updatePolicyIds:(NSMutableArray *) policyids;
 @end

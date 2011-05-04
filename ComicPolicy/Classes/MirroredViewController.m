@@ -6,16 +6,15 @@
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "ComicPolicyViewController.h"
-#import "PolicyManager.h"
+#import "MirroredViewController.h"
 
-@interface ComicPolicyViewController()
+@interface MirroredViewController()
 -(void) loadPolicies;
 -(void) addNavigationView;
 -(void) addSaveAndCancel;
 @end
 
-@implementation ComicPolicyViewController
+@implementation MirroredViewController
 
 @synthesize buttons;
 @synthesize saveButton;
@@ -25,17 +24,16 @@
 @synthesize tockPlayer;
 @synthesize addNew;
 /* The designated initializer. Override to perform setup that is required before the view is loaded.
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
-    }
-    return self;
-}*/
+ - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+ if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
+ }
+ return self;
+ }*/
 
 
 -(void) loadPolicies{
-	//self.policyids = [[NSMutableArray alloc] init];
-    //NSArray *polic
-	//[policyids addObject: [NSNumber numberWithInt:1]];
+	self.policyids = [[NSMutableArray alloc] init];
+	[policyids addObject: [NSNumber numberWithInt:1]];
 	//[policyids addObject: [NSNumber numberWithInt:10]];
 	//[policyids addObject: [NSNumber numberWithInt:9]];
 	//[policyids addObject: [NSNumber numberWithInt:11]];
@@ -96,6 +94,7 @@
 -(void) addNavigationView{
 	navigationViewController = [[NavigationViewController alloc] init];
 	[self.view addSubview: [navigationViewController view]];
+	[navigationViewController updatePolicyIds:policyids];
 	[self addSaveAndCancel];
 	
 }
@@ -124,38 +123,37 @@
 	UITouch *touch = [[event allTouches] anyObject];
 	CGPoint touchLocation = [touch locationInView:self.view];
 	/*
-	if (CGRectContainsPoint( addNew.frame , touchLocation)){
-		UIImageView *tmpButton = [[UIImageView alloc] initWithImage: [UIImage imageNamed:@"empty.png"]];
-		UILabel *tmp = [[UILabel alloc] initWithFrame:CGRectMake(9,0,26,27)];
-		tmp.backgroundColor = [UIColor clearColor];
-		tmp.text = [NSString stringWithFormat:@"%d", [buttons count]];
-		[tmpButton addSubview:tmp];
-		[buttons insertObject: tmpButton atIndex:[buttons count]-1];
-		[navigationView updateButtons:buttons];
-	}*/
+     if (CGRectContainsPoint( addNew.frame , touchLocation)){
+     UIImageView *tmpButton = [[UIImageView alloc] initWithImage: [UIImage imageNamed:@"empty.png"]];
+     UILabel *tmp = [[UILabel alloc] initWithFrame:CGRectMake(9,0,26,27)];
+     tmp.backgroundColor = [UIColor clearColor];
+     tmp.text = [NSString stringWithFormat:@"%d", [buttons count]];
+     [tmpButton addSubview:tmp];
+     [buttons insertObject: tmpButton atIndex:[buttons count]-1];
+     [navigationView updateButtons:buttons];
+     }*/
 	
 	if (CGRectContainsPoint( deleteButton.frame , touchLocation)){
 		NSLog(@"would delete this");
 	}
 	
 	else if (CGRectContainsPoint( saveButton.frame , touchLocation)){
-        [[PolicyManager sharedPolicyManager] loadPolicy:@"1"];
-        [UIView beginAnimations:nil context:nil];
-        [UIView setAnimationDuration:0.75];
-        [UIView setAnimationDelegate:self];
-        [UIView setAnimationDidStopSelector:@selector(pageLoaded:finished:context:)];
-        [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:self.view cache:NO];
-       
-        [UIView commitAnimations];
-       
-
-    }
+		NSLog(@"save clicked");
+		[[Catalogue sharedCatalogue] setSubject:@"katie" device:@"0000cccc"];
+        [[Catalogue sharedCatalogue] setCondition:@"timed"];
+        [[Catalogue sharedCatalogue] setAction:@"block" subject:@"mum" option:@"0000dddd"];
+		/*Subject *subject = (Subject *) [NSEntityDescription insertNewObjectForEntityForName:@"Subject" inManagedObjectContext:managedObjectContext];
+         [subject setName:@"mac air"];
+         [subject setIdentity:@"deadbeef"];
+         [subject setOwner:@"dad"];
+         
+         NSError *error = nil;
+         if (![managedObjectContext save:&error]){
+         NSLog(@"error saving");
+         }*/
+	}
 	
 	
-}
-
--(void) pageLoaded:(NSString*)animationID finished:(BOOL)finished context:(void*)context{
-   
 }
 
 - (void)playTick{
@@ -229,7 +227,7 @@
 
 // Override to allow orientations other than the default portrait orientation.
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-   return (interfaceOrientation != UIInterfaceOrientationPortrait);
+    return (interfaceOrientation != UIInterfaceOrientationPortrait);
 }
 
 - (void)didReceiveMemoryWarning {

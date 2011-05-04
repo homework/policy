@@ -1,0 +1,54 @@
+{
+    "policies":{
+                
+               "1":{
+                    "subject":{
+                            "owner":"katie",
+                            "device":"0000cccc"
+                    },
+                
+                    "condition":{
+                            "type":"timed",
+                            
+                            "options":{
+                                        "from":"12.00", 
+                                        "to":"13:00"
+                            }
+                    },
+
+                    "action":{
+                            "type":"block",
+                            
+                            "options":{
+                                        "owner":"dad",
+                                        "device":"0000aaaa"
+                            }
+                
+                    }
+                },
+
+                "2":{
+                        "subject":{
+                        "owner":"mum",
+                        "device":"0000dddd"
+                    },
+
+                    "condition":{
+                        "type":"bandwidth",
+                        "options":{
+                            "percentage":"80" 
+                        }
+                    },
+
+                    "action":{
+                        "type":"notify",
+                        "options":{
+                            "owner":"john",
+                            "channel":"tweet"
+                        }
+
+                    }
+                }
+                
+    }
+}

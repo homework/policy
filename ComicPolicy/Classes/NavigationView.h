@@ -16,7 +16,6 @@
 
 @property(nonatomic,retain) UIImageView *addNew;
 
--(void) updateNavigation:(NSMutableArray *) policyids;
 
 
 @end

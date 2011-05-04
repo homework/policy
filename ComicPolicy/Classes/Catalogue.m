@@ -170,7 +170,6 @@ static NSString* currentActionType;
      NSString *subject = [self currentActionSubject];
     
 	if ([tmp objectForKey:@"options"] != NULL){
-        NSLog(@"setting options for the action %@,  subject %@", currentActionType, subject);
         NSDictionary* tmpoptdict = [tmp objectForKey:@"options"];
         actionoptionsarray =  [[tmpoptdict objectForKey:subject] retain];
         //for (NSString *option in actionoptionsarray){

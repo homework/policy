@@ -12,29 +12,34 @@
 @implementation ComicPolicyAppDelegate
 
 @synthesize window;
-@synthesize externalWindow;
+//@synthesize externalWindow;
 @synthesize viewController;
+//@synthesize mirroredViewController;
 
 
 #pragma mark -
 #pragma mark Application lifecycle
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
+    //mirroredViewController = [[ComicPolicyViewController alloc] init];
     
     [window addSubview:viewController.view];
+    
     // Make iPad window visible.
     
     [window makeKeyAndVisible];
     
-    externalWindow.hidden = YES;
+   // self.externalWindow = [[UIWindow alloc] init];
     
-    int screencount = [[UIScreen screens] count];
+    //self.externalWindow.hidden = YES;
+    
+    /*int screencount = [[UIScreen screens] count];
     
     if (screencount > 1) {
-        screenModes = [externalScreen.availableModes retain];
-    NSString *screens = [NSString stringWithFormat:@"found %d screens", screencount];
+        
+        NSString *screens = [NSString stringWithFormat:@"found %d screens", screencount];
         externalScreen = [[[UIScreen screens] objectAtIndex:1] retain];
-
+        screenModes = [externalScreen.availableModes retain];
 		NSLog(@"Found an external screen.");
         UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"External Display Size" 
 														 message:@"Found an external screen,please select size" 
@@ -47,11 +52,35 @@
 		}
 		[alert show];
 
-    }
+    }*/
 	return YES;
 }
 
+/*
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+	UIScreenMode *desiredMode = [screenModes objectAtIndex:buttonIndex];
+	externalScreen.currentMode = desiredMode;
+	externalWindow.screen = externalScreen;
+	
+	[screenModes release];
+	[externalScreen release];
+	
+	CGRect rect = CGRectZero;
+	rect.size = desiredMode.size;
+    [externalWindow makeKeyAndVisible];
 
+    [externalWindow addSubview:[mirroredViewController view]];
+    
+	//externalWindow.frame = rect;
+    externalWindow.frame = [[UIScreen mainScreen] applicationFrame];
+	externalWindow.clipsToBounds = YES;
+	externalWindow.hidden = NO;
+    
+	}
+
+
+*/
 
 
 - (void)applicationWillResignActive:(UIApplication *)application {

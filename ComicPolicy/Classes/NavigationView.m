@@ -7,7 +7,11 @@
 //
 
 #import "NavigationView.h"
+#import "PolicyManager.h"
 
+@interface NavigationView()
+    -(void) updateNavigation;
+@end
 
 @implementation NavigationView
 @synthesize addNew;
@@ -16,14 +20,15 @@ static float PADDING = 15;
 
 - (id)initWithFrame:(CGRect)frame{
     if ((self = [super initWithFrame:frame])) {
-					
+        [self updateNavigation];		
     }
     return self;
 }
 
--(void) updateNavigation:(NSMutableArray *) policyids{
+-(void) updateNavigation{
 	
-	
+	NSArray *policyids = [[PolicyManager sharedPolicyManager]policyids];
+    
 	int buttoncount = [policyids count] + 1;
 		
 	float barlen = (buttoncount * 26) + (PADDING * buttoncount-1);
@@ -36,7 +41,7 @@ static float PADDING = 15;
 	}
 	
 	
-	for (NSNumber *policy in policyids){
+	for (NSString *policy in policyids ){
 		UIImageView *button = [[UIImageView alloc] initWithImage: [UIImage imageNamed:@"empty.png"]];
 		button.tag = [policy intValue];
 		UILabel *tmp = [[UILabel alloc] initWithFrame:CGRectMake(8,0,26,27)];

@@ -30,9 +30,10 @@
 	self.view = navigationView;
 }
 
--(void) updatePolicyIds:(NSMutableArray *) policyids{
-	[navigationView updateNavigation:policyids];
-}
+//-(void) updatePolicyIds:(NSMutableArray *) policyids{
+//	[navigationView updateNavigation:policyids];
+//}
+
 
 -(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
 	
@@ -49,6 +50,7 @@
 					selectedView.transform = CGAffineTransformMakeScale(0.8, 0.8);	
 				}				
 				selectedPolicy = view.tag;
+                NSLog(@"would load policy %d", selectedPolicy);
 				selectedView = view;
 				view.transform = CGAffineTransformMakeScale(1.0, 1.0);
 				

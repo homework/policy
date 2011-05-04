@@ -97,13 +97,13 @@
 	
     ConditionViewController *newController = [[[NSClassFromString(controller) alloc] initWithNibNameAndCondition:nil bundle:nil condition:condition] retain];
     
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:0.75];
-    [UIView setAnimationDelegate:self];
-    [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight forView:self.view cache:YES];
+    //[UIView beginAnimations:nil context:nil];
+    //[UIView setAnimationDuration:0.75];
+    //[UIView setAnimationDelegate:self];
+    //[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight forView:self.view cache:YES];
     [currentViewController.view removeFromSuperview];
     [[self view] addSubview:[newController view]];
-    [UIView commitAnimations];
+    //[UIView commitAnimations];
 	
     [currentViewController release];
     currentViewController = newController;
