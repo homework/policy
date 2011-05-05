@@ -11,12 +11,15 @@
 #import "ResultView.h"
 #import "SubjectView.h"
 #import "ResultViewController.h"
+#import "MonitorViewController.h"
 
 @interface RootResultViewController : UIViewController <UIWebViewDelegate>{
-	ResultViewController * currentController;
-  
+	ResultViewController    *resultController;
+    MonitorViewController   *monitorController;
+
 }
 
-@property(nonatomic, retain) ResultViewController* currentController;
+@property(nonatomic, retain) ResultViewController* resultController;
+@property(nonatomic, retain) MonitorViewController* monitorController;
 
 @end

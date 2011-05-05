@@ -10,10 +10,10 @@
 
 
 @implementation ResultViewController
-@synthesize currentMonitorScene;
+
 @synthesize currentActionScene;
 @synthesize resultView;
-@synthesize monitorView;
+
 /*
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -27,7 +27,7 @@
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
-	currentMonitorScene = @"resultbandwidth.png";
+	
 	currentActionScene = @"dadwaiting.png";
 	
 	CGRect aframe = CGRectMake(0,0,897,301);
@@ -38,11 +38,7 @@
 	ResultView *aview = [[ResultView alloc] initWithFrame: CGRectMake(0,0,897,301)];
 	resultView = aview;
 	
-	MonitorView *mview = [[MonitorView alloc] initWithFrame: CGRectMake(0,0,497,301)];
-	monitorView = mview;
 	
-	//[resultView.monitorWebView setDelegate:self];
-	[self.view addSubview: monitorView];
 	[self.view addSubview: resultView];
 	
 }

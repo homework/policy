@@ -11,7 +11,7 @@
 
 
 @interface ComicPolicyViewController()
--(void) loadPolicies;
+
 -(void) addNavigationView;
 -(void) addSaveAndCancel;
 @end
@@ -33,14 +33,7 @@
 }*/
 
 
--(void) loadPolicies{
-	//self.policyids = [[NSMutableArray alloc] init];
-    //NSArray *polic
-	//[policyids addObject: [NSNumber numberWithInt:1]];
-	//[policyids addObject: [NSNumber numberWithInt:10]];
-	//[policyids addObject: [NSNumber numberWithInt:9]];
-	//[policyids addObject: [NSNumber numberWithInt:11]];
-}
+
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
@@ -65,7 +58,7 @@
 	[tockPlayer prepareToPlay];
 	
 	
-	[self loadPolicies];
+	
 	// add some policy test data...
 	
 	self.view = [[[UIView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame] autorelease];
@@ -91,7 +84,7 @@
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionSubjectChange:) name:@"actionSubjectChange" object:nil];	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(subjectOwnerChange:) name:@"subjectOwnerChange" object:nil];	
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(policyLoaded:) name:@"policyLoaded" object:nil];	
-	
+	[[PolicyManager sharedPolicyManager] loadFirstPolicy];
 	
 }
 

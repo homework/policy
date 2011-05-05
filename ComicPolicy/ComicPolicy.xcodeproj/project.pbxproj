@@ -79,7 +79,6 @@
 		A337D64413213E6F00DA13C8 /* ActionTimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A337D64313213E6F00DA13C8 /* ActionTimeViewController.m */; };
 		A337D64913213E9300DA13C8 /* ActionTimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = A337D64813213E9300DA13C8 /* ActionTimeView.m */; };
 		A3476047134C630D00430CE0 /* ResultTypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A3476046134C630D00430CE0 /* ResultTypeViewController.m */; };
-		A3476050134C633D00430CE0 /* ResultBandwidthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A347604F134C633D00430CE0 /* ResultBandwidthViewController.m */; };
 		A3476055134C637500430CE0 /* ResultVisitsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A3476054134C637500430CE0 /* ResultVisitsViewController.m */; };
 		A34760AC134C7B5F00430CE0 /* MonitorView.m in Sources */ = {isa = PBXBuildFile; fileRef = A34760AB134C7B5F00430CE0 /* MonitorView.m */; };
 		A34760CB134C816700430CE0 /* tick.caf in Resources */ = {isa = PBXBuildFile; fileRef = A34760C9134C816700430CE0 /* tick.caf */; };
@@ -136,6 +135,9 @@
 		A3DCBB81134B201000A38D5E /* selecthours.png in Resources */ = {isa = PBXBuildFile; fileRef = A3DCBB80134B201000A38D5E /* selecthours.png */; };
 		A3DCBBEE134B738B00A38D5E /* ResultTimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A3DCBBED134B738B00A38D5E /* ResultTimeViewController.m */; };
 		A3DCBBFC134B769700A38D5E /* ResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A3DCBBFB134B769700A38D5E /* ResultViewController.m */; };
+		A3E7FBF71372F51F003FFE37 /* ResultDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = A3E7FBF61372F51F003FFE37 /* ResultDataSource.m */; };
+		A3E7FBFB1372F6ED003FFE37 /* BandwidthMonitorView.m in Sources */ = {isa = PBXBuildFile; fileRef = A3E7FBFA1372F6EC003FFE37 /* BandwidthMonitorView.m */; };
+		A3E7FC10137304AB003FFE37 /* MonitorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A3E7FC0F137304A9003FFE37 /* MonitorViewController.m */; };
 		A3ED1701135F3A6E001C64EA /* FlipFrameView.m in Sources */ = {isa = PBXBuildFile; fileRef = A3ED1700135F3A6E001C64EA /* FlipFrameView.m */; };
 /* End PBXBuildFile section */
 
@@ -231,8 +233,6 @@
 		A337D64813213E9300DA13C8 /* ActionTimeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionTimeView.m; sourceTree = "<group>"; };
 		A3476045134C630D00430CE0 /* ResultTypeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultTypeViewController.h; sourceTree = "<group>"; };
 		A3476046134C630D00430CE0 /* ResultTypeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultTypeViewController.m; sourceTree = "<group>"; };
-		A347604E134C633D00430CE0 /* ResultBandwidthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultBandwidthViewController.h; sourceTree = "<group>"; };
-		A347604F134C633D00430CE0 /* ResultBandwidthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultBandwidthViewController.m; sourceTree = "<group>"; };
 		A3476053134C637500430CE0 /* ResultVisitsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultVisitsViewController.h; sourceTree = "<group>"; };
 		A3476054134C637500430CE0 /* ResultVisitsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultVisitsViewController.m; sourceTree = "<group>"; };
 		A34760AA134C7B5F00430CE0 /* MonitorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonitorView.h; sourceTree = "<group>"; };
@@ -316,6 +316,12 @@
 		A3DCBBED134B738B00A38D5E /* ResultTimeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultTimeViewController.m; sourceTree = "<group>"; };
 		A3DCBBFA134B769700A38D5E /* ResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultViewController.h; sourceTree = "<group>"; };
 		A3DCBBFB134B769700A38D5E /* ResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultViewController.m; sourceTree = "<group>"; };
+		A3E7FBF51372F51E003FFE37 /* ResultDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultDataSource.h; sourceTree = "<group>"; };
+		A3E7FBF61372F51F003FFE37 /* ResultDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultDataSource.m; sourceTree = "<group>"; };
+		A3E7FBF91372F6EC003FFE37 /* BandwidthMonitorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BandwidthMonitorView.h; sourceTree = "<group>"; };
+		A3E7FBFA1372F6EC003FFE37 /* BandwidthMonitorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BandwidthMonitorView.m; sourceTree = "<group>"; };
+		A3E7FC0E137304A8003FFE37 /* MonitorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonitorViewController.h; sourceTree = "<group>"; };
+		A3E7FC0F137304A9003FFE37 /* MonitorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonitorViewController.m; sourceTree = "<group>"; };
 		A3ED16FF135F3A6D001C64EA /* FlipFrameView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlipFrameView.h; sourceTree = "<group>"; };
 		A3ED1700135F3A6E001C64EA /* FlipFrameView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlipFrameView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -649,8 +655,11 @@
 		A352A8A3131BD4E30053867A /* Result */ = {
 			isa = PBXGroup;
 			children = (
+				A3E7FBF81372F53E003FFE37 /* DataSource */,
 				A30AE06B13153F420060D2F1 /* RootResultViewController.h */,
 				A30AE06C13153F420060D2F1 /* RootResultViewController.m */,
+				A3E7FC0E137304A8003FFE37 /* MonitorViewController.h */,
+				A3E7FC0F137304A9003FFE37 /* MonitorViewController.m */,
 				A3DCBBFA134B769700A38D5E /* ResultViewController.h */,
 				A3DCBBFB134B769700A38D5E /* ResultViewController.m */,
 				A3DCBBEC134B738B00A38D5E /* ResultTimeViewController.h */,
@@ -659,12 +668,12 @@
 				A3476054134C637500430CE0 /* ResultVisitsViewController.m */,
 				A3476045134C630D00430CE0 /* ResultTypeViewController.h */,
 				A3476046134C630D00430CE0 /* ResultTypeViewController.m */,
-				A347604E134C633D00430CE0 /* ResultBandwidthViewController.h */,
-				A347604F134C633D00430CE0 /* ResultBandwidthViewController.m */,
 				A30AE070131540040060D2F1 /* ResultView.h */,
 				A30AE071131540040060D2F1 /* ResultView.m */,
 				A34760AA134C7B5F00430CE0 /* MonitorView.h */,
 				A34760AB134C7B5F00430CE0 /* MonitorView.m */,
+				A3E7FBF91372F6EC003FFE37 /* BandwidthMonitorView.h */,
+				A3E7FBFA1372F6EC003FFE37 /* BandwidthMonitorView.m */,
 			);
 			name = Result;
 			sourceTree = "<group>";
@@ -729,6 +738,15 @@
 				A3DCB6151344D1E500A38D5E /* SBJsonWriter.m */,
 			);
 			name = JSON;
+			sourceTree = "<group>";
+		};
+		A3E7FBF81372F53E003FFE37 /* DataSource */ = {
+			isa = PBXGroup;
+			children = (
+				A3E7FBF51372F51E003FFE37 /* ResultDataSource.h */,
+				A3E7FBF61372F51F003FFE37 /* ResultDataSource.m */,
+			);
+			name = DataSource;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -907,12 +925,14 @@
 				A3DCBBEE134B738B00A38D5E /* ResultTimeViewController.m in Sources */,
 				A3DCBBFC134B769700A38D5E /* ResultViewController.m in Sources */,
 				A3476047134C630D00430CE0 /* ResultTypeViewController.m in Sources */,
-				A3476050134C633D00430CE0 /* ResultBandwidthViewController.m in Sources */,
 				A3476055134C637500430CE0 /* ResultVisitsViewController.m in Sources */,
 				A34760AC134C7B5F00430CE0 /* MonitorView.m in Sources */,
 				A3ED1701135F3A6E001C64EA /* FlipFrameView.m in Sources */,
 				A3BE908D137175E8004F6E8B /* MirroredViewController.m in Sources */,
 				A3DB62CF1371AC5000AEBF46 /* PolicyManager.m in Sources */,
+				A3E7FBF71372F51F003FFE37 /* ResultDataSource.m in Sources */,
+				A3E7FBFB1372F6ED003FFE37 /* BandwidthMonitorView.m in Sources */,
+				A3E7FC10137304AB003FFE37 /* MonitorViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

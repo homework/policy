@@ -10,7 +10,9 @@
 #import "Catalogue.h"
 
 @implementation RootResultViewController
-@synthesize currentController;
+@synthesize resultController;
+@synthesize monitorController;
+
 /*
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
  - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -26,29 +28,25 @@
 	NSDictionary *userInfo = [n userInfo];
 	
     NSString* newscene = [[Catalogue sharedCatalogue] getConditionResultImage:[userInfo objectForKey:@"condition"]];
-     NSLog(@"ok ...seen a condition change... %@", newscene);
-    //NSString *newcontroller = [[Catalogue sharedCatalogue] getConditionResultController:[userInfo objectForKey:@"condition"]];
     
-   
+    NSString *newcontroller = [[Catalogue sharedCatalogue] getConditionResultController:[userInfo objectForKey:@"condition"]];
+    NSLog(@"new controller is %@", newcontroller);
+    
+    /*ResultViewController *newController = [[NSClassFromString(newcontroller) alloc] initWithNibName:nil bundle:nil];
+    [currentController.view removeFromSuperview];
+    [currentController release];
+    [[self view] addSubview:[newController view]];
+	currentController = [newController retain];*/
+
 	//if (! [currentController.currentMonitorScene isEqualToString:newscene]){
         NSLog(@"-----> loading up %@", newscene);
-		//resultView.monitorWebView.alpha = 0.0;
-		//NSURL *url = [NSURL URLWithString:newscene];
-		//NSURLRequest *requestObject = [NSURLRequest requestWithURL:url];
-		//[resultView.monitorWebView loadRequest:requestObject];
-		[UIView beginAnimations:nil context:nil];
-		//[UIView setAnimationDelay:0.75];
+        [UIView beginAnimations:nil context:nil];
 		[UIView setAnimationDuration:0.75];
 		[UIView setAnimationDelegate:self];
-		//[UIView setAnimationDidStopSelector:@selector(stopped:finished:context:)];
-		[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:currentController.monitorView.monitorImage cache:YES];
-		
-		currentController.monitorView.monitorImage.image = [UIImage imageNamed:newscene];
-		currentController.currentMonitorScene = newscene;
-		//[resultView.activityIndicatorView startAnimating];
+		[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:monitorController.monitorView.monitorImage cache:YES];
+		monitorController.monitorView.monitorImage.image = [UIImage imageNamed:newscene];
+        monitorController.currentMonitorScene = newscene;
 		[UIView commitAnimations];
-		
-		 //self.view = [newController view];
 	//}
 }
 
@@ -63,10 +61,10 @@
 			[UIView setAnimationDuration:0.75];
 			//[UIView setAnimationDelay:0.70];
 			[UIView setAnimationDelegate:self];
-			[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:currentController.resultView.resultMainImage cache:YES];
-			currentController.resultView.resultMainImage.image = [UIImage imageNamed:newscene];
+			[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:resultController.resultView.resultMainImage cache:YES];
+			resultController.resultView.resultMainImage.image = [UIImage imageNamed:newscene];
 			[UIView commitAnimations];
-			currentController.currentActionScene = newscene;
+			resultController.currentActionScene = newscene;
 		//}
 	}
 }
@@ -83,26 +81,26 @@
 	
 	if ([controller isEqualToString:@"ActionBlockViewController"]){
 		
-        CGRect aframe = currentController.resultView.frame;
+        CGRect aframe = resultController.resultView.frame;
 		aframe.origin.x = 300;
 		aframe.size.width = 600;
-		currentController.resultView.comicframe.frame = aframe;
-		currentController.resultView.resultMainImage.alpha = 1.0;
-		currentController.monitorView.monitorImage.alpha = 1.0;
-		aframe = currentController.monitorView.monitorImage.frame;
+		resultController.resultView.comicframe.frame = aframe;
+		resultController.resultView.resultMainImage.alpha = 1.0;
+		monitorController.monitorView.monitorImage.alpha = 1.0;
+		aframe = monitorController.monitorView.monitorImage.frame;
 		aframe.origin.x = 300;
-		currentController.monitorView.monitorImage.frame = aframe;
+		monitorController.monitorView.monitorImage.frame = aframe;
 		
 		
 	}else{
-        CGRect aframe = currentController.resultView.frame;
+        CGRect aframe = resultController.resultView.frame;
 		aframe.size.width = 897;
-		currentController.resultView.comicframe.frame = aframe;
-		currentController.resultView.resultMainImage.alpha = 1.0;
-		aframe = currentController.monitorView.monitorImage.frame;
+		resultController.resultView.comicframe.frame = aframe;
+		resultController.resultView.resultMainImage.alpha = 1.0;
+		aframe = monitorController.monitorView.monitorImage.frame;
 		aframe.origin.x = 0;
-		currentController.monitorView.monitorImage.frame = aframe;
-		currentController.monitorView.monitorImage.alpha = 1.0;
+		monitorController.monitorView.monitorImage.frame = aframe;
+		monitorController.monitorView.monitorImage.alpha = 1.0;
 	}
 	
 	[UIView commitAnimations];
@@ -128,11 +126,18 @@
 	self.view = rootView;
 	[rootView release];
 	
-	ResultViewController *newController = [[NSClassFromString(@"ResultTimeViewController") alloc] initWithNibName:nil bundle:nil];
+	ResultViewController *tmpResultController = [[[NSClassFromString(@"ResultTypeViewController") alloc] initWithNibName:nil bundle:nil] retain];
    
-	[[self view] addSubview:[newController view]];
-	currentController = newController;
-	//[newController release];
+    MonitorViewController *tmpMonitorController = [[[NSClassFromString(@"MonitorViewController") alloc] initWithNibName:nil bundle:nil] retain];
+
+       [[self view] addSubview:[tmpMonitorController view]];
+	[[self view] addSubview:[tmpResultController view]];
+ 
+	resultController = tmpResultController;
+	monitorController = tmpMonitorController;
+    
+    
+    //[newController release];
 	
 	/*
 	ResultView *aview = [[ResultView alloc] initWithFrame: CGRectMake(0,0,897,301)];

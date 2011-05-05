@@ -11,15 +11,12 @@
 #import "MonitorView.h"
 
 @interface ResultViewController : UIViewController {
-	NSString* currentMonitorScene;
 	NSString* currentActionScene;
 	ResultView* resultView;
-	MonitorView* monitorView;
+	
 }
 
 @property(nonatomic,retain) ResultView *resultView;
-@property(nonatomic,retain) MonitorView *monitorView;
-@property(nonatomic,retain) NSString* currentMonitorScene;
 @property(nonatomic,retain) NSString* currentActionScene;
 
 @end

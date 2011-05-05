@@ -52,6 +52,12 @@
 }
 
 
+-(void) loadFirstPolicy{
+    if (self.policyids != nil){
+        [self loadPolicy:[policyids objectAtIndex:0]];
+    }
+}
+
 -(void) loadPolicy:(NSString*) policyid{
     NSDictionary *policy = [policies objectForKey:policyid];
     if (policy != nil){

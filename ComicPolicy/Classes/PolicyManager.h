@@ -16,6 +16,7 @@
 
 + (PolicyManager *)sharedPolicyManager;
 -(void) loadPolicy:(NSString*) policyid;
+-(void) loadFirstPolicy;
 
 @property(nonatomic, retain) NSArray* policyids;
 @property(nonatomic, retain) NSDictionary* policies;
