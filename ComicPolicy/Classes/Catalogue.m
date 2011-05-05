@@ -226,7 +226,10 @@ static NSString* currentActionType;
 #pragma mark * Condition frames (public)
 
 -(NSString*) currentCondition{
-    return (NSString*) [conditions objectAtIndex:conditionindex % [conditions count]];
+    NSString *condition = (NSString*) [conditions objectAtIndex:conditionindex % [conditions count]];
+    NSDictionary* dict = [NSDictionary dictionaryWithObject:condition forKey:@"condition"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"conditionChange" object:nil userInfo:dict];
+    return condition;
 }
 
 -(NSString*) nextCondition{
@@ -557,8 +560,10 @@ static NSString* currentActionType;
                             
                             index = 0;
                             
+                            NSLog(@"checking for option %@", option);
                             for(NSString* anoption in actionoptionsarray){
                                 if ([anoption isEqualToString:option]){
+                                    
                                     actionoptionsarrayindex = index;
                                     break;
                                 }

@@ -9,6 +9,7 @@
 #import "ComicPolicyViewController.h"
 #import "PolicyManager.h"
 
+
 @interface ComicPolicyViewController()
 -(void) loadPolicies;
 -(void) addNavigationView;
@@ -89,14 +90,15 @@
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(conditionChange:) name:@"conditionChange" object:nil];	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionSubjectChange:) name:@"actionSubjectChange" object:nil];	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(subjectOwnerChange:) name:@"subjectOwnerChange" object:nil];	
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(policyLoaded:) name:@"policyLoaded" object:nil];	
 	
 	
 }
 
 -(void) addNavigationView{
 	navigationViewController = [[NavigationViewController alloc] init];
-	[self.view addSubview: [navigationViewController view]];
-	[self addSaveAndCancel];
+	[self.view addSubview: navigationViewController.view];
+    [self addSaveAndCancel];
 	
 }
 
@@ -120,8 +122,7 @@
 -(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
 	
 	//NSLog(@"touched %d", [navigationView getSelectedPolicy]);
-	
-	UITouch *touch = [[event allTouches] anyObject];
+    UITouch *touch = [touches anyObject]; 
 	CGPoint touchLocation = [touch locationInView:self.view];
 	/*
 	if (CGRectContainsPoint( addNew.frame , touchLocation)){
@@ -140,18 +141,18 @@
 	
 	else if (CGRectContainsPoint( saveButton.frame , touchLocation)){
         [[PolicyManager sharedPolicyManager] loadPolicy:@"1"];
-        [UIView beginAnimations:nil context:nil];
-        [UIView setAnimationDuration:0.75];
-        [UIView setAnimationDelegate:self];
-        [UIView setAnimationDidStopSelector:@selector(pageLoaded:finished:context:)];
-        [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:self.view cache:NO];
-       
-        [UIView commitAnimations];
-       
-
     }
 	
 	
+}
+
+-(void) policyLoaded:(NSNotification *) notification{
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:0.75];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationDidStopSelector:@selector(pageLoaded:finished:context:)];
+    [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:self.view cache:NO];
+    [UIView commitAnimations];
 }
 
 -(void) pageLoaded:(NSString*)animationID finished:(BOOL)finished context:(void*)context{
@@ -251,6 +252,7 @@
 	[eventViewController release];
 	[actionViewController release];
 	[resultViewController release];
+    [navigationViewController release];
 }
 
 @end

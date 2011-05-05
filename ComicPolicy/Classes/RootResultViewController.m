@@ -22,20 +22,22 @@
  */
 
 -(void) conditionChange:(NSNotification *) n{
+   
 	NSDictionary *userInfo = [n userInfo];
 	
     NSString* newscene = [[Catalogue sharedCatalogue] getConditionResultImage:[userInfo objectForKey:@"condition"]];
-    
+     NSLog(@"ok ...seen a condition change... %@", newscene);
     //NSString *newcontroller = [[Catalogue sharedCatalogue] getConditionResultController:[userInfo objectForKey:@"condition"]];
     
    
-	if (! [currentController.currentMonitorScene isEqualToString:newscene]){
+	//if (! [currentController.currentMonitorScene isEqualToString:newscene]){
+        NSLog(@"-----> loading up %@", newscene);
 		//resultView.monitorWebView.alpha = 0.0;
 		//NSURL *url = [NSURL URLWithString:newscene];
 		//NSURLRequest *requestObject = [NSURLRequest requestWithURL:url];
 		//[resultView.monitorWebView loadRequest:requestObject];
 		[UIView beginAnimations:nil context:nil];
-		[UIView setAnimationDelay:0.75];
+		//[UIView setAnimationDelay:0.75];
 		[UIView setAnimationDuration:0.75];
 		[UIView setAnimationDelegate:self];
 		//[UIView setAnimationDidStopSelector:@selector(stopped:finished:context:)];
@@ -47,7 +49,7 @@
 		[UIView commitAnimations];
 		
 		 //self.view = [newController view];
-	}
+	//}
 }
 
 -(void) actionSubjectChange:(NSNotification *) n{
@@ -56,16 +58,16 @@
     NSString *newscene =  [[Catalogue sharedCatalogue] getActionResultImage:[userInfo objectForKey:@"action"] action:[userInfo objectForKey:@"type"]];
 	
 	if (newscene != NULL){
-		if (! [currentController.currentActionScene isEqualToString:newscene]){
+		//if (! [currentController.currentActionScene isEqualToString:newscene]){
 			[UIView beginAnimations:nil context:nil];
 			[UIView setAnimationDuration:0.75];
-			[UIView setAnimationDelay:0.70];
+			//[UIView setAnimationDelay:0.70];
 			[UIView setAnimationDelegate:self];
 			[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:currentController.resultView.resultMainImage cache:YES];
 			currentController.resultView.resultMainImage.image = [UIImage imageNamed:newscene];
 			[UIView commitAnimations];
 			currentController.currentActionScene = newscene;
-		}
+		//}
 	}
 }
 
@@ -76,7 +78,7 @@
 	
 	[UIView beginAnimations:nil context:nil];
 	[UIView setAnimationDuration:0.75];
-	[UIView setAnimationDelay:0.70];
+	//[UIView setAnimationDelay:0.70];
 	[UIView setAnimationDelegate:self];
 	
 	if ([controller isEqualToString:@"ActionBlockViewController"]){

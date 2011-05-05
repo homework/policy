@@ -58,12 +58,15 @@
         NSDictionary *subject = [policy objectForKey:@"subject"];
         NSDictionary *condition = [policy objectForKey:@"condition"];
         NSDictionary *action = [policy objectForKey:@"action"];
-        NSDictionary *actionoptions = [action objectForKey:@"options"];
+        NSArray *actionoptions = [action objectForKey:@"options"];
         
         [[Catalogue sharedCatalogue] setSubject:[subject objectForKey:@"owner"] device:[subject objectForKey:@"device"]];
         [[Catalogue sharedCatalogue] setCondition:[condition objectForKey:@"type"]];
-        [[Catalogue sharedCatalogue] setAction:[action objectForKey:@"type"] subject:[actionoptions objectForKey:@"owner"] option:[actionoptions objectForKey:@"device"]];
+        
+        [[Catalogue sharedCatalogue] setAction:[action objectForKey:@"type"] subject:[actionoptions objectAtIndex:0] option:[actionoptions objectAtIndex:1]];
     }
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"policyLoaded" object:nil userInfo:nil];
+	
 }
 
 

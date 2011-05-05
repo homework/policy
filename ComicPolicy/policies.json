@@ -18,12 +18,7 @@
 
                     "action":{
                             "type":"block",
-                            
-                            "options":{
-                                        "owner":"dad",
-                                        "device":"0000aaaa"
-                            }
-                
+                            "options":["dad", "0000bbbb"]
                     }
                 },
 
@@ -35,18 +30,29 @@
 
                     "condition":{
                         "type":"bandwidth",
-                        "options":{
-                            "percentage":"80" 
-                        }
+                        "options":["80"]
                     },
 
                     "action":{
                         "type":"notify",
-                        "options":{
-                            "owner":"john",
-                            "channel":"tweet"
-                        }
+                        "options":["john", "tweet"]
+                    }
+                },
+                
+                "3":{
+                    "subject":{
+                        "owner":"john",
+                        "device":"0000eeee"
+                    },
 
+                    "condition":{
+                        "type":"streaming",
+                        "options":[]
+                    },
+
+                    "action":{
+                        "type":"notify",
+                        "options":["john", "phone"]
                     }
                 }
                 

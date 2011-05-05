@@ -44,6 +44,7 @@ static float PADDING = 15;
 	for (NSString *policy in policyids ){
 		UIImageView *button = [[UIImageView alloc] initWithImage: [UIImage imageNamed:@"empty.png"]];
 		button.tag = [policy intValue];
+        NSLog(@"adding button tge %d", button.tag);
 		UILabel *tmp = [[UILabel alloc] initWithFrame:CGRectMake(8,0,26,27)];
 		tmp.backgroundColor = [UIColor clearColor];
 		tmp.text = [NSString stringWithFormat:@"%d", count+1];

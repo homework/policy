@@ -7,7 +7,7 @@
 //
 
 #import "NavigationViewController.h"
-
+#import "PolicyManager.h"
 
 @implementation NavigationViewController
 
@@ -38,8 +38,7 @@
 -(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
 	
 	UITouch *touch = [touches anyObject];
-	selectedPolicy = [touch view].tag;
-	
+
 	CGPoint touchLocation = [touch locationInView:self.view];
 	
 	
@@ -48,9 +47,13 @@
 			if (view.tag > 0){
 				if (selectedView != nil){
 					selectedView.transform = CGAffineTransformMakeScale(0.8, 0.8);	
-				}				
-				selectedPolicy = view.tag;
-                NSLog(@"would load policy %d", selectedPolicy);
+				}	
+                int currentPolicy = view.tag;
+                
+                if (currentPolicy != 0){// && currentPolicy != selectedPolicy){
+                    selectedPolicy = currentPolicy;
+                    [[PolicyManager sharedPolicyManager] loadPolicy:[NSString stringWithFormat:@"%d",selectedPolicy]];
+                }
 				selectedView = view;
 				view.transform = CGAffineTransformMakeScale(1.0, 1.0);
 				
@@ -58,8 +61,6 @@
 			}
 		}
 	}
-	
-	
 }
 /*
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
