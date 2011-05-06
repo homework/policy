@@ -11,6 +11,8 @@
 
 @interface MonitorView : UIView {
 	UIImageView *monitorImage;
+     UIImageView* testImage;
 }
 @property(nonatomic, retain) UIImageView *monitorImage;
+@property(nonatomic, retain) UIImageView *testImage;
 @end

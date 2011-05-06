@@ -11,6 +11,7 @@
 
 @implementation MonitorView
 @synthesize monitorImage;
+@synthesize  testImage;
 
 - (id)initWithFrame:(CGRect)frame {
     if ((self = [super initWithFrame:frame])) {
@@ -24,6 +25,12 @@
 		[self addSubview:tmpMonitor];
 		self.monitorImage = tmpMonitor;
 		[tmpMonitor release];
+        
+        UIImageView *tmpTest = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ok.png"]];
+		[self addSubview:tmpTest];
+        self.testImage = tmpTest;
+        [tmpTest release];
+        
     }
     return self;
 }
