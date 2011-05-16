@@ -78,8 +78,8 @@
 		A3274ACA1342255200212CAB /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3274AC91342255200212CAB /* CoreData.framework */; };
 		A337D64413213E6F00DA13C8 /* ActionTimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A337D64313213E6F00DA13C8 /* ActionTimeViewController.m */; };
 		A337D64913213E9300DA13C8 /* ActionTimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = A337D64813213E9300DA13C8 /* ActionTimeView.m */; };
-		A3476047134C630D00430CE0 /* ResultTypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A3476046134C630D00430CE0 /* ResultTypeViewController.m */; };
-		A3476055134C637500430CE0 /* ResultVisitsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A3476054134C637500430CE0 /* ResultVisitsViewController.m */; };
+		A3476047134C630D00430CE0 /* ResultTypeViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3476046134C630D00430CE0 /* ResultTypeViewController.mm */; };
+		A3476055134C637500430CE0 /* ResultVisitsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3476054134C637500430CE0 /* ResultVisitsViewController.mm */; };
 		A34760AC134C7B5F00430CE0 /* MonitorView.m in Sources */ = {isa = PBXBuildFile; fileRef = A34760AB134C7B5F00430CE0 /* MonitorView.m */; };
 		A34760CB134C816700430CE0 /* tick.caf in Resources */ = {isa = PBXBuildFile; fileRef = A34760C9134C816700430CE0 /* tick.caf */; };
 		A34760CC134C816700430CE0 /* tock.caf in Resources */ = {isa = PBXBuildFile; fileRef = A34760CA134C816700430CE0 /* tock.caf */; };
@@ -116,6 +116,7 @@
 		A352ABDB131D88B30053867A /* hour2.png in Resources */ = {isa = PBXBuildFile; fileRef = A352ABD9131D88B30053867A /* hour2.png */; };
 		A352ABDC131D88B30053867A /* minute2.png in Resources */ = {isa = PBXBuildFile; fileRef = A352ABDA131D88B30053867A /* minute2.png */; };
 		A352AC03131E55290053867A /* HandView.m in Sources */ = {isa = PBXBuildFile; fileRef = A352AC02131E55290053867A /* HandView.m */; };
+		A3BBD42B13817EF200FA75AF /* ResultBandwidthViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3BBD42A13817EF200FA75AF /* ResultBandwidthViewController.mm */; };
 		A3CD11A11329173C00D3720E /* whitemask.png in Resources */ = {isa = PBXBuildFile; fileRef = A3CD11A01329173C00D3720E /* whitemask.png */; };
 		A3DB62CC1371A6AF00AEBF46 /* policies.json in Resources */ = {isa = PBXBuildFile; fileRef = A3DB62CB1371A6AF00AEBF46 /* policies.json */; };
 		A3DB62CF1371AC5000AEBF46 /* PolicyManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A3DB62CE1371AC5000AEBF46 /* PolicyManager.m */; };
@@ -132,7 +133,7 @@
 		A3DCB61E1344D1E500A38D5E /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = A3DCB6151344D1E500A38D5E /* SBJsonWriter.m */; };
 		A3DCB7091344EDB300A38D5E /* data.json in Resources */ = {isa = PBXBuildFile; fileRef = A3DCB7081344EDAD00A38D5E /* data.json */; };
 		A3DCBB81134B201000A38D5E /* selecthours.png in Resources */ = {isa = PBXBuildFile; fileRef = A3DCBB80134B201000A38D5E /* selecthours.png */; };
-		A3DCBBEE134B738B00A38D5E /* ResultTimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A3DCBBED134B738B00A38D5E /* ResultTimeViewController.m */; };
+		A3DCBBEE134B738B00A38D5E /* ResultTimeViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3DCBBED134B738B00A38D5E /* ResultTimeViewController.mm */; };
 		A3DCBBFC134B769700A38D5E /* ResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A3DCBBFB134B769700A38D5E /* ResultViewController.m */; };
 		A3E7FBF71372F51F003FFE37 /* ResultDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = A3E7FBF61372F51F003FFE37 /* ResultDataSource.m */; };
 		A3E7FBFB1372F6ED003FFE37 /* BandwidthMonitorView.m in Sources */ = {isa = PBXBuildFile; fileRef = A3E7FBFA1372F6EC003FFE37 /* BandwidthMonitorView.m */; };
@@ -277,10 +278,10 @@
 		A337D64313213E6F00DA13C8 /* ActionTimeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionTimeViewController.m; sourceTree = "<group>"; };
 		A337D64713213E9300DA13C8 /* ActionTimeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionTimeView.h; sourceTree = "<group>"; };
 		A337D64813213E9300DA13C8 /* ActionTimeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionTimeView.m; sourceTree = "<group>"; };
-		A3476045134C630D00430CE0 /* ResultTypeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultTypeViewController.h; sourceTree = "<group>"; };
-		A3476046134C630D00430CE0 /* ResultTypeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultTypeViewController.m; sourceTree = "<group>"; };
-		A3476053134C637500430CE0 /* ResultVisitsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultVisitsViewController.h; sourceTree = "<group>"; };
-		A3476054134C637500430CE0 /* ResultVisitsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultVisitsViewController.m; sourceTree = "<group>"; };
+		A3476045134C630D00430CE0 /* ResultTypeViewController.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = ResultTypeViewController.h; sourceTree = "<group>"; };
+		A3476046134C630D00430CE0 /* ResultTypeViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ResultTypeViewController.mm; sourceTree = "<group>"; };
+		A3476053134C637500430CE0 /* ResultVisitsViewController.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = ResultVisitsViewController.h; sourceTree = "<group>"; };
+		A3476054134C637500430CE0 /* ResultVisitsViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ResultVisitsViewController.mm; sourceTree = "<group>"; };
 		A34760AA134C7B5F00430CE0 /* MonitorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonitorView.h; sourceTree = "<group>"; };
 		A34760AB134C7B5F00430CE0 /* MonitorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonitorView.m; sourceTree = "<group>"; };
 		A34760C9134C816700430CE0 /* tick.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = tick.caf; sourceTree = "<group>"; };
@@ -327,6 +328,8 @@
 		A352ABDA131D88B30053867A /* minute2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = minute2.png; sourceTree = "<group>"; };
 		A352AC01131E55290053867A /* HandView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HandView.h; sourceTree = "<group>"; };
 		A352AC02131E55290053867A /* HandView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HandView.m; sourceTree = "<group>"; };
+		A3BBD42913817EF200FA75AF /* ResultBandwidthViewController.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = ResultBandwidthViewController.h; sourceTree = "<group>"; };
+		A3BBD42A13817EF200FA75AF /* ResultBandwidthViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ResultBandwidthViewController.mm; sourceTree = "<group>"; };
 		A3CD11A01329173C00D3720E /* whitemask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = whitemask.png; sourceTree = "<group>"; };
 		A3DB62CB1371A6AF00AEBF46 /* policies.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = policies.json; sourceTree = "<group>"; };
 		A3DB62CD1371AC5000AEBF46 /* PolicyManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PolicyManager.h; sourceTree = "<group>"; };
@@ -356,8 +359,8 @@
 		A3DCB6151344D1E500A38D5E /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
 		A3DCB7081344EDAD00A38D5E /* data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = data.json; sourceTree = "<group>"; };
 		A3DCBB80134B201000A38D5E /* selecthours.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selecthours.png; sourceTree = "<group>"; };
-		A3DCBBEC134B738B00A38D5E /* ResultTimeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultTimeViewController.h; sourceTree = "<group>"; };
-		A3DCBBED134B738B00A38D5E /* ResultTimeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultTimeViewController.m; sourceTree = "<group>"; };
+		A3DCBBEC134B738B00A38D5E /* ResultTimeViewController.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = ResultTimeViewController.h; sourceTree = "<group>"; };
+		A3DCBBED134B738B00A38D5E /* ResultTimeViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ResultTimeViewController.mm; sourceTree = "<group>"; };
 		A3DCBBFA134B769700A38D5E /* ResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultViewController.h; sourceTree = "<group>"; };
 		A3DCBBFB134B769700A38D5E /* ResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultViewController.m; sourceTree = "<group>"; };
 		A3E7FBF51372F51E003FFE37 /* ResultDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultDataSource.h; sourceTree = "<group>"; };
@@ -799,11 +802,13 @@
 				A3DCBBFA134B769700A38D5E /* ResultViewController.h */,
 				A3DCBBFB134B769700A38D5E /* ResultViewController.m */,
 				A3DCBBEC134B738B00A38D5E /* ResultTimeViewController.h */,
-				A3DCBBED134B738B00A38D5E /* ResultTimeViewController.m */,
+				A3DCBBED134B738B00A38D5E /* ResultTimeViewController.mm */,
 				A3476053134C637500430CE0 /* ResultVisitsViewController.h */,
-				A3476054134C637500430CE0 /* ResultVisitsViewController.m */,
+				A3476054134C637500430CE0 /* ResultVisitsViewController.mm */,
 				A3476045134C630D00430CE0 /* ResultTypeViewController.h */,
-				A3476046134C630D00430CE0 /* ResultTypeViewController.m */,
+				A3476046134C630D00430CE0 /* ResultTypeViewController.mm */,
+				A3BBD42913817EF200FA75AF /* ResultBandwidthViewController.h */,
+				A3BBD42A13817EF200FA75AF /* ResultBandwidthViewController.mm */,
 				A30AE070131540040060D2F1 /* ResultView.h */,
 				A30AE071131540040060D2F1 /* ResultView.m */,
 				A34760AA134C7B5F00430CE0 /* MonitorView.h */,
@@ -1217,10 +1222,10 @@
 				A3DCB61C1344D1E500A38D5E /* SBJsonStreamWriterState.m in Sources */,
 				A3DCB61D1344D1E500A38D5E /* SBJsonTokeniser.m in Sources */,
 				A3DCB61E1344D1E500A38D5E /* SBJsonWriter.m in Sources */,
-				A3DCBBEE134B738B00A38D5E /* ResultTimeViewController.m in Sources */,
+				A3DCBBEE134B738B00A38D5E /* ResultTimeViewController.mm in Sources */,
 				A3DCBBFC134B769700A38D5E /* ResultViewController.m in Sources */,
-				A3476047134C630D00430CE0 /* ResultTypeViewController.m in Sources */,
-				A3476055134C637500430CE0 /* ResultVisitsViewController.m in Sources */,
+				A3476047134C630D00430CE0 /* ResultTypeViewController.mm in Sources */,
+				A3476055134C637500430CE0 /* ResultVisitsViewController.mm in Sources */,
 				A34760AC134C7B5F00430CE0 /* MonitorView.m in Sources */,
 				A3ED1701135F3A6E001C64EA /* FlipFrameView.m in Sources */,
 				A3DB62CF1371AC5000AEBF46 /* PolicyManager.m in Sources */,
@@ -1272,6 +1277,7 @@
 				A3E7FD141373F87C003FFE37 /* b2WeldJoint.cpp in Sources */,
 				A3E7FD151373F87C003FFE37 /* b2WheelJoint.cpp in Sources */,
 				A3E7FD161373F87C003FFE37 /* b2Rope.cpp in Sources */,
+				A3BBD42B13817EF200FA75AF /* ResultBandwidthViewController.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-#import "ResultViewController.h"
+#import "MonitorViewController.h"
 
-@interface ResultTypeViewController : ResultViewController {
-
+@interface ResultTypeViewController : MonitorViewController {
+    
 }
 
 @end

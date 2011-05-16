@@ -86,6 +86,7 @@
     
     [self.view addSubview: monitorView];
     
+    /*
     [self createPhysicsWorld];
     
     for (int i = 0; i < 10; i++){
@@ -97,13 +98,13 @@
     
     [[UIAccelerometer sharedAccelerometer] setUpdateInterval:(1.0/60.0)];
     [[UIAccelerometer sharedAccelerometer] setDelegate:self];
-    
-    
+    */
+    /*
     tickTimer = [NSTimer scheduledTimerWithTimeInterval:1.0/25.0 
                                                  target:self 
                                                selector:@selector(tick:) 
                                                userInfo:nil 
-                                                repeats:YES];
+                                                repeats:YES];*/
 
     
 }

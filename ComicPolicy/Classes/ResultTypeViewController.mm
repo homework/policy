@@ -1,15 +1,15 @@
     //
-//  ResultVisitsViewController.m
+//  ResultTypeViewController.m
 //  ComicPolicy
 //
 //  Created by Tom Lodge on 06/04/2011.
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "ResultVisitsViewController.h"
+#import "ResultTypeViewController.h"
 
 
-@implementation ResultVisitsViewController
+@implementation ResultTypeViewController
 
 /*
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
@@ -26,6 +26,23 @@
 - (void)loadView {
 }
 */
+
+- (void)loadView
+{
+    //self.testImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ok.png"]];
+    //[self.view addSubview:testImage];
+    //currentMonitorScene = @"resultvisits.png";
+    CGRect aframe = CGRectMake(0,0,897,301);
+	UIView *rootView = [[UIView alloc] initWithFrame:aframe];	
+	self.view = rootView;
+	[rootView release];
+    MonitorView *mview = [[MonitorView alloc] initWithFrameAndImage: CGRectMake(0,0,497,301) image:@"resulttype.png"];
+	monitorView = mview;
+    
+    [self.view addSubview: monitorView];
+}
+
+
 
 /*
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.

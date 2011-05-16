@@ -15,4 +15,6 @@
 }
 @property(nonatomic, retain) UIImageView *monitorImage;
 @property(nonatomic, retain) UIImageView *testImage;
+
+- (id)initWithFrameAndImage:(CGRect)frame image:(NSString *) image;
 @end

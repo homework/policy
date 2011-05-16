@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ResultViewController.h"
+#import "MonitorViewController.h"
 
-@interface ResultVisitsViewController : ResultViewController {
+@interface ResultVisitsViewController : MonitorViewController {
 
 }
 

@@ -17,7 +17,7 @@
 @interface RootResultViewController : UIViewController <UIWebViewDelegate>{
 	ResultViewController    *resultController;
     MonitorViewController   *monitorController;
-
+    MonitorViewController   *currentMonitorViewController;
 }
 
 @property(nonatomic, retain) ResultViewController* resultController;

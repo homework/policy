@@ -32,21 +32,25 @@
     NSString *newcontroller = [[Catalogue sharedCatalogue] getConditionResultController:[userInfo objectForKey:@"condition"]];
     NSLog(@"new controller is %@", newcontroller);
     
-    /*ResultViewController *newController = [[NSClassFromString(newcontroller) alloc] initWithNibName:nil bundle:nil];
-    [currentController.view removeFromSuperview];
-    [currentController release];
-    [[self view] addSubview:[newController view]];
-	currentController = [newController retain];*/
+    MonitorViewController *newController = [[NSClassFromString(newcontroller) alloc] initWithNibName:nil bundle:nil];
+
+	
 
 	//if (! [currentController.currentMonitorScene isEqualToString:newscene]){
         NSLog(@"-----> loading up %@", newscene);
         [UIView beginAnimations:nil context:nil];
 		[UIView setAnimationDuration:0.75];
 		[UIView setAnimationDelegate:self];
-		[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:monitorController.monitorView.monitorImage cache:YES];
+		[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:self.view/*monitorController.monitorView.monitorImage*/ cache:YES];
 		monitorController.monitorView.monitorImage.image = [UIImage imageNamed:newscene];
         monitorController.currentMonitorScene = newscene;
-		[UIView commitAnimations];
+        
+       
+        [UIView commitAnimations];
+     [[self view] addSubview:[newController view]];
+    [currentMonitorViewController.view removeFromSuperview];
+    [currentMonitorViewController release];
+        currentMonitorViewController = newController;
 	//}
 }
 
@@ -126,7 +130,7 @@
 	self.view = rootView;
 	[rootView release];
 	
-	ResultViewController *tmpResultController = [[[NSClassFromString(@"ResultTypeViewController") alloc] initWithNibName:nil bundle:nil] retain];
+	ResultViewController *tmpResultController = [[[NSClassFromString(@"ResultViewController") alloc] initWithNibName:nil bundle:nil] retain];
    
     MonitorViewController *tmpMonitorController = [[[NSClassFromString(@"MonitorViewController") alloc] initWithNibName:nil bundle:nil] retain];
 
