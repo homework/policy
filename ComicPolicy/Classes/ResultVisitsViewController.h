@@ -8,9 +8,20 @@
 
 #import <UIKit/UIKit.h>
 #import "MonitorViewController.h"
+#import "ASIHTTPRequest.h"
+#import "NetworkManager.h"
+#import <Box2D/Box2D.h>
 
-@interface ResultVisitsViewController : MonitorViewController {
+#define PTM_RATIO 16
 
+@interface ResultVisitsViewController : MonitorViewController <UIAccelerometerDelegate>  {
+    b2World *world;
+    NSTimer *tickTimer;
+    NSTimer *fakeDataTimer;
+    UILabel *currentLabel;
+    UIImageView* cloud;
 }
+
+@property(nonatomic, retain) UIImageView* cloud;
 
 @end

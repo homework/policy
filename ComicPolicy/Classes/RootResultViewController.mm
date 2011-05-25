@@ -11,7 +11,8 @@
 
 @implementation RootResultViewController
 @synthesize resultController;
-@synthesize monitorController;
+@synthesize currentMonitorViewController;
+@synthesize rootMonitorView;
 
 /*
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
@@ -35,23 +36,20 @@
     MonitorViewController *newController = [[NSClassFromString(newcontroller) alloc] initWithNibName:nil bundle:nil];
 
 	
-
-	//if (! [currentController.currentMonitorScene isEqualToString:newscene]){
         NSLog(@"-----> loading up %@", newscene);
         [UIView beginAnimations:nil context:nil];
 		[UIView setAnimationDuration:0.75];
 		[UIView setAnimationDelegate:self];
-		[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:self.view/*monitorController.monitorView.monitorImage*/ cache:YES];
-		monitorController.monitorView.monitorImage.image = [UIImage imageNamed:newscene];
-        monitorController.currentMonitorScene = newscene;
-        
+		[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:self.rootMonitorView cache:YES];
+        [currentMonitorViewController.view removeFromSuperview];
+        [currentMonitorViewController viewDidUnload];
+        [self.rootMonitorView addSubview:[newController view]];
        
         [UIView commitAnimations];
-     [[self view] addSubview:[newController view]];
-    [currentMonitorViewController.view removeFromSuperview];
-    [currentMonitorViewController release];
-        currentMonitorViewController = newController;
-	//}
+        self.currentMonitorViewController = newController;
+        [newController release];
+  
+     
 }
 
 -(void) actionSubjectChange:(NSNotification *) n{
@@ -63,7 +61,6 @@
 		//if (! [currentController.currentActionScene isEqualToString:newscene]){
 			[UIView beginAnimations:nil context:nil];
 			[UIView setAnimationDuration:0.75];
-			//[UIView setAnimationDelay:0.70];
 			[UIView setAnimationDelegate:self];
 			[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:resultController.resultView.resultMainImage cache:YES];
 			resultController.resultView.resultMainImage.image = [UIImage imageNamed:newscene];
@@ -90,21 +87,21 @@
 		aframe.size.width = 600;
 		resultController.resultView.comicframe.frame = aframe;
 		resultController.resultView.resultMainImage.alpha = 1.0;
-		monitorController.monitorView.monitorImage.alpha = 1.0;
-		aframe = monitorController.monitorView.monitorImage.frame;
-		aframe.origin.x = 300;
-		monitorController.monitorView.monitorImage.frame = aframe;
 		
+		aframe = self.rootMonitorView.frame;		
+        aframe.origin.x = 300;
+		
+		self.rootMonitorView.frame = aframe;
 		
 	}else{
         CGRect aframe = resultController.resultView.frame;
 		aframe.size.width = 897;
 		resultController.resultView.comicframe.frame = aframe;
 		resultController.resultView.resultMainImage.alpha = 1.0;
-		aframe = monitorController.monitorView.monitorImage.frame;
+		aframe = self.rootMonitorView.frame;
 		aframe.origin.x = 0;
-		monitorController.monitorView.monitorImage.frame = aframe;
-		monitorController.monitorView.monitorImage.alpha = 1.0;
+		 self.rootMonitorView.frame = aframe;
+       
 	}
 	
 	[UIView commitAnimations];
@@ -129,27 +126,23 @@
 	UIView *rootView = [[UIView alloc] initWithFrame:aframe];	
 	self.view = rootView;
 	[rootView release];
+    
+    UIView* tmprootmonitorView = [[UIView alloc] initWithFrame:CGRectMake(0,0,502,301)];
+    self.rootMonitorView = tmprootmonitorView;
+    [tmprootmonitorView release];
 	
 	ResultViewController *tmpResultController = [[[NSClassFromString(@"ResultViewController") alloc] initWithNibName:nil bundle:nil] retain];
    
     MonitorViewController *tmpMonitorController = [[[NSClassFromString(@"MonitorViewController") alloc] initWithNibName:nil bundle:nil] retain];
 
-       [[self view] addSubview:[tmpMonitorController view]];
+    [self.rootMonitorView addSubview:[tmpMonitorController view]];
+    
+    [[self view] addSubview:self.rootMonitorView];
 	[[self view] addSubview:[tmpResultController view]];
  
 	resultController = tmpResultController;
-	monitorController = tmpMonitorController;
-    
-    
-    //[newController release];
-	
-	/*
-	ResultView *aview = [[ResultView alloc] initWithFrame: CGRectMake(0,0,897,301)];
-	resultView = aview;
-	[resultView.monitorWebView setDelegate:self];
-	[self.view addSubview: resultView];
-	//[aview release];
-	 */
+	self.currentMonitorViewController = tmpMonitorController;
+    [tmpMonitorController release];
 }
 
 /*

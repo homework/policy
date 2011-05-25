@@ -37,9 +37,11 @@
 	self.view = rootView;
 	[rootView release];
     MonitorView *mview = [[MonitorView alloc] initWithFrameAndImage: CGRectMake(0,0,497,301) image:@"resulttime.png"];
-	monitorView = mview;
-    
+	self.monitorView = mview;
+    [mview release];
     [self.view addSubview: monitorView];
+    
+    
 }
 /*
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -64,7 +66,9 @@
 
 
 - (void)viewDidUnload {
+    
     [super viewDidUnload];
+    [monitorView release];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }

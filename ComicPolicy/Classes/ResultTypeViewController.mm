@@ -29,6 +29,9 @@
 
 - (void)loadView
 {
+    /*
+     * TODOD CALL SuperViewDid
+     */
     //self.testImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ok.png"]];
     //[self.view addSubview:testImage];
     //currentMonitorScene = @"resultvisits.png";
@@ -37,8 +40,8 @@
 	self.view = rootView;
 	[rootView release];
     MonitorView *mview = [[MonitorView alloc] initWithFrameAndImage: CGRectMake(0,0,497,301) image:@"resulttype.png"];
-	monitorView = mview;
-    
+	self.monitorView = mview;
+    [mview release];
     [self.view addSubview: monitorView];
 }
 
@@ -67,7 +70,9 @@
 
 
 - (void)viewDidUnload {
+   
     [super viewDidUnload];
+    [monitorView release];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }

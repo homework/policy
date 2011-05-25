@@ -13,6 +13,8 @@
 @synthesize monitorImage;
 @synthesize  testImage;
 
+
+
 - (id)initWithFrameAndImage:(CGRect)frame image:(NSString *) image{
     if ((self = [super initWithFrame:frame])) {
 		UIImageView *whiteMask = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"whitemask.png"]];
