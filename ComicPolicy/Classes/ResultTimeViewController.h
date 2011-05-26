@@ -8,9 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "MonitorViewController.h"
+#import "MonitorTimeView.h"
 
 @interface ResultTimeViewController : MonitorViewController {
-	
+	MonitorTimeView *monitorTimeView;
 }
+
+@property(nonatomic, retain) MonitorTimeView* monitorTimeView;
 
 @end

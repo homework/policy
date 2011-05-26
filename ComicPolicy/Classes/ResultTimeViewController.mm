@@ -7,9 +7,14 @@
 //
 
 #import "ResultTimeViewController.h"
-
+#import "MonitorTimeView.h"
 
 @implementation ResultTimeViewController
+
+@synthesize monitorTimeView;
+static BOOL pinkflag = YES;
+static BOOL yellowflag = NO;
+static BOOL redflag = YES;
 
 /*
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
@@ -36,12 +41,61 @@
 	UIView *rootView = [[UIView alloc] initWithFrame:aframe];	
 	self.view = rootView;
 	[rootView release];
-    MonitorView *mview = [[MonitorView alloc] initWithFrameAndImage: CGRectMake(0,0,497,301) image:@"resulttime.png"];
-	self.monitorView = mview;
+    MonitorTimeView *mview = [[MonitorTimeView alloc] initWithFrame: CGRectMake(0,0,497,301)];
+	self.monitorTimeView = mview;
     [mview release];
-    [self.view addSubview: monitorView];
-    
-    
+    [self.view addSubview: monitorTimeView];
+    [self rotatePinkCog:nil finished:nil context:nil];
+    [self rotateYellowCog:nil finished:nil context:nil];
+    [self rotateRedCog:nil finished:nil context:nil];
+}
+
+-(void) rotatePinkCog:(NSString *) animationID finished:(NSNumber*)finished context:(void*)context{
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:5.0];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationDidStopSelector:@selector(rotatePinkCog:finished:context:)];
+    if (pinkflag){
+        self.monitorTimeView.pinkcog.transform = CGAffineTransformMakeRotation(M_PI);
+        pinkflag = NO;
+    }
+    else{
+        self.monitorTimeView.pinkcog.transform = CGAffineTransformMakeRotation(0);
+        pinkflag = YES;
+    }
+    [UIView commitAnimations];
+}
+
+-(void) rotateYellowCog:(NSString *) animationID finished:(NSNumber*)finished context:(void*)context{
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:5.0];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationDidStopSelector:@selector(rotateYellowCog:finished:context:)];
+    if (yellowflag){
+        self.monitorTimeView.yellowcog.transform = CGAffineTransformMakeRotation(M_PI);
+        yellowflag = NO;
+    }
+    else{
+        self.monitorTimeView.yellowcog.transform = CGAffineTransformMakeRotation(0);
+        yellowflag = YES;
+    }
+    [UIView commitAnimations];
+}
+
+-(void) rotateRedCog:(NSString *) animationID finished:(NSNumber*)finished context:(void*)context{
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:5.0];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationDidStopSelector:@selector(rotateRedCog:finished:context:)];
+    if (redflag){
+        self.monitorTimeView.redcog.transform = CGAffineTransformMakeRotation(M_PI);
+        redflag = NO;
+    }
+    else{
+        self.monitorTimeView.redcog.transform = CGAffineTransformMakeRotation(0);
+        redflag = YES;
+    }
+    [UIView commitAnimations];
 }
 /*
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.

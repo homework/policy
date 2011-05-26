@@ -47,7 +47,7 @@
 		self.comicframe = tmpframe;
 		tmpframe.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 
-		[self addSubview:tmpframe];
+		//[self addSubview:tmpframe];
 		[tmpframe release]; 
 		
 	}
