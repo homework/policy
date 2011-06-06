@@ -16,8 +16,7 @@
 		CGRect aframe = CGRectMake(0,20,294,321);
 		 NSString *topImage = [[Catalogue sharedCatalogue] currentActionSubjectImage];
 		NSString *bottomImage = [[Catalogue sharedCatalogue ]currentActionImage];
-		NSLog(@"Loading current action subject image and current action image.. %@ %@",topImage, bottomImage);
-        
+		
 		ActionNotifyView *aview = [[ActionNotifyView alloc] initWithFrameAndImages:aframe topImage:topImage bottomImage:bottomImage];
 		actionNotifyView = aview;
 		self.view = aview;

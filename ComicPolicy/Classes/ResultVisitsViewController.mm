@@ -43,8 +43,7 @@ static NSArray *labelArray = [[NSArray alloc] initWithObjects:@"news.bbc.co.uk",
 
 - (void)loadView
 {
-    NSLog(@"Loading the result visits view.......");
-    siteindex = 0;
+   siteindex = 0;
     //self.testImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ok.png"]];
     //[self.view addSubview:testImage];
     //currentMonitorScene = @"resultvisits.png";
@@ -334,8 +333,7 @@ static NSArray *labelArray = [[NSArray alloc] initWithObjects:@"news.bbc.co.uk",
 
 
 - (void)viewDidUnload {
-    NSLog(@"--------------------------view is unloading.............");
-    [[UIAccelerometer sharedAccelerometer] setDelegate:nil];
+     [[UIAccelerometer sharedAccelerometer] setDelegate:nil];
     
     
     [super viewDidUnload];
@@ -347,8 +345,7 @@ static NSArray *labelArray = [[NSArray alloc] initWithObjects:@"news.bbc.co.uk",
 
 
 - (void)dealloc {
-    NSLog(@"DEALLLLLLLLLOCOOOCCING RESULT VISTS VIEW>>>");
-   
+
     [super dealloc];
     
 }

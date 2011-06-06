@@ -14,59 +14,69 @@
 -(void) initActions;
 -(void) initConditions;
 -(NSString *) lookupImage:(NSString*)identity type:(NSString*)type state:(NSString*)state;
--(NSString *) currentSubjectDevice;
 -(NSString *) nextSubjectDevice;
 -(NSString *) currentSubjectOwner;
 -(NSString *) nextSubjectOwner;
--(NSString *) currentActionSubject;
 -(NSString *) nextActionSubject;
 -(NSString *) nextAction;
--(NSString *) currentAction;
+-(NSString *) nextCondition;
+
 -(void) updateActionOptions:(NSString *)subject;
 
 @end
 
 @implementation Catalogue
 
+@synthesize conditionArguments;
 
+#pragma mark *data structure for associating entities with images
 
 static NSDictionary* imageLookup;
-static NSDictionary* ownerLookup;
-static NSDictionary* conditionresultvcs;
 
 
-static NSArray* ownership;
-static int ownershipindex;
+#pragma mark *data structures for subjects
 
-static NSArray* devices;
-static int devicesindex;
+static NSDictionary* subjectLookup;     //mapping from owner name to array of macaddresses
 
-static NSDictionary* actionvcs;
-static NSArray* actionvcsarray;
-static int actionvcsindex;
+static NSArray* ownership;              //array of each of the owners (e.g. mum, dad etc) 
+static int ownershipindex;              //current index in the owners array
 
+static NSArray* devices;                //array of each of the currently selected owner's devices
+static int devicesindex;                //current index of the currently selected owners's devices.
 
-static NSDictionary* actionLookup;
-static NSArray* actionsubjectarray;
-static int actionsubjectarrayindex;
+#pragma mark *data structures for conditions
 
-static NSArray* actionoptionsarray;
-static int actionoptionsarrayindex;
+static NSDictionary* conditionLookup;   //mapping of condition name to expected arguments
+static NSDictionary* conditionvcs;      //mapping of condition name to associated view controller
 
-static NSArray* actiondevices;
-static int actiondevicesindex;
+static NSArray* conditions;             //array of the condition names (e.g. bandwidth, visits, time)
+static int conditionindex;              //index of currently selectd condition
 
-
-static NSArray* conditions;
-static int conditionindex;
-
-static NSDictionary* conditionvcs;
-static NSArray* conditionvcsarray;
-static int conditionvcsindex;
-
-static NSString* currentActionType;
+static NSArray* conditionvcsarray;      //array of condition view contollers 
+static int conditionvcsindex;           //curretly selected condition view controller
 
 
+#pragma mark *data structures for actions
+
+static NSDictionary* actionLookup;      //mapping of action type to action details (block, notofy etc)
+static NSDictionary* actionvcs;         //mapping of action type to associated view controller
+
+static NSString* currentActionType;     //the currently selectd action type (block, notify etc).
+
+       
+static NSArray* actionvcsarray;         //array of action view controllers 
+static int actionvcsindex;              //currently selected action view controller
+
+static NSArray* actionsubjectarray;     //array of possible subjects (i.e macaddrs) for current action
+static int actionsubjectarrayindex;     //currently selected subject
+
+static NSArray* actionoptionsarray;     //array of possible options (i.e. tweet, notify) or (device x, device y)
+static int actionoptionsarrayindex;     //currently selected option.
+
+
+#pragma mark *data structures for results
+
+static NSDictionary* conditionresultvcs; //mapping of currently selected condition to associated result view controller
 
 + (Catalogue *)sharedCatalogue
 {
@@ -100,33 +110,51 @@ static NSString* currentActionType;
             
             NSDictionary *main = (NSDictionary *) [data objectForKey:@"catalogue"];
             imageLookup = [(NSDictionary *) [main objectForKey:@"images"] retain];
-            
             NSDictionary *navigation =  (NSDictionary *) [main objectForKey:@"navigation"];
-            
-            ownerLookup = [(NSDictionary *) [navigation objectForKey:@"subjects"] retain];
-           
-            actionLookup = [(NSDictionary *) [navigation objectForKey:@"actions"] retain];
-            
-            
-            conditions = (NSArray *) [[navigation objectForKey:@"conditions"] retain];
-            
-            conditionindex = -1;//0;
-
-            
             NSDictionary *controllers = (NSDictionary *) [main objectForKey:@"controllers"];
             
-            actionvcs = (NSDictionary *) [[controllers objectForKey:@"actions"] retain];
-            conditionresultvcs = (NSDictionary *) [[controllers objectForKey:@"results"] retain];
-            conditionvcs = (NSDictionary *) [[controllers objectForKey:@"conditions"] retain];            
-            [self initConditions];
+            /*
+             * Generate the arrays to handle navigation thorugh owners and their devices in the
+             * subject pane (i.e first pane in the comic).
             
-            [self initActions];
-            ownership = [[ownerLookup allKeys] retain];
+             */
+            
+            subjectLookup = [(NSDictionary *) [navigation objectForKey:@"subjects"] retain];
+            
+            ownership = [[subjectLookup allKeys] retain];
             ownershipindex = 0;
             
-            devices =  [[ownerLookup objectForKey:[self currentSubjectOwner]] retain];
+            devices =  [[subjectLookup objectForKey:[self currentSubjectOwner]] retain];
             devicesindex = 0;
             
+            
+            /*
+             * Generate the arrays to handle navigation through conditions and associated view controllers
+             */
+            conditionLookup = (NSDictionary *) [navigation objectForKey:@"conditions"];
+            
+            
+            
+            conditions = [[conditionLookup allKeys ]retain];
+            conditionindex = -1;
+            
+            conditionvcs = (NSDictionary *) [[controllers objectForKey:@"conditions"] retain];
+            [self initConditions];
+            
+            
+            /*
+             * Generate the arrays to handle navigation through actions and associated view controllers
+             */
+            actionLookup = [(NSDictionary *) [navigation objectForKey:@"actions"] retain];
+            actionvcs = (NSDictionary *) [[controllers objectForKey:@"actions"] retain];
+            [self initActions];
+            
+            
+            /*
+             * Generate the arrays to handle navigation through results and associated view controllers
+             */
+            conditionresultvcs = (NSDictionary *) [[controllers objectForKey:@"results"] retain];
+                       
             
         }
     }
@@ -172,18 +200,8 @@ static NSString* currentActionType;
 	if ([tmp objectForKey:@"options"] != NULL){
         NSDictionary* tmpoptdict = [tmp objectForKey:@"options"];
         actionoptionsarray =  [[tmpoptdict objectForKey:subject] retain];
-        //for (NSString *option in actionoptionsarray){
-         //   NSLog(@"added option %@", option);
-        //}
         actionoptionsarrayindex = 0;
     }
-	
-	//actionarrayindex = 0;
-	//actiondevicesindex = 0;
-	
-	//NSString *subject = [actionsubjectarray objectAtIndex:++actionsubjectarrayindex % [actionsubjectarray count]];
-	//NSLog(@"updating action selections for subject %@", subject);
-   // [self updateActionSelections:subject];	
 }
 
 
@@ -217,7 +235,7 @@ static NSString* currentActionType;
 -(NSString *) nextSubjectOwner{
 	NSString *next =  [ownership objectAtIndex:++ownershipindex % [ownership count]];
 	[devices release];
-	devices =  [[ownerLookup objectForKey:[self currentSubjectOwner]] retain];
+	devices =  [[subjectLookup objectForKey:[self currentSubjectOwner]] retain];
 	devicesindex = 0;
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"subjectOwnerChange" object:nil userInfo:nil];
 	return next;
@@ -227,15 +245,12 @@ static NSString* currentActionType;
 
 -(NSString*) currentCondition{
     NSString *condition = (NSString*) [conditions objectAtIndex:conditionindex % [conditions count]];
-    NSDictionary* dict = [NSDictionary dictionaryWithObject:condition forKey:@"condition"];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"conditionChange" object:nil userInfo:dict];
     return condition;
 }
 
 -(NSString*) nextCondition{
     NSString *condition = (NSString*) [conditions objectAtIndex:++conditionindex % [conditions count]];
-    NSDictionary* dict = [NSDictionary dictionaryWithObject:condition forKey:@"condition"];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"conditionChange" object:nil userInfo:dict];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"conditionChange" object:nil userInfo:nil];
     return condition;
 }
 
@@ -256,12 +271,7 @@ static NSString* currentActionType;
 
 
 
--(NSString *) currentActionSubject{
-    NSString *subject = [actionsubjectarray objectAtIndex:actionsubjectarrayindex % [actionsubjectarray count]];
-    NSDictionary* dict = [NSDictionary dictionaryWithObjectsAndKeys:subject,@"action",currentActionType,@"type",nil];
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"actionSubjectChange" object:nil userInfo:dict];
-    return subject;
-}
+
 
 -(NSString *) nextActionSubject{
 	if (actionsubjectarray == NULL)
@@ -282,9 +292,8 @@ static NSString* currentActionType;
         [actionoptionsarray release];
     }
     NSDictionary *tmp = [actionLookup objectForKey:currentActionType];
-    if ([tmp objectForKey:@"options"] != NULL){
-        NSLog(@"setting options for the action %@,  subject %@", currentActionType, subject);
-        NSDictionary* tmpoptdict = [tmp objectForKey:@"options"];
+    if ([tmp objectForKey:@"arguments"] != NULL){
+        NSDictionary* tmpoptdict = [tmp objectForKey:@"arguments"];
         actionoptionsarray =  [[tmpoptdict objectForKey:subject] retain];
         actionoptionsarrayindex = 0;
     }
@@ -298,14 +307,21 @@ static NSString* currentActionType;
 	return [actionoptionsarray objectAtIndex:++actionoptionsarrayindex % [actionoptionsarray count]];
 }
 
+-(NSString *) currentActionType{
+    return currentActionType;
+}
+
+-(NSString *) currentActionSubject{
+    NSString *subject = [actionsubjectarray objectAtIndex:actionsubjectarrayindex % [actionsubjectarray count]];
+    NSDictionary* dict = [NSDictionary dictionaryWithObjectsAndKeys:subject,@"action",currentActionType,@"type",nil];
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"actionSubjectChange" object:nil userInfo:dict];
+    return subject;
+}
 
 -(NSString *) currentAction{
-    if (actionoptionsarray == NULL){
+    if (actionoptionsarray == NULL)
 		return NULL;
-	}
-    for (NSString *option in actionoptionsarray){
-       NSLog(@"erm option %@", option);
-    }
+	
    return [actionoptionsarray objectAtIndex:actionoptionsarrayindex % [actionoptionsarray count]];
 }
 
@@ -314,10 +330,6 @@ static NSString* currentActionType;
 -(NSString *) nextActionViewController{
 	
 	currentActionType = [actionvcsarray objectAtIndex:++actionvcsindex % [actionvcsarray count]];
-    NSLog(@"current action type is now %@", currentActionType);
-
-	//actiondevicesindex = 0;
-	
 	NSDictionary *tmp = [actionLookup objectForKey:currentActionType];
 	
 	
@@ -329,29 +341,23 @@ static NSString* currentActionType;
 	if ([tmp objectForKey:@"subjects"] != NULL){
 		actionsubjectarray = [[tmp objectForKey:@"subjects"] retain];
         actionsubjectarrayindex = 0;
-		NSString *subject = [actionsubjectarray objectAtIndex:actionsubjectarrayindex];
-	//	[self updateActionSelections:subject];
 	}
 	
-	if ([tmp objectForKey:@"options"] != NULL){
-        NSLog(@"setting up action array....");
+	if ([tmp objectForKey:@"arguments"] != NULL){
         NSString* subject = [self currentActionSubject];
-        NSDictionary* tmpoptdict = [tmp objectForKey:@"options"];
+        NSDictionary* tmpoptdict = [tmp objectForKey:@"arguments"];
         actionoptionsarray =  [[tmpoptdict objectForKey:subject] retain];
         actionoptionsarrayindex = 0;
-         NSLog(@"done setting up action array....");
 	}
     NSString* controller = [self currentActionViewController];// [actionvcs objectForKey:currentActionType];
-    NSLog(@"firing an action type change for controller %@", controller);
+   
     NSDictionary* dict = [NSDictionary dictionaryWithObject:controller forKey:@"controller"];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"actionTypeChange" object:nil userInfo:dict];
 	return controller;
 }
 
 -(NSString *) currentActionViewController{
-   // currentActionType = [actionvcsarray objectAtIndex:actionvcsindex % [actionvcsarray count]];
-    NSString* controller = [actionvcs objectForKey:currentActionType];
-    return controller;
+    return [actionvcs objectForKey:currentActionType];
 }
 
 -(NSString *) currentConditionViewController{
@@ -359,27 +365,32 @@ static NSString* currentActionType;
 }
 
 -(NSString *) nextConditionViewController{
-	return [conditionvcsarray objectAtIndex:++conditionvcsindex % [conditionvcsarray count]];
+     
+	NSString *cc = [conditionvcsarray objectAtIndex:++conditionvcsindex % [conditionvcsarray count]];
+    NSLog(@"current vc is now  %@", cc);
+    return cc;
 }
 
--(NSString*) getConditionResultController:(NSString*) condition{
-    return [conditionresultvcs objectForKey:condition];
+-(NSString*) getConditionResultController{
+    //return [conditionresultvcs objectForKey:condition];
+    return [conditionresultvcs objectForKey:[self currentCondition]];
 }
 
--(NSString*) getConditionViewController:(NSString*)condition{
-    return [conditionvcs objectForKey:condition];
+-(NSString*) getConditionViewController{
+    NSLog(@"current condition is now %@", [self currentCondition]);
+    return [conditionvcs objectForKey:[self currentCondition]];
 }
 
 #pragma mark * Public image getters
 
 
--(NSString*) getConditionImage:(NSString *) condition{
-    NSDictionary *dict = (NSDictionary *) [imageLookup objectForKey:condition];
+-(NSString*) getConditionImage{
+    NSDictionary *dict = (NSDictionary *) [imageLookup objectForKey:[self currentCondition]];
     return [dict objectForKey:@"main"];
 }
 
--(NSString*) getConditionResultImage:(NSString *) condition{
-    NSDictionary *dict = (NSDictionary *) [imageLookup objectForKey:condition];
+-(NSString*) getConditionResultImage{
+    NSDictionary *dict = (NSDictionary *) [imageLookup objectForKey:[self currentCondition]];
     return [dict objectForKey:@"result"];
 }
 
@@ -402,31 +413,17 @@ static NSString* currentActionType;
 
 -(NSString *) currentActionImage{
 	NSString *action = [self currentAction];
-    
-    	
-    //if (action == NULL){
-		//NSString *device = [actiondevices objectAtIndex:actiondevicesindex % [actiondevices count]];
-		NSLog(@"looking up current action image....%@ for type %@",action, currentActionType);
-
-        NSString *image = [self lookupImage:action type:currentActionType state:@"action"];
+    NSString *image = [self lookupImage:action type:currentActionType state:@"action"];
         
-		NSDictionary* dict = [NSDictionary dictionaryWithObjectsAndKeys:action,@"action",currentActionType,@"type",nil];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"actionSubjectChange" object:nil userInfo:dict];
-		return image;
+    NSDictionary* dict = [NSDictionary dictionaryWithObjectsAndKeys:action,@"action",currentActionType,@"type",nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"actionSubjectChange" object:nil userInfo:dict];
+    return image;
 		
-	//}
-	//NSDictionary *images = (NSDictionary *) [imageLookup objectForKey:currentActionType];
-	//return [images objectForKey:action];
 }
 
 -(NSString *) nextActionImage{
-	
 	NSString *action = [self nextAction];
-	 
-    NSLog(@"looking up current action image....%@ for type %@",action, currentActionType);
-    
     NSString *image = [self lookupImage:action type:currentActionType state:@"action"];
-    
     NSDictionary* dict = [NSDictionary dictionaryWithObjectsAndKeys:action,@"action",currentActionType,@"type",nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"actionSubjectChange" object:nil userInfo:dict];
     return image;
@@ -458,7 +455,7 @@ static NSString* currentActionType;
 
 -(void) setSubject:(NSString *)owner device:(NSString*) device{
    
-    NSDictionary* tmpdevices = [ownerLookup objectForKey:owner];
+    NSDictionary* tmpdevices = [subjectLookup objectForKey:owner];
     int index = 0;
     
     for (NSString *device in tmpdevices){
@@ -502,12 +499,11 @@ static NSString* currentActionType;
  * Option  =   tweet / notify etc or nil
  */
 
--(void) setAction:(NSString *) action subject:(NSString*) subject option:(NSString*)option{
+-(void) setAction:(NSString *) action subject:(NSString*) subject option:(NSString*)argument{
     
-
-  	actiondevicesindex = 0;
     
     int index = 0;
+    
     //first check to see if action exists
     NSDictionary *tmp = [actionLookup objectForKey:action];
     
@@ -536,8 +532,9 @@ static NSString* currentActionType;
                    
                     index = 0;
                     for (NSString* anaction in actionvcsarray){
-                        NSLog(@"chceking %@ against %@", anaction, action);
                         if ([anaction isEqualToString:action]){
+                           
+                            actionoptionsarrayindex = index;
                             actionvcsindex = index;
                             break;
                         }
@@ -546,24 +543,24 @@ static NSString* currentActionType;
                    
                     //have set the action and subjects, now need to do options...
                     
-                    if (option != nil){
+                    if (argument != nil){
                        
                         if (actionoptionsarray != NULL)
                             [actionoptionsarray release];
                         
-                        if ([tmp objectForKey:@"options"] != NULL){
+                        if ([tmp objectForKey:@"arguments"] != NULL){
             
-                            NSDictionary* tmpoptdict = [tmp objectForKey:@"options"];
+                            NSDictionary* tmpoptdict = [tmp objectForKey:@"arguments"];
+                         
                             actionoptionsarray =  [[tmpoptdict objectForKey:subject] retain];
+                            
                             actionoptionsarrayindex = 0;
-
+                            
                             
                             index = 0;
                             
-                            NSLog(@"checking for option %@", option);
-                            for(NSString* anoption in actionoptionsarray){
-                                if ([anoption isEqualToString:option]){
-                                    
+                            for(NSString* anargument in actionoptionsarray){
+                                if ([anargument isEqualToString:argument]){
                                     actionoptionsarrayindex = index;
                                     break;
                                 }
@@ -571,10 +568,13 @@ static NSString* currentActionType;
                             }
                         }
                     }
+                    
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"actionLoaded" object:nil userInfo:nil];
-                    NSString* controller = [self currentActionViewController];// [actionvcs objectForKey:currentActionType];
-                    NSLog(@"firing an action type change for controller %@", controller);
+                    
+                    NSString* controller = [self currentActionViewController];
+                    
                     NSDictionary* dict = [NSDictionary dictionaryWithObject:controller forKey:@"controller"];
+                    
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"actionTypeChange" object:nil userInfo:dict];
                     break;
                 }

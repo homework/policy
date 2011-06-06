@@ -62,17 +62,49 @@
     NSDictionary *policy = [policies objectForKey:policyid];
     if (policy != nil){
         NSDictionary *subject = [policy objectForKey:@"subject"];
+        
         NSDictionary *condition = [policy objectForKey:@"condition"];
+        
         NSDictionary *action = [policy objectForKey:@"action"];
-        NSArray *actionoptions = [action objectForKey:@"options"];
+        
+        NSArray *actionarguments = [action objectForKey:@"arguments"];
         
         [[Catalogue sharedCatalogue] setSubject:[subject objectForKey:@"owner"] device:[subject objectForKey:@"device"]];
-        [[Catalogue sharedCatalogue] setCondition:[condition objectForKey:@"type"]];
         
-        [[Catalogue sharedCatalogue] setAction:[action objectForKey:@"type"] subject:[actionoptions objectAtIndex:0] option:[actionoptions objectAtIndex:1]];
+        [[Catalogue sharedCatalogue] setCondition:[condition objectForKey:@"type"]];
+        [[Catalogue sharedCatalogue] setConditionArguments:[condition objectForKey:@"arguments"]];
+       
+        NSDictionary* dict = [NSDictionary dictionaryWithObject:[[Catalogue sharedCatalogue] currentCondition] forKey:@"condition"];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"conditionChange" object:nil userInfo:dict];
+        
+        [[Catalogue sharedCatalogue] setAction:[action objectForKey:@"type"] subject:[actionarguments objectAtIndex:0] option:[actionarguments objectAtIndex:1]];
+        
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:@"policyLoaded" object:nil userInfo:nil];
 	
+}
+
+-(NSString *)generatePolicy{
+    NSMutableDictionary *policy = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *condition = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *action = [[NSMutableDictionary alloc] init];
+    
+    [policy setObject: [[Catalogue sharedCatalogue] currentSubjectDevice] forKey:@"subject"];
+   
+    [condition setObject: [[Catalogue sharedCatalogue] currentCondition] forKey:@"type"];
+    [condition setObject: [[Catalogue sharedCatalogue] conditionArguments] forKey:@"arguments"];
+    [action setObject: [[Catalogue sharedCatalogue] currentActionType] forKey:@"action"];
+    [action setObject: [[Catalogue sharedCatalogue] currentActionSubject] forKey:@"subject"];
+    [action setObject: [[Catalogue sharedCatalogue] currentAction] forKey:@"arguments"];
+    
+    [policy setObject:condition forKey:@"condition"];
+    [policy setObject:action forKey:@"action"];
+    
+    //[root setObject:policy forKey:@"subject"];
+    
+    SBJsonWriter* writer = [SBJsonWriter new];
+    NSString *myjson = [writer stringWithObject:policy];
+    return myjson;
 }
 
 

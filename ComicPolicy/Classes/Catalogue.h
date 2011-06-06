@@ -10,35 +10,50 @@
 #import "JSON.h"
 
 @interface Catalogue : NSObject {
-
+    NSDictionary *conditionArguments;
 }
+
+@property(nonatomic, retain) NSDictionary* conditionArguments;
+
 + (Catalogue *)sharedCatalogue;
 
-#pragma mark * Public controller getters
+#pragma mark * Public controller getters for UI
 
--(NSString *) nextActionViewController;
+#pragma mark *subject getters for UI
+-(NSString *) currentSubjectOwnerImage;
+-(NSString *) nextSubjectOwnerImage;
+-(NSString *) currentSubjectDeviceImage;
+-(NSString *) nextSubjectDeviceImage;
+
+
+#pragma mark *action getters for UI
 -(NSString *) currentActionViewController;
-
--(NSString *) nextConditionViewController;
--(NSString *) currentConditionViewController;
--(NSString *) getConditionResultController:(NSString*) condition;
--(NSString *) nextCondition;
--(NSString *) currentCondition;
--(NSString *) getConditionImage:(NSString *) condition;
--(NSString *) getConditionResultImage:(NSString *) condition;
--(NSString *) getConditionViewController:(NSString*)condition;
--(NSString *) currentActionSubjectImage;
--(NSString *) nextActionSubjectImage;
+-(NSString *) nextActionViewController;
 -(NSString *) currentActionImage; 
 -(NSString *) nextActionImage;
+-(NSString *) currentActionSubjectImage;
+-(NSString *) nextActionSubjectImage;
 
--(NSString *) nextSubjectOwnerImage;
--(NSString *) currentSubjectOwnerImage;
+#pragma mark *condition getters for UI
+-(NSString *) currentConditionViewController;
+-(NSString *) nextConditionViewController;
+-(NSString *) getConditionImage;
+-(NSString *) getConditionViewController;
 
--(NSString *) nextSubjectDeviceImage;
--(NSString *) currentSubjectDeviceImage;
 
+#pragma mark *result images 
 -(NSString *) getActionResultImage:(NSString*) subject action:(NSString*)action;
+-(NSString *) getConditionResultController;
+-(NSString *) getConditionResultImage;
+
+
+#pragma mark *policy getters
+
+-(NSString *) currentSubjectDevice;
+-(NSString *) currentCondition;
+-(NSString *) currentAction;
+-(NSString *) currentActionSubject;
+-(NSString *) currentActionType;
 
 
 -(void) setSubject:(NSString *)owner device:(NSString*) device;

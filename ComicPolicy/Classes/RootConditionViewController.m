@@ -26,11 +26,11 @@
 		//NSString *controller = [controllerList objectAtIndex: ++controllerIndex % [controllerList count]];
         //NSLog(@"controller is %@", controller);
     
-        NSString *condition  = [[Catalogue sharedCatalogue] nextCondition];
-        NSString *controller = [[Catalogue sharedCatalogue] getConditionViewController:condition];
+       
+        NSString *controller = [[Catalogue sharedCatalogue] nextConditionViewController];
 	
-        ConditionViewController *newController = [[[NSClassFromString(controller) alloc] initWithNibNameAndCondition:nil bundle:nil condition:condition] retain];
-
+        ConditionViewController *newController = [[[NSClassFromString(controller) alloc] initWithNibName:nil bundle:nil] retain];
+        NSLog(@"swapping in %@", newController); 
         //NSString *controller = [[Catalogue sharedCatalogue] nextConditionViewController];
         //ConditionTypeViewController *newController = [[[NSClassFromString(controller) alloc] initWithNibName:nil bundle:nil] retain];
 	
@@ -64,27 +64,12 @@
 	 */
 	
 	
-	//ConditionTypeViewController* conditionTypeViewController = [[ConditionTypeViewController alloc] initWithNibName:nil bundle:nil];
-	NSString *condition  = [[Catalogue sharedCatalogue] currentCondition];
-	NSString *controller = [[Catalogue sharedCatalogue] getConditionViewController:condition];
-	
-    ConditionViewController *newcontroller = [[[NSClassFromString(controller) alloc] initWithNibNameAndCondition:nil bundle:nil condition:condition] retain];
-	/*controllerList = [[NSArray arrayWithObjects:@"ConditionTypeViewController", 
-												@"ConditionTypeViewController",
-												@"ConditionTypeViewController",
-												@"ConditionTypeViewController",
-												@"ConditionTimeViewController",
-												@"ConditionBandwidthViewController",
-												@"ConditionTypeViewController",
-					   
-												nil] retain];
-	
-	*/
-		
-	/*
-	 * Add one of the controller's views as a sub view...
-	 */ 
-	[self.view addSubview:[newcontroller view]];
+	//NSString *condition  = [[Catalogue sharedCatalogue] currentCondition];
+	NSString *controller = [[Catalogue sharedCatalogue] getConditionViewController];
+	//NSString *controller = [[Catalogue sharedCatalogue]  nextConditionViewController];
+    ConditionViewController *newcontroller = [[[NSClassFromString(controller) alloc] initWithNibName:nil bundle:nil] retain];
+    
+    [self.view addSubview:[newcontroller view]];
 	
 	currentViewController = newcontroller;
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(conditionLoaded:) name:@"conditionLoaded" object:nil];
@@ -92,19 +77,12 @@
 
 -(void) conditionLoaded:(NSNotification *) n{
     
-    NSString *condition  = [[Catalogue sharedCatalogue] currentCondition];
-    NSString *controller = [[Catalogue sharedCatalogue] getConditionViewController:condition];
+  
+    NSString *controller = [[Catalogue sharedCatalogue] getConditionViewController];
 	
-    ConditionViewController *newController = [[[NSClassFromString(controller) alloc] initWithNibNameAndCondition:nil bundle:nil condition:condition] retain];
-    
-    //[UIView beginAnimations:nil context:nil];
-    //[UIView setAnimationDuration:0.75];
-    //[UIView setAnimationDelegate:self];
-    //[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight forView:self.view cache:YES];
+    ConditionViewController *newController = [[[NSClassFromString(controller) alloc] initWithNibName:nil bundle:nil] retain];
     [currentViewController.view removeFromSuperview];
     [[self view] addSubview:[newController view]];
-    //[UIView commitAnimations];
-	
     [currentViewController release];
     currentViewController = newController;
 }

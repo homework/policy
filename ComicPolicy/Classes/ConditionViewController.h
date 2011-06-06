@@ -14,6 +14,5 @@
 	
 }
 
-- (id)initWithNibNameAndCondition:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil condition:(NSString*)condition;
 
 @end

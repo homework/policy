@@ -45,7 +45,7 @@
 
 -(void) viewDidLoad
 {
-       NSLog(@"VIEW DID LOAD>>>>>>>>>>>>>");
+     
 }
 
 
@@ -76,7 +76,7 @@
 
 - (void)viewDidUnload
 {
-    NSLog(@"view            did            unload -----------");
+    
     //[monitorView release];
     [super viewDidUnload];
     // Release any retained subviews of the main view.

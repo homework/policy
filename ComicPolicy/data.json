@@ -11,13 +11,33 @@
                         "everyone":["0000ffff"]
             },
 
-            "conditions":["surfing","downloading", "gaming","streaming","timed","bandwidth","visiting"],
+            "conditions":{
+                        
+                "timed":{
+                        "arguments":{
+                            "from":"date",
+                            "to":"date"
+                        }
+                },
+    
+                "bandwidth":{
+                        "arguments":{
+                            "percentage":"float"
+                        }
+                },
+
+                "visiting":{
+                        "arguments":{
+                            "sites":"array"
+                        }
+                }
+            },
 
             "actions":{
 
                     "block":{
                         "subjects":["dad","mum","katie","john","everyone"],
-                        "options":{
+                        "arguments":{
                                 "dad":["0000aaaa","0000bbbb"],
                                 "katie":["0000cccc"],   
                                 "mum":["0000dddd"],
@@ -28,7 +48,7 @@
                         
                     "notify":{
                         "subjects":["dad","mum","katie","john"],  
-                        "options": {
+                        "arguments": {
                                 "dad": ["tweet","phone","mail","sound"],
                                 "katie": ["tweet","phone","mail","sound"],           
                                 "mum": ["tweet","phone","mail","sound"],

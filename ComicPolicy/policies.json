@@ -10,7 +10,7 @@
                     "condition":{
                             "type":"timed",
                             
-                            "options":{
+                            "arguments":{
                                         "from":"12.00", 
                                         "to":"13:00"
                             }
@@ -18,7 +18,7 @@
 
                     "action":{
                             "type":"block",
-                            "options":["dad", "0000bbbb"]
+                            "arguments":["dad", "0000bbbb"]
                     }
                 },
 
@@ -30,12 +30,14 @@
 
                     "condition":{
                         "type":"bandwidth",
-                        "options":["80"]
+                        "arguments":{
+                            "percentage":80
+                        }
                     },
 
                     "action":{
                         "type":"notify",
-                        "options":["john", "tweet"]
+                        "arguments":["john", "tweet"]
                     }
                 },
                 
@@ -46,13 +48,15 @@
                     },
 
                     "condition":{
-                        "type":"streaming",
-                        "options":[]
+                        "type":"visiting",
+                        "arguments":{
+                            "sites":["news.bbc.co.uk", "www.drupal.org", "www.cnn.com"]
+                        }
                     },
 
                     "action":{
                         "type":"notify",
-                        "options":["john", "phone"]
+                        "arguments":["dad", "phone"]
                     }
                 }
                 
