@@ -24,6 +24,8 @@
  }
  */
 
+
+
 -(void) conditionChange:(NSNotification *) n{
    
     NSLog(@"seen a condition changed......");
@@ -52,8 +54,7 @@
 
 -(void) actionSubjectChange:(NSNotification *) n{
 	
-	NSDictionary *userInfo = [n userInfo];
-    NSString *newscene =  [[Catalogue sharedCatalogue] getActionResultImage:[userInfo objectForKey:@"action"] action:[userInfo objectForKey:@"type"]];
+	NSString *newscene =  [[Catalogue sharedCatalogue] getActionResultImage];
 	
 	if (newscene != NULL){
 		//if (! [currentController.currentActionScene isEqualToString:newscene]){
@@ -69,9 +70,10 @@
 }
 
 -(void) actionTypeChange:(NSNotification *) n{
+    
+  
 	NSDictionary *userInfo = [n userInfo];
 	NSString* controller = [userInfo objectForKey:@"controller"];
-	
 	
 	[UIView beginAnimations:nil context:nil];
 	[UIView setAnimationDuration:0.75];
@@ -116,11 +118,8 @@
 	
    
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(conditionChange:) name:@"conditionChange" object:nil];	
-	
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(conditionChange:) name:@"policyLoaded" object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionSubjectChange:) name:@"actionSubjectChange" object:nil];	
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionSubjectChange:) name:@"actionSubjectChange" object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionTypeChange:) name:@"actionTypeChange" object:nil];	
 	
 		
@@ -134,11 +133,9 @@
     [tmprootmonitorView release];
 	
 	ResultViewController *tmpResultController = [[[NSClassFromString(@"ResultViewController") alloc] initWithNibName:nil bundle:nil] retain];
-   
     MonitorViewController *tmpMonitorController = [[[NSClassFromString(@"MonitorViewController") alloc] initWithNibName:nil bundle:nil] retain];
 
     [self.rootMonitorView addSubview:[tmpMonitorController view]];
-    
     [[self view] addSubview:self.rootMonitorView];
 	[[self view] addSubview:[tmpResultController view]];
  

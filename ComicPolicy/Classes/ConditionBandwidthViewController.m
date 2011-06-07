@@ -16,7 +16,13 @@
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
-		
+        
+        
+        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+        [dict setObject:[NSNumber numberWithInt:85] forKey:@"percentage"];
+        [[PolicyManager sharedPolicyManager] setConditionArguments:dict];
+        [dict release];
+        
 		CGRect aframe = CGRectMake(0,0,294,301);
 		ConditionBandwidthView *aconditionview = [[ConditionBandwidthView alloc] initWithFrameAndImage:aframe image: [[Catalogue sharedCatalogue] getConditionImage]];
 		conditionBandwidthView = aconditionview;
@@ -26,7 +32,6 @@
 		UIPinchGestureRecognizer *pinchGestureRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinch:)];
 		[self.view addGestureRecognizer:pinchGestureRecognizer];
 		[pinchGestureRecognizer release];
-		
 		[aconditionview release];
 		
     }

@@ -230,7 +230,10 @@ static float YSTART = 140;
 {
     
     [super viewDidUnload];
-    [monitorView release];
+    monitorView = nil;
+    [[UIAccelerometer sharedAccelerometer] setDelegate:nil];
+    [tickTimer invalidate], tickTimer = nil;
+    [fakeDataTimer invalidate], fakeDataTimer = nil;
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }

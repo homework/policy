@@ -9,10 +9,11 @@
 #import <UIKit/UIKit.h>
 //#import "ConditionImageLookup.h"
 #import "Catalogue.h"
+#import "PolicyManager.h"
 
 @interface ConditionViewController : UIViewController {
-	
+	NSMutableDictionary* conditionArguments;
 }
 
-
+@property(nonatomic, retain) NSMutableDictionary* conditionArguments;
 @end

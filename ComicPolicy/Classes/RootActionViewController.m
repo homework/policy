@@ -29,14 +29,9 @@
 -(void) actionLoaded:(NSNotification *) n{
     NSString *controller = [[Catalogue sharedCatalogue] currentActionViewController];
     UIViewController *newController = [[[NSClassFromString(controller) alloc] initWithNibName:nil bundle:nil] retain];
-    //[UIView beginAnimations:nil context:nil];
-    //[UIView setAnimationDuration:0.75];
-    //[UIView setAnimationDelegate:self];
-    //[UIView setAnimationTransition:UIViewAnimationTransitionCurlUp forView:self.view cache:YES];
     [currentViewController.view removeFromSuperview];
     [currentViewController release];
     [[self view] addSubview:[newController view]];
-    //[UIView commitAnimations];
     currentViewController = newController;
 }
 

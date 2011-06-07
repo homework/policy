@@ -23,18 +23,12 @@
 */
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-		//NSString *controller = [controllerList objectAtIndex: ++controllerIndex % [controllerList count]];
-        //NSLog(@"controller is %@", controller);
-    
-       
-        NSString *controller = [[Catalogue sharedCatalogue] nextConditionViewController];
+        
+        [[Catalogue sharedCatalogue] nextCondition];
+        NSString *controller = [[Catalogue sharedCatalogue] getConditionViewController];
 	
         ConditionViewController *newController = [[[NSClassFromString(controller) alloc] initWithNibName:nil bundle:nil] retain];
-        NSLog(@"swapping in %@", newController); 
-        //NSString *controller = [[Catalogue sharedCatalogue] nextConditionViewController];
-        //ConditionTypeViewController *newController = [[[NSClassFromString(controller) alloc] initWithNibName:nil bundle:nil] retain];
-	
-		//NSString* imageName = [Lookup nextConditionImage]; 
+
 		[UIView beginAnimations:nil context:nil];
 		[UIView setAnimationDuration:0.75];
 		[UIView setAnimationDelegate:self];
@@ -64,12 +58,16 @@
 	 */
 	
 	
-	//NSString *condition  = [[Catalogue sharedCatalogue] currentCondition];
+	//ConditionTypeViewController* conditionTypeViewController = [[ConditionTypeViewController alloc] initWithNibName:nil bundle:nil];
+	//[[Catalogue sharedCatalogue] currentCondition];
 	NSString *controller = [[Catalogue sharedCatalogue] getConditionViewController];
-	//NSString *controller = [[Catalogue sharedCatalogue]  nextConditionViewController];
+	
     ConditionViewController *newcontroller = [[[NSClassFromString(controller) alloc] initWithNibName:nil bundle:nil] retain];
-    
-    [self.view addSubview:[newcontroller view]];
+			
+	/*
+	 * Add one of the controller's views as a sub view...
+	 */ 
+	[self.view addSubview:[newcontroller view]];
 	
 	currentViewController = newcontroller;
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(conditionLoaded:) name:@"conditionLoaded" object:nil];
@@ -77,13 +75,13 @@
 
 -(void) conditionLoaded:(NSNotification *) n{
     
-  
+    //[[Catalogue sharedCatalogue] currentCondition];
     NSString *controller = [[Catalogue sharedCatalogue] getConditionViewController];
 	
     ConditionViewController *newController = [[[NSClassFromString(controller) alloc] initWithNibName:nil bundle:nil] retain];
     [currentViewController.view removeFromSuperview];
     [[self view] addSubview:[newController view]];
-    [currentViewController release];
+        [currentViewController release];
     currentViewController = newController;
 }
 

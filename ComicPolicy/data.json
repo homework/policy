@@ -36,13 +36,14 @@
             "actions":{
 
                     "block":{
-                        "subjects":["dad","mum","katie","john","everyone"],
+                        "subjects":["0000aaaa","0000bbbb","0000cccc","0000dddd","0000eeee", "0000ffff"],
                         "arguments":{
-                                "dad":["0000aaaa","0000bbbb"],
-                                "katie":["0000cccc"],   
-                                "mum":["0000dddd"],
-                                "john":["0000eeee"],
-                                "everyone":["0000ffff"]
+                                "0000aaaa":["dad"],
+                                "0000bbbb":["dad"],
+                                "0000cccc":["katie"],   
+                                "0000dddd":["mum"],
+                                "0000eeee":["john"],
+                                "0000ffff":["everyone"]
                         }
                     }, 
                         

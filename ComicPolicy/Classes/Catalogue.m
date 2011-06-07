@@ -19,7 +19,7 @@
 -(NSString *) nextSubjectOwner;
 -(NSString *) nextActionSubject;
 -(NSString *) nextAction;
--(NSString *) nextCondition;
+
 
 -(void) updateActionOptions:(NSString *)subject;
 
@@ -27,7 +27,6 @@
 
 @implementation Catalogue
 
-@synthesize conditionArguments;
 
 #pragma mark *data structure for associating entities with images
 
@@ -257,22 +256,6 @@ static NSDictionary* conditionresultvcs; //mapping of currently selected conditi
 #pragma mark * Action frames (private)
 
 
-/*
--(void) updateActionSelections:(NSString *)subject{
-	
-	if ([currentActionType isEqualToString:@"block"]){
-		if (actiondevices != NULL)
-			[actiondevices release];
-		
-		actiondevices =  [[ownerLookup objectForKey:subject] retain];
-		actiondevicesindex = 0;
-	}
-}*/
-
-
-
-
-
 -(NSString *) nextActionSubject{
 	if (actionsubjectarray == NULL)
 		return NULL;
@@ -280,10 +263,7 @@ static NSDictionary* conditionresultvcs; //mapping of currently selected conditi
 	NSString *subject = [actionsubjectarray objectAtIndex:++actionsubjectarrayindex % [actionsubjectarray count]];
 	[self updateActionOptions:subject];
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"actionChange" object:nil userInfo:nil];
-	
-    NSDictionary* dict = [NSDictionary dictionaryWithObjectsAndKeys:subject,@"action",currentActionType,@"type",nil];
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"actionSubjectChange" object:nil userInfo:dict];
-	
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"actionSubjectChange" object:nil userInfo:nil];
 	return subject;
 }
 
@@ -304,6 +284,8 @@ static NSDictionary* conditionresultvcs; //mapping of currently selected conditi
 	if (actionoptionsarray == NULL){
 		return NULL;
 	}
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"actionSubjectChange" object:nil userInfo:nil];
+    
 	return [actionoptionsarray objectAtIndex:++actionoptionsarrayindex % [actionoptionsarray count]];
 }
 
@@ -313,8 +295,6 @@ static NSDictionary* conditionresultvcs; //mapping of currently selected conditi
 
 -(NSString *) currentActionSubject{
     NSString *subject = [actionsubjectarray objectAtIndex:actionsubjectarrayindex % [actionsubjectarray count]];
-    NSDictionary* dict = [NSDictionary dictionaryWithObjectsAndKeys:subject,@"action",currentActionType,@"type",nil];
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"actionSubjectChange" object:nil userInfo:dict];
     return subject;
 }
 
@@ -349,10 +329,12 @@ static NSDictionary* conditionresultvcs; //mapping of currently selected conditi
         actionoptionsarray =  [[tmpoptdict objectForKey:subject] retain];
         actionoptionsarrayindex = 0;
 	}
-    NSString* controller = [self currentActionViewController];// [actionvcs objectForKey:currentActionType];
+    NSString* controller = [self currentActionViewController];
    
     NSDictionary* dict = [NSDictionary dictionaryWithObject:controller forKey:@"controller"];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"actionTypeChange" object:nil userInfo:dict];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"actionSubjectChange" object:nil userInfo:nil];
+    
 	return controller;
 }
 
@@ -365,19 +347,16 @@ static NSDictionary* conditionresultvcs; //mapping of currently selected conditi
 }
 
 -(NSString *) nextConditionViewController{
-     
-	NSString *cc = [conditionvcsarray objectAtIndex:++conditionvcsindex % [conditionvcsarray count]];
-    NSLog(@"current vc is now  %@", cc);
-    return cc;
+   
+	return [conditionvcsarray objectAtIndex:++conditionvcsindex % [conditionvcsarray count]];
+   
 }
 
 -(NSString*) getConditionResultController{
-    //return [conditionresultvcs objectForKey:condition];
     return [conditionresultvcs objectForKey:[self currentCondition]];
 }
 
 -(NSString*) getConditionViewController{
-    NSLog(@"current condition is now %@", [self currentCondition]);
     return [conditionvcs objectForKey:[self currentCondition]];
 }
 
@@ -414,9 +393,6 @@ static NSDictionary* conditionresultvcs; //mapping of currently selected conditi
 -(NSString *) currentActionImage{
 	NSString *action = [self currentAction];
     NSString *image = [self lookupImage:action type:currentActionType state:@"action"];
-        
-    NSDictionary* dict = [NSDictionary dictionaryWithObjectsAndKeys:action,@"action",currentActionType,@"type",nil];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"actionSubjectChange" object:nil userInfo:dict];
     return image;
 		
 }
@@ -424,8 +400,6 @@ static NSDictionary* conditionresultvcs; //mapping of currently selected conditi
 -(NSString *) nextActionImage{
 	NSString *action = [self nextAction];
     NSString *image = [self lookupImage:action type:currentActionType state:@"action"];
-    NSDictionary* dict = [NSDictionary dictionaryWithObjectsAndKeys:action,@"action",currentActionType,@"type",nil];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"actionSubjectChange" object:nil userInfo:dict];
     return image;
 }
 
@@ -445,9 +419,9 @@ static NSDictionary* conditionresultvcs; //mapping of currently selected conditi
 	return [self lookupImage: [self currentSubjectDevice] type:@"main" state:nil];
 }
 
--(NSString*) getActionResultImage:(NSString*) subject action:(NSString*)action{
-    NSDictionary *subj = (NSDictionary *) [imageLookup objectForKey:subject];
-    NSDictionary *dict = (NSDictionary *) [subj objectForKey:action];
+-(NSString*) getActionResultImage{
+    NSDictionary *subj = (NSDictionary *) [imageLookup objectForKey:[self currentActionSubject]];
+    NSDictionary *dict = (NSDictionary *) [subj objectForKey:[self currentActionType]];
     return [dict objectForKey:@"result"];
 }
 
@@ -496,7 +470,7 @@ static NSDictionary* conditionresultvcs; //mapping of currently selected conditi
 /*
  * Action  =   notify / block etc
  * Subject =   mum / dad  etc
- * Option  =   tweet / notify etc or nil
+ * Option  =   tweet / notify etc or device macaddr
  */
 
 -(void) setAction:(NSString *) action subject:(NSString*) subject option:(NSString*)argument{
@@ -572,10 +546,11 @@ static NSDictionary* conditionresultvcs; //mapping of currently selected conditi
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"actionLoaded" object:nil userInfo:nil];
                     
                     NSString* controller = [self currentActionViewController];
-                    
                     NSDictionary* dict = [NSDictionary dictionaryWithObject:controller forKey:@"controller"];
+            
                     
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"actionTypeChange" object:nil userInfo:dict];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"actionSubjectChange" object:nil userInfo:nil];
                     break;
                 }
                 index += 1;
