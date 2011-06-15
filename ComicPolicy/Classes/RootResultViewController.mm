@@ -28,7 +28,7 @@
 
 -(void) conditionChange:(NSNotification *) n{
    
-    NSLog(@"seen a condition changed......");
+   
 	//NSDictionary *userInfo = [n userInfo];
 	
     //NSString* newscene = [[Catalogue sharedCatalogue] getConditionResultImage:[userInfo objectForKey:@"condition"]];

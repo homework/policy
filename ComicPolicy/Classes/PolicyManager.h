@@ -7,23 +7,30 @@
 //
 
 #import <Foundation/Foundation.h>
-
+@class Policy;
 
 @interface PolicyManager : NSObject {
-    NSString* currentPolicy;
-    NSArray *policyids;
-    NSDictionary *policies;
-    NSMutableDictionary *conditionArguments;
+    
+    Policy* currentPolicy;
+    
+    NSArray *policyids;               //the list of policyids
+    
+    NSDictionary *policies;           //the dictionary containing all known policies
+    
+    NSMutableDictionary *localLookup;  //mapping between the system allocated policy id and the locally generated one.
+    
 }
 
 + (PolicyManager *)sharedPolicyManager;
 
 -(void) loadPolicy:(NSString*) policyid;
--(void) setConditionArguments:(NSMutableDictionary *) args;
--(NSString *) generatePolicy;
+-(NSString *) savePolicy;
 -(void) loadFirstPolicy;
 
 @property(nonatomic, retain) NSArray* policyids;
 @property(nonatomic, retain) NSDictionary* policies;
-@property(nonatomic, retain) NSString* currentPolicy;
+@property(nonatomic, retain) Policy* currentPolicy;
+
+-(NSMutableDictionary *) getConditionArguments:(NSString*) localpolicyid;
+
 @end

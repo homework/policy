@@ -10,9 +10,11 @@
 #import "JSON.h"
 
 @interface Catalogue : NSObject {
+    NSMutableDictionary *currentConditionArguments;
     
 }
 
+@property(nonatomic, retain) NSMutableDictionary *currentConditionArguments;
 
 + (Catalogue *)sharedCatalogue;
 
@@ -38,7 +40,8 @@
 -(NSString *) nextConditionViewController;
 -(NSString *) getConditionImage;
 -(NSString *) getConditionViewController;
-
+//-(NSMutableDictionary *) conditionArgumentsForType:(NSString*) type;
+-(NSMutableDictionary *) conditionArguments; /*:(NSString*) type;*/
 
 #pragma mark *result images 
 -(NSString *) getActionResultImage;//:(NSString*) subject action:(NSString*)action;
@@ -57,7 +60,9 @@
 
 
 -(void) setSubject:(NSString *)owner device:(NSString*) device;
--(void) setCondition:(NSString *)condition;
--(void) setAction:(NSString *) action subject:(NSString*) subject option:(NSString*)option;
-    
+-(void) setCondition:(NSString *)condition options:(NSDictionary*) options;
+-(void) setAction:(NSString *) action subject:(NSString*) subject options:(NSArray*)options;
+-(void) setConditionArguments:(NSMutableDictionary *) args;
+
+
 @end

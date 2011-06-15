@@ -20,6 +20,7 @@
 @implementation NetworkManager
 
 @synthesize networkQueue;
+@synthesize rootURL;
 
 + (NetworkManager *)sharedManager
 {
@@ -43,7 +44,7 @@
     // any thread, but serialised by +sharedManager
     self = [super init];
     if (self != nil) {
-        
+        self.rootURL = @"127.0.0.1:9000";
         self.networkQueue = [ASINetworkQueue queue];
         [networkQueue setDelegate:self];
         [networkQueue setRequestDidStartSelector:@selector(delegateStarted:)];

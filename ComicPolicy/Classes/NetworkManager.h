@@ -14,10 +14,11 @@
 
 @interface NetworkManager : NSObject {
     ASINetworkQueue *networkQueue;
-    
+    NSString *rootURL;
 }
 
 @property(nonatomic,retain) ASINetworkQueue* networkQueue;
+@property(nonatomic,retain) NSString* rootURL;
 
 + (NetworkManager *)sharedManager;
 

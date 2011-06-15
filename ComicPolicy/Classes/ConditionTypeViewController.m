@@ -14,12 +14,16 @@
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
-        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-        NSArray * sites =  [[NSArray alloc] initWithObjects:@"www.bbc.co.uk", @"www.fasthost.com", nil];
-        [dict setObject:sites forKey:@"sites"];
-        [[PolicyManager sharedPolicyManager] setConditionArguments:dict];
-        [sites release];
-        [dict release];
+        //NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+      
+        conditionArguments = [[PolicyManager sharedPolicyManager] getConditionArguments:@"visiting"];
+        
+        if (conditionArguments == nil){
+            conditionArguments = [[Catalogue sharedCatalogue] conditionArguments];//:@"visiting"]; 
+            NSLog(@"type - got default condition arguments %@", conditionArguments);
+        }else{
+            NSLog(@"got policy condition arguments %@", conditionArguments);
+        }
         
 		CGRect nframe = CGRectMake(0,0,294,301);
 		//lookup = [[ConditionImageLookup alloc] init];

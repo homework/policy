@@ -14,12 +14,15 @@
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
+        conditionArguments = [[PolicyManager sharedPolicyManager] getConditionArguments:@"timed"];
         
-        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-        [dict setObject:@"12.00" forKey:@"from"];
-        [dict setObject:@"15.00" forKey:@"to"];
-        [[PolicyManager sharedPolicyManager] setConditionArguments:dict];
-        [dict release];
+        if (conditionArguments == nil){
+            conditionArguments = [[Catalogue sharedCatalogue] conditionArguments];//:@"timed"]; 
+            NSLog(@"bandwidth - got default condition arguments %@", conditionArguments);
+        }else{
+            NSLog(@"got policy condition arguments %@", conditionArguments);
+        }
+
         
 		CGRect aframe = CGRectMake(0,0,294,301);
 		ConditionTimeView *aconditionview = [[ConditionTimeView alloc] initWithFrameAndImage:aframe image: [[Catalogue sharedCatalogue] getConditionImage]];

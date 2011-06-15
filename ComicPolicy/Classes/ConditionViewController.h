@@ -10,6 +10,7 @@
 //#import "ConditionImageLookup.h"
 #import "Catalogue.h"
 #import "PolicyManager.h"
+#import "Policy.h"
 
 @interface ConditionViewController : UIViewController {
 	NSMutableDictionary* conditionArguments;

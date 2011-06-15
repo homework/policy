@@ -15,13 +15,16 @@
 
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
+    if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {  //add type as argument to super class...
         
+        conditionArguments = [[PolicyManager sharedPolicyManager] getConditionArguments:@"bandwidth"];
         
-        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-        [dict setObject:[NSNumber numberWithInt:85] forKey:@"percentage"];
-        [[PolicyManager sharedPolicyManager] setConditionArguments:dict];
-        [dict release];
+        if (conditionArguments == nil){
+            conditionArguments = [[Catalogue sharedCatalogue] conditionArguments];//:@"bandwidth"]; 
+            NSLog(@"bandwidth - got default condition arguments %@", conditionArguments);
+        }else{
+             NSLog(@"got policy condition arguments %@", conditionArguments);
+        }
         
 		CGRect aframe = CGRectMake(0,0,294,301);
 		ConditionBandwidthView *aconditionview = [[ConditionBandwidthView alloc] initWithFrameAndImage:aframe image: [[Catalogue sharedCatalogue] getConditionImage]];
@@ -37,6 +40,8 @@
     }
     return self;
 }
+
+
 
 
 -(void) handlePinch:(UIGestureRecognizer *) gesture {

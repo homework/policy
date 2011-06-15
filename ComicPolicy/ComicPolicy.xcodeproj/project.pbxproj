@@ -112,6 +112,7 @@
 		A352ABDB131D88B30053867A /* hour2.png in Resources */ = {isa = PBXBuildFile; fileRef = A352ABD9131D88B30053867A /* hour2.png */; };
 		A352ABDC131D88B30053867A /* minute2.png in Resources */ = {isa = PBXBuildFile; fileRef = A352ABDA131D88B30053867A /* minute2.png */; };
 		A352AC03131E55290053867A /* HandView.m in Sources */ = {isa = PBXBuildFile; fileRef = A352AC02131E55290053867A /* HandView.m */; };
+		A379FF6C13A617A1004FDBB9 /* Policy.m in Sources */ = {isa = PBXBuildFile; fileRef = A379FF6B13A617A1004FDBB9 /* Policy.m */; };
 		A3A81A32138E52B90001CF25 /* monitorclockface.png in Resources */ = {isa = PBXBuildFile; fileRef = A3A81A2A138E52B90001CF25 /* monitorclockface.png */; };
 		A3A81A33138E52B90001CF25 /* hbranch.png in Resources */ = {isa = PBXBuildFile; fileRef = A3A81A2B138E52B90001CF25 /* hbranch.png */; };
 		A3A81A34138E52B90001CF25 /* pinkcog.png in Resources */ = {isa = PBXBuildFile; fileRef = A3A81A2C138E52B90001CF25 /* pinkcog.png */; };
@@ -354,6 +355,8 @@
 		A352ABDA131D88B30053867A /* minute2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = minute2.png; sourceTree = "<group>"; };
 		A352AC01131E55290053867A /* HandView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HandView.h; sourceTree = "<group>"; };
 		A352AC02131E55290053867A /* HandView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HandView.m; sourceTree = "<group>"; };
+		A379FF6A13A617A1004FDBB9 /* Policy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Policy.h; sourceTree = "<group>"; };
+		A379FF6B13A617A1004FDBB9 /* Policy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Policy.m; sourceTree = "<group>"; };
 		A3A81A2A138E52B90001CF25 /* monitorclockface.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = monitorclockface.png; sourceTree = "<group>"; };
 		A3A81A2B138E52B90001CF25 /* hbranch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hbranch.png; sourceTree = "<group>"; };
 		A3A81A2C138E52B90001CF25 /* pinkcog.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pinkcog.png; sourceTree = "<group>"; };
@@ -568,6 +571,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				A379FF6913A61789004FDBB9 /* Data */,
 				A34760C8134C815100430CE0 /* Sounds */,
 				A352A8A7131BD5F50053867A /* Shared */,
 				A352A8A6131BD5C30053867A /* Util */,
@@ -943,6 +947,15 @@
 				A352AA94131D03B10053867A /* phoneunblocked.png */,
 			);
 			path = devices;
+			sourceTree = "<group>";
+		};
+		A379FF6913A61789004FDBB9 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				A379FF6A13A617A1004FDBB9 /* Policy.h */,
+				A379FF6B13A617A1004FDBB9 /* Policy.m */,
+			);
+			name = Data;
 			sourceTree = "<group>";
 		};
 		A3A81A26138E51BE0001CF25 /* monitor */ = {
@@ -1473,6 +1486,7 @@
 				A3C5C2651383D33400FF413F /* ASINetworkQueue.m in Sources */,
 				A3C5C2711383D6D700FF413F /* NetworkManager.m in Sources */,
 				A3A81A3C138E53DE0001CF25 /* MonitorTimeView.m in Sources */,
+				A379FF6C13A617A1004FDBB9 /* Policy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

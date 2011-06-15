@@ -2,6 +2,7 @@
     "policies":{
                 
                "1":{
+                    
                     "subject":{
                             "owner":"katie",
                             "device":"0000cccc"
@@ -18,7 +19,8 @@
 
                     "action":{
                             "type":"block",
-                            "arguments":["0000bbbb", "dad"]
+                            "subject":"0000bbbb",
+                            "arguments":["dad"]
                     }
                 },
 
@@ -37,7 +39,8 @@
 
                     "action":{
                         "type":"notify",
-                        "arguments":["john", "tweet"]
+                        "subject":"john",
+                        "arguments":["tweet"]
                     }
                 },
                 
@@ -56,7 +59,8 @@
 
                     "action":{
                         "type":"notify",
-                        "arguments":["dad", "phone"]
+                        "subject":"dad",
+                        "arguments":["phone"]
                     }
                 }
                 

@@ -9,12 +9,21 @@
 #import "PolicyManager.h"
 #import "JSON.h"
 #import "Catalogue.h"
+#import "NetworkManager.h"
+#import "ASIHTTPRequest.h"
+#import "Policy.h"
+
+@interface PolicyManager()
+    -(void) readInPolicies:(NSMutableDictionary *) policydict;
+@end
 
 @implementation PolicyManager
 
 @synthesize policyids;
 @synthesize policies;
 @synthesize currentPolicy;
+
+static int localId;
 
 + (PolicyManager *)sharedPolicyManager
 {
@@ -45,15 +54,43 @@
             NSLog(@"policy data is malformed");
         }
         else{
-            self.policies = [data objectForKey:@"policies"];
+            localId = 1;
+            localLookup    = [[[NSMutableDictionary alloc] init] retain];
+            self.policies       = [[NSMutableDictionary alloc] init];
+                               
+            [self readInPolicies:[data objectForKey:@"policies"]];
+            
+            //self.policies = [data objectForKey:@"policies"];
+            
             self.policyids = [policies allKeys];
-            conditionArguments = [[[NSMutableDictionary alloc] init] retain];
-            self.currentPolicy = @"1";
+            
+            //conditionArguments = [[[NSMutableDictionary alloc] init] retain];
+            
+            [self loadFirstPolicy];
         }
     }
     return self;
 }
 
+
+
+-(void) readInPolicies:(NSMutableDictionary *)policydict{
+    
+    for (NSString *identity in [policydict allKeys]){
+            
+        Policy *apolicy = [[Policy alloc] initWithDictionary:[policydict objectForKey:identity]];
+        
+        [apolicy setIdentity:identity];
+        
+        [self.policies setValue:apolicy forKey:[NSString stringWithFormat:@"%d", localId]];
+        
+        [localLookup setValue:[NSString stringWithFormat:@"%d", localId] forKey:identity];
+        
+        [apolicy release];
+        
+        localId++;
+    }
+}
 
 -(void) loadFirstPolicy{
     if (self.policyids != nil){
@@ -61,50 +98,89 @@
     }
 }
 
+
+-(NSMutableDictionary *) getConditionArguments:(NSString*)type{
+    NSLog(@"chceking args for policy type %@", type);
+    if ([currentPolicy.conditiontype isEqualToString:type]){
+        return currentPolicy.conditionarguments;
+    }
+    return nil;
+}
+
+
+-(void) loadPolicy:(NSString*) localpolicyid{
+
+    Policy *apolicy = [policies objectForKey:localpolicyid];
+    
+    if (apolicy != nil){
+        NSLog(@"loading in a new policy.. %@", localpolicyid);
+        self.currentPolicy = apolicy;
+          NSLog(@"policy type is %@", self.currentPolicy.conditiontype);
+        [[Catalogue sharedCatalogue] setSubject:apolicy.subjectowner device:apolicy.subjectdevice];
+        [[Catalogue sharedCatalogue] setCondition:apolicy.conditiontype options:apolicy.conditionarguments];
+        //should take an array of arguments for 'option'
+        [[Catalogue sharedCatalogue] setAction:apolicy.actiontype subject:apolicy.actionsubject options:apolicy.actionarguments];
+        
+        
+      
+    }
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"policyLoaded" object:nil userInfo:nil];
+}
+
+/*
 -(void) loadPolicy:(NSString*) policyid{
     
     NSDictionary *policy = [policies objectForKey:policyid];
     
     if (policy != nil){
-        self.currentPolicy = policyid;
+       
         NSDictionary *subject = [policy objectForKey:@"subject"];
+       
         NSDictionary *condition = [policy objectForKey:@"condition"];
+        
         NSDictionary *action = [policy objectForKey:@"action"];
+        
         NSArray *actionarguments = [action objectForKey:@"arguments"];
         
+      
         //some data validation required here...
         
         [[Catalogue sharedCatalogue] setSubject:[subject objectForKey:@"owner"] device:[subject objectForKey:@"device"]];
-        
         [[Catalogue sharedCatalogue] setCondition:[condition objectForKey:@"type"]];
         
-        [self setConditionArguments:[condition objectForKey:@"arguments"]];
-       
+        //[self setConditionArguments:[condition objectForKey:@"arguments"]];
         NSString *asubject = [actionarguments objectAtIndex:0];
         NSString *atype =    [action objectForKey:@"type"];
         [[Catalogue sharedCatalogue] setAction:atype subject:asubject option:[actionarguments objectAtIndex:1]];
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:@"policyLoaded" object:nil userInfo:nil];
+}
+*/
+
+/*
+ * Take the current representation of the policy, and send it to the policyManager backend to install
+ * This method is triggered from the UI
+ */
+
+-(NSString *)savePolicy{
     
-	
-}
-
--(void) setConditionArguments:(NSMutableDictionary *)args{
-    [conditionArguments setObject:args forKey:currentPolicy];
-}
-
--(NSMutableDictionary *) getConditionArguments{
-    return [conditionArguments objectForKey:currentPolicy];
-}
-
--(NSString *)generatePolicy{
     NSMutableDictionary *policy = [[NSMutableDictionary alloc] init];
+    
     NSMutableDictionary *condition = [[NSMutableDictionary alloc] init];
+    
     NSMutableDictionary *action = [[NSMutableDictionary alloc] init];
     
+    if (currentPolicy.identity != nil){
+        [policy setObject: currentPolicy.identity forKey:@"identity"];
+    }
+    
     [policy setObject: [[Catalogue sharedCatalogue] currentSubjectDevice] forKey:@"subject"];
+    
     [condition setObject: [[Catalogue sharedCatalogue] currentCondition] forKey:@"type"];
-    [condition setObject: [self getConditionArguments] forKey:@"arguments"];
+    
+    [condition setObject: [[Catalogue sharedCatalogue] conditionArguments] forKey:@"arguments"];//]ForType:[[Catalogue sharedCatalogue] currentCondition]] forKey:@"arguments"];
+    
     [action setObject: [[Catalogue sharedCatalogue] currentActionType] forKey:@"action"];
     [action setObject: [[Catalogue sharedCatalogue] currentActionSubject] forKey:@"subject"];
     [action setObject: [[Catalogue sharedCatalogue] currentAction] forKey:@"arguments"];
@@ -114,8 +190,28 @@
     
     SBJsonWriter* writer = [SBJsonWriter new];
     NSString *myjson = [writer stringWithObject:policy];
+    
     return myjson;
 }
+
+-(void) sendPolicy{
+    /*NSString *rootURL  = [[NetworkManager sharedManager] rootURL];
+
+    NSString *strurl = [NSString stringWithFormat:@"%@/registerToken/%@", rootURL, deviceToken];
+    NSLog(@"connecting to %@", strurl);
+    NSURL *url = [NSURL URLWithString:strurl];
+    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
+    [request setDelegate:self];
+    [request setDidFinishSelector:@selector(addedRequestComplete:)];
+    [[NetworkManager sharedManager] addRequest:request]; */
+}
+
+- (void)addedRequestComplete:(ASIHTTPRequest *)request
+{
+	NSString *responseString = [request responseString];
+    NSLog(@"got response %@", responseString); 
+}
+
 
 
 @end

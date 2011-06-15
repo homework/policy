@@ -77,6 +77,8 @@ static int actionoptionsarrayindex;     //currently selected option.
 
 static NSDictionary* conditionresultvcs; //mapping of currently selected condition to associated result view controller
 
+@synthesize currentConditionArguments;
+
 + (Catalogue *)sharedCatalogue
 {
     static  Catalogue * sCatalogue;
@@ -106,6 +108,7 @@ static NSDictionary* conditionresultvcs; //mapping of currently selected conditi
             NSLog(@"DATA IS NIL>>>>");
         }
         else{
+            self.currentConditionArguments = [[NSMutableDictionary alloc] init];
             
             NSDictionary *main = (NSDictionary *) [data objectForKey:@"catalogue"];
             imageLookup = [(NSDictionary *) [main objectForKey:@"images"] retain];
@@ -133,13 +136,12 @@ static NSDictionary* conditionresultvcs; //mapping of currently selected conditi
             conditionLookup = (NSDictionary *) [navigation objectForKey:@"conditions"];
             
             
-            
             conditions = [[conditionLookup allKeys ]retain];
             conditionindex = -1;
             
             conditionvcs = (NSDictionary *) [[controllers objectForKey:@"conditions"] retain];
             [self initConditions];
-            
+        
             
             /*
              * Generate the arrays to handle navigation through actions and associated view controllers
@@ -165,6 +167,15 @@ static NSDictionary* conditionresultvcs; //mapping of currently selected conditi
 -(void) initConditions{
     conditionvcsarray = (NSArray*) [[conditionvcs allValues] retain];
     conditionvcsindex = 0;
+    
+    /*
+     * set up the default condition arguments dictionary.
+     */
+    for (NSString *condition in [conditionLookup allKeys]){
+        NSDictionary *dictionary = [conditionLookup objectForKey:condition];
+        NSDictionary *arguments = [dictionary objectForKey:@"arguments"];
+        [currentConditionArguments  setObject:arguments forKey:condition];  
+    }
 }
 
 -(void) initActions{
@@ -241,6 +252,14 @@ static NSDictionary* conditionresultvcs; //mapping of currently selected conditi
 }
 
 #pragma mark * Condition frames (public)
+
+-(NSMutableDictionary *) conditionArguments/*:(NSString*) type*/{
+    return [currentConditionArguments objectForKey:[self currentCondition]];
+}
+
+-(void) setConditionArguments:(NSMutableDictionary *) args{
+    [currentConditionArguments setObject:args forKey:[self currentCondition]];
+}
 
 -(NSString*) currentCondition{
     NSString *condition = (NSString*) [conditions objectAtIndex:conditionindex % [conditions count]];
@@ -454,7 +473,7 @@ static NSDictionary* conditionresultvcs; //mapping of currently selected conditi
     }    
 }
 
--(void) setCondition:(NSString *)condition{
+-(void) setCondition:(NSString *)condition options:(NSDictionary *)options{
     
     int index = 0;
     
@@ -473,7 +492,7 @@ static NSDictionary* conditionresultvcs; //mapping of currently selected conditi
  * Option  =   tweet / notify etc or device macaddr
  */
 
--(void) setAction:(NSString *) action subject:(NSString*) subject option:(NSString*)argument{
+-(void) setAction:(NSString *) action subject:(NSString*) subject options:(NSArray*)arguments{
     
     
     int index = 0;
@@ -517,7 +536,7 @@ static NSDictionary* conditionresultvcs; //mapping of currently selected conditi
                    
                     //have set the action and subjects, now need to do options...
                     
-                    if (argument != nil){
+                    if (arguments != nil && [arguments count] > 0){
                        
                         if (actionoptionsarray != NULL)
                             [actionoptionsarray release];
@@ -532,6 +551,7 @@ static NSDictionary* conditionresultvcs; //mapping of currently selected conditi
                             
                             
                             index = 0;
+                            NSString* argument = [arguments objectAtIndex:0];
                             
                             for(NSString* anargument in actionoptionsarray){
                                 if ([anargument isEqualToString:argument]){

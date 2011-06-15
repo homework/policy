@@ -133,8 +133,8 @@
 	}
 	
 	else if (CGRectContainsPoint( saveButton.frame , touchLocation)){
-        NSString *policytosend =  [[PolicyManager sharedPolicyManager] generatePolicy];
-        NSLog(@"Policy to send is %@", policytosend);
+        NSString *policysent =  [[PolicyManager sharedPolicyManager] savePolicy];
+        NSLog(@"Policy to sent is %@", policysent);
         //[[PolicyManager sharedPolicyManager] loadPolicy:@"1"];
     }
 	

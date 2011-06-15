@@ -9,6 +9,12 @@
 #import "ResultTimeViewController.h"
 #import "MonitorTimeView.h"
 
+@interface ResultTimeViewController()
+-(void) rotatePinkCog:(NSString *) animationID finished:(NSNumber*)finished context:(void*)context;
+-(void) rotateYellowCog:(NSString *) animationID finished:(NSNumber*)finished context:(void*)context;
+-(void) rotateRedCog:(NSString *) animationID finished:(NSNumber*)finished context:(void*)context;
+@end
+
 @implementation ResultTimeViewController
 
 @synthesize monitorTimeView;

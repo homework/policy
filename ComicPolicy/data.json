@@ -15,20 +15,20 @@
                         
                 "timed":{
                         "arguments":{
-                            "from":"date",
-                            "to":"date"
+                            "from":"13.00",
+                            "to":"15.00"
                         }
                 },
     
                 "bandwidth":{
                         "arguments":{
-                            "percentage":"float"
+                            "percentage":80.5
                         }
                 },
 
                 "visiting":{
                         "arguments":{
-                            "sites":"array"
+                            "sites":["news.bbc.co.uk", "www.google.co.uk"]
                         }
                 }
             },
