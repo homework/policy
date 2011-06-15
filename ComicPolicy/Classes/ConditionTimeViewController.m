@@ -26,8 +26,12 @@
         
 		CGRect aframe = CGRectMake(0,0,294,301);
 		ConditionTimeView *aconditionview = [[ConditionTimeView alloc] initWithFrameAndImage:aframe image: [[Catalogue sharedCatalogue] getConditionImage]];
+        
+        
+        
 		conditionTimeView = aconditionview;
 		self.view = aconditionview;
+        
 	}
     return self;
 }

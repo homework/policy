@@ -17,10 +17,10 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {  //add type as argument to super class...
         
-        conditionArguments = [[PolicyManager sharedPolicyManager] getConditionArguments:@"bandwidth"];
+        self.conditionArguments = [[PolicyManager sharedPolicyManager] getConditionArguments:@"bandwidth"];
         
         if (conditionArguments == nil){
-            conditionArguments = [[Catalogue sharedCatalogue] conditionArguments];//:@"bandwidth"]; 
+            self.conditionArguments = [[Catalogue sharedCatalogue] conditionArguments];//:@"bandwidth"]; 
             NSLog(@"bandwidth - got default condition arguments %@", conditionArguments);
         }else{
              NSLog(@"got policy condition arguments %@", conditionArguments);
@@ -135,7 +135,7 @@
 
 - (void)dealloc {
     [super dealloc];
-	[conditionBandwidthView release];
+	//[conditionBandwidthView release];
 }
 
 

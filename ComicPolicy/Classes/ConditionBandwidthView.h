@@ -15,5 +15,7 @@
 }
 
 @property(nonatomic,retain) UIImageView *moneyImage;
+
 @property(nonatomic,retain) UILabel *bandwidthLabel;
+
 @end

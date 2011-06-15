@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ConditionBandwidthViewController.h"
-@class ConditionTypeViewController;
+@class ConditionVisitingViewController;
 //#import "Lookup.h"
 
 @interface RootConditionViewController : UIViewController {
@@ -16,5 +16,7 @@
 	NSArray* controllerList;
 	int controllerIndex;
 }
+
+@property(nonatomic, retain) ConditionViewController* currentViewController;
 
 @end

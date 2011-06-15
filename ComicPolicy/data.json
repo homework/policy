@@ -108,7 +108,7 @@
                 "streaming":"ConditionTypeViewController",
                 "timed":"ConditionTimeViewController",
                 "bandwidth":"ConditionBandwidthViewController",
-                "visiting":"ConditionTypeViewController"
+                "visiting":"ConditionVisitingViewController"
             },
 
             "actions":{

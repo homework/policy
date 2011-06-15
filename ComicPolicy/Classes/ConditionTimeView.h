@@ -14,7 +14,7 @@
 @interface ConditionTimeView : FrameView {
 	UIView *fromClockFace;
 	UIView *toClockFace;
-		
+    
 	HandView *fhh;
 	HandView *fmh;
 	HandView *thh;
@@ -22,6 +22,9 @@
 	
 	CGRect clockFromFrame;
 	CGRect clockToFrame;
+    
+    int hour;
+    int minute;
 }
 
 @property(nonatomic, retain) UIView *fromClockFace;

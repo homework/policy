@@ -63,7 +63,7 @@
 		A30AE28B1316B6B80060D2F1 /* mumwaiting.png in Resources */ = {isa = PBXBuildFile; fileRef = A30AE2831316B6B80060D2F1 /* mumwaiting.png */; };
 		A30AE2AD1316BABB0060D2F1 /* ConditionBandwidthView.m in Sources */ = {isa = PBXBuildFile; fileRef = A30AE2AC1316BABB0060D2F1 /* ConditionBandwidthView.m */; };
 		A30AE3741316CE0C0060D2F1 /* ConditionBandwidthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A30AE3731316CE0C0060D2F1 /* ConditionBandwidthViewController.m */; };
-		A30AE3A51316F6F80060D2F1 /* ConditionTypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A30AE3A41316F6F80060D2F1 /* ConditionTypeViewController.m */; };
+		A30AE3A51316F6F80060D2F1 /* ConditionVisitingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A30AE3A41316F6F80060D2F1 /* ConditionVisitingViewController.m */; };
 		A30AE54E1317CA830060D2F1 /* conditionmoneybag.png in Resources */ = {isa = PBXBuildFile; fileRef = A30AE54D1317CA830060D2F1 /* conditionmoneybag.png */; };
 		A30AE5521317CC1D0060D2F1 /* frame.png in Resources */ = {isa = PBXBuildFile; fileRef = A30AE5501317CC1D0060D2F1 /* frame.png */; };
 		A32749471340A10C00212CAB /* ok.png in Resources */ = {isa = PBXBuildFile; fileRef = A32749451340A10C00212CAB /* ok.png */; };
@@ -112,6 +112,8 @@
 		A352ABDB131D88B30053867A /* hour2.png in Resources */ = {isa = PBXBuildFile; fileRef = A352ABD9131D88B30053867A /* hour2.png */; };
 		A352ABDC131D88B30053867A /* minute2.png in Resources */ = {isa = PBXBuildFile; fileRef = A352ABDA131D88B30053867A /* minute2.png */; };
 		A352AC03131E55290053867A /* HandView.m in Sources */ = {isa = PBXBuildFile; fileRef = A352AC02131E55290053867A /* HandView.m */; };
+		A372A5AC13A8B854006CF4B4 /* plus.png in Resources */ = {isa = PBXBuildFile; fileRef = A372A5AB13A8B853006CF4B4 /* plus.png */; };
+		A372A5AF13A8B933006CF4B4 /* ConditionVisitingView.m in Sources */ = {isa = PBXBuildFile; fileRef = A372A5AE13A8B930006CF4B4 /* ConditionVisitingView.m */; };
 		A379FF6C13A617A1004FDBB9 /* Policy.m in Sources */ = {isa = PBXBuildFile; fileRef = A379FF6B13A617A1004FDBB9 /* Policy.m */; };
 		A3A81A32138E52B90001CF25 /* monitorclockface.png in Resources */ = {isa = PBXBuildFile; fileRef = A3A81A2A138E52B90001CF25 /* monitorclockface.png */; };
 		A3A81A33138E52B90001CF25 /* hbranch.png in Resources */ = {isa = PBXBuildFile; fileRef = A3A81A2B138E52B90001CF25 /* hbranch.png */; };
@@ -290,8 +292,8 @@
 		A30AE2AC1316BABB0060D2F1 /* ConditionBandwidthView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConditionBandwidthView.m; sourceTree = "<group>"; };
 		A30AE3721316CE0C0060D2F1 /* ConditionBandwidthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConditionBandwidthViewController.h; sourceTree = "<group>"; };
 		A30AE3731316CE0C0060D2F1 /* ConditionBandwidthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConditionBandwidthViewController.m; sourceTree = "<group>"; };
-		A30AE3A31316F6F80060D2F1 /* ConditionTypeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConditionTypeViewController.h; sourceTree = "<group>"; };
-		A30AE3A41316F6F80060D2F1 /* ConditionTypeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConditionTypeViewController.m; sourceTree = "<group>"; };
+		A30AE3A31316F6F80060D2F1 /* ConditionVisitingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConditionVisitingViewController.h; sourceTree = "<group>"; };
+		A30AE3A41316F6F80060D2F1 /* ConditionVisitingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConditionVisitingViewController.m; sourceTree = "<group>"; };
 		A30AE54D1317CA830060D2F1 /* conditionmoneybag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = conditionmoneybag.png; sourceTree = "<group>"; };
 		A30AE5501317CC1D0060D2F1 /* frame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = frame.png; sourceTree = "<group>"; };
 		A32749451340A10C00212CAB /* ok.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ok.png; sourceTree = "<group>"; };
@@ -355,6 +357,9 @@
 		A352ABDA131D88B30053867A /* minute2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = minute2.png; sourceTree = "<group>"; };
 		A352AC01131E55290053867A /* HandView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HandView.h; sourceTree = "<group>"; };
 		A352AC02131E55290053867A /* HandView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HandView.m; sourceTree = "<group>"; };
+		A372A5AB13A8B853006CF4B4 /* plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plus.png; sourceTree = "<group>"; };
+		A372A5AD13A8B92F006CF4B4 /* ConditionVisitingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConditionVisitingView.h; sourceTree = "<group>"; };
+		A372A5AE13A8B930006CF4B4 /* ConditionVisitingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConditionVisitingView.m; sourceTree = "<group>"; };
 		A379FF6A13A617A1004FDBB9 /* Policy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Policy.h; sourceTree = "<group>"; };
 		A379FF6B13A617A1004FDBB9 /* Policy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Policy.m; sourceTree = "<group>"; };
 		A3A81A2A138E52B90001CF25 /* monitorclockface.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = monitorclockface.png; sourceTree = "<group>"; };
@@ -772,6 +777,7 @@
 		A30ADF28131528F80060D2F1 /* misc */ = {
 			isa = PBXGroup;
 			children = (
+				A372A5AB13A8B853006CF4B4 /* plus.png */,
 				A32749691340AB4100212CAB /* addnew.png */,
 				A327496A1340AB4100212CAB /* empty.png */,
 				A32749451340A10C00212CAB /* ok.png */,
@@ -845,10 +851,12 @@
 				A352AAEC131D0B8F0053867A /* ConditionViewController.m */,
 				A30AE3721316CE0C0060D2F1 /* ConditionBandwidthViewController.h */,
 				A30AE3731316CE0C0060D2F1 /* ConditionBandwidthViewController.m */,
-				A30AE3A31316F6F80060D2F1 /* ConditionTypeViewController.h */,
-				A30AE3A41316F6F80060D2F1 /* ConditionTypeViewController.m */,
+				A30AE3A31316F6F80060D2F1 /* ConditionVisitingViewController.h */,
+				A30AE3A41316F6F80060D2F1 /* ConditionVisitingViewController.m */,
 				A352AAE1131D0A570053867A /* ConditionTimeViewController.h */,
 				A352AAE2131D0A570053867A /* ConditionTimeViewController.m */,
+				A372A5AD13A8B92F006CF4B4 /* ConditionVisitingView.h */,
+				A372A5AE13A8B930006CF4B4 /* ConditionVisitingView.m */,
 				A30AE2AB1316BABB0060D2F1 /* ConditionBandwidthView.h */,
 				A30AE2AC1316BABB0060D2F1 /* ConditionBandwidthView.m */,
 				A352AB21131D10300053867A /* ConditionTimeView.h */,
@@ -1372,6 +1380,7 @@
 				A3A81A43138E84E20001CF25 /* semicog.png in Resources */,
 				A3A81A46138E89A80001CF25 /* pointer.png in Resources */,
 				A3A81A48138E89B20001CF25 /* smallpointer.png in Resources */,
+				A372A5AC13A8B854006CF4B4 /* plus.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1394,7 +1403,7 @@
 				A30AE072131540040060D2F1 /* ResultView.m in Sources */,
 				A30AE2AD1316BABB0060D2F1 /* ConditionBandwidthView.m in Sources */,
 				A30AE3741316CE0C0060D2F1 /* ConditionBandwidthViewController.m in Sources */,
-				A30AE3A51316F6F80060D2F1 /* ConditionTypeViewController.m in Sources */,
+				A30AE3A51316F6F80060D2F1 /* ConditionVisitingViewController.m in Sources */,
 				A352A7601317FA2D0053867A /* FrameView.m in Sources */,
 				A352A7701317FBEE0053867A /* SplitFrameView.m in Sources */,
 				A352A8C0131BDCAA0053867A /* ActionNotifyViewController.m in Sources */,
@@ -1487,6 +1496,7 @@
 				A3C5C2711383D6D700FF413F /* NetworkManager.m in Sources */,
 				A3A81A3C138E53DE0001CF25 /* MonitorTimeView.m in Sources */,
 				A379FF6C13A617A1004FDBB9 /* Policy.m in Sources */,
+				A372A5AF13A8B933006CF4B4 /* ConditionVisitingView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

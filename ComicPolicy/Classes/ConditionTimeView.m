@@ -26,7 +26,8 @@ BOOL toScaled = NO;
 
 - (id)initWithFrameAndImage:(CGRect)frame image:(NSString *)image{
 	if ((self = [super initWithFrame:frame])) {
-		
+		hour    = 0;
+        minute  = 0;
 		clockFromFrame = CGRectMake(5,93,120,121);
 		
 		clockToFrame= CGRectMake(164,11,120,121);
@@ -112,9 +113,20 @@ BOOL toScaled = NO;
 	
 		if (x > 0){
 			[touch view].transform = CGAffineTransformMakeRotation(-ang + (M_PI/2));
+            if ([touch view] == fhh || [touch view] == thh)
+               hour =  (int)  ((-ang + (M_PI/2)) * ((float)180/M_PI)/30);
+            else
+               minute = (int) ((-ang + (M_PI/2)) * ((float)180/M_PI)/6);
 		}else{
 			[touch view].transform = CGAffineTransformMakeRotation(-ang - (M_PI/2));
+            if ([touch view] == fhh || [touch view] == thh)
+                hour = 11 - (int) ((-ang - (M_PI/2))  * ((float)180/M_PI) / -30);
+            else
+                minute = 59 - (int) ((-ang - (M_PI/2))  * ((float)180/M_PI) / -6);
 		}
+        
+        NSLog(@"%d : %d", hour, minute);
+        
 	}
 }
 

@@ -11,6 +11,7 @@
 #import <QuartzCore/QuartzCore.h>
 
 @implementation RootConditionViewController
+@synthesize currentViewController;
 
 /*
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
@@ -27,7 +28,7 @@
         [[Catalogue sharedCatalogue] nextCondition];
         NSString *controller = [[Catalogue sharedCatalogue] getConditionViewController];
 	
-        ConditionViewController *newController = [[[NSClassFromString(controller) alloc] initWithNibName:nil bundle:nil] retain];
+        ConditionViewController *newController = [[NSClassFromString(controller) alloc] initWithNibName:nil bundle:nil];
 
 		[UIView beginAnimations:nil context:nil];
 		[UIView setAnimationDuration:0.75];
@@ -37,8 +38,9 @@
 		[[self view] addSubview:[newController view]];
 		[UIView commitAnimations];
 	
-		[currentViewController release];
-		currentViewController = newController;
+		//[currentViewController release];
+		self.currentViewController = newController;
+        [newController release];
 		
 }
 

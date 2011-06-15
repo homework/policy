@@ -51,7 +51,9 @@
 
 
 - (void)viewDidUnload {
+    NSLog(@"got a condition view did unload.....");
     [super viewDidUnload];
+    [conditionArguments release];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }

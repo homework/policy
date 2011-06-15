@@ -49,9 +49,10 @@
 		[UIView setAnimationDelegate:self];
 		[UIView setAnimationTransition:UIViewAnimationTransitionCurlUp forView:self.view cache:YES];
 		[currentViewController.view removeFromSuperview];
-		[currentViewController release];
+		
 		[[self view] addSubview:[newController view]];
 		[UIView commitAnimations];
+        [currentViewController release];
         currentViewController = newController;
 	}
 }
