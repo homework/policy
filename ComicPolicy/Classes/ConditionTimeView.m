@@ -14,11 +14,12 @@
 @synthesize fromClockFace;
 @synthesize toClockFace;
 
-
-
-BOOL fromScaled = NO;
-BOOL toScaled = NO;
-
+@synthesize fhh;
+@synthesize fmh;
+@synthesize thh;
+@synthesize tmh;
+@synthesize fromAMPM;
+@synthesize toAMPM;
 /*
  * NB: ImageView subviews are NOT passed touch events i.e. TouchesBegan etc will not be called!
  */
@@ -49,15 +50,30 @@ BOOL toScaled = NO;
 		[fromClockFace addSubview:tmpfromclock];
 		[tmpfromclock release];
 		
-		fhh = [[HandView alloc] initWithFrameAndImage:CGRectMake(56,36,11,51) image:@"hour2.png"];
+
+        
+        self.fromAMPM = [[UIButton alloc] initWithFrame:CGRectMake(76, 47, 30,30)];
+        [fromAMPM setTitle:@"AM" forState:UIControlStateNormal];
+        [fromAMPM setTitle:@"PM" forState:UIControlStateSelected];
+        [fromAMPM setTitleColor:[UIColor purpleColor] forState:UIControlStateNormal];
+        [fromAMPM setTitleColor:[UIColor purpleColor] forState:UIControlStateSelected];
+        fromAMPM.titleLabel.font = [UIFont fontWithName:@"MarkerFelt-Thin" size:12.0];
+        [fromAMPM setBackgroundColor:[UIColor clearColor]];
+        [fromClockFace addSubview:fromAMPM];
+
+        
+		self.fhh = [[HandView alloc] initWithFrameAndImage:CGRectMake(56,36,11,51) image:@"hour2.png"];
 		[fromClockFace addSubview:fhh];
 		[fhh release];
 		
-		fmh = [[HandView alloc] initWithFrameAndImage:CGRectMake(56,32,11,60) image:@"minute2.png"];
+		self.fmh = [[HandView alloc] initWithFrameAndImage:CGRectMake(56,32,11,60) image:@"minute2.png"];
 		[fromClockFace addSubview:fmh];
 		[fmh release];
 		
-		[self addSubview:fromClockFace];
+        
+                
+        
+        [self addSubview:fromClockFace];
 		
 		
 		toClockFace = [[UIView alloc] initWithFrame:clockToFrame];
@@ -66,173 +82,36 @@ BOOL toScaled = NO;
 		[toClockFace addSubview:tmptoclock];
 		[tmptoclock release];
 		
-		thh = [[HandView alloc] initWithFrameAndImage:CGRectMake(56,36,11,51) image:@"hour2.png"];
+        
+        self.toAMPM = [[UIButton alloc] initWithFrame:CGRectMake(76, 47, 30,30)];
+        [toAMPM setTitle:@"AM" forState:UIControlStateNormal];
+        [toAMPM setTitle:@"PM" forState:UIControlStateSelected];
+        [toAMPM setTitleColor:[UIColor purpleColor] forState:UIControlStateNormal];
+        [toAMPM setTitleColor:[UIColor purpleColor] forState:UIControlStateSelected];
+        toAMPM.titleLabel.font = [UIFont fontWithName:@"MarkerFelt-Thin" size:12.0];
+        [toAMPM setBackgroundColor:[UIColor clearColor]];
+        [toClockFace addSubview:toAMPM];
+    
+        
+        self.caption = [[UILabel alloc] initWithFrame:CGRectMake(60, self.frame.size.height - 40, 300, 30)];
+        self.caption.textColor = [UIColor blackColor];
+        self.caption.font = [UIFont fontWithName:@"MarkerFelt-Thin" size:16.0];
+        self.caption.backgroundColor = [UIColor clearColor];
+        [self addSubview:caption];
+        
+		self.thh = [[HandView alloc] initWithFrameAndImage:CGRectMake(56,36,11,51) image:@"hour2.png"];
 		[toClockFace addSubview:thh];
 		[thh release];
 		
-		tmh = [[HandView alloc] initWithFrameAndImage:CGRectMake(56,32,11,60) image:@"minute2.png"];
+		self.tmh = [[HandView alloc] initWithFrameAndImage:CGRectMake(56,32,11,60) image:@"minute2.png"];
 		[toClockFace addSubview:tmh];
 		[tmh release];
-		
+        
 		[self addSubview:toClockFace];
     }
     return self;
 }
 
-
--(void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event{
-	
-	UITouch *touch = [[event allTouches] anyObject];
-	
-	if ([touch view] == fhh || [touch view] == fmh || [touch view] == thh || [touch view] == tmh){
-		
-		UIView* container = [[touch view] superview];
-		
-		float centerx = (container.bounds.size.width / 2);
-		float centery = (container.bounds.size.height / 2);
-		
-		CGPoint touchLocation = [touch locationInView: container];  
-		
-		float x, y;
-		
-		if (touchLocation.y > centery){
-			y = -(touchLocation.y-centery);
-		}
-		else if (touchLocation.y < centery){
-			y = centery-touchLocation.y;
-		}
-		
-		if (touchLocation.x > centerx){
-			x = touchLocation.x-centerx;
-		}
-		else if (touchLocation.x < centerx){
-			x = -(centerx-touchLocation.x);
-		}
-		
-		float ang = atan(y/x);
-	
-		if (x > 0){
-			[touch view].transform = CGAffineTransformMakeRotation(-ang + (M_PI/2));
-            if ([touch view] == fhh || [touch view] == thh)
-               hour =  (int)  ((-ang + (M_PI/2)) * ((float)180/M_PI)/30);
-            else
-               minute = (int) ((-ang + (M_PI/2)) * ((float)180/M_PI)/6);
-		}else{
-			[touch view].transform = CGAffineTransformMakeRotation(-ang - (M_PI/2));
-            if ([touch view] == fhh || [touch view] == thh)
-                hour = 11 - (int) ((-ang - (M_PI/2))  * ((float)180/M_PI) / -30);
-            else
-                minute = 59 - (int) ((-ang - (M_PI/2))  * ((float)180/M_PI) / -6);
-		}
-        
-        NSLog(@"%d : %d", hour, minute);
-        
-	}
-}
-
-
--(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-	UITouch *touch = [[event allTouches] anyObject];
-	CGPoint touchLocation = [touch locationInView:self];
-	
-	toClockFace.userInteractionEnabled = YES;
-	fromClockFace.userInteractionEnabled = YES;
-	
-	if ([touch view] == fhh || [touch view] == fmh || [touch view] == thh || [touch view] == tmh){
-		return;
-	}
-	if (CGRectContainsPoint(fromClockFace.frame, touchLocation)){
-		
-		[fromClockFace removeFromSuperview];
-		[self addSubview:fromClockFace];
-
-		[UIView beginAnimations:nil context:nil];
-		[UIView setAnimationDelegate:self];
-		[UIView setAnimationDuration:0.5];
-		[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-		[fromClockFace setTransform:CGAffineTransformMakeScale(2.2, 2.2)];
-		CGRect frame = fromClockFace.frame;
-		frame.origin.x = 5.0;
-		fromClockFace.frame = frame;
-		
-		if (toScaled){
-			[toClockFace setTransform:CGAffineTransformMakeScale(1.0, 1.0)];
-			CGRect frame = toClockFace.frame;
-			frame.origin.x = 164.0;
-			frame.origin.y = 10.0;
-			toClockFace.frame = frame;
-			toScaled = NO;
-		}
-		
-		[UIView commitAnimations];
-		toClockFace.userInteractionEnabled = NO;
-		fromScaled = YES;
-	}
-	else if (CGRectContainsPoint(toClockFace.frame, touchLocation)){
-		[toClockFace removeFromSuperview];
-		[self addSubview:toClockFace];
-	
-		
-		[UIView beginAnimations:nil context:nil];
-		[UIView setAnimationDelegate:self];
-		[UIView setAnimationDuration:0.5];
-		[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-		[toClockFace setTransform:CGAffineTransformMakeScale(2.2, 2.2)];
-		CGRect frame = toClockFace.frame;
-		frame.origin.x = 10.0;
-		frame.origin.y = 10.0;
-		toClockFace.frame = frame;
-		
-		if (fromScaled){
-			[fromClockFace setTransform:CGAffineTransformMakeScale(1.0, 1.0)];
-			CGRect frame = fromClockFace.frame;
-			frame.origin.x = 5.0;
-			fromClockFace.frame = frame;
-			fromScaled = NO;
-		}
-		[UIView commitAnimations];
-		
-		toScaled = YES;
-	}
-	else if (fromScaled || toScaled){
-		[UIView beginAnimations:nil context:nil];
-		[UIView setAnimationDelegate:self];
-		[UIView setAnimationDuration:0.5];
-		[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-		
-		if (fromScaled){
-			toClockFace.userInteractionEnabled = NO;
-			[fromClockFace setTransform:CGAffineTransformMakeScale(1.0, 1.0)];
-			CGRect frame = fromClockFace.frame;
-			frame.origin.x = 5.0;
-			fromClockFace.frame = frame;
-			fromScaled = NO;
-		}
-		if (toScaled){
-			fromClockFace.userInteractionEnabled = NO;
-			[toClockFace setTransform:CGAffineTransformMakeScale(1.0, 1.0)];
-			CGRect frame = toClockFace.frame;
-			frame.origin.x = 164.0;
-			frame.origin.y = 10.0;
-			toClockFace.frame = frame;
-			toScaled =NO;
-		}
-		[UIView commitAnimations];			
-	}
-	else{
-		[super touchesBegan:touches withEvent:event];
-	}
-}
-
-
--(void) translate:(NSString*) animationID finished:(NSNumber *)finshed context:(void*) context{
-	[UIView beginAnimations:nil context:nil];
-	[UIView setAnimationDelegate:self];
-	[UIView setAnimationDuration:1.5];
-	[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-	[fromClockFace setTransform:CGAffineTransformMakeTranslation(50.0, 0.0)];
-	[UIView commitAnimations];
-}
 
 
 - (id)initWithFrame:(CGRect)frame {
@@ -252,8 +131,14 @@ BOOL toScaled = NO;
 
 
 - (void)dealloc {
+    NSLog(@"time view in dealloc...");
     [super dealloc];
 	[fromClockFace release];
+    [toClockFace release];
+    [fhh release];
+    [fmh release];
+    [thh release];
+    [tmh release];
 }
 
 

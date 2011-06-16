@@ -11,6 +11,7 @@
 
 @implementation FrameView
 @synthesize mainImage;
+@synthesize  caption;
 
 - (id)initWithFrameAndImage:(CGRect)frame image:(NSString*) image{
 	if ((self = [super initWithFrame:frame])) {

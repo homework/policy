@@ -12,7 +12,17 @@
 
 @interface ConditionTimeViewController : ConditionViewController {
 	ConditionTimeView* conditionTimeView;
-
+    
+    int fromhour;
+    int fromminute;
+    
+    int tohour;
+    int tominute;
+    
+    CGRect clockFromFrame;
+	CGRect clockToFrame;
+    
+   
 }
 
 @end

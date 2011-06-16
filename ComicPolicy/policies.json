@@ -12,7 +12,7 @@
                             "type":"timed",
                             
                             "arguments":{
-                                        "from":"12.00", 
+                                        "from":"12:00", 
                                         "to":"13:00"
                             }
                     },

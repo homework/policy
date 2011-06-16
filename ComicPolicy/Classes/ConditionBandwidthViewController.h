@@ -12,6 +12,7 @@
 
 @interface ConditionBandwidthViewController : ConditionViewController {
 	ConditionBandwidthView* conditionBandwidthView;
+    int bandwidth;
 }
 
 @end

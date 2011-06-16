@@ -32,7 +32,7 @@
 		UIImageView* tmpframe = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"frame.png"]];
 		[self addSubview:tmpframe];
 		[tmpframe release];
-		
+    
     }
     return self;
 }

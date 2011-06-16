@@ -20,29 +20,15 @@
 
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
+    if ((self = [super initWithNibNameAndType:nibNameOrNil bundle:nibBundleOrNil type:@"visiting"])) {
         //NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
         
-        NSLog(@"loAding up the condition visting view controller;;;");
+     
         self.sites = [[NSMutableArray alloc] init];
         
         editing = false;
         
-        NSMutableDictionary *dict = [[PolicyManager sharedPolicyManager] getConditionArguments:@"visiting"];
-        
-        if (dict != nil){
-            self.conditionArguments = [[NSMutableDictionary alloc] initWithDictionary:dict];
-            //sync with the catalogue...
-            [[Catalogue sharedCatalogue] setConditionArguments:conditionArguments];
-        }
-        if (conditionArguments == nil){
-            self.conditionArguments = [[Catalogue sharedCatalogue] conditionArguments];//:@"visiting"]; 
-            NSLog(@"type - got default condition arguments %@", conditionArguments);
-        }else{
-            NSLog(@"got policy condition arguments %@", conditionArguments);
-        }
-        
-		CGRect nframe = CGRectMake(0,0,294,301);
+        CGRect nframe = CGRectMake(0,0,294,301);
 		//lookup = [[ConditionImageLookup alloc] init];
 		ConditionVisitingView *aconditionview = [[ConditionVisitingView alloc] initWithFrameAndImage:nframe image: [[Catalogue sharedCatalogue] getConditionImage]];
 		self.view = aconditionview;
@@ -196,7 +182,6 @@
 
 
 - (void)dealloc {
-    NSLog(@"VISITS DEALLOCinG>>>");
     [super dealloc];
 	//[conditionTypeView release];
 }

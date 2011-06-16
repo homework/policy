@@ -15,9 +15,24 @@
 
 
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+- (id)initWithNibNameAndType:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil type:(NSString *) type {
     if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
-      
+        
+        NSMutableDictionary *dict = [[PolicyManager sharedPolicyManager] getConditionArguments:type];
+        
+        if (dict != nil){
+            self.conditionArguments = [[NSMutableDictionary alloc] initWithDictionary:dict];
+            //sync with the catalogue...
+            [[Catalogue sharedCatalogue] setConditionArguments:conditionArguments];
+        }
+        if (conditionArguments == nil){
+            self.conditionArguments = [[Catalogue sharedCatalogue] conditionArguments];//:@"visiting"]; 
+            NSLog(@"type - got default condition arguments %@", conditionArguments);
+        }else{
+            NSLog(@"got policy condition arguments %@", conditionArguments);
+        }
+        
+
     }
     return self;
 }

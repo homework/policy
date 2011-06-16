@@ -11,10 +11,11 @@
 
 @interface FrameView : UIView {
 	UIImageView *mainImage;
-
+    UILabel *caption;
 }
 
 @property (nonatomic,retain) UIImageView *mainImage;
+@property (nonatomic, retain) UILabel *caption;
 
 - (id)initWithFrameAndLookup:(CGRect)frame lookup:(NSObject<ImageLookup>*)lookup;
 - (id)initWithFrameAndImage:(CGRect)frame image:(NSString *) image;

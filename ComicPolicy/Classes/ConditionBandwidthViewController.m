@@ -8,6 +8,10 @@
 
 #import "ConditionBandwidthViewController.h"
 
+@interface ConditionBandwidthViewController() 
+-(void) updateCaption;
+-(void) updateCatalogue;
+@end
 
 @implementation ConditionBandwidthViewController
 
@@ -15,17 +19,7 @@
 
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {  //add type as argument to super class...
-        
-        self.conditionArguments = [[PolicyManager sharedPolicyManager] getConditionArguments:@"bandwidth"];
-        
-        if (conditionArguments == nil){
-            self.conditionArguments = [[Catalogue sharedCatalogue] conditionArguments];//:@"bandwidth"]; 
-            NSLog(@"bandwidth - got default condition arguments %@", conditionArguments);
-        }else{
-             NSLog(@"got policy condition arguments %@", conditionArguments);
-        }
-        
+    if ((self = [super initWithNibNameAndType:nibNameOrNil bundle:nibBundleOrNil type:@"bandwidth"])) {  //add type as argument         
 		CGRect aframe = CGRectMake(0,0,294,301);
 		ConditionBandwidthView *aconditionview = [[ConditionBandwidthView alloc] initWithFrameAndImage:aframe image: [[Catalogue sharedCatalogue] getConditionImage]];
 		conditionBandwidthView = aconditionview;
@@ -36,6 +30,9 @@
 		[self.view addGestureRecognizer:pinchGestureRecognizer];
 		[pinchGestureRecognizer release];
 		[aconditionview release];
+        bandwidth = [(NSNumber*) [self.conditionArguments objectForKey:@"percentage"] intValue];
+        conditionBandwidthView.moneyImage.transform =  CGAffineTransformScale(conditionBandwidthView.moneyImage.transform, (float) bandwidth/100, (float) bandwidth/100);
+        [self updateCaption];
 		
     }
     return self;
@@ -72,21 +69,28 @@
 		
 	
 		view.transform = CGAffineTransformScale(view.transform, pinchGesture.scale, pinchGesture.scale);
-		pinchGesture.scale = 1;
-		
-		
-		//NSLog(@"view scale is %3.0f, %3.0f", view.frame.size.width, view.frame.size.height);
-		
-		
+		pinchGesture.scale = 1;		
 	}
 	
-	int x = ((float) view.frame.size.width / 150) * 100;
+	bandwidth = ((float) view.frame.size.width / 150) * 100;
+	[self updateCaption];
+    [self updateCatalogue];
 	
-	conditionBandwidthView.bandwidthLabel.text = [NSString stringWithFormat:@"%d%%", x];
 	
 }
 
+-(void) updateCaption{
+    conditionBandwidthView.bandwidthLabel.text = [NSString stringWithFormat:@"%d%%", bandwidth];
+}
 
+-(void) updateCatalogue{
+    
+    NSNumber* bwidth = [NSNumber numberWithInt:bandwidth];
+   
+    NSMutableDictionary *newargs = [[NSMutableDictionary alloc] initWithObjects:[[NSArray alloc] initWithObjects:bwidth,nil] forKeys:[[NSArray alloc] initWithObjects:@"percentage",nil]];
+    
+    [[Catalogue sharedCatalogue] setConditionArguments:newargs];
+}
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
 	UITouch *touch = [[event allTouches] anyObject];

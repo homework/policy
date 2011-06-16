@@ -25,9 +25,19 @@
     
     int hour;
     int minute;
+    
+    UIButton* fromAMPM;
+    UIButton* toAMPM;
+
 }
 
 @property(nonatomic, retain) UIView *fromClockFace;
 @property(nonatomic, retain) UIView *toClockFace;
+@property(nonatomic, retain) HandView *fhh;
+@property(nonatomic, retain) HandView *fmh;
+@property(nonatomic, retain) HandView *thh;
+@property(nonatomic, retain) HandView *tmh;
+@property(nonatomic, retain) UIButton* fromAMPM;
+@property(nonatomic, retain) UIButton* toAMPM;
 
 @end
