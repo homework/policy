@@ -13,6 +13,8 @@
 @interface ResultVisitsViewController()
     -(void) createPhysicsWorld;
     -(void)addPhysicalBodyForView:(UIView *)aview;
+    -(void) reset;
+-(void) createBoundaries;
 @end
 
 static float XSTART = 200;
@@ -101,16 +103,46 @@ static NSArray *labelArray = [[NSArray alloc] initWithObjects:@"news.bbc.co.uk",
 
     fakeDataTimer = [NSTimer scheduledTimerWithTimeInterval:3.0 
                                                  target:self 
-                                                   selector:@selector(addSite:)//requestData:) //addSite:
+                                                   selector:@selector(requestData:) //addSite:
                                                userInfo:nil 
                                                 repeats:YES];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(subjectDeviceChange:) name:@"subjectDeviceChange" object:nil];
+	
+}
 
+-(void) subjectDeviceChange:(NSNotification*)notification{
+    [self reset];
+}
+
+-(void) reset{
+    [tickTimer invalidate];
+    tickTimer = nil;
+    
+    for (b2Body* b = world->GetBodyList(); b; b = b->GetNext())
+    {
+        if (b->GetUserData() != NULL){
+            UIView *oneView = (UIView *) b->GetUserData();
+            [oneView removeFromSuperview];
+        }   
+        world->DestroyBody(b);
+    }
+    
+    [self createBoundaries];
+    
+    tickTimer = [NSTimer scheduledTimerWithTimeInterval:1.0/25.0 
+                                                 target:self 
+                                               selector:@selector(tick:) 
+                                               userInfo:nil 
+                                                repeats:YES];
+    
 }
 
 -(void) requestData:(NSTimer *) timer{
-    
-    //NSString *strurl = [NSString stringWithFormat:@"http://192.168.1.59:9000/monitor/web"];
-    NSString *strurl = [NSString stringWithFormat:@"http://192.168.1.59/monitor/web"];
+    NSString * subject = [[Catalogue sharedCatalogue] currentActionSubject];
+    NSString *rootURL  = [[NetworkManager sharedManager] rootURL];
+    int limit = 3;
+    NSString *strurl = [NSString stringWithFormat:@"%@/monitor/web/%@?limit=%d", rootURL, subject, limit];
     NSLog(@"connecting to %@", strurl);
     NSURL *url = [NSURL URLWithString:strurl];
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
@@ -128,18 +160,18 @@ static NSArray *labelArray = [[NSArray alloc] initWithObjects:@"news.bbc.co.uk",
     
     
     NSArray *sites  = (NSArray *) [jsonParser objectWithString:responseString error:nil];
-    
+    [cloud removeFromSuperview];
     for (NSDictionary *site in sites){
-        CGPoint start = self.view.center;
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(200,450,300,35)];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(XSTART,YSTART,300,35)];
         label.textColor = [UIColor whiteColor];
         label.backgroundColor = [UIColor clearColor];
         label.text = [site objectForKey:@"site"];
         label.font = [UIFont fontWithName:@"MarkerFelt-Thin" size:35.0];
-        [self.monitorView addSubview:label];
+        [self.view addSubview:label];
         [self addPhysicalBodyForView:label];
+        [label release];
     }
-    
+    [self.view addSubview:cloud];
 }
 
 
@@ -182,7 +214,7 @@ static NSArray *labelArray = [[NSArray alloc] initWithObjects:@"news.bbc.co.uk",
 
 -(void) createPhysicsWorld
 {
-    CGSize screenSize = self.monitorView.bounds.size;
+  
     //CGRect aframe = self.monitorView.frame;
     
     b2Vec2 gravity;
@@ -190,6 +222,12 @@ static NSArray *labelArray = [[NSArray alloc] initWithObjects:@"news.bbc.co.uk",
     bool doSleep = false;
     world = new b2World(gravity, doSleep);
     world->SetContinuousPhysics(true);
+    
+    [self createBoundaries];
+}
+
+-(void) createBoundaries{
+    CGSize screenSize = self.monitorView.bounds.size;
     
     b2BodyDef groundBodyDef;
     groundBodyDef.position.Set(0, 0);
@@ -212,7 +250,6 @@ static NSArray *labelArray = [[NSArray alloc] initWithObjects:@"news.bbc.co.uk",
     groundBox.Set(b2Vec2(screenSize.width/PTM_RATIO,screenSize.height/PTM_RATIO), b2Vec2(screenSize.width/PTM_RATIO,0));
     groundBody->CreateFixture(&groundBox, 0);
 }
-
 
 -(void) addPivotJoint:(UIView *) pivotView{
         

@@ -109,6 +109,19 @@ static float YSTART = 140;
 
 }
 
+-(void) requestData:(NSTimer *) timer{
+    
+    //NSString *strurl = [NSString stringWithFormat:@"http://192.168.1.59:9000/monitor/web"];
+    NSString *rootURL  = [[NetworkManager sharedManager] rootURL];
+    NSString *strurl = [NSString stringWithFormat:@"%@/monitor/web", rootURL];
+    NSLog(@"connecting to %@", strurl);
+    NSURL *url = [NSURL URLWithString:strurl];
+    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
+    [request setDelegate:self];
+    [request setDidFinishSelector:@selector(addedRequestComplete:)];
+    [[NetworkManager sharedManager] addRequest:request];       
+}
+
 -(void) addReading:(NSTimer*) timer{
     [topMask removeFromSuperview];
     UIImageView *moneyBag = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"moneybag.png"]];

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "MonitorView.h"
-
+#import "Catalogue.h"
 
 @interface MonitorViewController : UIViewController {
     UIView* monitorView;

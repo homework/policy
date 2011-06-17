@@ -10,11 +10,13 @@
 #import "JSON.h"
 #import "Catalogue.h"
 #import "NetworkManager.h"
+#import "ASIFormDataRequest.h"
 #import "ASIHTTPRequest.h"
 #import "Policy.h"
 
 @interface PolicyManager()
     -(void) readInPolicies:(NSMutableDictionary *) policydict;
+-(void) sendPolicy:(NSString*)json;
 @end
 
 @implementation PolicyManager
@@ -190,20 +192,22 @@ static int localId;
     
     SBJsonWriter* writer = [SBJsonWriter new];
     NSString *myjson = [writer stringWithObject:policy];
+
+    [self sendPolicy:myjson];
     
     return myjson;
 }
 
--(void) sendPolicy{
-    /*NSString *rootURL  = [[NetworkManager sharedManager] rootURL];
-
-    NSString *strurl = [NSString stringWithFormat:@"%@/registerToken/%@", rootURL, deviceToken];
+-(void) sendPolicy:(NSString*) json{
+    NSString *rootURL  = [[NetworkManager sharedManager] rootURL];
+    NSString *strurl = [NSString stringWithFormat:@"%@/policy/save", rootURL];
     NSLog(@"connecting to %@", strurl);
     NSURL *url = [NSURL URLWithString:strurl];
-    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
+    ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
+    [request addPostValue:json forKey:@"policy"];
     [request setDelegate:self];
     [request setDidFinishSelector:@selector(addedRequestComplete:)];
-    [[NetworkManager sharedManager] addRequest:request]; */
+    [[NetworkManager sharedManager] addRequest:request]; 
 }
 
 - (void)addedRequestComplete:(ASIHTTPRequest *)request

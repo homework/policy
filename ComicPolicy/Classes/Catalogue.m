@@ -235,10 +235,13 @@ static NSDictionary* conditionresultvcs; //mapping of currently selected conditi
 }
 
 -(NSString *) nextSubjectDevice{
-	return [devices objectAtIndex:++devicesindex % [devices count]];
+    NSString *device = [devices objectAtIndex:++devicesindex % [devices count]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"subjectDeviceChange" object:nil userInfo:nil];
+	return device;
 }
 
 -(NSString *) currentSubjectOwner{
+    
 	return [ownership objectAtIndex:ownershipindex % [ownership count]];	
 }
 
@@ -248,6 +251,7 @@ static NSDictionary* conditionresultvcs; //mapping of currently selected conditi
 	devices =  [[subjectLookup objectForKey:[self currentSubjectOwner]] retain];
 	devicesindex = 0;
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"subjectOwnerChange" object:nil userInfo:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"subjectDeviceChange" object:nil userInfo:nil];
 	return next;
 }
 
