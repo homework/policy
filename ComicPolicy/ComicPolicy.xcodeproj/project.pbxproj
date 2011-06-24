@@ -168,7 +168,6 @@
 		A3DCBB81134B201000A38D5E /* selecthours.png in Resources */ = {isa = PBXBuildFile; fileRef = A3DCBB80134B201000A38D5E /* selecthours.png */; };
 		A3DCBBEE134B738B00A38D5E /* ResultTimeViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3DCBBED134B738B00A38D5E /* ResultTimeViewController.mm */; };
 		A3DCBBFC134B769700A38D5E /* ResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A3DCBBFB134B769700A38D5E /* ResultViewController.m */; };
-		A3E5CD6013B4D8EA00D33E63 /* PolicyTranslator.m in Sources */ = {isa = PBXBuildFile; fileRef = A3E5CD5F13B4D8EA00D33E63 /* PolicyTranslator.m */; };
 		A3E7FBF71372F51F003FFE37 /* ResultDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = A3E7FBF61372F51F003FFE37 /* ResultDataSource.m */; };
 		A3E7FBFB1372F6ED003FFE37 /* BandwidthMonitorView.m in Sources */ = {isa = PBXBuildFile; fileRef = A3E7FBFA1372F6EC003FFE37 /* BandwidthMonitorView.m */; };
 		A3E7FC10137304AB003FFE37 /* MonitorViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3E7FC0F137304A9003FFE37 /* MonitorViewController.mm */; };
@@ -450,8 +449,6 @@
 		A3DCBBED134B738B00A38D5E /* ResultTimeViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ResultTimeViewController.mm; sourceTree = "<group>"; };
 		A3DCBBFA134B769700A38D5E /* ResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultViewController.h; sourceTree = "<group>"; };
 		A3DCBBFB134B769700A38D5E /* ResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultViewController.m; sourceTree = "<group>"; };
-		A3E5CD5E13B4D8EA00D33E63 /* PolicyTranslator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PolicyTranslator.h; sourceTree = "<group>"; };
-		A3E5CD5F13B4D8EA00D33E63 /* PolicyTranslator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PolicyTranslator.m; sourceTree = "<group>"; };
 		A3E7FBF51372F51E003FFE37 /* ResultDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultDataSource.h; sourceTree = "<group>"; };
 		A3E7FBF61372F51F003FFE37 /* ResultDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultDataSource.m; sourceTree = "<group>"; };
 		A3E7FBF91372F6EC003FFE37 /* BandwidthMonitorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BandwidthMonitorView.h; sourceTree = "<group>"; };
@@ -965,8 +962,6 @@
 			children = (
 				A379FF6A13A617A1004FDBB9 /* Policy.h */,
 				A379FF6B13A617A1004FDBB9 /* Policy.m */,
-				A3E5CD5E13B4D8EA00D33E63 /* PolicyTranslator.h */,
-				A3E5CD5F13B4D8EA00D33E63 /* PolicyTranslator.m */,
 			);
 			name = Data;
 			sourceTree = "<group>";
@@ -1502,7 +1497,6 @@
 				A3A81A3C138E53DE0001CF25 /* MonitorTimeView.m in Sources */,
 				A379FF6C13A617A1004FDBB9 /* Policy.m in Sources */,
 				A372A5AF13A8B933006CF4B4 /* ConditionVisitingView.m in Sources */,
-				A3E5CD6013B4D8EA00D33E63 /* PolicyTranslator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
