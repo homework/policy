@@ -154,7 +154,10 @@ static NSArray *labelArray = [[NSArray alloc] initWithObjects:@"news.bbc.co.uk",
 
 - (void)addedRequestComplete:(ASIHTTPRequest *)request
 {
+    
     NSString *responseString = [request responseString];
+    
+    NSLog(@"got response string %@", responseString);
     
     SBJsonParser *jsonParser = [SBJsonParser new];
     
@@ -165,7 +168,7 @@ static NSArray *labelArray = [[NSArray alloc] initWithObjects:@"news.bbc.co.uk",
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(XSTART,YSTART,300,35)];
         label.textColor = [UIColor whiteColor];
         label.backgroundColor = [UIColor clearColor];
-        label.text = [site objectForKey:@"site"];
+        label.text = [site objectForKey:@"url"];
         label.font = [UIFont fontWithName:@"MarkerFelt-Thin" size:35.0];
         [self.view addSubview:label];
         [self addPhysicalBodyForView:label];

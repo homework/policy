@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1D3623260D0F684500981E51 /* ComicPolicyAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* ComicPolicyAppDelegate.mm */; };
+		1D3623260D0F684500981E51 /* ComicPolicyAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* ComicPolicyAppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
@@ -168,6 +168,7 @@
 		A3DCBB81134B201000A38D5E /* selecthours.png in Resources */ = {isa = PBXBuildFile; fileRef = A3DCBB80134B201000A38D5E /* selecthours.png */; };
 		A3DCBBEE134B738B00A38D5E /* ResultTimeViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3DCBBED134B738B00A38D5E /* ResultTimeViewController.mm */; };
 		A3DCBBFC134B769700A38D5E /* ResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A3DCBBFB134B769700A38D5E /* ResultViewController.m */; };
+		A3E5CD6013B4D8EA00D33E63 /* PolicyTranslator.m in Sources */ = {isa = PBXBuildFile; fileRef = A3E5CD5F13B4D8EA00D33E63 /* PolicyTranslator.m */; };
 		A3E7FBF71372F51F003FFE37 /* ResultDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = A3E7FBF61372F51F003FFE37 /* ResultDataSource.m */; };
 		A3E7FBFB1372F6ED003FFE37 /* BandwidthMonitorView.m in Sources */ = {isa = PBXBuildFile; fileRef = A3E7FBFA1372F6EC003FFE37 /* BandwidthMonitorView.m */; };
 		A3E7FC10137304AB003FFE37 /* MonitorViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3E7FC0F137304A9003FFE37 /* MonitorViewController.mm */; };
@@ -223,8 +224,8 @@
 
 /* Begin PBXFileReference section */
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		1D3623240D0F684500981E51 /* ComicPolicyAppDelegate.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = ComicPolicyAppDelegate.h; sourceTree = "<group>"; };
-		1D3623250D0F684500981E51 /* ComicPolicyAppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ComicPolicyAppDelegate.mm; sourceTree = "<group>"; };
+		1D3623240D0F684500981E51 /* ComicPolicyAppDelegate.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; path = ComicPolicyAppDelegate.h; sourceTree = "<group>"; };
+		1D3623250D0F684500981E51 /* ComicPolicyAppDelegate.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = ComicPolicyAppDelegate.m; sourceTree = "<group>"; };
 		1D6058910D05DD3D006BFB54 /* ComicPolicy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ComicPolicy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -449,6 +450,8 @@
 		A3DCBBED134B738B00A38D5E /* ResultTimeViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ResultTimeViewController.mm; sourceTree = "<group>"; };
 		A3DCBBFA134B769700A38D5E /* ResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultViewController.h; sourceTree = "<group>"; };
 		A3DCBBFB134B769700A38D5E /* ResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultViewController.m; sourceTree = "<group>"; };
+		A3E5CD5E13B4D8EA00D33E63 /* PolicyTranslator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PolicyTranslator.h; sourceTree = "<group>"; };
+		A3E5CD5F13B4D8EA00D33E63 /* PolicyTranslator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PolicyTranslator.m; sourceTree = "<group>"; };
 		A3E7FBF51372F51E003FFE37 /* ResultDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultDataSource.h; sourceTree = "<group>"; };
 		A3E7FBF61372F51F003FFE37 /* ResultDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultDataSource.m; sourceTree = "<group>"; };
 		A3E7FBF91372F6EC003FFE37 /* BandwidthMonitorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BandwidthMonitorView.h; sourceTree = "<group>"; };
@@ -585,7 +588,7 @@
 				A352A8A1131BD4D10053867A /* Action */,
 				A352A8A3131BD4E30053867A /* Result */,
 				1D3623240D0F684500981E51 /* ComicPolicyAppDelegate.h */,
-				1D3623250D0F684500981E51 /* ComicPolicyAppDelegate.mm */,
+				1D3623250D0F684500981E51 /* ComicPolicyAppDelegate.m */,
 				28D7ACF60DDB3853001CB0EB /* ComicPolicyViewController.h */,
 				28D7ACF70DDB3853001CB0EB /* ComicPolicyViewController.mm */,
 				A3DCB58A13437F7B00A38D5E /* NavigationViewController.h */,
@@ -962,6 +965,8 @@
 			children = (
 				A379FF6A13A617A1004FDBB9 /* Policy.h */,
 				A379FF6B13A617A1004FDBB9 /* Policy.m */,
+				A3E5CD5E13B4D8EA00D33E63 /* PolicyTranslator.h */,
+				A3E5CD5F13B4D8EA00D33E63 /* PolicyTranslator.m */,
 			);
 			name = Data;
 			sourceTree = "<group>";
@@ -1392,7 +1397,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
-				1D3623260D0F684500981E51 /* ComicPolicyAppDelegate.mm in Sources */,
+				1D3623260D0F684500981E51 /* ComicPolicyAppDelegate.m in Sources */,
 				28D7ACF80DDB3853001CB0EB /* ComicPolicyViewController.mm in Sources */,
 				A30ADFCE13152BF20060D2F1 /* SubjectView.m in Sources */,
 				A30AE003131537750060D2F1 /* SubjectViewController.m in Sources */,
@@ -1497,6 +1502,7 @@
 				A3A81A3C138E53DE0001CF25 /* MonitorTimeView.m in Sources */,
 				A379FF6C13A617A1004FDBB9 /* Policy.m in Sources */,
 				A372A5AF13A8B933006CF4B4 /* ConditionVisitingView.m in Sources */,
+				A3E5CD6013B4D8EA00D33E63 /* PolicyTranslator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

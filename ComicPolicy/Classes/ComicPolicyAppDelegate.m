@@ -12,9 +12,8 @@
 @implementation ComicPolicyAppDelegate
 
 @synthesize window;
-//@synthesize externalWindow;
 @synthesize viewController;
-//@synthesize mirroredViewController;
+@synthesize deviceToken;
 
 
 #pragma mark -
@@ -28,6 +27,8 @@
     // Make iPad window visible.
     
     [window makeKeyAndVisible];
+    
+   	[[UIApplication sharedApplication] registerForRemoteNotificationTypes: (UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound)];
     
    // self.externalWindow = [[UIWindow alloc] init];
     
@@ -54,6 +55,19 @@
 
     }*/
 	return YES;
+}
+
+- (void)application:(UIApplication *)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)token { 
+    
+    //  [[KeychainManager sharedManager] deleteAccountDetails];
+    
+	self.deviceToken = [[[[token description]
+                          stringByReplacingOccurrencesOfString: @"<" withString: @""]
+                         stringByReplacingOccurrencesOfString: @">" withString: @""]
+                        stringByReplacingOccurrencesOfString: @" " withString: @""];
+    
+	NSLog(@"device token is %@", deviceToken);
+    
 }
 
 /*

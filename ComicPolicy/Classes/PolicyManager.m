@@ -13,10 +13,12 @@
 #import "ASIFormDataRequest.h"
 #import "ASIHTTPRequest.h"
 #import "Policy.h"
+#import "PolicyTranslator.h"
 
 @interface PolicyManager()
-    -(void) readInPolicies:(NSMutableDictionary *) policydict;
+-(void) readInPolicies:(NSMutableDictionary *) policydict;
 -(void) sendPolicy:(NSString*)json;
+-(NSMutableDictionary*) convertToHashtable:(NSMutableDictionary*)dict;
 @end
 
 @implementation PolicyManager
@@ -162,41 +164,56 @@ static int localId;
 
 /*
  * Take the current representation of the policy, and send it to the policyManager backend to install
- * This method is triggered from the UI
+ * This method is triggered from the UI.  Data needs a bit of massaging to get in a form to allow it to
+ * be marhalled at the server.
  */
 
 -(NSString *)savePolicy{
     
-    NSMutableDictionary *policy = [[NSMutableDictionary alloc] init];
-    
+      
     NSMutableDictionary *condition = [[NSMutableDictionary alloc] init];
-    
     NSMutableDictionary *action = [[NSMutableDictionary alloc] init];
     
-    if (currentPolicy.identity != nil){
-        [policy setObject: currentPolicy.identity forKey:@"identity"];
-    }
-    
-    [policy setObject: [[Catalogue sharedCatalogue] currentSubjectDevice] forKey:@"subject"];
-    
     [condition setObject: [[Catalogue sharedCatalogue] currentCondition] forKey:@"type"];
-    
-    [condition setObject: [[Catalogue sharedCatalogue] conditionArguments] forKey:@"arguments"];//]ForType:[[Catalogue sharedCatalogue] currentCondition]] forKey:@"arguments"];
+    [condition setObject: [self convertToHashtable:[[Catalogue sharedCatalogue] conditionArguments]] forKey:@"arguments"];
     
     [action setObject: [[Catalogue sharedCatalogue] currentActionType] forKey:@"action"];
-    [action setObject: [[Catalogue sharedCatalogue] currentActionSubject] forKey:@"subject"];
-    [action setObject: [[Catalogue sharedCatalogue] currentAction] forKey:@"arguments"];
-    
-    [policy setObject:condition forKey:@"condition"];
-    [policy setObject:action forKey:@"action"];
-    
-    SBJsonWriter* writer = [SBJsonWriter new];
-    NSString *myjson = [writer stringWithObject:policy];
+    [action setObject: [[Catalogue sharedCatalogue] currentActionSubject] forKey:@"actionsubject"];
+    NSArray* actionArgs = [[NSArray alloc] initWithObjects:[[Catalogue sharedCatalogue] currentAction], nil];
+    [action setObject: actionArgs forKey:@"arguments"];
 
-    [self sendPolicy:myjson];
+    SBJsonWriter* writer = [SBJsonWriter new];
+    
+    /*
+     * To control the ordering of the json elements we need to parse each section independently
+     * rather than as a single dictionary.
+     */
+  
+    NSString *constring = [writer stringWithObject:condition];
+    NSString *actstring = [writer stringWithObject:action];
+    
+    NSString* myjson = [NSString stringWithFormat:@"{\"policy\":{\"identity\":\"%@\",\"subject\":\"%@\",\"condition\":%@},\"action\":%@}",  currentPolicy.identity, [[Catalogue sharedCatalogue] currentSubjectDevice] ,constring, actstring];
+    
+    [self sendPolicy: myjson];
     
     return myjson;
 }
+
+-(NSMutableDictionary *) convertToHashtable:(NSMutableDictionary*)dict{
+    NSMutableDictionary* hashtable = [[NSMutableDictionary alloc] init];
+    NSMutableArray *entries = [[NSMutableArray alloc] init];
+    
+    for (NSString* key in [dict allKeys]){
+        NSArray* entry = [[NSArray alloc] initWithObjects:key, [dict objectForKey:key], nil];
+        NSMutableDictionary *entrydict = [[NSMutableDictionary alloc] init];
+        [entrydict setObject:entry forKey:@"string"];
+        [entries addObject:entrydict];
+    }
+    [hashtable setObject:entries forKey:@"entry"];
+    return hashtable;
+}
+
+
 
 -(void) sendPolicy:(NSString*) json{
     NSString *rootURL  = [[NetworkManager sharedManager] rootURL];

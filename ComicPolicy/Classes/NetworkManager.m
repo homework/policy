@@ -44,7 +44,7 @@
     // any thread, but serialised by +sharedManager
     self = [super init];
     if (self != nil) {
-        self.rootURL = @"http://192.168.1.59:9000";
+        self.rootURL = @"http://10.2.0.1:9000";
         self.networkQueue = [ASINetworkQueue queue];
         [networkQueue setDelegate:self];
         [networkQueue setRequestDidStartSelector:@selector(delegateStarted:)];

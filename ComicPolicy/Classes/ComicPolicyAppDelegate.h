@@ -11,19 +11,15 @@
 #import "Catalogue.h"
 
 @class ComicPolicyViewController;
-//@class MirroredViewController;
+
 @interface ComicPolicyAppDelegate : NSObject <UIApplicationDelegate> {
     UIWindow *window;
-    //UIWindow *externalWindow;
-   // MirroredViewController *mirroredViewController;
     ComicPolicyViewController *viewController;
-    NSArray *screenModes;
-	//UIScreen *externalScreen;
+    NSString *deviceToken;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
-//@property (nonatomic, retain) IBOutlet UIWindow *externalWindow;
 @property (nonatomic, retain) IBOutlet ComicPolicyViewController *viewController;
-//@property (nonatomic, retain) MirroredViewController *mirroredViewController;
+@property (nonatomic, retain) NSString *deviceToken;
 @end
 
