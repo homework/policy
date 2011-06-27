@@ -13,12 +13,13 @@
 #import "ASIFormDataRequest.h"
 #import "ASIHTTPRequest.h"
 #import "Policy.h"
-#import "PolicyTranslator.h"
 
 @interface PolicyManager()
 -(void) readInPolicies:(NSMutableDictionary *) policydict;
 -(void) sendPolicy:(NSString*)json;
--(NSMutableDictionary*) convertToHashtable:(NSMutableDictionary*)dict;
+-(NSMutableDictionary*) convertToTypedHashtable:(NSMutableDictionary*)dict;
+-(NSDictionary *) convertToTypedArray:(NSArray *) array;
+
 @end
 
 @implementation PolicyManager
@@ -175,15 +176,15 @@ static int localId;
     NSMutableDictionary *action = [[NSMutableDictionary alloc] init];
     
     [condition setObject: [[Catalogue sharedCatalogue] currentCondition] forKey:@"type"];
-    [condition setObject: [self convertToHashtable:[[Catalogue sharedCatalogue] conditionArguments]] forKey:@"arguments"];
+    [condition setObject: [self convertToTypedHashtable:[[Catalogue sharedCatalogue] conditionArguments]] forKey:@"arguments"];
     
-    [action setObject: [[Catalogue sharedCatalogue] currentActionType] forKey:@"action"];
-    [action setObject: [[Catalogue sharedCatalogue] currentActionSubject] forKey:@"actionsubject"];
+    [action setObject: [[Catalogue sharedCatalogue] currentActionType] forKey:@"type"];
+    [action setObject: [[Catalogue sharedCatalogue] currentActionSubject] forKey:@"subject"];
     NSArray* actionArgs = [[NSArray alloc] initWithObjects:[[Catalogue sharedCatalogue] currentAction], nil];
-    [action setObject: actionArgs forKey:@"arguments"];
+    [action setObject: [self convertToTypedArray:actionArgs] forKey:@"arguments"];
 
     SBJsonWriter* writer = [SBJsonWriter new];
-    
+    writer.sortKeys = YES;
     /*
      * To control the ordering of the json elements we need to parse each section independently
      * rather than as a single dictionary.
@@ -192,14 +193,15 @@ static int localId;
     NSString *constring = [writer stringWithObject:condition];
     NSString *actstring = [writer stringWithObject:action];
     
-    NSString* myjson = [NSString stringWithFormat:@"{\"policy\":{\"identity\":\"%@\",\"subject\":\"%@\",\"condition\":%@},\"action\":%@}",  currentPolicy.identity, [[Catalogue sharedCatalogue] currentSubjectDevice] ,constring, actstring];
+    NSString* myjson = [NSString stringWithFormat:@"{\"policy\":{\"identity\":\"%@\",\"subject\":\"%@\",\"condition\":%@,\"action\":%@}}",  currentPolicy.identity, [[Catalogue sharedCatalogue] currentSubjectDevice] ,constring, actstring];
     
     [self sendPolicy: myjson];
     
     return myjson;
 }
 
--(NSMutableDictionary *) convertToHashtable:(NSMutableDictionary*)dict{
+/*
+-(NSMutableDictionary *) convertToTypedHashtable:(NSMutableDictionary*)dict{
     NSMutableDictionary* hashtable = [[NSMutableDictionary alloc] init];
     NSMutableArray *entries = [[NSMutableArray alloc] init];
     
@@ -211,8 +213,43 @@ static int localId;
     }
     [hashtable setObject:entries forKey:@"entry"];
     return hashtable;
+}*/
+
+-(NSDictionary *) convertToTypedArray:(NSArray *) array{
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    [dict setObject:array forKey:@"string"];
+    return dict;
 }
 
+-(NSMutableDictionary *) convertToTypedHashtable:(NSMutableDictionary*)dict{
+    
+    NSMutableDictionary* hashtable = [[NSMutableDictionary alloc] init];
+    
+    NSMutableArray *entries = [[NSMutableArray alloc] init];
+    
+    
+    for (NSString* key in [dict allKeys]){
+        NSObject *value = [dict objectForKey:key];
+        
+        if ([value isKindOfClass:[NSArray class]]){
+            NSMutableDictionary *arraydict = [[NSMutableDictionary alloc] init];
+            [arraydict setObject:value forKey:@"string"]; 
+            
+            NSMutableDictionary *entrydict = [[NSMutableDictionary alloc] init];
+            [entrydict setObject: key forKey:@"string"];
+            [entrydict setObject: arraydict forKey:@"string-array"]; 
+            [entries addObject:entrydict];
+        }
+        if ([value isKindOfClass:[NSString class]]){
+            NSArray* entry = [[NSArray alloc] initWithObjects:key, [dict objectForKey:key], nil];
+            NSMutableDictionary *entrydict = [[NSMutableDictionary alloc] init];
+            [entrydict setObject:entry forKey:@"string"];
+            [entries addObject:entrydict];
+        }
+    }
+    [hashtable setObject:entries forKey:@"entry"];
+    return hashtable;
+}
 
 
 -(void) sendPolicy:(NSString*) json{

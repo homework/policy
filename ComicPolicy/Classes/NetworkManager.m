@@ -57,12 +57,8 @@
 }
 
 -(void) addRequest:(ASIHTTPRequest *) request{
-    // // NSString *password = (NSString*) [self.passwordItem objectForKey:(id)kSecValueData];
-    //NSLog(@"got the password %@", password);
-    //if ([self hasAccountDetails]){
-     //   [request addBasicAuthenticationHeaderWithUsername:account andPassword:password];
-        [networkQueue addOperation:request];
-    //}
+      [networkQueue addOperation:request];
+    
 }
 
 - (void)delegateStarted:(ASIHTTPRequest *)request
