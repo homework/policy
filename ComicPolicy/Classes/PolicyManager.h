@@ -13,9 +13,11 @@
     
     Policy* currentPolicy;
     
-    NSArray *policyids;               //the list of policyids
+    Policy *defaultPolicy;
     
-    NSDictionary *policies;           //the dictionary containing all known policies
+    NSMutableArray *policyids;                 //the list of policyids
+    
+    NSMutableDictionary *policies;     //the dictionary containing all known policies
     
     NSMutableDictionary *localLookup;  //mapping between the system allocated policy id and the locally generated one.
     
@@ -26,10 +28,12 @@
 -(void) loadPolicy:(NSString*) policyid;
 -(NSString *) savePolicy;
 -(void) loadFirstPolicy;
+-(void) newDefaultPolicy;
 
-@property(nonatomic, retain) NSArray* policyids;
-@property(nonatomic, retain) NSDictionary* policies;
+@property(nonatomic, retain) NSMutableArray* policyids;
+@property(nonatomic, retain) NSMutableDictionary* policies;
 @property(nonatomic, retain) Policy* currentPolicy;
+@property(nonatomic, retain) Policy* defaultPolicy;
 
 -(NSMutableDictionary *) getConditionArguments:(NSString*) localpolicyid;
 

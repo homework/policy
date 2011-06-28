@@ -64,5 +64,27 @@
                     }
                 }
                 
+    },
+
+    "default":{
+
+            "subject":{
+                "owner":"katie",
+                "device":"0000cccc"
+            },
+
+            "condition":{
+                "type":"timed",
+                "arguments":{
+                    "from":"12:00", 
+                    "to":"13:00"
+                }
+            },
+
+            "action":{
+                "type":"block",
+                "subject":"0000bbbb",
+                "arguments":["dad"]
+            }
     }
 }

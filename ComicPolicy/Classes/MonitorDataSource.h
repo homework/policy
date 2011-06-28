@@ -9,8 +9,10 @@
 #import <Foundation/Foundation.h>
 
 
-@interface ResultDataSource : NSObject {
+@interface MonitorDataSource : NSObject {
+    
     
 }
-
++ (MonitorDataSource *)sharedDatasource;
+-(void) requestURL:(NSString*) strurl callback:(NSString*) callback;
 @end

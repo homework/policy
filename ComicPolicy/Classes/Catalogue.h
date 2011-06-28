@@ -52,6 +52,8 @@
 #pragma mark *policy getters
 
 -(NSString *) currentSubjectDevice;
+-(NSString *) currentSubjectOwner;
+
 -(NSString *) currentCondition;
 -(NSString *) nextCondition;
 -(NSString *) currentAction;

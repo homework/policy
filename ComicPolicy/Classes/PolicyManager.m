@@ -17,6 +17,10 @@
 @interface PolicyManager()
 -(void) readInPolicies:(NSMutableDictionary *) policydict;
 -(void) sendPolicy:(NSString*)json;
+-(void) newDefaultPolicy;
+-(void) saveCurrentPolicy;
+
+
 -(NSMutableDictionary*) convertToTypedHashtable:(NSMutableDictionary*)dict;
 -(NSDictionary *) convertToTypedArray:(NSArray *) array;
 
@@ -27,6 +31,7 @@
 @synthesize policyids;
 @synthesize policies;
 @synthesize currentPolicy;
+@synthesize defaultPolicy;
 
 static int localId;
 
@@ -65,9 +70,9 @@ static int localId;
                                
             [self readInPolicies:[data objectForKey:@"policies"]];
             
-            //self.policies = [data objectForKey:@"policies"];
+            self.defaultPolicy = [[Policy alloc] initWithDictionary:[data objectForKey:@"default"]];
             
-            self.policyids = [policies allKeys];
+            self.policyids = [[NSMutableArray alloc] initWithArray: [policies allKeys]];
             
             //conditionArguments = [[[NSMutableDictionary alloc] init] retain];
             
@@ -76,8 +81,6 @@ static int localId;
     }
     return self;
 }
-
-
 
 -(void) readInPolicies:(NSMutableDictionary *)policydict{
     
@@ -113,14 +116,24 @@ static int localId;
 }
 
 
+-(void) newDefaultPolicy{
+    
+    Policy *apolicy  = [[Policy alloc] initWithPolicy:defaultPolicy];
+
+    NSString* policyid = [NSString stringWithFormat:@"%d",localId++];
+    
+    [policies setObject:apolicy forKey:policyid];
+    [policyids addObject:policyid];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"totalPoliciesChanged" object:nil userInfo:nil];
+}
+
 -(void) loadPolicy:(NSString*) localpolicyid{
 
     Policy *apolicy = [policies objectForKey:localpolicyid];
     
     if (apolicy != nil){
-        NSLog(@"loading in a new policy.. %@", localpolicyid);
         self.currentPolicy = apolicy;
-          NSLog(@"policy type is %@", self.currentPolicy.conditiontype);
         [[Catalogue sharedCatalogue] setSubject:apolicy.subjectowner device:apolicy.subjectdevice];
         [[Catalogue sharedCatalogue] setCondition:apolicy.conditiontype options:apolicy.conditionarguments];
         //should take an array of arguments for 'option'
@@ -133,35 +146,7 @@ static int localId;
     [[NSNotificationCenter defaultCenter] postNotificationName:@"policyLoaded" object:nil userInfo:nil];
 }
 
-/*
--(void) loadPolicy:(NSString*) policyid{
-    
-    NSDictionary *policy = [policies objectForKey:policyid];
-    
-    if (policy != nil){
-       
-        NSDictionary *subject = [policy objectForKey:@"subject"];
-       
-        NSDictionary *condition = [policy objectForKey:@"condition"];
-        
-        NSDictionary *action = [policy objectForKey:@"action"];
-        
-        NSArray *actionarguments = [action objectForKey:@"arguments"];
-        
-      
-        //some data validation required here...
-        
-        [[Catalogue sharedCatalogue] setSubject:[subject objectForKey:@"owner"] device:[subject objectForKey:@"device"]];
-        [[Catalogue sharedCatalogue] setCondition:[condition objectForKey:@"type"]];
-        
-        //[self setConditionArguments:[condition objectForKey:@"arguments"]];
-        NSString *asubject = [actionarguments objectAtIndex:0];
-        NSString *atype =    [action objectForKey:@"type"];
-        [[Catalogue sharedCatalogue] setAction:atype subject:asubject option:[actionarguments objectAtIndex:1]];
-    }
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"policyLoaded" object:nil userInfo:nil];
-}
-*/
+
 
 /*
  * Take the current representation of the policy, and send it to the policyManager backend to install
@@ -192,28 +177,18 @@ static int localId;
   
     NSString *constring = [writer stringWithObject:condition];
     NSString *actstring = [writer stringWithObject:action];
+    NSString * myjson;
     
-    NSString* myjson = [NSString stringWithFormat:@"{\"policy\":{\"identity\":\"%@\",\"subject\":\"%@\",\"condition\":%@,\"action\":%@}}",  currentPolicy.identity, [[Catalogue sharedCatalogue] currentSubjectDevice] ,constring, actstring];
+    if ( currentPolicy.identity != NULL){
+        myjson = [NSString stringWithFormat:@"{\"policy\":{\"identity\":\"%@\",\"subject\":\"%@\",\"condition\":%@,\"action\":%@}}",  currentPolicy.identity, [[Catalogue sharedCatalogue] currentSubjectDevice] ,constring, actstring];
+    }else{
+        myjson = [NSString stringWithFormat:@"{\"policy\":{\"subject\":\"%@\",\"condition\":%@,\"action\":%@}}", [[Catalogue sharedCatalogue] currentSubjectDevice] ,constring, actstring];
+    }
     
     [self sendPolicy: myjson];
     
     return myjson;
 }
-
-/*
--(NSMutableDictionary *) convertToTypedHashtable:(NSMutableDictionary*)dict{
-    NSMutableDictionary* hashtable = [[NSMutableDictionary alloc] init];
-    NSMutableArray *entries = [[NSMutableArray alloc] init];
-    
-    for (NSString* key in [dict allKeys]){
-        NSArray* entry = [[NSArray alloc] initWithObjects:key, [dict objectForKey:key], nil];
-        NSMutableDictionary *entrydict = [[NSMutableDictionary alloc] init];
-        [entrydict setObject:entry forKey:@"string"];
-        [entries addObject:entrydict];
-    }
-    [hashtable setObject:entries forKey:@"entry"];
-    return hashtable;
-}*/
 
 -(NSDictionary *) convertToTypedArray:(NSArray *) array{
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
@@ -261,14 +236,42 @@ static int localId;
     [request addPostValue:json forKey:@"policy"];
     [request setDelegate:self];
     [request setDidFinishSelector:@selector(addedRequestComplete:)];
+    [request setDidFailSelector:@selector(delegateFailed:)];
     [[NetworkManager sharedManager] addRequest:request]; 
 }
 
 - (void)addedRequestComplete:(ASIHTTPRequest *)request
 {
 	NSString *responseString = [request responseString];
-    NSLog(@"got response %@", responseString); 
+    
+    SBJsonParser *jsonParser = [SBJsonParser new];
+    NSDictionary *data  = (NSDictionary *) [jsonParser objectWithString:responseString error:nil];
+    NSLog(@"got response %@ %@ %@", responseString, [data objectForKey:@"result"], [data objectForKey:@"message"]); 
+    
+    if ([[data objectForKey:@"result"] isEqualToString:@"success"]){
+        currentPolicy.identity = [data objectForKey:@"message"];
+        [self saveCurrentPolicy];
+    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"requestComplete" object:nil userInfo:nil];
 }
+
+- (void)delegateFailed:(ASIHTTPRequest *)request
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"requestComplete" object:nil userInfo:nil];
+}
+
+-(void) saveCurrentPolicy{
+    currentPolicy.subjectdevice = [[Catalogue sharedCatalogue] currentSubjectDevice];
+    currentPolicy.subjectowner =  [[Catalogue sharedCatalogue] currentSubjectOwner];
+    
+    currentPolicy.conditiontype      = [[Catalogue sharedCatalogue] currentCondition];
+    currentPolicy.conditionarguments = [[Catalogue sharedCatalogue] conditionArguments];
+    
+    currentPolicy.actionarguments   = [[NSArray alloc] initWithObjects:[[Catalogue sharedCatalogue] currentAction], nil];
+    currentPolicy.actionsubject     = [[Catalogue sharedCatalogue] currentActionSubject];
+    currentPolicy.actiontype        = [[Catalogue sharedCatalogue] currentActionType];
+}
+
 
 
 

@@ -8,12 +8,13 @@
 
 #import "ResultVisitsViewController.h"
 #import "MonitorVisitsView.h"
+#import "MonitorDataSource.h"
 #import "JSON.h"
 
 @interface ResultVisitsViewController()
-    -(void) createPhysicsWorld;
-    -(void)addPhysicalBodyForView:(UIView *)aview;
-    -(void) reset;
+-(void) createPhysicsWorld;
+-(void)addPhysicalBodyForView:(UIView *)aview;
+-(void) reset;
 -(void) createBoundaries;
 @end
 
@@ -108,6 +109,8 @@ static NSArray *labelArray = [[NSArray alloc] initWithObjects:@"news.bbc.co.uk",
                                                 repeats:YES];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(subjectDeviceChange:) name:@"subjectDeviceChange" object:nil];
+    
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newVisitsData:) name:@"newVisitsData" object:nil];
 	
 }
 
@@ -138,20 +141,39 @@ static NSArray *labelArray = [[NSArray alloc] initWithObjects:@"news.bbc.co.uk",
     
 }
 
+
 -(void) requestData:(NSTimer *) timer{
     NSString * subject = [[Catalogue sharedCatalogue] currentActionSubject];
     NSString *rootURL  = [[NetworkManager sharedManager] rootURL];
     int limit = 3;
     NSString *strurl = [NSString stringWithFormat:@"%@/monitor/web/%@?limit=%d", rootURL, subject, limit];
-    NSLog(@"connecting to %@", strurl);
-    NSURL *url = [NSURL URLWithString:strurl];
-    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
-    [request setDelegate:self];
-    [request setDidFinishSelector:@selector(addedRequestComplete:)];
-    [[NetworkManager sharedManager] addRequest:request];       
+    [[MonitorDataSource sharedDatasource] requestURL: strurl callback:@"newVisitsData"];
 }
 
+-(void) newVisitsData:(NSNotification *) notification{
+    NSDictionary *data = [notification userInfo];
+    NSString *responseString = [data objectForKey:@"data"];    
+    
+    SBJsonParser *jsonParser = [SBJsonParser new];
+    
+    
+    NSArray *sites  = (NSArray *) [jsonParser objectWithString:responseString error:nil];
+    [cloud removeFromSuperview];
+    for (NSDictionary *site in sites){
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(XSTART,YSTART,300,35)];
+        label.textColor = [UIColor whiteColor];
+        label.backgroundColor = [UIColor clearColor];
+        label.text = [site objectForKey:@"url"];
+        label.font = [UIFont fontWithName:@"MarkerFelt-Thin" size:35.0];
+        [self.view addSubview:label];
+        [self addPhysicalBodyForView:label];
+        [label release];
+    }
+    [self.view addSubview:cloud];
 
+}
+
+/*
 - (void)addedRequestComplete:(ASIHTTPRequest *)request
 {
     
@@ -176,7 +198,7 @@ static NSArray *labelArray = [[NSArray alloc] initWithObjects:@"news.bbc.co.uk",
     }
     [self.view addSubview:cloud];
 }
-
+*/
 
 
 
@@ -374,18 +396,16 @@ static NSArray *labelArray = [[NSArray alloc] initWithObjects:@"news.bbc.co.uk",
 
 - (void)viewDidUnload {
      [[UIAccelerometer sharedAccelerometer] setDelegate:nil];
-    
-    
-    [super viewDidUnload];
     [tickTimer invalidate], tickTimer = nil;
     [fakeDataTimer invalidate], fakeDataTimer = nil;
+     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
 
 
 - (void)dealloc {
-
+    NSLog(@"visits view deallocing");
     [super dealloc];
     
 }

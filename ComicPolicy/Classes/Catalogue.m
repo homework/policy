@@ -15,7 +15,6 @@
 -(void) initConditions;
 -(NSString *) lookupImage:(NSString*)identity type:(NSString*)type state:(NSString*)state;
 -(NSString *) nextSubjectDevice;
--(NSString *) currentSubjectOwner;
 -(NSString *) nextSubjectOwner;
 -(NSString *) nextActionSubject;
 -(NSString *) nextAction;

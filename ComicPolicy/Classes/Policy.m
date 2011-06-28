@@ -21,6 +21,24 @@
 @synthesize actiontype;
 @synthesize actionarguments;
 
+
+- (id)initWithPolicy:(Policy *)aPolicy{
+    
+    if ([self init]) {
+        self.subjectowner       = aPolicy.subjectowner;
+        self.subjectdevice      = aPolicy.subjectdevice;
+        
+        self.conditiontype      = aPolicy.conditiontype;
+        self.conditionarguments = aPolicy.conditionarguments;
+        
+        self.actionsubject      = aPolicy.actionsubject;
+        self.actiontype         = aPolicy.actiontype;
+        self.actionarguments    = aPolicy.actionarguments;
+    
+    }
+    return self;
+}
+
 - (id)initWithDictionary:(NSDictionary *)aDictionary{
     if ([self init]) {
         

@@ -57,8 +57,11 @@
 }
 
 -(void) addRequest:(ASIHTTPRequest *) request{
-      [networkQueue addOperation:request];
-    
+      [networkQueue addOperation:request];    
+}
+
+-(void) removeAllRequests{
+    [networkQueue cancelAllOperations];
 }
 
 - (void)delegateStarted:(ASIHTTPRequest *)request

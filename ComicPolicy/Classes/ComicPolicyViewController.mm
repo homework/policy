@@ -37,7 +37,8 @@
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
-	
+	inprogress = NO;
+    
 	NSBundle *mainBundle = [NSBundle mainBundle];
 	NSError *error;
 	
@@ -84,6 +85,8 @@
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionSubjectChange:) name:@"actionSubjectChange" object:nil];	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(subjectOwnerChange:) name:@"subjectOwnerChange" object:nil];	
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(policyLoaded:) name:@"policyLoaded" object:nil];	
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(requestComplete:) name:@"requestComplete" object:nil];
 	[[PolicyManager sharedPolicyManager] loadFirstPolicy];
 	
 }
@@ -114,19 +117,9 @@
 
 -(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
 	
-	//NSLog(@"touched %d", [navigationView getSelectedPolicy]);
+     if (!inprogress){
     UITouch *touch = [touches anyObject]; 
 	CGPoint touchLocation = [touch locationInView:self.view];
-	/*
-	if (CGRectContainsPoint( addNew.frame , touchLocation)){
-		UIImageView *tmpButton = [[UIImageView alloc] initWithImage: [UIImage imageNamed:@"empty.png"]];
-		UILabel *tmp = [[UILabel alloc] initWithFrame:CGRectMake(9,0,26,27)];
-		tmp.backgroundColor = [UIColor clearColor];
-		tmp.text = [NSString stringWithFormat:@"%d", [buttons count]];
-		[tmpButton addSubview:tmp];
-		[buttons insertObject: tmpButton atIndex:[buttons count]-1];
-		[navigationView updateButtons:buttons];
-	}*/
 	
 	if (CGRectContainsPoint( deleteButton.frame , touchLocation)){
 		NSLog(@"would delete this");
@@ -135,10 +128,24 @@
 	else if (CGRectContainsPoint( saveButton.frame , touchLocation)){
         NSString *policysent =  [[PolicyManager sharedPolicyManager] savePolicy];
         NSLog(@"Policy to sent is %@", policysent);
-        //[[PolicyManager sharedPolicyManager] loadPolicy:@"1"];
+        
+        CGRect frame = CGRectMake(0,0, [[UIScreen mainScreen] applicationFrame].size.height, [[UIScreen mainScreen] applicationFrame].size.width);
+        
+        progressView = [[UIView alloc] initWithFrame:frame];
+        progressView.backgroundColor = [UIColor blackColor];
+        progressView.alpha = 0.5;
+        [self.view addSubview:progressView];
+        inprogress = YES;
     }
-	
-	
+     }
+}
+
+-(void) requestComplete:(NSNotification *) notification{
+    if (inprogress){
+        inprogress = NO;
+        [progressView removeFromSuperview];
+        
+    }
 }
 
 -(void) policyLoaded:(NSNotification *) notification{
@@ -148,6 +155,7 @@
     [UIView setAnimationDidStopSelector:@selector(pageLoaded:finished:context:)];
     [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:self.view cache:NO];
     [UIView commitAnimations];
+    [self.view setBackgroundColor:[UIColor whiteColor]];
 }
 
 -(void) pageLoaded:(NSString*)animationID finished:(BOOL)finished context:(void*)context{
@@ -166,6 +174,7 @@
 
 -(void) subjectOwnerChange:(NSNotification *) n{
 	[self playTick];
+     [self.view setBackgroundColor:[UIColor redColor]];
 	[NSTimer scheduledTimerWithTimeInterval:0.7 target:self selector:@selector(playTock:) userInfo:nil repeats:NO]; 
 }
 

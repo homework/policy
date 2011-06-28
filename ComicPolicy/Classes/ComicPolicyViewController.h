@@ -32,6 +32,8 @@
 	RootActionViewController *actionViewController;
 	RootResultViewController *resultViewController;
 	ActionTimeViewController *actionTimeViewController;
+    UIView *progressView;
+    BOOL inprogress;
 	
 }
 -(void) playTock:(NSTimer *)timer;

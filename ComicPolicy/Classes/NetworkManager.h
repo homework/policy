@@ -23,6 +23,6 @@
 + (NetworkManager *)sharedManager;
 
 -(void) addRequest:(ASIHTTPRequest *) request;
-
+-(void) removeAllRequests;
 
 @end

@@ -9,8 +9,13 @@
 #import "NavigationViewController.h"
 #import "PolicyManager.h"
 
+@interface NavigationViewController()
+-(void) updateNavigation;
+@end
+
 @implementation NavigationViewController
 
+static float PADDING = 15;
 /*
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -28,6 +33,54 @@
 	CGFloat ylen = [[UIScreen mainScreen] bounds].size.height;
 	navigationView = [[NavigationView alloc] initWithFrame:CGRectMake(0,0, ylen,50)];
 	self.view = navigationView;
+    [self updateNavigation];
+    
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(totalPoliciesChanged:) name:@"totalPoliciesChanged" object:nil];
+    
+}
+
+
+-(void) totalPoliciesChanged:(NSNotification*) notification{
+    NSLog(@"seend a totalPoliciesChanged");
+    [self updateNavigation];
+}
+
+-(void) updateNavigation{
+    NSArray *policyids = [[PolicyManager sharedPolicyManager]policyids];
+    
+	int buttoncount = [policyids count] + 1;
+    
+	float barlen = (buttoncount * 26) + (PADDING * buttoncount-1);
+	CGFloat xlen = [[UIScreen mainScreen] bounds].size.height;
+	float origin = (xlen / 2) - (barlen / 2);
+	int count = 0;
+	
+	for (UIView *view in self.view.subviews){
+		[view removeFromSuperview];	
+	}
+	
+	
+	for (NSString *policy in policyids ){
+		UIImageView *button = [[UIImageView alloc] initWithImage: [UIImage imageNamed:@"empty.png"]];
+		button.tag = [policy intValue];
+        
+		UILabel *tmp = [[UILabel alloc] initWithFrame:CGRectMake((count < 9) ? 8 : 3,0,26,27)];
+		tmp.backgroundColor = [UIColor clearColor];
+		tmp.text = [NSString stringWithFormat:@"%d", count+1];
+		[button addSubview:tmp];
+		button.frame = CGRectMake(origin + (count * (26 + PADDING)), 20, 26, 27);
+		button.transform = CGAffineTransformMakeScale(0.8, 0.8);	
+		[self.view addSubview:button];
+		count++;
+	}
+	
+	UIImageView *tmpAdd = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"addnew.png"]];
+	tmpAdd.frame = CGRectMake(origin + (count * (26 + PADDING)), 20, 26, 27);
+	navigationView.addNew = tmpAdd;
+	[self.view addSubview:tmpAdd];
+	[tmpAdd release];
+
+    
 }
 
 //-(void) updatePolicyIds:(NSMutableArray *) policyids{
@@ -41,10 +94,16 @@
 
 	CGPoint touchLocation = [touch locationInView:self.view];
 	
+    
+    if (CGRectContainsPoint(navigationView.addNew.frame, touchLocation)){
+        [[PolicyManager sharedPolicyManager] newDefaultPolicy];
+    }
 	
 	for(UIView *view in self.view.subviews){
+        
+        
 		if (CGRectContainsPoint(view.frame, touchLocation)){
-			if (view.tag > 0){
+            if (view.tag > 0){
 				if (selectedView != nil){
 					selectedView.transform = CGAffineTransformMakeScale(0.8, 0.8);	
 				}	

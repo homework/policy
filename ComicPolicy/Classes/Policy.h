@@ -25,7 +25,7 @@
 }
 
 - (id)initWithDictionary:(NSDictionary *)aDictionary;
-
+- (id)initWithPolicy:(Policy *)aPolicy;
 
 @property(nonatomic, copy) NSString* identity;
 

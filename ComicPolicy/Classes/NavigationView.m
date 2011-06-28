@@ -10,21 +10,22 @@
 #import "PolicyManager.h"
 
 @interface NavigationView()
-    -(void) updateNavigation;
+   // -(void) updateNavigation;
 @end
 
 @implementation NavigationView
 @synthesize addNew;
 
-static float PADDING = 15;
+
 
 - (id)initWithFrame:(CGRect)frame{
     if ((self = [super initWithFrame:frame])) {
-        [self updateNavigation];		
+        //[self updateNavigation];		
     }
     return self;
 }
 
+/*
 -(void) updateNavigation{
 	
 	NSArray *policyids = [[PolicyManager sharedPolicyManager]policyids];
@@ -61,7 +62,8 @@ static float PADDING = 15;
 	[self addSubview:tmpAdd];
 	[tmpAdd release];
 	
-}
+}*/
+
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
