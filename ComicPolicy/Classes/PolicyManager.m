@@ -161,6 +161,7 @@ static int localId;
     NSMutableDictionary *action = [[NSMutableDictionary alloc] init];
     
     [condition setObject: [[Catalogue sharedCatalogue] currentCondition] forKey:@"type"];
+    
     [condition setObject: [self convertToTypedHashtable:[[Catalogue sharedCatalogue] conditionArguments]] forKey:@"arguments"];
     
     [action setObject: [[Catalogue sharedCatalogue] currentActionType] forKey:@"type"];
@@ -202,11 +203,13 @@ static int localId;
     
     NSMutableArray *entries = [[NSMutableArray alloc] init];
     
+    NSLog(@"condition args dict is %@",dict);
     
     for (NSString* key in [dict allKeys]){
         NSObject *value = [dict objectForKey:key];
         
         if ([value isKindOfClass:[NSArray class]]){
+             NSLog(@"entry is an array...");
             NSMutableDictionary *arraydict = [[NSMutableDictionary alloc] init];
             [arraydict setObject:value forKey:@"string"]; 
             
@@ -215,7 +218,9 @@ static int localId;
             [entrydict setObject: arraydict forKey:@"string-array"]; 
             [entries addObject:entrydict];
         }
-        if ([value isKindOfClass:[NSString class]]){
+        //if ([value isKindOfClass:[NSString class]]){
+        else{
+            NSLog(@"entry is a string... %@ %@ ", key, [dict objectForKey:key]);
             NSArray* entry = [[NSArray alloc] initWithObjects:key, [dict objectForKey:key], nil];
             NSMutableDictionary *entrydict = [[NSMutableDictionary alloc] init];
             [entrydict setObject:entry forKey:@"string"];

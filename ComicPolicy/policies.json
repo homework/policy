@@ -22,48 +22,7 @@
                             "subject":"0000bbbb",
                             "arguments":["dad"]
                     }
-                },
-
-                "2":{
-                        "subject":{
-                        "owner":"mum",
-                        "device":"0000dddd"
-                    },
-
-                    "condition":{
-                        "type":"bandwidth",
-                        "arguments":{
-                            "percentage":80
-                        }
-                    },
-
-                    "action":{
-                        "type":"notify",
-                        "subject":"john",
-                        "arguments":["tweet"]
-                    }
-                },
-                
-                "3":{
-                    "subject":{
-                        "owner":"john",
-                        "device":"0000eeee"
-                    },
-
-                    "condition":{
-                        "type":"visiting",
-                        "arguments":{
-                            "sites":["news.bbc.co.uk", "www.drupal.org", "www.cnn.com"]
-                        }
-                    },
-
-                    "action":{
-                        "type":"notify",
-                        "subject":"dad",
-                        "arguments":["phone"]
-                    }
-                }
-                
+                }                
     },
 
     "default":{

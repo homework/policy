@@ -25,7 +25,7 @@
 -(NSString *) nextSubjectOwnerImage;
 -(NSString *) currentSubjectDeviceImage;
 -(NSString *) nextSubjectDeviceImage;
-
+-(NSString *) currentDeviceName;
 
 #pragma mark *action getters for UI
 -(NSString *) currentActionViewController;

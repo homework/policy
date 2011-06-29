@@ -36,6 +36,7 @@
 		[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight forView:subjectView.topImage cache:NO];
 		subjectView.topImage.image = [UIImage imageNamed: [[Catalogue sharedCatalogue] nextSubjectOwnerImage]];
 		[UIView commitAnimations];
+        NSLog(@"the owners name is %@", [[Catalogue sharedCatalogue] currentSubjectOwner]);
 	}
 	else if (CGRectContainsPoint(subjectView.bottomImage.frame, touchLocation)){
 		[UIView beginAnimations:nil context:nil];
@@ -44,6 +45,7 @@
 		[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:subjectView.bottomImage cache:NO];
 		subjectView.bottomImage.image = [UIImage imageNamed:[[Catalogue sharedCatalogue] nextSubjectDeviceImage]];
 		[UIView commitAnimations];
+         NSLog(@"the device's name is %@", [[Catalogue sharedCatalogue] currentDeviceName]);
 	}
 
 
@@ -76,7 +78,10 @@
 	//[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:subjectView.bottomImage cache:NO];
 	subjectView.topImage.image = [UIImage imageNamed:[[Catalogue sharedCatalogue] currentSubjectOwnerImage]];
 	subjectView.bottomImage.image = [UIImage imageNamed:[[Catalogue sharedCatalogue] currentSubjectDeviceImage]];
-	//[UIView commitAnimations];
+	
+     NSLog(@"the owners name is %@", [[Catalogue sharedCatalogue] currentSubjectOwner]);
+     NSLog(@"the device's name is %@", [[Catalogue sharedCatalogue] currentDeviceName]);
+    //[UIView commitAnimations];
 }
 
 -(void) subjectOwnerChange:(NSNotification *) n{
@@ -91,6 +96,7 @@
 	
 	subjectView.bottomImage.image = [UIImage imageNamed:[[Catalogue sharedCatalogue] currentSubjectDeviceImage]];
 	[UIView commitAnimations];
+    NSLog(@"the device's name is %@", [[Catalogue sharedCatalogue] currentDeviceName]);
 }
 
 

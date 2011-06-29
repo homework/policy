@@ -204,7 +204,7 @@ static NSArray *labelArray = [[NSArray alloc] initWithObjects:@"news.bbc.co.uk",
 
 -(void) addSite:(NSTimer *) timer{
     [cloud removeFromSuperview];
-    CGPoint start = self.view.center;
+   // CGPoint start = self.view.center;
 
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(XSTART,YSTART,300,35)];
     label.textColor = [UIColor whiteColor];

@@ -1,0 +1,90 @@
+{
+    "policies":{
+
+        "1":{
+
+            "subject":{
+                "owner":"katie",
+                "device":"0000cccc"
+            },
+
+            "condition":{
+                "type":"timed",
+
+                "arguments":{
+                    "from":"12:00", 
+                    "to":"13:00"
+                }
+            },
+
+            "action":{
+                "type":"block",
+                "subject":"0000bbbb",
+                "arguments":["dad"]
+            }
+        },
+
+        "2":{
+            "subject":{
+                "owner":"mum",
+                "device":"0000dddd"
+        },
+
+        "condition":{
+            "type":"bandwidth",
+            "arguments":{
+                "percentage":80
+            }
+        },
+
+        "action":{
+            "type":"notify",
+            "subject":"john",
+            "arguments":["tweet"]
+        }
+    },
+
+    "3":{
+        "subject":{
+            "owner":"dad",
+            "device":"18:E7:F4:79:52:B2"
+        },
+
+        "condition":{
+            "type":"visiting",
+            "arguments":{
+                "sites":["news.bbc.co.uk", "www.drupal.org", "www.cnn.com"]
+            }
+        },
+
+        "action":{
+            "type":"notify",
+            "subject":"dad",
+            "arguments":["phone"]
+        }
+    }
+
+},
+
+    "default":{
+
+        "subject":{
+            "owner":"katie",
+            "device":"0000cccc"
+        },
+
+        "condition":{
+            "type":"timed",
+            "arguments":{
+                "from":"12:00", 
+                "to":"13:00"
+            }
+        },
+
+        "action":{
+            "type":"block",
+            "subject":"0000bbbb",
+            "arguments":["dad"]
+        }
+    }
+}

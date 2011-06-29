@@ -174,7 +174,7 @@
 
 -(void) subjectOwnerChange:(NSNotification *) n{
 	[self playTick];
-     [self.view setBackgroundColor:[UIColor redColor]];
+    // [self.view setBackgroundColor:[UIColor redColor]];
 	[NSTimer scheduledTimerWithTimeInterval:0.7 target:self selector:@selector(playTock:) userInfo:nil repeats:NO]; 
 }
 

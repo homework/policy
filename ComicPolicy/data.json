@@ -4,7 +4,7 @@
         "navigation":{
     
             "subjects":{
-                        "dad":["0000aaaa","0000bbbb"],
+                        "dad":["18:E7:F4:79:52:B2","0000bbbb"],
                         "katie":["0000cccc"],   
                         "mum":["0000dddd"],
                         "john":["0000eeee"],
@@ -36,9 +36,9 @@
             "actions":{
 
                     "block":{
-                        "subjects":["0000aaaa","0000bbbb","0000cccc","0000dddd","0000eeee", "0000ffff"],
+                        "subjects":["18:E7:F4:79:52:B2","0000bbbb","0000cccc","0000dddd","0000eeee", "0000ffff"],
                         "arguments":{
-                                "0000aaaa":["dad"],
+                                "18:E7:F4:79:52:B2":["dad"],
                                 "0000bbbb":["dad"],
                                 "0000cccc":["katie"],   
                                 "0000dddd":["mum"],
@@ -78,20 +78,20 @@
 
         "metadata":{
             "devices":{
-                "0000aaaa":{
-                    "name": "dads mac air"
+                "18:E7:F4:79:52:B2":{
+                    "name": "dad's itouch"
                 },
                 "0000bbbb":{
-                    "name": "dads iphone"
+                    "name": "dad's iphone"
                 },
                 "0000cccc":{
-                    "name": "katies desktop"   
+                    "name": "katie's desktop"   
                 },
                     "0000dddd":{
-                    "name": "mums computer"
+                    "name": "mum's computer"
                 },
                     "0000eeee":{
-                    "name": "johns computer"
+                    "name": "john's computer"
                 },
                     "0000ffff":{
                     "name": "lounge computer"
@@ -191,22 +191,22 @@
                             "fired":"everyonenotified.png"
                     }
                 },
-            "0000aaaa":
-                {
-                    "main":"condlaptop.png",
-                    "block":{
-                            "action":"aslaptop.png",
-                            "result":"laptopunblocked.png",
-                            "fired":"laptopblocked.png"
-                    }
-                },
-            "0000bbbb":
+            "18:E7:F4:79:52:B2":
                 {
                     "main":"condphone.png",
                     "block":{
                             "action":"asphone.png",
                             "result":"phoneunblocked.png",
                             "fired":"phoneblocked.png"
+                    }
+                },
+            "0000bbbb":
+                {
+                    "main":"condlaptop",
+                    "block":{
+                            "action":"aslaptop.png",
+                            "result":"laptopunblocked.png",
+                            "fired":"laptopblocked.png"
                     }
                 },
             "0000cccc":

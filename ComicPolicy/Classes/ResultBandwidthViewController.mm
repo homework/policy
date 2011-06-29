@@ -7,10 +7,12 @@
 //
 
 #import "ResultBandwidthViewController.h"
+#import "MonitorDataSource.h"
 
 @interface ResultBandwidthViewController()
 -(void) createPhysicsWorld;
 -(void)addPhysicalBodyForView:(UIView *)aview;
+-(void)addReading:(long) bytes;
 @end
 
 @implementation ResultBandwidthViewController
@@ -21,6 +23,7 @@
 
 static float XSTART = 100;
 static float YSTART = 140;
+static long MAXBYTES = 1 * 1024 * 1024;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -103,25 +106,57 @@ static float YSTART = 140;
     
     fakeDataTimer = [NSTimer scheduledTimerWithTimeInterval:3.0 
                                                      target:self 
-                                                   selector:@selector(addReading:)//requestData:) //addSite:
+                                                   selector:@selector(requestData:)//addReading:) //addSite:
                                                    userInfo:nil 
                                                     repeats:YES];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newBandwidthData:) name:@"newBandwidthData" object:nil];
 
 }
 
 -(void) requestData:(NSTimer *) timer{
-    
-    //NSString *strurl = [NSString stringWithFormat:@"http://192.168.1.59:9000/monitor/web"];
+    NSString * subject = [[Catalogue sharedCatalogue] currentActionSubject];
     NSString *rootURL  = [[NetworkManager sharedManager] rootURL];
-    NSString *strurl = [NSString stringWithFormat:@"%@/monitor/web", rootURL];
-    NSLog(@"connecting to %@", strurl);
-    NSURL *url = [NSURL URLWithString:strurl];
-    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
-    [request setDelegate:self];
-    [request setDidFinishSelector:@selector(addedRequestComplete:)];
-    [[NetworkManager sharedManager] addRequest:request];       
+    NSString *strurl = [NSString stringWithFormat:@"%@/monitor/bandwidth/%@", rootURL, subject];
+    [[MonitorDataSource sharedDatasource] requestURL: strurl callback:@"newBandwidthData"];
 }
 
+-(void) newBandwidthData:(NSNotification *) notification{
+   
+    NSDictionary *data = [notification userInfo];
+    NSString *responseString = [data objectForKey:@"data"];    
+    
+    
+    NSLog(@"got response string %@", responseString);
+    
+    [self addReading: [responseString longLongValue]];
+    //NSArray *sites  = (NSArray *) [jsonParser objectWithString:responseString error:nil];
+}
+
+-(void) addReading:(long) bytes{
+    if (bytes <= 0) 
+        return;
+    
+    float scalefactor = ((float)bytes/MAXBYTES) + 0.4;
+    
+    NSLog(@"adding reading %f for bytes %i", scalefactor, bytes);
+    
+    [topMask removeFromSuperview];
+    
+    UIImageView *moneyBag = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"moneybag.png"]];
+  
+    
+    moneyBag.frame = CGRectMake(0,60,moneyBag.frame.size.width*scalefactor, moneyBag.frame.size.height*scalefactor);
+    
+    [self.view addSubview:moneyBag];
+    
+    
+    [self addPhysicalBodyForView:moneyBag];
+    [moneyBag release];
+    [self.view addSubview:topMask];
+}
+
+/*
 -(void) addReading:(NSTimer*) timer{
     [topMask removeFromSuperview];
     UIImageView *moneyBag = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"moneybag.png"]];
@@ -139,7 +174,7 @@ static float YSTART = 140;
     [moneyBag release];
     [self.view addSubview:topMask];
 
-}
+}*/
 
 -(void) accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration{
     //b2Vec2 gravity;

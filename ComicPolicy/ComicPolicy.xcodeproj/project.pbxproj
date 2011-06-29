@@ -74,6 +74,7 @@
 		A3274ACA1342255200212CAB /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3274AC91342255200212CAB /* CoreData.framework */; };
 		A337D64413213E6F00DA13C8 /* ActionTimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A337D64313213E6F00DA13C8 /* ActionTimeViewController.m */; };
 		A337D64913213E9300DA13C8 /* ActionTimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = A337D64813213E9300DA13C8 /* ActionTimeView.m */; };
+		A343D61113BBA4EA00B25BC1 /* allpolicies.json in Resources */ = {isa = PBXBuildFile; fileRef = A343D61013BBA4EA00B25BC1 /* allpolicies.json */; };
 		A3476047134C630D00430CE0 /* ResultTypeViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3476046134C630D00430CE0 /* ResultTypeViewController.mm */; };
 		A3476055134C637500430CE0 /* ResultVisitsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3476054134C637500430CE0 /* ResultVisitsViewController.mm */; };
 		A34760AC134C7B5F00430CE0 /* MonitorView.m in Sources */ = {isa = PBXBuildFile; fileRef = A34760AB134C7B5F00430CE0 /* MonitorView.m */; };
@@ -307,6 +308,7 @@
 		A337D64313213E6F00DA13C8 /* ActionTimeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionTimeViewController.m; sourceTree = "<group>"; };
 		A337D64713213E9300DA13C8 /* ActionTimeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionTimeView.h; sourceTree = "<group>"; };
 		A337D64813213E9300DA13C8 /* ActionTimeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionTimeView.m; sourceTree = "<group>"; };
+		A343D61013BBA4EA00B25BC1 /* allpolicies.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = allpolicies.json; sourceTree = "<group>"; };
 		A3476045134C630D00430CE0 /* ResultTypeViewController.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = ResultTypeViewController.h; sourceTree = "<group>"; };
 		A3476046134C630D00430CE0 /* ResultTypeViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ResultTypeViewController.mm; sourceTree = "<group>"; };
 		A3476053134C637500430CE0 /* ResultVisitsViewController.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = ResultVisitsViewController.h; sourceTree = "<group>"; };
@@ -449,7 +451,7 @@
 		A3DCBBED134B738B00A38D5E /* ResultTimeViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ResultTimeViewController.mm; sourceTree = "<group>"; };
 		A3DCBBFA134B769700A38D5E /* ResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultViewController.h; sourceTree = "<group>"; };
 		A3DCBBFB134B769700A38D5E /* ResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultViewController.m; sourceTree = "<group>"; };
-		A3E7FBF51372F51E003FFE37 /* MonitorDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; path = MonitorDataSource.h; sourceTree = "<group>"; };
+		A3E7FBF51372F51E003FFE37 /* MonitorDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonitorDataSource.h; sourceTree = "<group>"; };
 		A3E7FBF61372F51F003FFE37 /* MonitorDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonitorDataSource.m; sourceTree = "<group>"; };
 		A3E7FBF91372F6EC003FFE37 /* BandwidthMonitorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BandwidthMonitorView.h; sourceTree = "<group>"; };
 		A3E7FBFA1372F6EC003FFE37 /* BandwidthMonitorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BandwidthMonitorView.m; sourceTree = "<group>"; };
@@ -638,6 +640,7 @@
 			children = (
 				A3DCB7081344EDAD00A38D5E /* data.json */,
 				A3DB62CB1371A6AF00AEBF46 /* policies.json */,
+				A343D61013BBA4EA00B25BC1 /* allpolicies.json */,
 				A30ADEF9131528F70060D2F1 /* action */,
 				A30ADF06131528F70060D2F1 /* actionsubject */,
 				A30ADF0C131528F70060D2F1 /* conditionsubject */,
@@ -1381,6 +1384,7 @@
 				A3A81A46138E89A80001CF25 /* pointer.png in Resources */,
 				A3A81A48138E89B20001CF25 /* smallpointer.png in Resources */,
 				A372A5AC13A8B854006CF4B4 /* plus.png in Resources */,
+				A343D61113BBA4EA00B25BC1 /* allpolicies.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

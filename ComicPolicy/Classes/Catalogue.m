@@ -18,8 +18,6 @@
 -(NSString *) nextSubjectOwner;
 -(NSString *) nextActionSubject;
 -(NSString *) nextAction;
-
-
 -(void) updateActionOptions:(NSString *)subject;
 
 @end
@@ -75,6 +73,10 @@ static int actionoptionsarrayindex;     //currently selected option.
 #pragma mark *data structures for results
 
 static NSDictionary* conditionresultvcs; //mapping of currently selected condition to associated result view controller
+
+#pragma mark *data structure for device metadata
+
+static NSDictionary* devicemetadata;
 
 @synthesize currentConditionArguments;
 
@@ -154,7 +156,12 @@ static NSDictionary* conditionresultvcs; //mapping of currently selected conditi
              * Generate the arrays to handle navigation through results and associated view controllers
              */
             conditionresultvcs = (NSDictionary *) [[controllers objectForKey:@"results"] retain];
-                       
+            
+            /*
+             * generate the device metadata dictionary
+             */
+            
+            devicemetadata = [[(NSDictionary *) [main objectForKey:@"metadata"] objectForKey:@"devices"] retain];
             
         }
     }
@@ -224,7 +231,11 @@ static NSDictionary* conditionresultvcs; //mapping of currently selected conditi
 	return [dict objectForKey:state];
 }
 
-
+-(NSString *) currentDeviceName{
+    NSLog(@"device metadata %@", devicemetadata);
+    NSDictionary *dict = [devicemetadata objectForKey:[self currentSubjectDevice]];
+    return [dict objectForKey:@"name"];
+}
 
 
 #pragma mark * Subject frames (private)
