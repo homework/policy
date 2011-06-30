@@ -10,10 +10,17 @@
 #import "MonitorViewController.h"
 #import "MonitorTimeView.h"
 
+typedef enum {
+    NOREADING = 0, 
+    ACTIVE = 1, 
+    INACTIVE = 2
+}activity;
+
 @interface ResultTimeViewController : MonitorViewController {
 	MonitorTimeView *monitorTimeView;
+     NSTimer *monitorTimer;
 }
 
-@property(nonatomic, retain) MonitorTimeView* monitorTimeView;
+//@property(nonatomic, retain) MonitorTimeView* monitorTimeView;
 
 @end

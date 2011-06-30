@@ -143,7 +143,7 @@ static NSArray *labelArray = [[NSArray alloc] initWithObjects:@"news.bbc.co.uk",
 
 
 -(void) requestData:(NSTimer *) timer{
-    NSString * subject = [[Catalogue sharedCatalogue] currentActionSubject];
+    NSString * subject = [[Catalogue sharedCatalogue] currentSubjectDevice];
     NSString *rootURL  = [[NetworkManager sharedManager] rootURL];
     int limit = 3;
     NSString *strurl = [NSString stringWithFormat:@"%@/monitor/web/%@?limit=%d", rootURL, subject, limit];

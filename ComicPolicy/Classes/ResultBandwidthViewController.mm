@@ -115,7 +115,7 @@ static long MAXBYTES = 1 * 1024 * 1024;
 }
 
 -(void) requestData:(NSTimer *) timer{
-    NSString * subject = [[Catalogue sharedCatalogue] currentActionSubject];
+    NSString * subject = [[Catalogue sharedCatalogue] currentSubjectDevice];
     NSString *rootURL  = [[NetworkManager sharedManager] rootURL];
     NSString *strurl = [NSString stringWithFormat:@"%@/monitor/bandwidth/%@", rootURL, subject];
     [[MonitorDataSource sharedDatasource] requestURL: strurl callback:@"newBandwidthData"];

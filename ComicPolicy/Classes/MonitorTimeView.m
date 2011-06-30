@@ -71,7 +71,8 @@
         [tmpdash release];
         
         self.smallpointer = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"smallpointer.png"]];
-        self.smallpointer.center = CGPointMake(228,271);
+        self.smallpointer.center = CGPointMake(228,290);
+        [self.smallpointer.layer setAnchorPoint:CGPointMake(0.5, 0.9)]; 
         [self addSubview:smallpointer];
         
         UIImageView *semicog = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"semicog.png"]];
@@ -104,11 +105,13 @@
 
 - (void)dealloc
 {
+    NSLog(@"releasing monitor time view....");
     [redcog release];
     [yellowcog release];
     [pinkcog release];
     [pointer release];
     [smallpointer release];
+    
     [super dealloc];
 }
 

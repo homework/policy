@@ -17,9 +17,9 @@
     UIImageView* smallpointer;
 }
 
-@property(nonatomic,retain) UIImageView* redcog;
-@property(nonatomic,retain) UIImageView* yellowcog;
-@property(nonatomic,retain) UIImageView* pinkcog;
-@property(nonatomic,retain) UIImageView* pointer;
-@property(nonatomic,retain) UIImageView* smallpointer;
+@property(nonatomic,assign) UIImageView* redcog;
+@property(nonatomic,assign) UIImageView* yellowcog;
+@property(nonatomic,assign) UIImageView* pinkcog;
+@property(nonatomic,assign) UIImageView* pointer;
+@property(nonatomic,assign) UIImageView* smallpointer;
 @end

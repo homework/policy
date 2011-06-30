@@ -261,6 +261,8 @@ static NSDictionary* devicemetadata;
 	devices =  [[subjectLookup objectForKey:[self currentSubjectOwner]] retain];
 	devicesindex = 0;
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"subjectOwnerChange" object:nil userInfo:nil];
+    
+    NSLog(@"firing a SUBJECT DEVICE CHANGE.");
     [[NSNotificationCenter defaultCenter] postNotificationName:@"subjectDeviceChange" object:nil userInfo:nil];
 	return next;
 }
