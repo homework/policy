@@ -29,6 +29,11 @@
 -(NSString *) savePolicy;
 -(void) loadFirstPolicy;
 -(void) newDefaultPolicy;
+-(void) policyFired:(NSString *) policyid;
+-(NSString*) currentPolicyId;
+
+-(BOOL) hasFiredForSubject:(NSString *)subject;
+-(BOOL) hasFired;
 
 @property(nonatomic, retain) NSMutableArray* policyids;
 @property(nonatomic, retain) NSMutableDictionary* policies;

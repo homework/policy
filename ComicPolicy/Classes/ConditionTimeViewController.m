@@ -89,16 +89,11 @@ BOOL toScaled = NO;
     
     NSMutableDictionary *newargs = [[NSMutableDictionary alloc] initWithObjects:[[NSArray alloc] initWithObjects:from, to,nil] forKeys:[[NSArray alloc] initWithObjects:@"from", @"to",nil]];
     
-    //[self.conditionArguments removeObjectForKey:@"arguments"];
-    
-    //[self.conditionArguments setObject:newargs forKey:@"arguments"];
-    
     [[Catalogue sharedCatalogue] setConditionArguments:newargs];
     
 }
 
 -(void) updateCaption{
-    NSLog(@"%02d:%02d -> %02d:%02d", fromhour, fromminute, tohour, tominute);
     conditionTimeView.caption.text = [NSString stringWithFormat:@"is used between %02d:%02d and %02d:%02d",  fromhour, fromminute, tohour, tominute];
 
 }

@@ -29,11 +29,11 @@
 		self.resultMainImage = tmpResultBack;
 		[tmpResultBack release];
 		
-		UIActivityIndicatorView *tmpIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+		/*UIActivityIndicatorView *tmpIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
 		tmpIndicatorView.frame = CGRectMake(210,130,40,40);
 		[self addSubview:tmpIndicatorView];
 		self.activityIndicatorView = tmpIndicatorView;
-		[tmpIndicatorView release];
+		[tmpIndicatorView release];*/
 		
 											
 		/*UIImageView *tmpMonitor = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"resulttype.png"]];

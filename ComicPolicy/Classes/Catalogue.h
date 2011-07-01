@@ -44,7 +44,7 @@
 -(NSMutableDictionary *) conditionArguments; /*:(NSString*) type;*/
 
 #pragma mark *result images 
--(NSString *) getActionResultImage;//:(NSString*) subject action:(NSString*)action;
+-(NSString *) getActionResultImage:(BOOL) isfired;
 -(NSString *) getConditionResultController;
 -(NSString *) getConditionResultImage;
 

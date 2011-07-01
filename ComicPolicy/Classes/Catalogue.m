@@ -232,7 +232,6 @@ static NSDictionary* devicemetadata;
 }
 
 -(NSString *) currentDeviceName{
-    NSLog(@"device metadata %@", devicemetadata);
     NSDictionary *dict = [devicemetadata objectForKey:[self currentSubjectDevice]];
     return [dict objectForKey:@"name"];
 }
@@ -262,7 +261,7 @@ static NSDictionary* devicemetadata;
 	devicesindex = 0;
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"subjectOwnerChange" object:nil userInfo:nil];
     
-    NSLog(@"firing a SUBJECT DEVICE CHANGE.");
+   
     [[NSNotificationCenter defaultCenter] postNotificationName:@"subjectDeviceChange" object:nil userInfo:nil];
 	return next;
 }
@@ -454,9 +453,13 @@ static NSDictionary* devicemetadata;
 	return [self lookupImage: [self currentSubjectDevice] type:@"main" state:nil];
 }
 
--(NSString*) getActionResultImage{
+-(NSString*) getActionResultImage:(BOOL) isfired{
     NSDictionary *subj = (NSDictionary *) [imageLookup objectForKey:[self currentActionSubject]];
     NSDictionary *dict = (NSDictionary *) [subj objectForKey:[self currentActionType]];
+    
+    if (isfired)
+        return [dict objectForKey:@"fired"];
+   
     return [dict objectForKey:@"result"];
 }
 

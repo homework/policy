@@ -21,6 +21,7 @@
 @synthesize actiontype;
 @synthesize actionarguments;
 
+@synthesize fired;
 
 - (id)initWithPolicy:(Policy *)aPolicy{
     
@@ -34,6 +35,8 @@
         self.actionsubject      = aPolicy.actionsubject;
         self.actiontype         = aPolicy.actiontype;
         self.actionarguments    = aPolicy.actionarguments;
+        
+        self.fired = NO;
     
     }
     return self;

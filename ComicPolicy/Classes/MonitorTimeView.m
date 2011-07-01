@@ -23,10 +23,10 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        UIImageView *whiteMask = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"whitemask.png"]];
+        /*UIImageView *whiteMask = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"whitemask.png"]];
         whiteMask.frame = CGRectMake(439, 0, 130, 298);
         [self addSubview:whiteMask];
-        [whiteMask release];
+        [whiteMask release];*/
         
         UIImageView *tmpMonitor = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"resulttime.png"]];
         tmpMonitor.autoresizingMask = UIViewContentModeScaleAspectFit;// UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -106,6 +106,12 @@
 - (void)dealloc
 {
     NSLog(@"releasing monitor time view....");
+    [redcog.layer removeAllAnimations];
+    [yellowcog.layer removeAllAnimations];
+    [pinkcog.layer removeAllAnimations];
+    [pointer.layer removeAllAnimations];
+    [smallpointer.layer removeAllAnimations];
+    
     [redcog release];
     [yellowcog release];
     [pinkcog release];

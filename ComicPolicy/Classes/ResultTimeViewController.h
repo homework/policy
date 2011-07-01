@@ -18,7 +18,9 @@ typedef enum {
 
 @interface ResultTimeViewController : MonitorViewController {
 	MonitorTimeView *monitorTimeView;
-     NSTimer *monitorTimer;
+    NSTimer *monitorTimer;
+    BOOL rotateflag;
+    activity currentActivity;
 }
 
 //@property(nonatomic, retain) MonitorTimeView* monitorTimeView;

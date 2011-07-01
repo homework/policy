@@ -85,7 +85,7 @@
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionSubjectChange:) name:@"actionSubjectChange" object:nil];	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(subjectOwnerChange:) name:@"subjectOwnerChange" object:nil];	
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(policyLoaded:) name:@"policyLoaded" object:nil];	
-    
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(policyFired:) name:@"policyFired" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(requestComplete:) name:@"requestComplete" object:nil];
 	[[PolicyManager sharedPolicyManager] loadFirstPolicy];
 	
@@ -122,12 +122,13 @@
 	CGPoint touchLocation = [touch locationInView:self.view];
 	
 	if (CGRectContainsPoint( deleteButton.frame , touchLocation)){
-		NSLog(@"would delete this");
-	}
+		
+        [[PolicyManager sharedPolicyManager] policyFired:@"1"];
+    
+    }
 	
 	else if (CGRectContainsPoint( saveButton.frame , touchLocation)){
         NSString *policysent =  [[PolicyManager sharedPolicyManager] savePolicy];
-        NSLog(@"Policy to sent is %@", policysent);
         
         CGRect frame = CGRectMake(0,0, [[UIScreen mainScreen] applicationFrame].size.height, [[UIScreen mainScreen] applicationFrame].size.width);
         
@@ -148,6 +149,11 @@
     }
 }
 
+
+-(void) policyFired:(NSNotification *) notification{
+    [self.view setBackgroundColor:[UIColor redColor]];
+}
+
 -(void) policyLoaded:(NSNotification *) notification{
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.75];
@@ -155,7 +161,11 @@
     [UIView setAnimationDidStopSelector:@selector(pageLoaded:finished:context:)];
     [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:self.view cache:NO];
     [UIView commitAnimations];
-    [self.view setBackgroundColor:[UIColor whiteColor]];
+    
+    if ([[PolicyManager sharedPolicyManager] hasFired])
+        [self.view setBackgroundColor:[UIColor redColor]];
+    else
+        [self.view setBackgroundColor:[UIColor whiteColor]];
 }
 
 -(void) pageLoaded:(NSString*)animationID finished:(BOOL)finished context:(void*)context{

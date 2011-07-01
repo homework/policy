@@ -12,7 +12,7 @@
 @implementation BandwidthMonitorView
 
 - (void)drawRect:(CGRect)rect {
-    NSLog(@"in her drawing rect");
+   
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSetLineWidth(context, 2.0);
     CGContextSetStrokeColorWithColor(context, [UIColor blueColor].CGColor);

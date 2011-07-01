@@ -11,7 +11,11 @@
 
 @interface NavigationViewController()
 -(void) updateNavigation;
+-(void) updateSelected;
 @end
+
+
+//TODO: Currently assume that policy ids are numbers - but they can be strings, so need to do a lookiup from view.tag to a string.
 
 @implementation NavigationViewController
 
@@ -36,6 +40,8 @@ static float PADDING = 15;
     [self updateNavigation];
     
      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(totalPoliciesChanged:) name:@"totalPoliciesChanged" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(policyLoaded:) name:@"policyLoaded" object:nil];	
     
 }
 
@@ -80,7 +86,7 @@ static float PADDING = 15;
 	[self.view addSubview:tmpAdd];
 	[tmpAdd release];
 
-    
+    [self updateSelected];
 }
 
 //-(void) updatePolicyIds:(NSMutableArray *) policyids{
@@ -104,16 +110,16 @@ static float PADDING = 15;
         
 		if (CGRectContainsPoint(view.frame, touchLocation)){
             if (view.tag > 0){
-				if (selectedView != nil){
+				
+                if (selectedView != nil){
 					selectedView.transform = CGAffineTransformMakeScale(0.8, 0.8);	
 				}	
-                int currentPolicy = view.tag;
                 
-                if (currentPolicy != 0){// && currentPolicy != selectedPolicy){
-                    selectedPolicy = currentPolicy;
-                    [[PolicyManager sharedPolicyManager] loadPolicy:[NSString stringWithFormat:@"%d",selectedPolicy]];
-                }
+                selectedPolicy = view.tag;
+                [[PolicyManager sharedPolicyManager] loadPolicy:[NSString stringWithFormat:@"%d",selectedPolicy]];
+                
 				selectedView = view;
+                
 				view.transform = CGAffineTransformMakeScale(1.0, 1.0);
 				
 				break;
@@ -121,6 +127,30 @@ static float PADDING = 15;
 		}
 	}
 }
+
+-(void) policyLoaded:(NSNotification *) notification{
+    [self updateSelected];
+}
+
+-(void) updateSelected{
+    selectedPolicy = [[[PolicyManager sharedPolicyManager] currentPolicyId] intValue];
+    
+    for(UIView *view in self.view.subviews){
+        
+        if (view.tag == selectedPolicy){
+            
+            if (selectedView != nil){
+                selectedView.transform = CGAffineTransformMakeScale(0.8, 0.8);	
+            }	
+            
+            view.transform = CGAffineTransformMakeScale(1.0, 1.0);
+            selectedView = view;
+            break;
+        }
+    }
+
+}
+
 /*
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {

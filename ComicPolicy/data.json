@@ -4,7 +4,7 @@
         "navigation":{
     
             "subjects":{
-                        "dad":["18:E7:F4:79:52:B2","0000bbbb"],
+                        "dad":["18:E7:F4:79:52:B2","00:1f:f3:bc:b2:57"],
                         "katie":["0000cccc"],   
                         "mum":["0000dddd"],
                         "john":["0000eeee"],
@@ -36,10 +36,10 @@
             "actions":{
 
                     "block":{
-                        "subjects":["18:E7:F4:79:52:B2","0000bbbb","0000cccc","0000dddd","0000eeee", "0000ffff"],
+                        "subjects":["18:E7:F4:79:52:B2","00:1f:f3:bc:b2:57","0000cccc","0000dddd","0000eeee", "0000ffff"],
                         "arguments":{
                                 "18:E7:F4:79:52:B2":["dad"],
-                                "0000bbbb":["dad"],
+                                "00:1f:f3:bc:b2:57":["dad"],
                                 "0000cccc":["katie"],   
                                 "0000dddd":["mum"],
                                 "0000eeee":["john"],
@@ -81,8 +81,8 @@
                 "18:E7:F4:79:52:B2":{
                     "name": "dad's itouch"
                 },
-                "0000bbbb":{
-                    "name": "dad's iphone"
+                "00:1f:f3:bc:b2:57":{
+                    "name": "dad's macair"
                 },
                 "0000cccc":{
                     "name": "katie's desktop"   
@@ -139,7 +139,7 @@
                     "notify":{
                             "action":"notifydad.png",
                             "result":"dadwaiting.png",
-                            "fired":"dadnotified.png"
+                            "fired":"dadtold.png"
                     }
                 },
                 
@@ -152,7 +152,7 @@
                     "notify":{
                             "action":"notifykatie.png",
                             "result":"katiewaiting.png",
-                            "fired":"katienotified.png"
+                            "fired":"katietold.png"
                     }
                 },
             "mum":
@@ -164,7 +164,7 @@
                     "notify":{
                             "action":"notifymum.png",
                             "result":"mumwaiting.png",
-                            "fired":"mumnotified.png"
+                            "fired":"mumtold.png"
                     }
                 },
             "john":
@@ -176,7 +176,7 @@
                     "notify":{
                             "action":"notifyjohn.png",
                             "result":"johnwaiting.png",
-                            "fired":"johnnotified.png"
+                            "fired":"johntold.png"
                     }
                 },
             "everyone":
@@ -188,7 +188,7 @@
                     "notify":{
                             "action":"notifyeveryone.png",
                             "result":"everyonewaiting.png",
-                            "fired":"everyonenotified.png"
+                            "fired":"everyonetold.png"
                     }
                 },
             "18:E7:F4:79:52:B2":
@@ -200,7 +200,7 @@
                             "fired":"phoneblocked.png"
                     }
                 },
-            "0000bbbb":
+            "00:1f:f3:bc:b2:57":
                 {
                     "main":"condlaptop",
                     "block":{

@@ -20,6 +20,6 @@
     UIView *topMask;
 }
 
-@property(nonatomic, retain) UIView* topMask;
+@property(nonatomic, assign) UIView* topMask;
 
 @end

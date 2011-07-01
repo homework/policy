@@ -22,6 +22,8 @@
     NSString*    actionsubject;
     NSString*    actiontype;
     NSArray*    actionarguments;
+    
+    BOOL fired;
 }
 
 - (id)initWithDictionary:(NSDictionary *)aDictionary;
@@ -38,5 +40,7 @@
 @property(nonatomic, copy) NSString*  actionsubject;
 @property(nonatomic, copy) NSString*  actiontype;
 @property(nonatomic, copy) NSArray*  actionarguments;
+
+@property(nonatomic, assign)  BOOL  fired;
 
 @end

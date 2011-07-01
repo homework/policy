@@ -66,22 +66,22 @@
 
 - (void)delegateStarted:(ASIHTTPRequest *)request
 {
-	NSLog(@"started something");
+	
 }
 
 - (void) delegateRequest:(ASIHTTPRequest *)request receivedResponseHeaders:(NSDictionary *)responseHeaders
 {
-    NSLog(@"received response headers");
+   
 }
 
 - (void)delegateFinished:(ASIHTTPRequest *)request
 {
-    NSLog(@"finished something");	
+   	
 }
 
 - (void)delegateFailed:(ASIHTTPRequest *)request
 {
-    NSLog(@"test failed....");
+    NSLog(@"connection failed....");
 }
 
 

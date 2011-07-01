@@ -66,6 +66,10 @@
 		A30AE3A51316F6F80060D2F1 /* ConditionVisitingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A30AE3A41316F6F80060D2F1 /* ConditionVisitingViewController.m */; };
 		A30AE54E1317CA830060D2F1 /* conditionmoneybag.png in Resources */ = {isa = PBXBuildFile; fileRef = A30AE54D1317CA830060D2F1 /* conditionmoneybag.png */; };
 		A30AE5521317CC1D0060D2F1 /* frame.png in Resources */ = {isa = PBXBuildFile; fileRef = A30AE5501317CC1D0060D2F1 /* frame.png */; };
+		A323BD4413BE050C0076F1E6 /* computerblocked.png in Resources */ = {isa = PBXBuildFile; fileRef = A323BD4013BE050C0076F1E6 /* computerblocked.png */; };
+		A323BD4513BE050C0076F1E6 /* desktopblocked.png in Resources */ = {isa = PBXBuildFile; fileRef = A323BD4113BE050C0076F1E6 /* desktopblocked.png */; };
+		A323BD4613BE050C0076F1E6 /* laptopblocked.png in Resources */ = {isa = PBXBuildFile; fileRef = A323BD4213BE050C0076F1E6 /* laptopblocked.png */; };
+		A323BD4713BE050C0076F1E6 /* phoneblocked.png in Resources */ = {isa = PBXBuildFile; fileRef = A323BD4313BE050C0076F1E6 /* phoneblocked.png */; };
 		A32749471340A10C00212CAB /* ok.png in Resources */ = {isa = PBXBuildFile; fileRef = A32749451340A10C00212CAB /* ok.png */; };
 		A32749481340A10C00212CAB /* cancel.png in Resources */ = {isa = PBXBuildFile; fileRef = A32749461340A10C00212CAB /* cancel.png */; };
 		A32749681340AAAD00212CAB /* NavigationView.m in Sources */ = {isa = PBXBuildFile; fileRef = A32749671340AAAD00212CAB /* NavigationView.m */; };
@@ -297,6 +301,10 @@
 		A30AE3A41316F6F80060D2F1 /* ConditionVisitingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConditionVisitingViewController.m; sourceTree = "<group>"; };
 		A30AE54D1317CA830060D2F1 /* conditionmoneybag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = conditionmoneybag.png; sourceTree = "<group>"; };
 		A30AE5501317CC1D0060D2F1 /* frame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = frame.png; sourceTree = "<group>"; };
+		A323BD4013BE050C0076F1E6 /* computerblocked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = computerblocked.png; sourceTree = "<group>"; };
+		A323BD4113BE050C0076F1E6 /* desktopblocked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = desktopblocked.png; sourceTree = "<group>"; };
+		A323BD4213BE050C0076F1E6 /* laptopblocked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = laptopblocked.png; sourceTree = "<group>"; };
+		A323BD4313BE050C0076F1E6 /* phoneblocked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = phoneblocked.png; sourceTree = "<group>"; };
 		A32749451340A10C00212CAB /* ok.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ok.png; sourceTree = "<group>"; };
 		A32749461340A10C00212CAB /* cancel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cancel.png; sourceTree = "<group>"; };
 		A32749661340AAAD00212CAB /* NavigationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationView.h; sourceTree = "<group>"; };
@@ -952,6 +960,10 @@
 		A352AA90131D03B10053867A /* devices */ = {
 			isa = PBXGroup;
 			children = (
+				A323BD4013BE050C0076F1E6 /* computerblocked.png */,
+				A323BD4113BE050C0076F1E6 /* desktopblocked.png */,
+				A323BD4213BE050C0076F1E6 /* laptopblocked.png */,
+				A323BD4313BE050C0076F1E6 /* phoneblocked.png */,
 				A352AA91131D03B10053867A /* computerunblocked.png */,
 				A352AA92131D03B10053867A /* desktopunblocked.png */,
 				A352AA93131D03B10053867A /* laptopunblocked.png */,
@@ -1385,6 +1397,10 @@
 				A3A81A48138E89B20001CF25 /* smallpointer.png in Resources */,
 				A372A5AC13A8B854006CF4B4 /* plus.png in Resources */,
 				A343D61113BBA4EA00B25BC1 /* allpolicies.json in Resources */,
+				A323BD4413BE050C0076F1E6 /* computerblocked.png in Resources */,
+				A323BD4513BE050C0076F1E6 /* desktopblocked.png in Resources */,
+				A323BD4613BE050C0076F1E6 /* laptopblocked.png in Resources */,
+				A323BD4713BE050C0076F1E6 /* phoneblocked.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

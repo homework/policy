@@ -57,6 +57,26 @@
 	return YES;
 }
 
+- (void) application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo{
+    
+    NSDictionary *data = [userInfo objectForKey:@"aps"];
+    NSLog(@"Policy %@ fired", [data objectForKey:@"policyid"]);
+    [[PolicyManager sharedPolicyManager] policyFired:[data objectForKey:@"policyid"]];
+    /*NSString *message = nil;
+    id alert = [userInfo objectForKey:@"alert"];
+    if ([alert isKindOfClass:[NSString class]]){
+        message = alert;
+    }else if ([alert isKindOfClass:[NSDictionary class]]){
+        message = [alert objectForKey:@"body"];
+    }
+    if (alert){
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Title" message:@"the message" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:@"button", nil];
+        [alertView show];
+        [alertView release];
+    }
+    */
+}
+
 - (void)application:(UIApplication *)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)token { 
     
     //  [[KeychainManager sharedManager] deleteAccountDetails];

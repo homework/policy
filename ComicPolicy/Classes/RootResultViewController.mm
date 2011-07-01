@@ -8,6 +8,7 @@
 
 #import "RootResultViewController.h"
 #import "Catalogue.h"
+#import "PolicyManager.h"
 
 @implementation RootResultViewController
 @synthesize resultController;
@@ -28,12 +29,7 @@
 
 -(void) conditionChange:(NSNotification *) n{
    
-   
-	//NSDictionary *userInfo = [n userInfo];
-	
-    //NSString* newscene = [[Catalogue sharedCatalogue] getConditionResultImage:[userInfo objectForKey:@"condition"]];
-    
-    NSString *newcontroller = [[Catalogue sharedCatalogue] getConditionResultController];//[userInfo objectForKey:@"condition"]];
+     NSString *newcontroller = [[Catalogue sharedCatalogue] getConditionResultController];
     
     MonitorViewController *newController = [[NSClassFromString(newcontroller) alloc] initWithNibName:nil bundle:nil];
 
@@ -52,12 +48,25 @@
      
 }
 
+-(void) policyFired:(NSNotification *) n{
+    BOOL hasFired = [[PolicyManager sharedPolicyManager] hasFiredForSubject:[[Catalogue sharedCatalogue] currentActionSubject]];
+    
+    NSString *newscene =  [[Catalogue sharedCatalogue] getActionResultImage:hasFired];
+    
+    CGRect frame = resultController.resultView.resultMainImage.frame;
+    
+    resultController.resultView.resultMainImage.image = [UIImage imageNamed:newscene];
+    resultController.resultView.resultMainImage.frame = frame;
+}
+
 -(void) actionSubjectChange:(NSNotification *) n{
 	
-	NSString *newscene =  [[Catalogue sharedCatalogue] getActionResultImage];
+    BOOL hasFired = [[PolicyManager sharedPolicyManager] hasFiredForSubject:[[Catalogue sharedCatalogue] currentActionSubject]];
+    
+	NSString *newscene =  [[Catalogue sharedCatalogue] getActionResultImage:hasFired];
 	
 	if (newscene != NULL){
-		//if (! [currentController.currentActionScene isEqualToString:newscene]){
+		if (! [resultController.currentActionScene isEqualToString:newscene]){
 			[UIView beginAnimations:nil context:nil];
 			[UIView setAnimationDuration:0.75];
 			[UIView setAnimationDelegate:self];
@@ -65,7 +74,7 @@
 			resultController.resultView.resultMainImage.image = [UIImage imageNamed:newscene];
 			[UIView commitAnimations];
 			resultController.currentActionScene = newscene;
-		//}
+		}
 	}
 }
 
@@ -77,7 +86,6 @@
 	
 	[UIView beginAnimations:nil context:nil];
 	[UIView setAnimationDuration:0.75];
-	//[UIView setAnimationDelay:0.70];
 	[UIView setAnimationDelegate:self];
 	
 	if ([controller isEqualToString:@"ActionBlockViewController"]){
@@ -121,8 +129,9 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(conditionChange:) name:@"policyLoaded" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionSubjectChange:) name:@"actionSubjectChange" object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionTypeChange:) name:@"actionTypeChange" object:nil];	
-	
-		
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(policyFired:) name:@"policyFired" object:nil];	
+    
+    
 	CGRect aframe = CGRectMake(64,367,897,301);
 	UIView *rootView = [[UIView alloc] initWithFrame:aframe];	
 	self.view = rootView;

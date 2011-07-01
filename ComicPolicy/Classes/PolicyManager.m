@@ -82,6 +82,24 @@ static int localId;
     return self;
 }
 
+
+-(NSString*) currentPolicyId{
+    return currentPolicy.identity;
+}
+
+-(BOOL) hasFired{
+    return currentPolicy.fired;
+}
+
+-(BOOL) hasFiredForSubject:(NSString *)subject{
+    if (currentPolicy.fired){
+        if ([currentPolicy.actionsubject isEqualToString:subject]){
+            return YES;
+        }
+    }
+    return NO;
+}
+
 -(void) readInPolicies:(NSMutableDictionary *)policydict{
     
     for (NSString *identity in [policydict allKeys]){
@@ -108,7 +126,7 @@ static int localId;
 
 
 -(NSMutableDictionary *) getConditionArguments:(NSString*)type{
-    NSLog(@"chceking args for policy type %@", type);
+   
     if ([currentPolicy.conditiontype isEqualToString:type]){
         return currentPolicy.conditionarguments;
     }
@@ -133,20 +151,30 @@ static int localId;
     Policy *apolicy = [policies objectForKey:localpolicyid];
     
     if (apolicy != nil){
+        NSLog(@"setting new policy to %@", apolicy.identity);
         self.currentPolicy = apolicy;
         [[Catalogue sharedCatalogue] setSubject:apolicy.subjectowner device:apolicy.subjectdevice];
         [[Catalogue sharedCatalogue] setCondition:apolicy.conditiontype options:apolicy.conditionarguments];
         //should take an array of arguments for 'option'
         [[Catalogue sharedCatalogue] setAction:apolicy.actiontype subject:apolicy.actionsubject options:apolicy.actionarguments];
-        
-        
-      
+    }else{
+        NSLog(@"hmmm apolicy is nil!!");
     }
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"policyLoaded" object:nil userInfo:nil];
 }
 
 
+-(void) policyFired:(NSString *) policyid{
+   [self loadPolicy:policyid];
+    
+    NSLog(@"and setting it to fired...");
+    currentPolicy.fired = YES;
+    
+    NSDictionary *dict = [NSDictionary dictionaryWithObject:policyid forKey:@"identity"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"policyFired" object:nil userInfo:dict];
+   // [dict release];
+}
 
 /*
  * Take the current representation of the policy, and send it to the policyManager backend to install
@@ -209,7 +237,7 @@ static int localId;
         NSObject *value = [dict objectForKey:key];
         
         if ([value isKindOfClass:[NSArray class]]){
-             NSLog(@"entry is an array...");
+             
             NSMutableDictionary *arraydict = [[NSMutableDictionary alloc] init];
             [arraydict setObject:value forKey:@"string"]; 
             
@@ -220,7 +248,6 @@ static int localId;
         }
         //if ([value isKindOfClass:[NSString class]]){
         else{
-            NSLog(@"entry is a string... %@ %@ ", key, [dict objectForKey:key]);
             NSArray* entry = [[NSArray alloc] initWithObjects:key, [dict objectForKey:key], nil];
             NSMutableDictionary *entrydict = [[NSMutableDictionary alloc] init];
             [entrydict setObject:entry forKey:@"string"];
@@ -235,7 +262,7 @@ static int localId;
 -(void) sendPolicy:(NSString*) json{
     NSString *rootURL  = [[NetworkManager sharedManager] rootURL];
     NSString *strurl = [NSString stringWithFormat:@"%@/policy/save", rootURL];
-    NSLog(@"connecting to %@", strurl);
+   
     NSURL *url = [NSURL URLWithString:strurl];
     ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
     [request addPostValue:json forKey:@"policy"];

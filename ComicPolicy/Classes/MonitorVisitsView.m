@@ -16,10 +16,10 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-            UIImageView *whiteMask = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"whitemask.png"]];
+            /*UIImageView *whiteMask = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"whitemask.png"]];
             whiteMask.frame = CGRectMake(439, 0, 130, 298);
             [self addSubview:whiteMask];
-            [whiteMask release];
+            [whiteMask release];*/
             
             UIImageView *tmpMonitor = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"resultvisits.png"]];
                        tmpMonitor.autoresizingMask = UIViewContentModeScaleAspectFit;// UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
