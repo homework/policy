@@ -62,7 +62,8 @@
         [tmphbranch release];
         
         self.pointer = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"pointer.png"]];
-        self.pointer.center = CGPointMake(322,115);
+        self.pointer.center = CGPointMake(322,135);
+        [self.pointer.layer setAnchorPoint:CGPointMake(0.5, 0.64)]; 
         [self addSubview:pointer];
         
         UIImageView *tmpdash = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dash.png"]];

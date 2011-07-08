@@ -14,13 +14,12 @@
 
 -(void) addNavigationView;
 -(void) addSaveAndCancel;
+-(void) checkInSync;
 @end
 
 @implementation ComicPolicyViewController
 
 @synthesize buttons;
-@synthesize saveButton;
-@synthesize deleteButton;
 @synthesize policyids;
 @synthesize tickPlayer;
 @synthesize tockPlayer;
@@ -83,10 +82,16 @@
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionTypeChange:) name:@"actionTypeChange" object:nil];	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(conditionChange:) name:@"conditionChange" object:nil];	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionSubjectChange:) name:@"actionSubjectChange" object:nil];	
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(subjectOwnerChange:) name:@"subjectOwnerChange" object:nil];	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(subjectOwnerChange:) name:@"subjectOwnerChange" object:nil];
+	
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(catalogueChange:) name:@"catalogueChange" object:nil];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(policyLoaded:) name:@"policyLoaded" object:nil];	
-     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(policyFired:) name:@"policyFired" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(requestComplete:) name:@"requestComplete" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(policyFired:) name:@"policyFired" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(requestComplete:) name:@"saveRequestComplete" object:nil];
+    
 	[[PolicyManager sharedPolicyManager] loadFirstPolicy];
 	
 }
@@ -101,16 +106,29 @@
 -(void) addSaveAndCancel{
 	UIImageView *tmpCancel = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cancel.png"]];
 	tmpCancel.frame = CGRectMake(900, 680, 55, 57);
-	self.deleteButton = tmpCancel;
+	deleteButton = tmpCancel;
 	[self.view addSubview:tmpCancel];
 	[tmpCancel release];
 	
 	UIImageView *tmpSave = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ok.png"]];
 	tmpSave.frame = CGRectMake(820, 680, 55, 57);
-	self.saveButton = tmpSave;
+	saveButton = tmpSave;
 	[self.view addSubview:tmpSave];
 	[tmpSave release];
 	
+    UIImageView *tmpRefresh = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"refresh.png"]];
+	tmpRefresh.frame = CGRectMake(740, 680, 55, 57);
+	refreshButton = tmpRefresh;
+	[self.view addSubview:tmpRefresh];
+	[tmpRefresh release];
+    
+    UIImageView *tmpReset = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"reset.png"]];
+	tmpReset.frame = CGRectMake(660, 680, 55, 57);
+	resetButton = tmpReset;
+    resetButton.alpha = 0.0;
+	[self.view addSubview:tmpReset];
+	[tmpReset release];
+    
 }
 
 
@@ -126,9 +144,14 @@
         [[PolicyManager sharedPolicyManager] policyFired:@"1"];
     
     }
-	
+    else if (CGRectContainsPoint( refreshButton.frame , touchLocation)){
+        [[PolicyManager sharedPolicyManager] refresh];
+    }
+    else if (CGRectContainsPoint( resetButton.frame , touchLocation)){
+        [[PolicyManager sharedPolicyManager] reset];
+    }
 	else if (CGRectContainsPoint( saveButton.frame , touchLocation)){
-        NSString *policysent =  [[PolicyManager sharedPolicyManager] savePolicy];
+        [[PolicyManager sharedPolicyManager] savePolicy];
         
         CGRect frame = CGRectMake(0,0, [[UIScreen mainScreen] applicationFrame].size.height, [[UIScreen mainScreen] applicationFrame].size.width);
         
@@ -145,13 +168,37 @@
     if (inprogress){
         inprogress = NO;
         [progressView removeFromSuperview];
-        
     }
+    [self checkInSync];
 }
 
 
+-(void) catalogueChange:(NSNotification *) notification{
+    [self checkInSync];
+   
+   
+}
+
+-(void) checkInSync{
+    
+    if ([[PolicyManager sharedPolicyManager] hasFired]){
+         resetButton.alpha = 1.0;
+        [self.view setBackgroundColor:[UIColor redColor]];
+        return;
+    }
+    
+    resetButton.alpha = 0.0;
+   
+    if (![[PolicyManager sharedPolicyManager] isInSync])
+        [self.view setBackgroundColor:[UIColor lightGrayColor]];
+     
+    else
+        [self.view setBackgroundColor:[UIColor whiteColor]];
+    
+}
+
 -(void) policyFired:(NSNotification *) notification{
-    [self.view setBackgroundColor:[UIColor redColor]];
+    [self checkInSync];
 }
 
 -(void) policyLoaded:(NSNotification *) notification{
@@ -161,11 +208,7 @@
     [UIView setAnimationDidStopSelector:@selector(pageLoaded:finished:context:)];
     [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:self.view cache:NO];
     [UIView commitAnimations];
-    
-    if ([[PolicyManager sharedPolicyManager] hasFired])
-        [self.view setBackgroundColor:[UIColor redColor]];
-    else
-        [self.view setBackgroundColor:[UIColor whiteColor]];
+    [self checkInSync];
 }
 
 -(void) pageLoaded:(NSString*)animationID finished:(BOOL)finished context:(void*)context{

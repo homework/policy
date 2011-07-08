@@ -260,9 +260,8 @@ static NSDictionary* devicemetadata;
 	devices =  [[subjectLookup objectForKey:[self currentSubjectOwner]] retain];
 	devicesindex = 0;
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"subjectOwnerChange" object:nil userInfo:nil];
-    
-   
     [[NSNotificationCenter defaultCenter] postNotificationName:@"subjectDeviceChange" object:nil userInfo:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"catalogueChange" object:nil userInfo:nil];
 	return next;
 }
 
@@ -284,6 +283,8 @@ static NSDictionary* devicemetadata;
 -(NSString*) nextCondition{
     NSString *condition = (NSString*) [conditions objectAtIndex:++conditionindex % [conditions count]];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"conditionChange" object:nil userInfo:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"catalogueChange" object:nil userInfo:nil];
+
     return condition;
 }
 
@@ -298,6 +299,8 @@ static NSDictionary* devicemetadata;
 	[self updateActionOptions:subject];
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"actionChange" object:nil userInfo:nil];
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"actionSubjectChange" object:nil userInfo:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"catalogueChange" object:nil userInfo:nil];
+
 	return subject;
 }
 
@@ -319,7 +322,8 @@ static NSDictionary* devicemetadata;
 		return NULL;
 	}
     [[NSNotificationCenter defaultCenter] postNotificationName:@"actionSubjectChange" object:nil userInfo:nil];
-    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"catalogueChange" object:nil userInfo:nil];
+
 	return [actionoptionsarray objectAtIndex:++actionoptionsarrayindex % [actionoptionsarray count]];
 }
 
@@ -368,7 +372,7 @@ static NSDictionary* devicemetadata;
     NSDictionary* dict = [NSDictionary dictionaryWithObject:controller forKey:@"controller"];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"actionTypeChange" object:nil userInfo:dict];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"actionSubjectChange" object:nil userInfo:nil];
-    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"catalogueChange" object:nil userInfo:nil];
 	return controller;
 }
 
@@ -506,13 +510,14 @@ static NSDictionary* devicemetadata;
 }
 
 /*
- * Action  =   notify / block etc
- * Subject =   mum / dad  etc
- * Option  =   tweet / notify etc or device macaddr
+ * Action  =   notify           /   block 
+ * Subject =   mum, dad         /   device macaddr  
+ * Option  =   tweet, notify    /   owner (i.e. mum/dad)
  */
 
 -(void) setAction:(NSString *) action subject:(NSString*) subject options:(NSArray*)arguments{
     
+    NSLog(@"ok setting the action...");
     
     int index = 0;
     
@@ -527,6 +532,7 @@ static NSDictionary* devicemetadata;
         if (subjects != nil){
             index = 0;
             for (NSString* asubject in subjects){
+                NSLog(@"checking if %@ is equal to %@", asubject, subject);
                 if ([asubject isEqualToString:subject]){
                     
                     if (actionsubjectarray != NULL)
@@ -534,9 +540,14 @@ static NSDictionary* devicemetadata;
                    
                     actionsubjectarray = [subjects retain];
                     actionsubjectarrayindex = index;
+                    
+                    NSLog(@"setting current action type to %@", action);
+                    
                     currentActionType = action;
                     
                     NSString *subject = [actionsubjectarray objectAtIndex:actionsubjectarrayindex];
+                    
+                     NSLog(@"setting current action subject to %@", subject);
                     
                     [self updateActionOptions:subject];
                     
@@ -594,8 +605,8 @@ static NSDictionary* devicemetadata;
                 }
                 index += 1;
             }           
-        }
-    }
+        }else{NSLog(@"hmmm, subjects is niL!!!");}
+    }else{NSLog(@"cant find objcet for key %@", action);}
 }
 
 @end

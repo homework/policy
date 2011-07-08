@@ -92,12 +92,53 @@ static int localId;
 }
 
 -(BOOL) hasFiredForSubject:(NSString *)subject{
+    NSLog(@"chekcing if policy has fired for subject %@", subject);
+    
     if (currentPolicy.fired){
+        NSLog(@"current policy has fired...");
         if ([currentPolicy.actionsubject isEqualToString:subject]){
+            NSLog(@"returning yes");
             return YES;
+        }else{
+            NSLog(@"%@ is not the same as %@", currentPolicy.actionsubject, subject);
         }
     }
+    NSLog(@"returning no..");
     return NO;
+}
+
+/*
+ * Check to see if the current catalogue selections are in sync with the saved policy
+ */
+
+-(BOOL) isInSync{
+    
+    if (currentPolicy.identity == NULL){
+        return NO;
+    }
+    
+    NSLog(@"1. checking %@ against %@", currentPolicy.subjectdevice, [[Catalogue sharedCatalogue] currentSubjectDevice]);
+    
+    if ( ![currentPolicy.subjectdevice isEqualToString:[[Catalogue sharedCatalogue] currentSubjectDevice]])
+        return NO;
+    
+     NSLog(@"2. checking %@ against %@", currentPolicy.conditiontype, [[Catalogue sharedCatalogue] currentCondition]);
+    
+    if (![currentPolicy.conditiontype isEqualToString: [[Catalogue sharedCatalogue] currentCondition]])
+        return NO;
+    
+    //TODO: condition args...
+    NSLog(@"3.checking %@ against %@",currentPolicy.actiontype, [[Catalogue sharedCatalogue] currentActionType]);
+    if ( ![currentPolicy.actiontype isEqualToString: [[Catalogue sharedCatalogue] currentActionType]])
+        return NO;
+    
+    NSLog(@"checking %@ against %@", currentPolicy.actionsubject, [[Catalogue sharedCatalogue] currentActionSubject]);
+    if (![currentPolicy.actionsubject isEqualToString: [[Catalogue sharedCatalogue] currentActionSubject]])
+        return NO;
+    
+    //TODO: actionargs....
+    
+    return YES;
 }
 
 -(void) readInPolicies:(NSMutableDictionary *)policydict{
@@ -146,19 +187,28 @@ static int localId;
     [[NSNotificationCenter defaultCenter] postNotificationName:@"totalPoliciesChanged" object:nil userInfo:nil];
 }
 
+-(void) refresh{
+    if (currentPolicy.identity != NULL){
+        [self loadPolicy:currentPolicy.identity];
+    }
+}
+
+-(void) reset{
+    [self savePolicy];
+}
+
 -(void) loadPolicy:(NSString*) localpolicyid{
 
     Policy *apolicy = [policies objectForKey:localpolicyid];
     
     if (apolicy != nil){
-        NSLog(@"setting new policy to %@", apolicy.identity);
-        self.currentPolicy = apolicy;
+         self.currentPolicy = apolicy;
         [[Catalogue sharedCatalogue] setSubject:apolicy.subjectowner device:apolicy.subjectdevice];
         [[Catalogue sharedCatalogue] setCondition:apolicy.conditiontype options:apolicy.conditionarguments];
         //should take an array of arguments for 'option'
+       
         [[Catalogue sharedCatalogue] setAction:apolicy.actiontype subject:apolicy.actionsubject options:apolicy.actionarguments];
-    }else{
-        NSLog(@"hmmm apolicy is nil!!");
+        
     }
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"policyLoaded" object:nil userInfo:nil];
@@ -167,13 +217,10 @@ static int localId;
 
 -(void) policyFired:(NSString *) policyid{
    [self loadPolicy:policyid];
-    
-    NSLog(@"and setting it to fired...");
     currentPolicy.fired = YES;
     
     NSDictionary *dict = [NSDictionary dictionaryWithObject:policyid forKey:@"identity"];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"policyFired" object:nil userInfo:dict];
-   // [dict release];
 }
 
 /*
@@ -231,7 +278,6 @@ static int localId;
     
     NSMutableArray *entries = [[NSMutableArray alloc] init];
     
-    NSLog(@"condition args dict is %@",dict);
     
     for (NSString* key in [dict allKeys]){
         NSObject *value = [dict objectForKey:key];
@@ -284,12 +330,12 @@ static int localId;
         currentPolicy.identity = [data objectForKey:@"message"];
         [self saveCurrentPolicy];
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"requestComplete" object:nil userInfo:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"saveRequestComplete" object:nil userInfo:nil];
 }
 
 - (void)delegateFailed:(ASIHTTPRequest *)request
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"requestComplete" object:nil userInfo:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"saveRequestComplete" object:nil userInfo:nil];
 }
 
 -(void) saveCurrentPolicy{
@@ -302,6 +348,7 @@ static int localId;
     currentPolicy.actionarguments   = [[NSArray alloc] initWithObjects:[[Catalogue sharedCatalogue] currentAction], nil];
     currentPolicy.actionsubject     = [[Catalogue sharedCatalogue] currentActionSubject];
     currentPolicy.actiontype        = [[Catalogue sharedCatalogue] currentActionType];
+    currentPolicy.fired = NO;
 }
 
 

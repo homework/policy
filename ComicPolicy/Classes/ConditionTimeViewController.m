@@ -50,9 +50,11 @@ BOOL toScaled = NO;
         NSString* tmstr = [tchunks objectAtIndex:1];
         
         [self setFromHour: [fhstr intValue]];
+        
         [self setFromMinute:[fmstr intValue]];
         
         [self setToHour: [thstr intValue]];
+        
         [self setToMinute:[tmstr intValue]];
         
         [self updateCaption];
@@ -131,7 +133,14 @@ BOOL toScaled = NO;
         
         int sign = (x >= 0) ? 1 : -1;
         int multiplier = (x > 0) ? 0 : 1;
-		int PM = [conditionTimeView.fromAMPM isSelected] ? 12: 0;
+        int PM = 0;
+        
+        if ([touch view] == conditionTimeView.fhh)
+            PM = [conditionTimeView.fromAMPM isSelected] ? 12 : 0;
+        else if ([touch view] == conditionTimeView.thh)
+            PM = [conditionTimeView.toAMPM isSelected] ? 12 : 0;
+            
+        //NSLog(@"pm is %@", PM);
         
         if (x >= 0)
             [touch view].transform = CGAffineTransformMakeRotation(-ang +  (M_PI/2));
@@ -162,6 +171,12 @@ BOOL toScaled = NO;
     float rad = deg * (M_PI/180);
     conditionTimeView.fhh.transform = CGAffineTransformMakeRotation(rad);
     fromhour = hour;
+    
+    if (fromhour >= 12){
+        [conditionTimeView.fromAMPM setSelected:YES];
+    }else{
+        [conditionTimeView.fromAMPM setSelected:NO];
+    }
 }
 
 -(void) setToHour:(int) hour{
@@ -169,6 +184,12 @@ BOOL toScaled = NO;
     float rad = deg * (M_PI/180);
     conditionTimeView.thh.transform = CGAffineTransformMakeRotation(rad);
     tohour = hour;
+    
+    if (tohour >= 12){
+        [conditionTimeView.toAMPM setSelected:YES];
+    }else{
+        [conditionTimeView.toAMPM setSelected:NO];
+    }
 }
 
 -(void) setFromMinute:(int) minute{
@@ -201,6 +222,8 @@ BOOL toScaled = NO;
 		
 		[conditionTimeView.fromClockFace removeFromSuperview];
 		[self.view addSubview:conditionTimeView.fromClockFace];
+        [conditionTimeView.caption removeFromSuperview];
+        [self.view addSubview:conditionTimeView.caption];
         
 		[UIView beginAnimations:nil context:nil];
 		[UIView setAnimationDelegate:self];
@@ -227,7 +250,8 @@ BOOL toScaled = NO;
 	else if (CGRectContainsPoint(conditionTimeView.toClockFace.frame, touchLocation)){
 		[conditionTimeView.toClockFace removeFromSuperview];
 		[self.view addSubview:conditionTimeView.toClockFace];
-        
+        [conditionTimeView.caption removeFromSuperview];
+        [self.view addSubview:conditionTimeView.caption];
 		
 		[UIView beginAnimations:nil context:nil];
 		[UIView setAnimationDelegate:self];

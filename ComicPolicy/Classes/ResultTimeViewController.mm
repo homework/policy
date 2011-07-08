@@ -15,6 +15,9 @@
 -(void) rotateCogs:(NSString *) animationID finished:(NSNumber*)finished context:(void*)context;
 -(void) rotateActivityMonitor:(activity) a;
 -(void) resetActivity;
+-(void) advancePointer;
+-(void) advanceInside: (int) timeLeft;
+-(void) advanceOutside:(int) timeLeft;
 @end
 
 @implementation ResultTimeViewController
@@ -34,9 +37,15 @@
 
 /*
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView {
+-(void)loadView {
 }
 */
+
+float DURATION      = 0;
+float TIMEOUTSIDE   = 30;   //seconds
+float TIMEINSIDE    = 10;   //seconds
+float TIMEDELTA     = 3;    //seconds
+BOOL inside = NO;
 
 - (void)loadView
 {
@@ -64,6 +73,9 @@
     [self resetActivity];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newActivityData:) name:@"newActivityData" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(subjectDeviceChange:) name:@"subjectDeviceChange" object:nil];
+    
+     //monitorTimeView.pointer.transform = CGAffineTransformMakeRotation(M_PI/4);
+    monitorTimeView.pointer.transform = CGAffineTransformMakeRotation((3 * M_PI)/4);
 }
 
 -(void) subjectDeviceChange:(NSNotification *) notification{
@@ -76,10 +88,69 @@
 }
 
 -(void) requestData:(NSTimer *) timer{
+    
+    [self advancePointer];
+   
+    //start = M_PI / 
     NSString * subject = [[Catalogue sharedCatalogue] currentSubjectDevice];
     NSString *rootURL  = [[NetworkManager sharedManager] rootURL];
     NSString *strurl = [NSString stringWithFormat:@"%@/monitor/activity/%@", rootURL, subject];
     [[MonitorDataSource sharedDatasource] requestURL: strurl callback:@"newActivityData"];
+}
+
+-(void) advancePointer{
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:2.0];
+    [UIView setAnimationDelegate:self];
+    //float startInDegrees = ((3 * M_PI)/4) * ((float)180/M_PI);
+    
+    
+    if (inside){
+        int timeLeft = TIMEINSIDE - DURATION;       
+        if (timeLeft <= 0){
+            inside = FALSE;
+            DURATION = 0;
+            [self advanceOutside:(TIMEOUTSIDE - DURATION)];
+        }else{
+            [self advanceInside:timeLeft];
+        }
+    }else{
+        
+    
+        int timeLeft = TIMEOUTSIDE - DURATION;
+    
+        if (timeLeft <= 0){
+            inside = TRUE;
+            DURATION = 0;
+            [self advanceInside:(TIMEINSIDE - DURATION)];
+        }
+        else{
+            [self advanceOutside:timeLeft];
+        }
+    }
+    [UIView commitAnimations];
+}
+
+-(void) advanceInside: (int) timeLeft{
+    float startInDegrees = (M_PI/4) * ((float)180/M_PI);
+        
+    NSLog(@"inside - time left is %d", timeLeft);
+    float fraction = timeLeft/TIMEINSIDE;
+    int degrees = (int) (startInDegrees + ((90) - (90 * fraction))) % 360;
+    NSLog(@"inside - degrees = %d", degrees);
+    monitorTimeView.pointer.transform = CGAffineTransformMakeRotation((float)degrees * (M_PI)/180);
+    DURATION += 3;
+}
+
+-(void) advanceOutside: (int) timeLeft{
+    float startInDegrees = ((3 * M_PI)/4) * ((float)180/M_PI);
+    
+    NSLog(@"outside - time left is %d", timeLeft);
+    float fraction = timeLeft/TIMEOUTSIDE;
+    int degrees = (int) (startInDegrees + ((270) - (270 * fraction))) % 360;
+    NSLog(@"outside - degrees = %d", degrees);
+    monitorTimeView.pointer.transform = CGAffineTransformMakeRotation((float)degrees * (M_PI)/180);
+    DURATION += 3;
 }
 
 -(void) newActivityData:(NSNotification *) notification{
@@ -125,10 +196,12 @@
     [UIView setAnimationDelegate:self];
     [UIView setAnimationDidStopSelector:@selector(rotateCogs:finished:context:)];
     
+    
     if (rotateflag){
         monitorTimeView.pinkcog.transform = CGAffineTransformMakeRotation(M_PI);
         monitorTimeView.yellowcog.transform = CGAffineTransformMakeRotation(M_PI);
         monitorTimeView.redcog.transform = CGAffineTransformMakeRotation(M_PI);
+        
     }
     else{
         monitorTimeView.pinkcog.transform = CGAffineTransformMakeRotation(0);

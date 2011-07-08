@@ -93,11 +93,7 @@
         [toClockFace addSubview:toAMPM];
     
         
-        self.caption = [[UILabel alloc] initWithFrame:CGRectMake(60, self.frame.size.height - 40, 300, 30)];
-        self.caption.textColor = [UIColor blackColor];
-        self.caption.font = [UIFont fontWithName:@"MarkerFelt-Thin" size:16.0];
-        self.caption.backgroundColor = [UIColor clearColor];
-        [self addSubview:caption];
+    
         
 		self.thh = [[HandView alloc] initWithFrameAndImage:CGRectMake(56,36,11,51) image:@"hour2.png"];
 		[toClockFace addSubview:thh];
@@ -108,6 +104,12 @@
 		[tmh release];
         
 		[self addSubview:toClockFace];
+        
+        self.caption = [[UILabel alloc] initWithFrame:CGRectMake(50, self.frame.size.height - 40, 250, 30)];
+        self.caption.textColor = [UIColor blackColor];
+        self.caption.font = [UIFont fontWithName:@"MarkerFelt-Thin" size:16.0];
+        self.caption.backgroundColor = [UIColor clearColor];
+        [self addSubview:caption];
     }
     return self;
 }

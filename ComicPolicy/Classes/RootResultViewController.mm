@@ -10,6 +10,11 @@
 #import "Catalogue.h"
 #import "PolicyManager.h"
 
+@interface RootResultViewController() 
+-(void) updateActionResultScene;
+-(void) updateConditionResult;
+@end
+
 @implementation RootResultViewController
 @synthesize resultController;
 @synthesize currentMonitorViewController;
@@ -28,24 +33,7 @@
 
 
 -(void) conditionChange:(NSNotification *) n{
-   
-     NSString *newcontroller = [[Catalogue sharedCatalogue] getConditionResultController];
-    
-    MonitorViewController *newController = [[NSClassFromString(newcontroller) alloc] initWithNibName:nil bundle:nil];
-
-	
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:0.75];
-    [UIView setAnimationDelegate:self];
-    [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:self.rootMonitorView cache:YES];
-    [currentMonitorViewController.view removeFromSuperview];
-    [currentMonitorViewController viewDidUnload];
-    [self.rootMonitorView addSubview:[newController view]];
-    [UIView commitAnimations];
-    self.currentMonitorViewController = newController;
-    [newController release];
-  
-     
+    [self updateConditionResult];
 }
 
 -(void) policyFired:(NSNotification *) n{
@@ -59,14 +47,41 @@
     resultController.resultView.resultMainImage.frame = frame;
 }
 
--(void) actionSubjectChange:(NSNotification *) n{
+-(void) policyChanged:(NSNotification *) n{
+    [self updateConditionResult];
+    [self updateActionResultScene];
+}
+
+-(void) updateConditionResult{
+    NSString *newcontroller = [[Catalogue sharedCatalogue] getConditionResultController];
+    
+    MonitorViewController *newController = [[NSClassFromString(newcontroller) alloc] initWithNibName:nil bundle:nil];
+    
 	
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:0.75];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:self.rootMonitorView cache:YES];
+    [currentMonitorViewController.view removeFromSuperview];
+    [currentMonitorViewController viewDidUnload];
+    [self.rootMonitorView addSubview:[newController view]];
+    [UIView commitAnimations];
+    self.currentMonitorViewController = newController;
+    [newController release];
+    
+}
+
+-(void) updateActionResultScene{
     BOOL hasFired = [[PolicyManager sharedPolicyManager] hasFiredForSubject:[[Catalogue sharedCatalogue] currentActionSubject]];
+    
+    NSLog(@"POLICY HAS FIRED IS %@", (hasFired ? @"YES" : @"NO"));
     
 	NSString *newscene =  [[Catalogue sharedCatalogue] getActionResultImage:hasFired];
 	
+    NSLog(@"newscene is %@", newscene);
+    
 	if (newscene != NULL){
-		if (! [resultController.currentActionScene isEqualToString:newscene]){
+		//if (! [resultController.currentActionScene isEqualToString:newscene]){
 			[UIView beginAnimations:nil context:nil];
 			[UIView setAnimationDuration:0.75];
 			[UIView setAnimationDelegate:self];
@@ -74,8 +89,12 @@
 			resultController.resultView.resultMainImage.image = [UIImage imageNamed:newscene];
 			[UIView commitAnimations];
 			resultController.currentActionScene = newscene;
-		}
+		//}
 	}
+}
+
+-(void) actionSubjectChange:(NSNotification *) n{
+    [self updateActionResultScene];
 }
 
 -(void) actionTypeChange:(NSNotification *) n{
@@ -126,9 +145,15 @@
 	
    
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(conditionChange:) name:@"conditionChange" object:nil];	
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(conditionChange:) name:@"policyLoaded" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(policyChanged:) name:@"policyLoaded" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(policyChanged:) name:@"saveRequestComplete" object:nil];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionSubjectChange:) name:@"actionSubjectChange" object:nil];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionTypeChange:) name:@"actionTypeChange" object:nil];	
+	
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionTypeChange:) name:@"actionTypeChange" object:nil];	
+    
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(policyFired:) name:@"policyFired" object:nil];	
     
     

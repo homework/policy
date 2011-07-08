@@ -15,6 +15,8 @@
 		2899E5220DE3E06400AC0155 /* ComicPolicyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2899E5210DE3E06400AC0155 /* ComicPolicyViewController.xib */; };
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
 		28D7ACF80DDB3853001CB0EB /* ComicPolicyViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 28D7ACF70DDB3853001CB0EB /* ComicPolicyViewController.mm */; };
+		A303B8CE13C5D5F5004F4AD0 /* refresh.png in Resources */ = {isa = PBXBuildFile; fileRef = A303B8CC13C5D5F5004F4AD0 /* refresh.png */; };
+		A303B8CF13C5D5F5004F4AD0 /* reset.png in Resources */ = {isa = PBXBuildFile; fileRef = A303B8CD13C5D5F5004F4AD0 /* reset.png */; };
 		A30ADF53131528F80060D2F1 /* notifydad.png in Resources */ = {isa = PBXBuildFile; fileRef = A30ADEFC131528F70060D2F1 /* notifydad.png */; };
 		A30ADF54131528F80060D2F1 /* notifyeveryone.png in Resources */ = {isa = PBXBuildFile; fileRef = A30ADEFD131528F70060D2F1 /* notifyeveryone.png */; };
 		A30ADF55131528F80060D2F1 /* notifyjohn.png in Resources */ = {isa = PBXBuildFile; fileRef = A30ADEFE131528F70060D2F1 /* notifyjohn.png */; };
@@ -240,6 +242,8 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* ComicPolicy_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComicPolicy_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* ComicPolicy-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ComicPolicy-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		A303B8CC13C5D5F5004F4AD0 /* refresh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = refresh.png; sourceTree = "<group>"; };
+		A303B8CD13C5D5F5004F4AD0 /* reset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reset.png; sourceTree = "<group>"; };
 		A30ADEFC131528F70060D2F1 /* notifydad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = notifydad.png; sourceTree = "<group>"; };
 		A30ADEFD131528F70060D2F1 /* notifyeveryone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = notifyeveryone.png; sourceTree = "<group>"; };
 		A30ADEFE131528F70060D2F1 /* notifyjohn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = notifyjohn.png; sourceTree = "<group>"; };
@@ -788,6 +792,8 @@
 		A30ADF28131528F80060D2F1 /* misc */ = {
 			isa = PBXGroup;
 			children = (
+				A303B8CC13C5D5F5004F4AD0 /* refresh.png */,
+				A303B8CD13C5D5F5004F4AD0 /* reset.png */,
 				A372A5AB13A8B853006CF4B4 /* plus.png */,
 				A32749691340AB4100212CAB /* addnew.png */,
 				A327496A1340AB4100212CAB /* empty.png */,
@@ -1401,6 +1407,8 @@
 				A323BD4513BE050C0076F1E6 /* desktopblocked.png in Resources */,
 				A323BD4613BE050C0076F1E6 /* laptopblocked.png in Resources */,
 				A323BD4713BE050C0076F1E6 /* phoneblocked.png in Resources */,
+				A303B8CE13C5D5F5004F4AD0 /* refresh.png in Resources */,
+				A303B8CF13C5D5F5004F4AD0 /* reset.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

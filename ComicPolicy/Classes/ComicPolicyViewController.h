@@ -21,9 +21,13 @@
 @interface ComicPolicyViewController : UIViewController {
 	
 	NSMutableArray *policyids;
-	UIImageView *deleteButton;
+	
+    UIImageView *deleteButton;
 	UIImageView *saveButton;
-	AVAudioPlayer *tickPlayer;
+    UIImageView *refreshButton;
+    UIImageView *resetButton;
+	
+    AVAudioPlayer *tickPlayer;
 	AVAudioPlayer *tockPlayer;
 	
 	NavigationViewController	*navigationViewController;
@@ -40,8 +44,6 @@
 
 @property (nonatomic, retain) NSMutableArray *buttons;
 @property (nonatomic, retain) UIImageView *addNew;
-@property (nonatomic, retain) UIImageView *deleteButton;
-@property (nonatomic, retain) UIImageView *saveButton;
 @property (nonatomic, retain) NSMutableArray *policyids;
 @property (nonatomic, retain) AVAudioPlayer *tickPlayer;
 @property (nonatomic, retain) AVAudioPlayer *tockPlayer;
