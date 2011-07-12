@@ -272,6 +272,7 @@ static NSDictionary* devicemetadata;
 }
 
 -(void) setConditionArguments:(NSMutableDictionary *) args{
+    NSLog(@"setting condtion arguments %@", [self currentCondition]);
     [currentConditionArguments setObject:args forKey:[self currentCondition]];
 }
 

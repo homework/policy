@@ -16,8 +16,12 @@
 -(void) rotateActivityMonitor:(activity) a;
 -(void) resetActivity;
 -(void) advancePointer;
--(void) advanceInside: (int) timeLeft;
--(void) advanceOutside:(int) timeLeft;
+-(void) advanceInside: (int) timeLeft timeInside:(int) timeInside;
+-(void) advanceOutside:(int) timeLeft timeOutside:(int) timeOutside;
+-(int) secondsUntil:(long) ts clockTime:(NSString*) clocktime;
+-(int) secondsFromMidnight:(long)ts;
+-(BOOL) isInsideRange:(long) ts from: (NSString*) f to: (NSString*) t;
+-(long) secondsFromMidnightForString:(NSString *) ts;
 @end
 
 @implementation ResultTimeViewController
@@ -49,8 +53,6 @@ BOOL inside = NO;
 
 - (void)loadView
 {
-    
-    
     rotateflag = YES;
     currentActivity = NOREADING;
   
@@ -78,6 +80,7 @@ BOOL inside = NO;
     monitorTimeView.pointer.transform = CGAffineTransformMakeRotation((3 * M_PI)/4);
 }
 
+
 -(void) subjectDeviceChange:(NSNotification *) notification{
     [self resetActivity];
 }
@@ -89,7 +92,7 @@ BOOL inside = NO;
 
 -(void) requestData:(NSTimer *) timer{
     
-    [self advancePointer];
+    //[self advancePointer];
    
     //start = M_PI / 
     NSString * subject = [[Catalogue sharedCatalogue] currentSubjectDevice];
@@ -98,6 +101,22 @@ BOOL inside = NO;
     [[MonitorDataSource sharedDatasource] requestURL: strurl callback:@"newActivityData"];
 }
 
+-(void) advancePointer:(int) timeLeft timeInside:(int) timeInside isInside:(BOOL) inside{
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:2.0];
+    [UIView setAnimationDelegate:self];
+    //float startInDegrees = ((3 * M_PI)/4) * ((float)180/M_PI);
+    
+    
+    if (inside){
+        [self advanceInside:timeLeft timeInside: timeInside];
+    }else{
+        [self advanceOutside:timeLeft timeOutside: timeInside];
+    }
+    [UIView commitAnimations];
+}
+
+/*
 -(void) advancePointer{
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:2.0];
@@ -129,26 +148,32 @@ BOOL inside = NO;
         }
     }
     [UIView commitAnimations];
-}
+}*/
 
--(void) advanceInside: (int) timeLeft{
+-(void) advanceInside: (int) timeLeft timeInside:(int)timeInside{
     float startInDegrees = (M_PI/4) * ((float)180/M_PI);
         
-    NSLog(@"inside - time left is %d", timeLeft);
-    float fraction = timeLeft/TIMEINSIDE;
-    int degrees = (int) (startInDegrees + ((90) - (90 * fraction))) % 360;
-    NSLog(@"inside - degrees = %d", degrees);
+   
+    float fraction = (float)timeLeft/(float)timeInside;   //TIMEINSIDE;
+    NSLog(@"fraction is %f / %f = %f", (float)timeLeft, (float)timeInside, fraction);
+    int degrees = (int) (startInDegrees + ((90) - ((float)90 * fraction))) % 360;
+    NSLog(@"inside => degrees is now %d", degrees);
     monitorTimeView.pointer.transform = CGAffineTransformMakeRotation((float)degrees * (M_PI)/180);
-    DURATION += 3;
+   // DURATION += 3;
 }
 
--(void) advanceOutside: (int) timeLeft{
+-(void) advanceOutside: (int) timeLeft timeOutside:(int)timeOutside{
+    
+    NSLog(@"ADVANCING OUTSIDE!!!");
+    
     float startInDegrees = ((3 * M_PI)/4) * ((float)180/M_PI);
     
-    NSLog(@"outside - time left is %d", timeLeft);
-    float fraction = timeLeft/TIMEOUTSIDE;
+    float fraction = (float)timeLeft/(float)timeOutside;///TIMEOUTSIDE;
+    NSLog(@"fraction is %f", fraction);
     int degrees = (int) (startInDegrees + ((270) - (270 * fraction))) % 360;
-    NSLog(@"outside - degrees = %d", degrees);
+    
+    NSLog(@"degrees is %d", degrees);
+    
     monitorTimeView.pointer.transform = CGAffineTransformMakeRotation((float)degrees * (M_PI)/180);
     DURATION += 3;
 }
@@ -157,13 +182,104 @@ BOOL inside = NO;
     NSDictionary *data = [notification userInfo];
     NSString *responseString = [data objectForKey:@"data"];    
     
-    if ([responseString isEqualToString:@"0"]){
-       
+    NSLog(@"response string %@", responseString);
+    SBJsonParser *jsonParser = [SBJsonParser new];
+    
+    NSArray* results = (NSArray *) [jsonParser objectWithString:responseString error:nil];
+    
+    NSNumber *activity = (NSNumber*) [results objectAtIndex:1];
+    
+    NSNumber *ts = (NSNumber*) [results objectAtIndex:0];
+    
+    if ([activity longValue] == 0){
         [self rotateActivityMonitor:INACTIVE];
     }else{
         [self rotateActivityMonitor:ACTIVE];
     }
-    //SBJsonParser *jsonParser = [SBJsonParser new];
+    
+    NSMutableDictionary *args =  [(NSMutableDictionary *) [[Catalogue sharedCatalogue] currentConditionArguments] objectForKey:@"timed"];
+    
+    NSString *from = [args objectForKey:@"from"];
+    NSString *to   = [args objectForKey:@"to"];
+    
+    int routersecondsfrommidnight = [self secondsFromMidnight:[ts longLongValue]/1000];
+    
+    BOOL isInside = [self isInsideRange:routersecondsfrommidnight from:from to:to];
+    
+    int secondstoto   = [self secondsUntil:[ts longLongValue]/1000 clockTime:to];
+    int secondstofrom = [self secondsUntil:[ts longLongValue]/1000 clockTime:from];
+
+    int timeinside = (secondstofrom < secondstoto) ? (secondstoto-secondstofrom) : (24* 3600) - (secondstofrom-secondstoto);
+    
+    int timeoutside = (24*3600) - timeinside;
+
+    if (isInside){
+        [self advancePointer:secondstoto timeInside:timeinside isInside: isInside];
+    }else{
+        [self advancePointer:secondstofrom timeInside:timeoutside isInside: isInside];
+    }
+}
+
+-(BOOL) isInsideRange:(long) ts from: (NSString*) f to: (NSString*) t{
+    
+    long from = [self secondsFromMidnightForString:f];
+    
+    long to   = [self secondsFromMidnightForString:t];
+    
+    if (to > from){
+        return (ts >= from && ts <= to);
+    }else{
+        return !(ts > to && ts <= from);
+    }
+        
+}
+
+                     
+-(int) secondsUntil:(long) ts clockTime:(NSString*) clocktime{
+
+    NSArray *timearray = [clocktime componentsSeparatedByString:@":"];
+    
+    int hrs     = [(NSString*) [timearray objectAtIndex:0] intValue];
+    
+    int minutes = [(NSString*) [timearray objectAtIndex:1] intValue];
+    
+    int fromseconds = [self secondsFromMidnight:ts];
+    
+    int toseconds   = ((hrs * 3600) + (minutes * 60));
+    
+    
+    if (toseconds > fromseconds)
+        return (toseconds - fromseconds);
+    else
+        return (24 * 3600) - (fromseconds - toseconds);
+                     
+}
+
+-(long) secondsFromMidnightForString:(NSString *) ts{
+    NSArray *timearray = [ts componentsSeparatedByString:@":"];
+    int hrs     = [(NSString*) [timearray objectAtIndex:0] intValue];
+    int minutes = [(NSString*) [timearray objectAtIndex:1] intValue];
+    return (hrs * 3600) + (minutes * 60);
+}
+
+
+-(int) secondsFromMidnight:(long) ts{
+    
+    
+    NSDate* routerDate = [NSDate dateWithTimeIntervalSince1970:ts];
+    
+    NSDateComponents *hourcomponents = [[NSCalendar currentCalendar] components:NSHourCalendarUnit fromDate:routerDate];
+    
+    NSDateComponents *minutecomponents = [[NSCalendar currentCalendar] components:NSMinuteCalendarUnit fromDate:routerDate];
+    
+    NSDateComponents *secondcomponents = [[NSCalendar currentCalendar] components:NSSecondCalendarUnit fromDate:routerDate];
+    
+    int routerhour = [hourcomponents hour];
+    int routerminutes = [minutecomponents minute];
+    int routerseconds = [secondcomponents second];
+    
+    NSLog(@"router time is %d:%d", routerhour, routerminutes);
+    return ((routerhour * 3600) + (routerminutes * 60) + (routerseconds));
 }
 
 -(void) rotateActivityMonitor:(activity) latestActivity{
