@@ -15,7 +15,7 @@
 -(void) rotateCogs:(NSString *) animationID finished:(NSNumber*)finished context:(void*)context;
 -(void) rotateActivityMonitor:(activity) a;
 -(void) resetActivity;
--(void) advancePointer;
+-(void) advancePointer:(int) timeLeft timeInside:(int) timeInside isInside:(BOOL) inside;
 -(void) advanceInside: (int) timeLeft timeInside:(int) timeInside;
 -(void) advanceOutside:(int) timeLeft timeOutside:(int) timeOutside;
 -(int) secondsUntil:(long) ts clockTime:(NSString*) clocktime;
@@ -62,6 +62,7 @@ BOOL inside = NO;
 	[rootView release];
     monitorTimeView = [[MonitorTimeView alloc] initWithFrame: CGRectMake(0,0,497,301)];
     [self.view addSubview: monitorTimeView];
+    [monitorTimeView release];
     
     [self rotateCogs:nil finished:nil context:nil];
    
@@ -353,9 +354,9 @@ BOOL inside = NO;
 
 - (void)viewDidUnload {
     
-    [monitorTimeView.layer removeAllAnimations];
+    //[monitorTimeView.layer removeAllAnimations];
     monitorView = nil;
-    [monitorTimeView release];
+   // [monitorTimeView release];
     [monitorTimer invalidate], monitorTimer = nil;
     [super viewDidUnload];
 

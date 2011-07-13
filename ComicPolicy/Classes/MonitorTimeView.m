@@ -37,14 +37,17 @@
         self.pinkcog.center = CGPointMake(74,68);
         [self.pinkcog.layer setAnchorPoint:CGPointMake(0.5,0.5)];
         [self addSubview:pinkcog];
+        [pinkcog release];
         
         self.yellowcog = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"yellowcog.png"]];
         self.yellowcog.center = CGPointMake(78,201);
         [self addSubview:yellowcog];
+        [yellowcog release];
         
         self.redcog = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"redcog.png"]];
         self.redcog.center = CGPointMake(171,171);
         [self addSubview:redcog];
+        [redcog release];
         
         UIImageView *cface = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"monitorclockface.png"]];
         cface.center = CGPointMake(324,135);
@@ -65,6 +68,7 @@
         self.pointer.center = CGPointMake(322,135);
         [self.pointer.layer setAnchorPoint:CGPointMake(0.5, 0.64)]; 
         [self addSubview:pointer];
+        [pointer release];
         
         UIImageView *tmpdash = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dash.png"]];
         tmpdash.center = CGPointMake(227,257);
@@ -75,6 +79,7 @@
         self.smallpointer.center = CGPointMake(228,290);
         [self.smallpointer.layer setAnchorPoint:CGPointMake(0.5, 0.9)]; 
         [self addSubview:smallpointer];
+        [smallpointer release];
         
         UIImageView *semicog = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"semicog.png"]];
         semicog.center = CGPointMake(228,289);
@@ -107,17 +112,17 @@
 - (void)dealloc
 {
     NSLog(@"releasing monitor time view....");
-    [redcog.layer removeAllAnimations];
+    /*[redcog.layer removeAllAnimations];
     [yellowcog.layer removeAllAnimations];
     [pinkcog.layer removeAllAnimations];
     [pointer.layer removeAllAnimations];
-    [smallpointer.layer removeAllAnimations];
+    [smallpointer.layer removeAllAnimations];*/
     
-    [redcog release];
+    /*[redcog release];
     [yellowcog release];
     [pinkcog release];
     [pointer release];
-    [smallpointer release];
+    [smallpointer release];*/
     
     [super dealloc];
 }
