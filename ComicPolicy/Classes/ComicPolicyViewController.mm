@@ -8,13 +8,20 @@
 
 #import "ComicPolicyViewController.h"
 #import "PolicyManager.h"
-
-
+#import "Catalogue.h"
+#import "NetworkManager.h"
+#import "ASIHTTPRequest.h"
 @interface ComicPolicyViewController()
 
 -(void) addNavigationView;
 -(void) addSaveAndCancel;
 -(void) checkInSync;
+-(void) catalogueRequestComplete:(ASIHTTPRequest *)request;
+-(void) catalogueRequestFailed:(ASIHTTPRequest *)request;
+-(void) createControllers;
+-(void) readInCatalogue;
+-(void) addNotificationHandlers;
+
 @end
 
 @implementation ComicPolicyViewController
@@ -24,9 +31,12 @@
 @synthesize tickPlayer;
 @synthesize tockPlayer;
 @synthesize addNew;
-/* The designated initializer. Override to perform setup that is required before the view is loaded.
+/* The designated initializer. Override to perform setup that is required before the view is loaded.*/
+
+/*
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
+        NSLog(@"in here..");
     }
     return self;
 }*/
@@ -36,8 +46,15 @@
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
-	inprogress = NO;
+    NSLog(@"in load view...");
+    UIView *newView = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
+    newView.backgroundColor = [UIColor whiteColor];
+    self.view = newView;
+    [newView release];
+    [self readInCatalogue];
     
+    
+	inprogress = NO;
 	NSBundle *mainBundle = [NSBundle mainBundle];
 	NSError *error;
 	
@@ -56,47 +73,11 @@
 		NSLog(@"no tockPlayer: %@", [error localizedDescription]);	
 	}
 	[tockPlayer prepareToPlay];
-	
-	
-	
-	// add some policy test data...
-	
-	self.view = [[[UIView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame] autorelease];
-	
-	subjectViewController = [[SubjectViewController alloc] init];
-	[self.view addSubview:subjectViewController.view];
-	
-	actionViewController = [[RootActionViewController alloc] init];
-	[self.view addSubview:actionViewController.view];
-	
-	eventViewController = [[RootConditionViewController alloc] init];
-	[self.view addSubview:eventViewController.view];
-	
-	resultViewController = [[RootResultViewController alloc] init];
-	[self.view addSubview:resultViewController.view];
-	
-	actionTimeViewController = [[ActionTimeViewController alloc] init];
-	
-	[self addNavigationView];
-	
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionTypeChange:) name:@"actionTypeChange" object:nil];	
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(conditionChange:) name:@"conditionChange" object:nil];	
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionSubjectChange:) name:@"actionSubjectChange" object:nil];	
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(subjectOwnerChange:) name:@"subjectOwnerChange" object:nil];
-	
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(catalogueChange:) name:@"catalogueChange" object:nil];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(policyLoaded:) name:@"policyLoaded" object:nil];	
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(policyFired:) name:@"policyFired" object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(requestComplete:) name:@"saveRequestComplete" object:nil];
-    
-	[[PolicyManager sharedPolicyManager] loadFirstPolicy];
-	
 }
 
 -(void) addNavigationView{
+    NSLog(@"adding a navigation view");
 	navigationViewController = [[NavigationViewController alloc] init];
 	[self.view addSubview: navigationViewController.view];
     [self addSaveAndCancel];
@@ -281,6 +262,7 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
+    // [self readInCatalogue];
 }
 
 
@@ -301,6 +283,89 @@
 	// Release any retained subviews of the main view.
 	// e.g. self.myOutlet = nil;
 }
+
+
+-(void) readInCatalogue{
+    NSLog(@"reading in a catalogue");
+    NSString *rootURL  = [[NetworkManager sharedManager] rootURL];
+    NSString *strurl = [NSString stringWithFormat:@"%@/public/policies/catalogue.json", rootURL];
+    NSLog(@"reading in catalogue: %@", strurl);
+    
+    NSURL *url = [NSURL URLWithString:strurl];
+    
+    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
+    [request setDelegate:self];
+    [request setDidFinishSelector:@selector(catalogueRequestComplete:)];
+    [request setDidFailSelector:@selector(catalogueRequestFailed:)];
+    [[NetworkManager sharedManager] addRequest:request];
+}
+
+- (void)catalogueRequestComplete:(ASIHTTPRequest *)request
+{
+    NSString *responseString = [request responseString];
+    NSLog(@"got response string %@", responseString);
+    [[Catalogue sharedCatalogue] parseCatalogue:responseString];
+    [self createControllers];
+    
+    [self addNotificationHandlers];
+    [[PolicyManager sharedPolicyManager] loadFirstPolicy];
+    [self addNavigationView];
+    
+
+}
+
+
+- (void)catalogueRequestFailed:(ASIHTTPRequest *)request
+{
+    [[Catalogue sharedCatalogue] parseCatalogue:nil];
+    [self createControllers];
+    
+    [self addNotificationHandlers];
+    [[PolicyManager sharedPolicyManager] loadFirstPolicy];
+    [self addNavigationView];
+    
+}
+
+-(void) addNotificationHandlers{
+    
+	// add some policy test data...
+	
+	
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionTypeChange:) name:@"actionTypeChange" object:nil];	
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(conditionChange:) name:@"conditionChange" object:nil];	
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionSubjectChange:) name:@"actionSubjectChange" object:nil];	
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(subjectOwnerChange:) name:@"subjectOwnerChange" object:nil];
+     
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(catalogueChange:) name:@"catalogueChange" object:nil];
+     
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(policyLoaded:) name:@"policyLoaded" object:nil];	
+     
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(policyFired:) name:@"policyFired" object:nil];
+     
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(requestComplete:) name:@"saveRequestComplete" object:nil];
+}
+
+-(void) createControllers{
+   
+	subjectViewController = [[SubjectViewController alloc] init];
+	[self.view addSubview:subjectViewController.view];
+	
+	actionViewController = [[RootActionViewController alloc] init];
+	[self.view addSubview:actionViewController.view];
+	
+	eventViewController = [[RootConditionViewController alloc] init];
+	[self.view addSubview:eventViewController.view];
+	
+	resultViewController = [[RootResultViewController alloc] init];
+	[self.view addSubview:resultViewController.view];
+	
+	actionTimeViewController = [[ActionTimeViewController alloc] init];
+	
+	[self addNavigationView];
+
+}
+
+
 
 
 - (void)dealloc {

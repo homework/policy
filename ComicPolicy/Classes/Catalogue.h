@@ -65,6 +65,6 @@
 -(void) setCondition:(NSString *)condition options:(NSDictionary*) options;
 -(void) setAction:(NSString *) action subject:(NSString*) subject options:(NSArray*)options;
 -(void) setConditionArguments:(NSMutableDictionary *) args;
-
+-(void) parseCatalogue:(NSString*) catalogue;
 
 @end

@@ -13,11 +13,12 @@
 #import <Box2D/Box2D.h>
 #define PTM_RATIO 16
 
-@interface ResultBandwidthViewController : MonitorViewController  <UIAccelerometerDelegate> {
+@interface ResultBandwidthViewController : MonitorViewController{
     b2World *world;
     NSTimer *tickTimer;
     NSTimer *fakeDataTimer;
     UIView *topMask;
+    int bagindex;
 }
 
 @property(nonatomic, assign) UIView* topMask;

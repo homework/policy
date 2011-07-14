@@ -16,10 +16,14 @@
 -(void)addPhysicalBodyForView:(UIView *)aview;
 -(void) reset;
 -(void) createBoundaries;
+-(void) removeOldSites;
 @end
+
+#define MAXSITES 5
 
 static float XSTART = 200;
 static float YSTART = 280;
+
 
 static int siteindex;
 static NSArray *labelArray = [[NSArray alloc] initWithObjects:@"news.bbc.co.uk", @"www.drupal.org", @"www.facebook.com", @"www.google.com", @"sport.bbc.co.uk", @"naughtygirls.xxx", nil];
@@ -46,6 +50,7 @@ static NSArray *labelArray = [[NSArray alloc] initWithObjects:@"news.bbc.co.uk",
 
 - (void)loadView
 {
+    labelindex = 0;
    siteindex = 0;
     //self.testImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ok.png"]];
     //[self.view addSubview:testImage];
@@ -67,30 +72,14 @@ static NSArray *labelArray = [[NSArray alloc] initWithObjects:@"news.bbc.co.uk",
     [self.view addSubview:tmpCloud];
     [self.view addSubview:cloud];
     
-    /*[UIView beginAnimations:nil context:monitorView];
-    [UIView setAnimationDuration:5.0];
-    [UIView setAnimationBeginsFromCurrentState:YES];
-    [UIView setAnimationRepeatCount:1000];
-    //cloud.frame = CGRectMake(cloud.frame.origin.x - 200, cloud.frame.origin.y, cloud.frame.size.width, cloud.frame.size.height);
-    [cloud setTransform:CGAffineTransformMakeTranslation(-300, 0)];
-    [UIView commitAnimations];
     
-    [tmpCloud release];*/
-   
-    
-    UIView *apivot = [[UIView alloc] initWithFrame:CGRectMake(200,280,20,20)];
+    /*UIView *apivot = [[UIView alloc] initWithFrame:CGRectMake(200,280,20,20)];
     [apivot setBackgroundColor:[UIColor greenColor]];
     
     UIView *aplank = [[UIView alloc] initWithFrame:CGRectMake(50,260,300,20)];
-    [aplank setBackgroundColor:[UIColor redColor]];
+    [aplank setBackgroundColor:[UIColor redColor]];*/
 
-    
-    //[self.view addSubview:apivot];
-    //[self.view addSubview:aplank];
-   
-    
     [self createPhysicsWorld];
-    //[self addPivotsToPhysicalWorld:apivot plank:aplank];
     
     [[UIAccelerometer sharedAccelerometer] setUpdateInterval:(1.0/60.0)];
     [[UIAccelerometer sharedAccelerometer] setDelegate:self];
@@ -173,40 +162,13 @@ static NSArray *labelArray = [[NSArray alloc] initWithObjects:@"news.bbc.co.uk",
 
 }
 
-/*
-- (void)addedRequestComplete:(ASIHTTPRequest *)request
-{
-    
-    NSString *responseString = [request responseString];
-    
-    NSLog(@"got response string %@", responseString);
-    
-    SBJsonParser *jsonParser = [SBJsonParser new];
-    
-    
-    NSArray *sites  = (NSArray *) [jsonParser objectWithString:responseString error:nil];
-    [cloud removeFromSuperview];
-    for (NSDictionary *site in sites){
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(XSTART,YSTART,300,35)];
-        label.textColor = [UIColor whiteColor];
-        label.backgroundColor = [UIColor clearColor];
-        label.text = [site objectForKey:@"url"];
-        label.font = [UIFont fontWithName:@"MarkerFelt-Thin" size:35.0];
-        [self.view addSubview:label];
-        [self addPhysicalBodyForView:label];
-        [label release];
-    }
-    [self.view addSubview:cloud];
-}
-*/
-
-
 
 -(void) addSite:(NSTimer *) timer{
     [cloud removeFromSuperview];
    // CGPoint start = self.view.center;
 
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(XSTART,YSTART,300,35)];
+    label.tag = labelindex++;
     label.textColor = [UIColor whiteColor];
     label.backgroundColor = [UIColor clearColor];
     
@@ -217,19 +179,31 @@ static NSArray *labelArray = [[NSArray alloc] initWithObjects:@"news.bbc.co.uk",
     [self addPhysicalBodyForView:label];
     siteindex += 1;
     [self.view addSubview:cloud];
+    [self removeOldSites];
+}
+
+-(void) removeOldSites{
+    
+    for (b2Body* b = world->GetBodyList(); b; b = b->GetNext())
+    {
+        if (b->GetUserData() != NULL){
+            UIView *oneView = (UIView *) b->GetUserData();
+           
+            if ((oneView.tag + MAXSITES) < labelindex){
+               
+                [oneView removeFromSuperview];
+                 world->DestroyBody(b);
+            }
+        }   
+       
+    }
+
 }
 
 - (void)growAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context {
 	[self addPhysicalBodyForView:currentLabel];
-
-	
-	/*[UIView beginAnimations:nil context:NULL];
-	[UIView setAnimationDuration:0.15];
-	label.transform = CGAffineTransformMakeScale(1.1, 1.1);	
-	
-	 
-	[UIView commitAnimations];*/
 }
+
 /*
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
@@ -320,7 +294,6 @@ static NSArray *labelArray = [[NSArray alloc] initWithObjects:@"news.bbc.co.uk",
     b2Vec2 anchor(200 / PTM_RATIO, 40);
     jointDef.Initialize(pivotbody, plankbody,pivotbody->GetWorldCenter());
     world->CreateJoint(&jointDef);
-
 }
 
 -(void) addPhysicalBodyForView:(UIView *) physicalView
@@ -349,7 +322,7 @@ static NSArray *labelArray = [[NSArray alloc] initWithObjects:@"news.bbc.co.uk",
     fixtureDef.restitution = 0.8f;
     body->CreateFixture(&fixtureDef);
     body->SetType(b2_dynamicBody);
-    physicalView.tag = (int) body;
+    //physicalView.tag = (int) body;
     
 }
 

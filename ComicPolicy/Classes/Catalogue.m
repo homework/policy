@@ -7,7 +7,8 @@
 //
 
 #import "Catalogue.h"
-
+#import "NetworkManager.h"
+#import "ASIHTTPRequest.h"
 
 @interface Catalogue ()
 
@@ -19,6 +20,8 @@
 -(NSString *) nextActionSubject;
 -(NSString *) nextAction;
 -(void) updateActionOptions:(NSString *)subject;
+-(void)addedRequestComplete:(ASIHTTPRequest *)request;
+
 
 @end
 
@@ -59,7 +62,7 @@ static NSDictionary* actionvcs;         //mapping of action type to associated v
 
 static NSString* currentActionType;     //the currently selectd action type (block, notify etc).
 
-       
+
 static NSArray* actionvcsarray;         //array of action view controllers 
 static int actionvcsindex;              //currently selected action view controller
 
@@ -98,75 +101,15 @@ static NSDictionary* devicemetadata;
     // any thread, but serialised by +sharedManager
     self = [super init];
     if (self != nil) {
-        NSString *filePath = [[NSBundle mainBundle] pathForResource:@"data" ofType:@"json"];
-        NSString *content = [[NSString alloc] initWithContentsOfFile:filePath];
-        SBJsonParser *jsonParser = [SBJsonParser new];
+        
+        // [self readInCatalogue];
         
         
-        NSDictionary *data  = (NSDictionary *) [jsonParser objectWithString:content error:nil];
-        
-        if (data == nil){
-            NSLog(@"DATA IS NIL>>>>");
-        }
-        else{
-            self.currentConditionArguments = [[NSMutableDictionary alloc] init];
-            
-            NSDictionary *main = (NSDictionary *) [data objectForKey:@"catalogue"];
-            imageLookup = [(NSDictionary *) [main objectForKey:@"images"] retain];
-            NSDictionary *navigation =  (NSDictionary *) [main objectForKey:@"navigation"];
-            NSDictionary *controllers = (NSDictionary *) [main objectForKey:@"controllers"];
-            
-            /*
-             * Generate the arrays to handle navigation thorugh owners and their devices in the
-             * subject pane (i.e first pane in the comic).
-            
-             */
-            
-            subjectLookup = [(NSDictionary *) [navigation objectForKey:@"subjects"] retain];
-            
-            ownership = [[subjectLookup allKeys] retain];
-            ownershipindex = 0;
-            
-            devices =  [[subjectLookup objectForKey:[self currentSubjectOwner]] retain];
-            devicesindex = 0;
-            
-            
-            /*
-             * Generate the arrays to handle navigation through conditions and associated view controllers
-             */
-            conditionLookup = (NSDictionary *) [navigation objectForKey:@"conditions"];
-            
-            
-            conditions = [[conditionLookup allKeys ]retain];
-            conditionindex = -1;
-            
-            conditionvcs = (NSDictionary *) [[controllers objectForKey:@"conditions"] retain];
-            [self initConditions];
-        
-            
-            /*
-             * Generate the arrays to handle navigation through actions and associated view controllers
-             */
-            actionLookup = [(NSDictionary *) [navigation objectForKey:@"actions"] retain];
-            actionvcs = (NSDictionary *) [[controllers objectForKey:@"actions"] retain];
-            [self initActions];
-            
-            
-            /*
-             * Generate the arrays to handle navigation through results and associated view controllers
-             */
-            conditionresultvcs = (NSDictionary *) [[controllers objectForKey:@"results"] retain];
-            
-            /*
-             * generate the device metadata dictionary
-             */
-            
-            devicemetadata = [[(NSDictionary *) [main objectForKey:@"metadata"] objectForKey:@"devices"] retain];
-            
-        }
     }
     return self;
 }
+
+
 
 #pragma mark * Private methods
 
@@ -211,7 +154,7 @@ static NSDictionary* devicemetadata;
      * For the currently selected subject, set the options array and point to the first option  
      */
     
-     NSString *subject = [self currentActionSubject];
+    NSString *subject = [self currentActionSubject];
     
 	if ([tmp objectForKey:@"options"] != NULL){
         NSDictionary* tmpoptdict = [tmp objectForKey:@"options"];
@@ -285,7 +228,7 @@ static NSDictionary* devicemetadata;
     NSString *condition = (NSString*) [conditions objectAtIndex:++conditionindex % [conditions count]];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"conditionChange" object:nil userInfo:nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"catalogueChange" object:nil userInfo:nil];
-
+    
     return condition;
 }
 
@@ -301,7 +244,7 @@ static NSDictionary* devicemetadata;
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"actionChange" object:nil userInfo:nil];
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"actionSubjectChange" object:nil userInfo:nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"catalogueChange" object:nil userInfo:nil];
-
+    
 	return subject;
 }
 
@@ -324,7 +267,7 @@ static NSDictionary* devicemetadata;
 	}
     [[NSNotificationCenter defaultCenter] postNotificationName:@"actionSubjectChange" object:nil userInfo:nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"catalogueChange" object:nil userInfo:nil];
-
+    
 	return [actionoptionsarray objectAtIndex:++actionoptionsarrayindex % [actionoptionsarray count]];
 }
 
@@ -341,7 +284,7 @@ static NSDictionary* devicemetadata;
     if (actionoptionsarray == NULL)
 		return NULL;
 	
-   return [actionoptionsarray objectAtIndex:actionoptionsarrayindex % [actionoptionsarray count]];
+    return [actionoptionsarray objectAtIndex:actionoptionsarrayindex % [actionoptionsarray count]];
 }
 
 #pragma mark * Public controller getters
@@ -369,7 +312,7 @@ static NSDictionary* devicemetadata;
         actionoptionsarrayindex = 0;
 	}
     NSString* controller = [self currentActionViewController];
-   
+    
     NSDictionary* dict = [NSDictionary dictionaryWithObject:controller forKey:@"controller"];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"actionTypeChange" object:nil userInfo:dict];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"actionSubjectChange" object:nil userInfo:nil];
@@ -386,9 +329,9 @@ static NSDictionary* devicemetadata;
 }
 
 -(NSString *) nextConditionViewController{
-   
+    
 	return [conditionvcsarray objectAtIndex:++conditionvcsindex % [conditionvcsarray count]];
-   
+    
 }
 
 -(NSString*) getConditionResultController{
@@ -433,7 +376,7 @@ static NSDictionary* devicemetadata;
 	NSString *action = [self currentAction];
     NSString *image = [self lookupImage:action type:currentActionType state:@"action"];
     return image;
-		
+    
 }
 
 -(NSString *) nextActionImage{
@@ -464,14 +407,14 @@ static NSDictionary* devicemetadata;
     
     if (isfired)
         return [dict objectForKey:@"fired"];
-   
+    
     return [dict objectForKey:@"result"];
 }
 
 #pragma mark * Public policy setters
 
 -(void) setSubject:(NSString *)owner device:(NSString*) device{
-   
+    
     NSDictionary* tmpdevices = [subjectLookup objectForKey:owner];
     int index = 0;
     
@@ -527,7 +470,7 @@ static NSDictionary* devicemetadata;
     
     if (tmp != nil){
         //set the index for the current action;
-       
+        
         NSArray *subjects = [tmp objectForKey:@"subjects"];
         
         if (subjects != nil){
@@ -538,7 +481,7 @@ static NSDictionary* devicemetadata;
                     
                     if (actionsubjectarray != NULL)
                         [actionsubjectarray release];
-                   
+                    
                     actionsubjectarray = [subjects retain];
                     actionsubjectarrayindex = index;
                     
@@ -548,34 +491,34 @@ static NSDictionary* devicemetadata;
                     
                     NSString *subject = [actionsubjectarray objectAtIndex:actionsubjectarrayindex];
                     
-                     NSLog(@"setting current action subject to %@", subject);
+                    NSLog(@"setting current action subject to %@", subject);
                     
                     [self updateActionOptions:subject];
                     
                     //set the view controller index...
-                   
+                    
                     index = 0;
                     for (NSString* anaction in actionvcsarray){
                         if ([anaction isEqualToString:action]){
-                           
+                            
                             actionoptionsarrayindex = index;
                             actionvcsindex = index;
                             break;
                         }
                         index += 1;
                     }
-                   
+                    
                     //have set the action and subjects, now need to do options...
                     
                     if (arguments != nil && [arguments count] > 0){
-                       
+                        
                         if (actionoptionsarray != NULL)
                             [actionoptionsarray release];
                         
                         if ([tmp objectForKey:@"arguments"] != NULL){
-            
+                            
                             NSDictionary* tmpoptdict = [tmp objectForKey:@"arguments"];
-                         
+                            
                             actionoptionsarray =  [[tmpoptdict objectForKey:subject] retain];
                             
                             actionoptionsarrayindex = 0;
@@ -598,7 +541,7 @@ static NSDictionary* devicemetadata;
                     
                     NSString* controller = [self currentActionViewController];
                     NSDictionary* dict = [NSDictionary dictionaryWithObject:controller forKey:@"controller"];
-            
+                    
                     
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"actionTypeChange" object:nil userInfo:dict];
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"actionSubjectChange" object:nil userInfo:nil];
@@ -608,6 +551,82 @@ static NSDictionary* devicemetadata;
             }           
         }else{NSLog(@"hmmm, subjects is niL!!!");}
     }else{NSLog(@"cant find objcet for key %@", action);}
+}
+
+
+-(void) parseCatalogue:(NSString*) catalogue{
+    
+    NSLog(@"in parse catalogue.....");
+    
+    SBJsonParser *jsonParser = [SBJsonParser new];
+    
+    NSDictionary *data = nil;
+    
+    if (catalogue != nil)
+        data  = (NSDictionary *) [jsonParser objectWithString:catalogue error:nil];
+    
+    if (data == nil){
+        NSLog(@"DATA IS NIL>>>>");
+        NSString *filePath = [[NSBundle mainBundle] pathForResource:@"data" ofType:@"json"];
+        NSString *content = [[NSString alloc] initWithContentsOfFile:filePath];
+        data  = (NSDictionary *) [jsonParser objectWithString:content error:nil];
+    }
+    
+    self.currentConditionArguments = [[NSMutableDictionary alloc] init];
+    
+    NSDictionary *main = (NSDictionary *) [data objectForKey:@"catalogue"];
+    imageLookup = [(NSDictionary *) [main objectForKey:@"images"] retain];
+    NSDictionary *navigation =  (NSDictionary *) [main objectForKey:@"navigation"];
+    NSDictionary *controllers = (NSDictionary *) [main objectForKey:@"controllers"];
+    
+    /*
+     * Generate the arrays to handle navigation thorugh owners and their devices in the
+     * subject pane (i.e first pane in the comic).
+     
+     */
+    
+    subjectLookup = [(NSDictionary *) [navigation objectForKey:@"subjects"] retain];
+    
+    ownership = [[subjectLookup allKeys] retain];
+    ownershipindex = 0;
+    
+    devices =  [[subjectLookup objectForKey:[self currentSubjectOwner]] retain];
+    devicesindex = 0;
+    
+    
+    /*
+     * Generate the arrays to handle navigation through conditions and associated view controllers
+     */
+    conditionLookup = (NSDictionary *) [navigation objectForKey:@"conditions"];
+    
+    
+    conditions = [[conditionLookup allKeys ]retain];
+    conditionindex = -1;
+    
+    conditionvcs = (NSDictionary *) [[controllers objectForKey:@"conditions"] retain];
+    [self initConditions];
+    
+    
+    /*
+     * Generate the arrays to handle navigation through actions and associated view controllers
+     */
+    actionLookup = [(NSDictionary *) [navigation objectForKey:@"actions"] retain];
+    actionvcs = (NSDictionary *) [[controllers objectForKey:@"actions"] retain];
+    [self initActions];
+    
+    
+    /*
+     * Generate the arrays to handle navigation through results and associated view controllers
+     */
+    conditionresultvcs = (NSDictionary *) [[controllers objectForKey:@"results"] retain];
+    
+    /*
+     * generate the device metadata dictionary
+     */
+    
+    devicemetadata = [[(NSDictionary *) [main objectForKey:@"metadata"] objectForKey:@"devices"] retain];
+    
+    
 }
 
 @end

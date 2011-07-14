@@ -20,6 +20,7 @@
     NSTimer *fakeDataTimer;
     UILabel *currentLabel;
     UIImageView* cloud;
+    int labelindex;
 }
 
 @property(nonatomic, retain) UIImageView* cloud;

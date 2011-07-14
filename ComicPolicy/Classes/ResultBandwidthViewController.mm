@@ -13,6 +13,7 @@
 -(void) createPhysicsWorld;
 -(void)addPhysicalBodyForView:(UIView *)aview;
 -(void)addReading:(long) bytes;
+-(void)removeOldBags;
 @end
 
 @implementation ResultBandwidthViewController
@@ -20,6 +21,7 @@
 @synthesize topMask;
 
 #define ARC4RANDOM_MAX 0x7fffffff
+#define MAXBAGS 5
 
 static float XSTART = 100;
 static float YSTART = 140;
@@ -27,6 +29,7 @@ static long MAXBYTES = 1 * 1024 * 1024;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
+    
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
@@ -69,10 +72,7 @@ static long MAXBYTES = 1 * 1024 * 1024;
 
 - (void)loadView
 {
-    //self.testImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ok.png"]];
-    //[self.view addSubview:testImage];
-    //currentMonitorScene = @"resultvisits.png";
-    [super loadView];
+    bagindex = 0;
     CGRect aframe = CGRectMake(0,0,897,301);
 	UIView *rootView = [[UIView alloc] initWithFrame:aframe];	
 	self.view = rootView;
@@ -93,9 +93,6 @@ static long MAXBYTES = 1 * 1024 * 1024;
     [self createPhysicsWorld];
     
 
-    [[UIAccelerometer sharedAccelerometer] setUpdateInterval:(1.0/60.0)];
-    [[UIAccelerometer sharedAccelerometer] setDelegate:self];
-    
     tickTimer = [NSTimer scheduledTimerWithTimeInterval:1.0/25.0 
                                                  target:self 
                                                selector:@selector(tick:) 
@@ -125,10 +122,6 @@ static long MAXBYTES = 1 * 1024 * 1024;
    
     NSDictionary *data = [notification userInfo];
     NSString *responseString = [data objectForKey:@"data"];    
-    
-    
-    NSLog(@"got response string %@", responseString);
-    
     [self addReading: [responseString longLongValue]];
     //NSArray *sites  = (NSArray *) [jsonParser objectWithString:responseString error:nil];
 }
@@ -138,49 +131,40 @@ static long MAXBYTES = 1 * 1024 * 1024;
         return;
     
     float scalefactor = ((float)bytes/MAXBYTES) + 0.4;
-    
-    NSLog(@"adding reading %f for bytes %i", scalefactor, bytes);
-    
     [topMask removeFromSuperview];
-    
     UIImageView *moneyBag = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"moneybag.png"]];
-  
-    
     moneyBag.frame = CGRectMake(0,60,moneyBag.frame.size.width*scalefactor, moneyBag.frame.size.height*scalefactor);
-    
+    moneyBag.tag = bagindex++;
     [self.view addSubview:moneyBag];
-    
-    
     [self addPhysicalBodyForView:moneyBag];
     [moneyBag release];
     [self.view addSubview:topMask];
+    [self removeOldBags];
 }
 
+-(void) removeOldBags{
+    
+    for (b2Body* b = world->GetBodyList(); b; b = b->GetNext())
+    {
+        if (b->GetUserData() != NULL){
+            UIView *oneView = (UIView *) b->GetUserData();
+            if ((oneView.tag + MAXBAGS) < bagindex){
+                [oneView removeFromSuperview];
+                world->DestroyBody(b);
+            }
+        }   
+        
+    }
+    
+}
+
+
 /*
--(void) addReading:(NSTimer*) timer{
-    [topMask removeFromSuperview];
-    UIImageView *moneyBag = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"moneybag.png"]];
-    
-    //generate a scale factor between 0.5 and 1.6
-    double scalefactor = 0.4 + floorf(((double) arc4random() / ARC4RANDOM_MAX  ) * 0.8f);
-    
-    
-    moneyBag.frame = CGRectMake(0,60,moneyBag.frame.size.width*scalefactor, moneyBag.frame.size.height*scalefactor);
-    
-    [self.view addSubview:moneyBag];
-    
-   
-    [self addPhysicalBodyForView:moneyBag];
-    [moneyBag release];
-    [self.view addSubview:topMask];
-
-}*/
-
 -(void) accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration{
     //b2Vec2 gravity;
     //gravity.Set(acceleration.y * 9.81, -acceleration.x * 9.81);
     //world->SetGravity(gravity);
-}
+}*/
 
 -(void) createPhysicsWorld
 {
@@ -253,8 +237,6 @@ static long MAXBYTES = 1 * 1024 * 1024;
     fixtureDef.restitution = 0.3f;
     body->CreateFixture(&fixtureDef);
     body->SetType(b2_dynamicBody);
-    physicalView.tag = (int) body;
-    
 }
 
 -(void) tick:(NSTimer *)timer{
@@ -279,7 +261,7 @@ static long MAXBYTES = 1 * 1024 * 1024;
     
     [super viewDidUnload];
     monitorView = nil;
-    [[UIAccelerometer sharedAccelerometer] setDelegate:nil];
+    //[[UIAccelerometer sharedAccelerometer] setDelegate:nil];
     [tickTimer invalidate], tickTimer = nil;
     [fakeDataTimer invalidate], fakeDataTimer = nil;
     // Release any retained subviews of the main view.
