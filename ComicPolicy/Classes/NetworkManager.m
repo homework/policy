@@ -16,6 +16,7 @@
 - (void)delegateFinished:(ASIHTTPRequest *)request;
 - (void)delegateRequest:(ASIHTTPRequest *)request receivedResponseHeaders:(NSDictionary *)responseHeaders;
 - (void)delegateFailed:(ASIHTTPRequest *)request;
+- (NSString*)getGatewayAddress;
 @end
 
 @implementation NetworkManager
@@ -46,7 +47,7 @@
     // any thread, but serialised by +sharedManager
     self = [super init];
     if (self != nil) {
-        self.rootURL = @"http://10.2.0.1:9000";
+        self.rootURL = [NSString stringWithFormat:@"http://%@:%d/policyserver", [self getGatewayAddress], 8080];//@"http://10.2.0.1:9000"; //make sure this is created correctly.
         self.networkQueue = [ASINetworkQueue queue];
         [networkQueue setDelegate:self];
         [networkQueue setRequestDidStartSelector:@selector(delegateStarted:)];
@@ -58,7 +59,7 @@
     return self;
 }
 
-+(NSString *)getGatewayAddress
+-(NSString *)getGatewayAddress
 {
     NSString *address = @"error";
     struct ifaddrs *interfaces = NULL;

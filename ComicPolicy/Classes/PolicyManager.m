@@ -203,6 +203,7 @@ static int localId;
     
     if (apolicy != nil){
          self.currentPolicy = apolicy;
+        NSLog(@"POLICY FIRED: setting subject %@, and device %@", apolicy.subjectowner, apolicy.subjectdevice);
         [[Catalogue sharedCatalogue] setSubject:apolicy.subjectowner device:apolicy.subjectdevice];
         [[Catalogue sharedCatalogue] setCondition:apolicy.conditiontype options:apolicy.conditionarguments];
         //should take an array of arguments for 'option'
@@ -216,6 +217,7 @@ static int localId;
 
 
 -(void) policyFired:(NSString *) policyid{
+    NSLog(@"POLICY FIRED>>>>>>>>> loading policy %@", policyid);
    [self loadPolicy:policyid];
     currentPolicy.fired = YES;
     

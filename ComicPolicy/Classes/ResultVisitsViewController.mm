@@ -159,7 +159,7 @@ static NSArray *labelArray = [[NSArray alloc] initWithObjects:@"news.bbc.co.uk",
         [label release];
     }
     [self.view addSubview:cloud];
-
+    [self removeOldSites];
 }
 
 
@@ -188,9 +188,9 @@ static NSArray *labelArray = [[NSArray alloc] initWithObjects:@"news.bbc.co.uk",
     {
         if (b->GetUserData() != NULL){
             UIView *oneView = (UIView *) b->GetUserData();
-           
+           // NSLog(@"Cheking %d < %d", (oneView.tag + MAXSITES), labelindex);
             if ((oneView.tag + MAXSITES) < labelindex){
-               
+             //   NSLog(@"rmoving from super view///");
                 [oneView removeFromSuperview];
                  world->DestroyBody(b);
             }

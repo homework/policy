@@ -16,7 +16,7 @@
 #import "RootResultViewController.h"
 #import "ActionTimeViewController.h"
 #import "NavigationViewController.h"
-
+#import "RouterConnectionViewController.h"
 
 @interface ComicPolicyViewController : UIViewController {
 	
@@ -30,13 +30,16 @@
     AVAudioPlayer *tickPlayer;
 	AVAudioPlayer *tockPlayer;
 	
-	NavigationViewController	*navigationViewController;
-	SubjectViewController		*subjectViewController;
-	RootConditionViewController	 *eventViewController;
-	RootActionViewController *actionViewController;
-	RootResultViewController *resultViewController;
-	ActionTimeViewController *actionTimeViewController;
+	NavigationViewController        *navigationViewController;
+	SubjectViewController           *subjectViewController;
+	RootConditionViewController     *eventViewController;
+	RootActionViewController        *actionViewController;
+	RootResultViewController        *resultViewController;
+	ActionTimeViewController        *actionTimeViewController;
+    RouterConnectionViewController  *routerConnectionViewController;
+    
     UIView *progressView;
+    
     BOOL inprogress;
 	
 }

@@ -413,14 +413,15 @@ static NSDictionary* devicemetadata;
 
 #pragma mark * Public policy setters
 
--(void) setSubject:(NSString *)owner device:(NSString*) device{
+-(void) setSubject:(NSString *)owner device:(NSString*) adevice{
     
     NSDictionary* tmpdevices = [subjectLookup objectForKey:owner];
     int index = 0;
     
     for (NSString *device in tmpdevices){
         
-        if ([device isEqualToString:device]){
+        if ([device isEqualToString:adevice]){
+            
             [devices release];
             devices = [tmpdevices retain];
             devicesindex = index;
@@ -428,11 +429,13 @@ static NSDictionary* devicemetadata;
             ownershipindex = 0;
             
             for (NSString * tmpowner in ownership){
+                
                 if ([tmpowner isEqualToString:owner]){
                     break;
                 }
                 ownershipindex+=1;
             }
+            
             [[NSNotificationCenter defaultCenter] postNotificationName:@"subjectOwnerLoaded" object:nil userInfo:nil];
             return;
         }

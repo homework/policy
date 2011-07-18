@@ -19,7 +19,7 @@
 -(void) catalogueRequestComplete:(ASIHTTPRequest *)request;
 -(void) catalogueRequestFailed:(ASIHTTPRequest *)request;
 -(void) createControllers;
--(void) readInCatalogue;
+-(void) readInCatalogue:(NSTimer *) timer;
 -(void) addNotificationHandlers;
 
 @end
@@ -51,7 +51,12 @@
     newView.backgroundColor = [UIColor whiteColor];
     self.view = newView;
     [newView release];
-    [self readInCatalogue];
+    
+    
+    routerConnectionViewController = [[RouterConnectionViewController alloc] init];
+    [self.view addSubview:[routerConnectionViewController view]];
+    
+    [self readInCatalogue:nil];
     
     
 	inprogress = NO;
@@ -260,11 +265,11 @@
 
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+/*
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // [self readInCatalogue];
 }
-
+*/
 
 
 // Override to allow orientations other than the default portrait orientation.
@@ -285,7 +290,15 @@
 }
 
 
--(void) readInCatalogue{
+
+
+-(void) readInCatalogue:(NSTimer*) timer{
+    
+    if(timer != nil){
+        [timer invalidate];
+        timer = nil;
+    }
+        
     NSLog(@"reading in a catalogue");
     NSString *rootURL  = [[NetworkManager sharedManager] rootURL];
     NSString *strurl = [NSString stringWithFormat:@"%@/public/policies/catalogue.json", rootURL];
@@ -317,12 +330,15 @@
 
 - (void)catalogueRequestFailed:(ASIHTTPRequest *)request
 {
+    [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(readInCatalogue:) userInfo:nil repeats:NO]; 
+     
+    // [self readInCatalogue];
+    /*
     [[Catalogue sharedCatalogue] parseCatalogue:nil];
     [self createControllers];
-    
     [self addNotificationHandlers];
     [[PolicyManager sharedPolicyManager] loadFirstPolicy];
-    [self addNavigationView];
+    [self addNavigationView];*/
     
 }
 
@@ -347,6 +363,8 @@
 
 -(void) createControllers{
    
+    [routerConnectionViewController.view removeFromSuperview];
+    
 	subjectViewController = [[SubjectViewController alloc] init];
 	[self.view addSubview:subjectViewController.view];
 	

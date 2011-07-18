@@ -119,6 +119,9 @@
 		A352ABDB131D88B30053867A /* hour2.png in Resources */ = {isa = PBXBuildFile; fileRef = A352ABD9131D88B30053867A /* hour2.png */; };
 		A352ABDC131D88B30053867A /* minute2.png in Resources */ = {isa = PBXBuildFile; fileRef = A352ABDA131D88B30053867A /* minute2.png */; };
 		A352AC03131E55290053867A /* HandView.m in Sources */ = {isa = PBXBuildFile; fileRef = A352AC02131E55290053867A /* HandView.m */; };
+		A358AFF813D4433200B9A228 /* RouterConnectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = A358AFF713D4433100B9A228 /* RouterConnectionView.m */; };
+		A358AFFB13D4436800B9A228 /* RouterConnectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A358AFFA13D4436800B9A228 /* RouterConnectionViewController.m */; };
+		A358AFFD13D450BC00B9A228 /* loadingcatalogue.png in Resources */ = {isa = PBXBuildFile; fileRef = A358AFFC13D450BC00B9A228 /* loadingcatalogue.png */; };
 		A372A5AC13A8B854006CF4B4 /* plus.png in Resources */ = {isa = PBXBuildFile; fileRef = A372A5AB13A8B853006CF4B4 /* plus.png */; };
 		A372A5AF13A8B933006CF4B4 /* ConditionVisitingView.m in Sources */ = {isa = PBXBuildFile; fileRef = A372A5AE13A8B930006CF4B4 /* ConditionVisitingView.m */; };
 		A379FF6C13A617A1004FDBB9 /* Policy.m in Sources */ = {isa = PBXBuildFile; fileRef = A379FF6B13A617A1004FDBB9 /* Policy.m */; };
@@ -371,6 +374,11 @@
 		A352ABDA131D88B30053867A /* minute2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = minute2.png; sourceTree = "<group>"; };
 		A352AC01131E55290053867A /* HandView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HandView.h; sourceTree = "<group>"; };
 		A352AC02131E55290053867A /* HandView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HandView.m; sourceTree = "<group>"; };
+		A358AFF613D4433000B9A228 /* RouterConnectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouterConnectionView.h; sourceTree = "<group>"; };
+		A358AFF713D4433100B9A228 /* RouterConnectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouterConnectionView.m; sourceTree = "<group>"; };
+		A358AFF913D4436700B9A228 /* RouterConnectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouterConnectionViewController.h; sourceTree = "<group>"; };
+		A358AFFA13D4436800B9A228 /* RouterConnectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouterConnectionViewController.m; sourceTree = "<group>"; };
+		A358AFFC13D450BC00B9A228 /* loadingcatalogue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loadingcatalogue.png; sourceTree = "<group>"; };
 		A372A5AB13A8B853006CF4B4 /* plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plus.png; sourceTree = "<group>"; };
 		A372A5AD13A8B92F006CF4B4 /* ConditionVisitingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConditionVisitingView.h; sourceTree = "<group>"; };
 		A372A5AE13A8B930006CF4B4 /* ConditionVisitingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConditionVisitingView.m; sourceTree = "<group>"; };
@@ -606,6 +614,10 @@
 				A3DCB58B13437F7B00A38D5E /* NavigationViewController.mm */,
 				A32749661340AAAD00212CAB /* NavigationView.h */,
 				A32749671340AAAD00212CAB /* NavigationView.m */,
+				A358AFF913D4436700B9A228 /* RouterConnectionViewController.h */,
+				A358AFFA13D4436800B9A228 /* RouterConnectionViewController.m */,
+				A358AFF613D4433000B9A228 /* RouterConnectionView.h */,
+				A358AFF713D4433100B9A228 /* RouterConnectionView.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -792,6 +804,7 @@
 		A30ADF28131528F80060D2F1 /* misc */ = {
 			isa = PBXGroup;
 			children = (
+				A358AFFC13D450BC00B9A228 /* loadingcatalogue.png */,
 				A303B8CC13C5D5F5004F4AD0 /* refresh.png */,
 				A303B8CD13C5D5F5004F4AD0 /* reset.png */,
 				A372A5AB13A8B853006CF4B4 /* plus.png */,
@@ -1409,6 +1422,7 @@
 				A323BD4713BE050C0076F1E6 /* phoneblocked.png in Resources */,
 				A303B8CE13C5D5F5004F4AD0 /* refresh.png in Resources */,
 				A303B8CF13C5D5F5004F4AD0 /* reset.png in Resources */,
+				A358AFFD13D450BC00B9A228 /* loadingcatalogue.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1525,6 +1539,8 @@
 				A3A81A3C138E53DE0001CF25 /* MonitorTimeView.m in Sources */,
 				A379FF6C13A617A1004FDBB9 /* Policy.m in Sources */,
 				A372A5AF13A8B933006CF4B4 /* ConditionVisitingView.m in Sources */,
+				A358AFF813D4433200B9A228 /* RouterConnectionView.m in Sources */,
+				A358AFFB13D4436800B9A228 /* RouterConnectionViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
