@@ -320,6 +320,23 @@ static int localId;
     [[NetworkManager sharedManager] addRequest:request]; 
 }
 
+-(void) deleteAll{
+    NSString *rootURL  = [[NetworkManager sharedManager] rootURL];
+    NSString *strurl = [NSString stringWithFormat:@"%@/policy/delete", rootURL];
+    
+    NSURL *url = [NSURL URLWithString:strurl];
+    ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
+    [request addPostValue:@"" forKey:@"policy"];
+    [request setDelegate:self];
+    [request setDidFinishSelector:@selector(policyDeleteComplete:)];
+    [request setDidFailSelector:@selector(delegateFailed:)];
+    [[NetworkManager sharedManager] addRequest:request]; 
+}
+
+- (void)policyDeleteComplete:(ASIHTTPRequest *)request{
+    NSLog(@"successfully deleted");
+}
+
 - (void)addedRequestComplete:(ASIHTTPRequest *)request
 {
 	NSString *responseString = [request responseString];

@@ -12,10 +12,16 @@
 @interface SplitFrameView : UIView {
 	UIImageView *topImage;
 	UIImageView *bottomImage;
+    UILabel *ownercaption;
+    UILabel *devicecaption;
+
 }
 
-@property(nonatomic, retain) UIImageView* topImage;
-@property(nonatomic, retain) UIImageView* bottomImage;
+@property(nonatomic, assign) UIImageView* topImage;
+@property(nonatomic, assign) UIImageView* bottomImage;
+
+@property(nonatomic, assign) UILabel *ownercaption;
+@property(nonatomic, assign) UILabel *devicecaption;
 
 //- (id)initWithFrameAndLookup:(CGRect)frame lookup:(NSObject<ImageLookup>*)lookup;
 

@@ -280,6 +280,12 @@ static NSDictionary* devicemetadata;
     return subject;
 }
 
+-(NSString *) currentActionSubjectName{
+    NSDictionary *dict = [devicemetadata objectForKey:[self currentActionSubject]];
+    return [dict objectForKey:@"name"];
+
+}
+
 -(NSString *) currentAction{
     if (actionoptionsarray == NULL)
 		return NULL;

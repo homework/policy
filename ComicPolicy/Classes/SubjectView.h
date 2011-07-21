@@ -10,7 +10,6 @@
 #import "SplitFrameView.h"
 
 @interface SubjectView : SplitFrameView {
-	
-}
+	}
 
 @end

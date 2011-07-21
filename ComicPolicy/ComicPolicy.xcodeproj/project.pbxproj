@@ -81,6 +81,12 @@
 		A337D64413213E6F00DA13C8 /* ActionTimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A337D64313213E6F00DA13C8 /* ActionTimeViewController.m */; };
 		A337D64913213E9300DA13C8 /* ActionTimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = A337D64813213E9300DA13C8 /* ActionTimeView.m */; };
 		A343D61113BBA4EA00B25BC1 /* allpolicies.json in Resources */ = {isa = PBXBuildFile; fileRef = A343D61013BBA4EA00B25BC1 /* allpolicies.json */; };
+		A3448E4613D8BCA200D30FDE /* notifymort.png in Resources */ = {isa = PBXBuildFile; fileRef = A3448E4513D8BCA200D30FDE /* notifymort.png */; };
+		A3448E4813D8BCB100D30FDE /* blockmort.png in Resources */ = {isa = PBXBuildFile; fileRef = A3448E4713D8BCB100D30FDE /* blockmort.png */; };
+		A3448E4A13D8BCDA00D30FDE /* mort.png in Resources */ = {isa = PBXBuildFile; fileRef = A3448E4913D8BCDA00D30FDE /* mort.png */; };
+		A3448E4D13D8BD0400D30FDE /* morttold.png in Resources */ = {isa = PBXBuildFile; fileRef = A3448E4B13D8BD0400D30FDE /* morttold.png */; };
+		A3448E4E13D8BD0400D30FDE /* mortwaiting.png in Resources */ = {isa = PBXBuildFile; fileRef = A3448E4C13D8BD0400D30FDE /* mortwaiting.png */; };
+		A345438413D5DAC5004D0744 /* blockeveryone.png in Resources */ = {isa = PBXBuildFile; fileRef = A345438313D5DAC5004D0744 /* blockeveryone.png */; };
 		A3476047134C630D00430CE0 /* ResultTypeViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3476046134C630D00430CE0 /* ResultTypeViewController.mm */; };
 		A3476055134C637500430CE0 /* ResultVisitsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3476054134C637500430CE0 /* ResultVisitsViewController.mm */; };
 		A34760AC134C7B5F00430CE0 /* MonitorView.m in Sources */ = {isa = PBXBuildFile; fileRef = A34760AB134C7B5F00430CE0 /* MonitorView.m */; };
@@ -324,6 +330,12 @@
 		A337D64713213E9300DA13C8 /* ActionTimeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionTimeView.h; sourceTree = "<group>"; };
 		A337D64813213E9300DA13C8 /* ActionTimeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionTimeView.m; sourceTree = "<group>"; };
 		A343D61013BBA4EA00B25BC1 /* allpolicies.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = allpolicies.json; sourceTree = "<group>"; };
+		A3448E4513D8BCA200D30FDE /* notifymort.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = notifymort.png; sourceTree = "<group>"; };
+		A3448E4713D8BCB100D30FDE /* blockmort.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blockmort.png; sourceTree = "<group>"; };
+		A3448E4913D8BCDA00D30FDE /* mort.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mort.png; sourceTree = "<group>"; };
+		A3448E4B13D8BD0400D30FDE /* morttold.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = morttold.png; sourceTree = "<group>"; };
+		A3448E4C13D8BD0400D30FDE /* mortwaiting.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mortwaiting.png; sourceTree = "<group>"; };
+		A345438313D5DAC5004D0744 /* blockeveryone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blockeveryone.png; sourceTree = "<group>"; };
 		A3476045134C630D00430CE0 /* ResultTypeViewController.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = ResultTypeViewController.h; sourceTree = "<group>"; };
 		A3476046134C630D00430CE0 /* ResultTypeViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ResultTypeViewController.mm; sourceTree = "<group>"; };
 		A3476053134C637500430CE0 /* ResultVisitsViewController.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = ResultVisitsViewController.h; sourceTree = "<group>"; };
@@ -705,6 +717,7 @@
 		A30ADEFA131528F70060D2F1 /* notify */ = {
 			isa = PBXGroup;
 			children = (
+				A3448E4513D8BCA200D30FDE /* notifymort.png */,
 				A352A7031317EAF80053867A /* notifybymail.png */,
 				A352A7041317EAF80053867A /* notifybyphone.png */,
 				A352A7051317EAF80053867A /* notifybysound.png */,
@@ -721,6 +734,8 @@
 		A30ADF01131528F70060D2F1 /* block */ = {
 			isa = PBXGroup;
 			children = (
+				A3448E4713D8BCB100D30FDE /* blockmort.png */,
+				A345438313D5DAC5004D0744 /* blockeveryone.png */,
 				A30ADF02131528F70060D2F1 /* blockdad.png */,
 				A30ADF03131528F70060D2F1 /* blockjohn.png */,
 				A30ADF04131528F70060D2F1 /* blockkatie.png */,
@@ -752,6 +767,7 @@
 		A30ADF0D131528F70060D2F1 /* people */ = {
 			isa = PBXGroup;
 			children = (
+				A3448E4913D8BCDA00D30FDE /* mort.png */,
 				A30ADF0E131528F70060D2F1 /* dad.png */,
 				A30ADF0F131528F70060D2F1 /* everyone.png */,
 				A30ADF10131528F70060D2F1 /* john.png */,
@@ -840,6 +856,8 @@
 		A30ADF48131528F80060D2F1 /* characters */ = {
 			isa = PBXGroup;
 			children = (
+				A3448E4B13D8BD0400D30FDE /* morttold.png */,
+				A3448E4C13D8BD0400D30FDE /* mortwaiting.png */,
 				A30AE27C1316B6B80060D2F1 /* dadtold.png */,
 				A30AE27D1316B6B80060D2F1 /* dadwaiting.png */,
 				A30AE27E1316B6B80060D2F1 /* johntold.png */,
@@ -1423,6 +1441,12 @@
 				A303B8CE13C5D5F5004F4AD0 /* refresh.png in Resources */,
 				A303B8CF13C5D5F5004F4AD0 /* reset.png in Resources */,
 				A358AFFD13D450BC00B9A228 /* loadingcatalogue.png in Resources */,
+				A345438413D5DAC5004D0744 /* blockeveryone.png in Resources */,
+				A3448E4613D8BCA200D30FDE /* notifymort.png in Resources */,
+				A3448E4813D8BCB100D30FDE /* blockmort.png in Resources */,
+				A3448E4A13D8BCDA00D30FDE /* mort.png in Resources */,
+				A3448E4D13D8BD0400D30FDE /* morttold.png in Resources */,
+				A3448E4E13D8BD0400D30FDE /* mortwaiting.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

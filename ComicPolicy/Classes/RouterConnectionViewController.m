@@ -43,7 +43,7 @@
     
     RouterConnectionView *aview = [[RouterConnectionView alloc] initWithFrame:CGRectMake(0, 0, appFrame.size.height + 20, appFrame.size.width )];
     
-    aview.caption.text = [NSString stringWithFormat:@"Getting catalogue from router [%@]", [[NetworkManager sharedManager] rootURL]]; 
+    aview.caption.text = [NSString stringWithFormat:@"Getting catalogue from router \n [%@]", [[NetworkManager sharedManager] rootURL]]; 
     
     self.view = aview;
 }

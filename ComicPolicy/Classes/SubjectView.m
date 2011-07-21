@@ -20,6 +20,20 @@
 		
 		topImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dad.png"]];
 		[self addSubview:topImage];
+        
+        self.ownercaption = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, 250, 30)];
+        self.ownercaption.textColor = [UIColor blackColor];
+        self.ownercaption.font = [UIFont fontWithName:@"MarkerFelt-Thin" size:15.0];
+        self.ownercaption.backgroundColor = [UIColor clearColor];
+        [self addSubview:ownercaption];
+        [ownercaption release];
+        
+        self.devicecaption = [[UILabel alloc] initWithFrame:CGRectMake(140, self.frame.size.height - 33, 250, 30)];
+        self.devicecaption.textColor = [UIColor blackColor];
+        self.devicecaption.font = [UIFont fontWithName:@"MarkerFelt-Thin" size:15.0];
+        self.devicecaption.backgroundColor = [UIColor clearColor];
+        [self addSubview:devicecaption];
+        [devicecaption release];
     }
     return self;
 }

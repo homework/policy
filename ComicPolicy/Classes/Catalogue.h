@@ -30,8 +30,10 @@
 #pragma mark *action getters for UI
 -(NSString *) currentActionViewController;
 -(NSString *) nextActionViewController;
+
 -(NSString *) currentActionImage; 
 -(NSString *) nextActionImage;
+
 -(NSString *) currentActionSubjectImage;
 -(NSString *) nextActionSubjectImage;
 
@@ -58,6 +60,7 @@
 -(NSString *) nextCondition;
 -(NSString *) currentAction;
 -(NSString *) currentActionSubject;
+-(NSString *) currentActionSubjectName;
 -(NSString *) currentActionType;
 
 

@@ -101,7 +101,7 @@ static long MAXBYTES = 1 * 1024 * 1024;
     [self.view addSubview:topMask];
     
     
-    fakeDataTimer = [NSTimer scheduledTimerWithTimeInterval:3.0 
+    fakeDataTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
                                                      target:self 
                                                    selector:@selector(requestData:)//addReading:) //addSite:
                                                    userInfo:nil 

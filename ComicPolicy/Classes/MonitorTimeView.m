@@ -17,7 +17,7 @@
 @synthesize pinkcog;
 @synthesize pointer;
 @synthesize smallpointer;
-
+@synthesize routercaption;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -96,6 +96,12 @@
         [self addSubview:leaf2];
         [leaf2 release];
 
+        self.routercaption = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.size.width - 100, self.frame.size.height - 35, 250, 30)];
+        self.routercaption.textColor = [UIColor blackColor];
+        self.routercaption.font = [UIFont fontWithName:@"MarkerFelt-Thin" size:25.0];
+        self.routercaption.backgroundColor = [UIColor clearColor];
+        [self addSubview:routercaption];
+        [routercaption release];
     }
     return self;
 }

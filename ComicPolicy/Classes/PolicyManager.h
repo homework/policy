@@ -30,6 +30,7 @@
 -(void) loadFirstPolicy;
 -(void) refresh;
 -(void) reset;
+-(void) deleteAll;
 -(void) newDefaultPolicy;
 -(void) policyFired:(NSString *) policyid;
 -(NSString*) currentPolicyId;

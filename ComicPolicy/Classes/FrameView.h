@@ -14,8 +14,8 @@
     UILabel *caption;
 }
 
-@property (nonatomic,retain) UIImageView *mainImage;
-@property (nonatomic, retain) UILabel *caption;
+@property (nonatomic,assign) UIImageView *mainImage;
+@property (nonatomic, assign) UILabel *caption;
 
 - (id)initWithFrameAndLookup:(CGRect)frame lookup:(NSObject<ImageLookup>*)lookup;
 - (id)initWithFrameAndImage:(CGRect)frame image:(NSString *) image;

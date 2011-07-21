@@ -19,9 +19,10 @@
     if (self) {
        UIImageView *loading = [[UIImageView alloc] initWithImage: [UIImage imageNamed:@"loadingcatalogue.png"]];
         [self addSubview:loading];
-        self.caption = [[UILabel alloc] initWithFrame:CGRectMake(200, 0, 700, 700)];
+        self.caption = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 1024, 700)];
         caption.textColor = [UIColor blackColor];
-        
+        caption.textAlignment = UITextAlignmentCenter;
+        caption.numberOfLines = 0;
         caption.font = [UIFont fontWithName:@"MarkerFelt-Thin" size:50.0];
         caption.backgroundColor = [UIColor clearColor];
         [self addSubview:caption];

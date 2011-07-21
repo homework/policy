@@ -14,10 +14,16 @@
 	
 	UIImageView *personImage;
 	UIImageView *blockImage;
+    UILabel *blockcaption;
+    UILabel *devicecaption;
 }
 
-@property(nonatomic,retain) UIImageView *personImage;
-@property(nonatomic,retain) UIImageView *blockImage;
+@property(nonatomic,assign) UIImageView *personImage;
+@property(nonatomic,assign) UIImageView *blockImage;
+
+@property(nonatomic,assign) UILabel *blockcaption;
+@property(nonatomic,assign) UILabel *devicecaption;
+
 - (id)initWithFrameAndImages:(CGRect)frame topImage:(NSString*)topImage bottomImage:(NSString*) bottomImage;
 
 

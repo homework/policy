@@ -13,6 +13,8 @@
 
 @synthesize personImage;
 @synthesize blockImage;
+@synthesize blockcaption;
+@synthesize devicecaption;
 
 - (id)initWithFrameAndImages:(CGRect)frame topImage:(NSString*)topImage bottomImage:(NSString*) bottomImage{
 	if ((self = [super initWithFrame:frame])) {
@@ -31,6 +33,21 @@
 		upImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"greenup.png"]];
 		upImage.frame = CGRectMake(135, 4, 27, 26);
 		[self addSubview:upImage];
+        
+        self.blockcaption = [[UILabel alloc] initWithFrame:CGRectMake(20,20, 150, 30)];
+        self.blockcaption.textColor = [UIColor blackColor];
+        self.blockcaption.font = [UIFont fontWithName:@"MarkerFelt-Thin" size:15.0];
+        self.blockcaption.text = @"BLOCK!";
+        self.blockcaption.backgroundColor = [UIColor clearColor];
+        [self addSubview:blockcaption];
+        [blockcaption release];
+        
+        self.devicecaption = [[UILabel alloc] initWithFrame:CGRectMake(160, self.frame.size.height - 37, 250, 30)];
+        self.devicecaption.textColor = [UIColor blackColor];
+        self.devicecaption.font = [UIFont fontWithName:@"MarkerFelt-Thin" size:15.0];
+        self.devicecaption.backgroundColor = [UIColor clearColor];
+        [self addSubview:devicecaption];
+        [devicecaption release];
 		
     }
     return self;

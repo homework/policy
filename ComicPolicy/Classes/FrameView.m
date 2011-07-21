@@ -64,7 +64,7 @@
 
 - (void)dealloc {
     [super dealloc];
-	[mainImage release];
+	//[mainImage release];
 }
 
 

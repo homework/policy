@@ -127,8 +127,8 @@
 	
 	if (CGRectContainsPoint( deleteButton.frame , touchLocation)){
 		
-        [[PolicyManager sharedPolicyManager] policyFired:@"1"];
-    
+        //[[PolicyManager sharedPolicyManager] policyFired:@"1"];
+        [[PolicyManager sharedPolicyManager] deleteAll];
     }
     else if (CGRectContainsPoint( refreshButton.frame , touchLocation)){
         [[PolicyManager sharedPolicyManager] refresh];
@@ -330,15 +330,14 @@
 
 - (void)catalogueRequestFailed:(ASIHTTPRequest *)request
 {
-    [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(readInCatalogue:) userInfo:nil repeats:NO]; 
+    //[NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(readInCatalogue:) userInfo:nil repeats:NO]; 
      
-    // [self readInCatalogue];
-    /*
+        
     [[Catalogue sharedCatalogue] parseCatalogue:nil];
     [self createControllers];
     [self addNotificationHandlers];
     [[PolicyManager sharedPolicyManager] loadFirstPolicy];
-    [self addNavigationView];*/
+    [self addNavigationView];
     
 }
 

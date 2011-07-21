@@ -29,21 +29,26 @@
 	CGPoint touchLocation = [touch locationInView:self.view];	
 	
 	if (CGRectContainsPoint(subjectView.topImage.frame, touchLocation)){
-		
+		subjectView.ownercaption.alpha = 0.0;
 		[UIView beginAnimations:nil context:nil];
 		[UIView setAnimationDuration:0.75];
 		[UIView setAnimationDelegate:self];
+         [UIView setAnimationDidStopSelector:@selector(addCaptions:finished:context:)];
 		[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight forView:subjectView.topImage cache:NO];
 		subjectView.topImage.image = [UIImage imageNamed: [[Catalogue sharedCatalogue] nextSubjectOwnerImage]];
+        
 		[UIView commitAnimations];
         NSLog(@"the owners name is %@", [[Catalogue sharedCatalogue] currentSubjectOwner]);
 	}
 	else if (CGRectContainsPoint(subjectView.bottomImage.frame, touchLocation)){
+      subjectView.devicecaption.alpha = 0.0;
 		[UIView beginAnimations:nil context:nil];
 		[UIView setAnimationDuration:0.75];
 		[UIView setAnimationDelegate:self];
+         [UIView setAnimationDidStopSelector:@selector(addCaptions:finished:context:)];
 		[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:subjectView.bottomImage cache:NO];
 		subjectView.bottomImage.image = [UIImage imageNamed:[[Catalogue sharedCatalogue] nextSubjectDeviceImage]];
+        
 		[UIView commitAnimations];
          NSLog(@"the device's name is %@", [[Catalogue sharedCatalogue] currentDeviceName]);
 	}
@@ -78,28 +83,35 @@
 	//[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:subjectView.bottomImage cache:NO];
 	subjectView.topImage.image = [UIImage imageNamed:[[Catalogue sharedCatalogue] currentSubjectOwnerImage]];
 	subjectView.bottomImage.image = [UIImage imageNamed:[[Catalogue sharedCatalogue] currentSubjectDeviceImage]];
-	
-     NSLog(@"the owners name is %@", [[Catalogue sharedCatalogue] currentSubjectOwner]);
-     NSLog(@"the device's name is %@", [[Catalogue sharedCatalogue] currentDeviceName]);
+	//subjectView.caption.text = [[Catalogue sharedCatalogue] currentSubjectOwner];
+     subjectView.ownercaption.text = [NSString stringWithFormat:@"When %@'s",[[Catalogue sharedCatalogue] currentSubjectOwner]];
+     subjectView.devicecaption.text = [NSString stringWithFormat:@"device (%@)",[[Catalogue sharedCatalogue] currentDeviceName]];
+    
     //[UIView commitAnimations];
 }
 
 -(void) subjectOwnerChange:(NSNotification *) n{
-	
+	subjectView.devicecaption.alpha = 0.0;
 	
   	[UIView beginAnimations:nil context:nil];
 	[UIView setAnimationDuration:0.75];
 	[UIView setAnimationDelay:0.70];
 	[UIView setAnimationDelegate:self];
-	//[UIView setAnimationWillStartSelector:@selector(playSound:finished:context:)];
+    [UIView setAnimationDidStopSelector:@selector(addCaptions:finished:context:)];
 	[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:subjectView.bottomImage cache:NO];
 	
 	subjectView.bottomImage.image = [UIImage imageNamed:[[Catalogue sharedCatalogue] currentSubjectDeviceImage]];
+    
 	[UIView commitAnimations];
-    NSLog(@"the device's name is %@", [[Catalogue sharedCatalogue] currentDeviceName]);
+   
 }
 
-
+- (void)addCaptions:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context {
+    subjectView.devicecaption.alpha = 1.0;
+    subjectView.ownercaption.alpha = 1.0;
+    subjectView.ownercaption.text = [NSString stringWithFormat:@"When %@'s",[[Catalogue sharedCatalogue] currentSubjectOwner]];
+    subjectView.devicecaption.text = [NSString stringWithFormat:@"device (%@)",[[Catalogue sharedCatalogue] currentDeviceName]];
+}
 
 /*
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.

@@ -12,7 +12,7 @@
 #import "MonitorDataSource.h"
 
 @interface ResultTimeViewController()
--(void) rotateCogs:(NSString *) animationID finished:(NSNumber*)finished context:(void*)context;
+-(void) rotateCogs;//:(NSString *) animationID finished:(NSNumber*)finished context:(void*)context;
 -(void) rotateActivityMonitor:(activity) a;
 -(void) resetActivity;
 -(void) advancePointer:(int) timeLeft timeInside:(int) timeInside isInside:(BOOL) inside;
@@ -64,7 +64,7 @@ BOOL inside = NO;
     [self.view addSubview: monitorTimeView];
     [monitorTimeView release];
     
-    [self rotateCogs:nil finished:nil context:nil];
+    //[self rotateCogs:nil finished:nil context:nil];
    
     monitorTimer = [NSTimer scheduledTimerWithTimeInterval:3.0 
                                                      target:self 
@@ -94,7 +94,7 @@ BOOL inside = NO;
 -(void) requestData:(NSTimer *) timer{
     
     //[self advancePointer];
-   
+    [self rotateCogs];
     //start = M_PI / 
     NSString * subject = [[Catalogue sharedCatalogue] currentSubjectDevice];
     NSString *rootURL  = [[NetworkManager sharedManager] rootURL];
@@ -279,6 +279,7 @@ BOOL inside = NO;
     int routerminutes = [minutecomponents minute];
     int routerseconds = [secondcomponents second];
     
+    monitorTimeView.routercaption.text = [NSString stringWithFormat:@"%d:%d", routerhour, routerminutes];
     NSLog(@"router time is %d:%d", routerhour, routerminutes);
     return ((routerhour * 3600) + (routerminutes * 60) + (routerseconds));
 }
@@ -307,11 +308,38 @@ BOOL inside = NO;
     [UIView commitAnimations];
 }
 
+-(void) rotateCogs{
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:2.9];
+    [UIView setAnimationDelegate:self];
+    // [UIView setAnimationDidStopSelector:@selector(rotateCogs:finished:context:)];
+    
+    
+    if (rotateflag){
+        monitorTimeView.pinkcog.transform = CGAffineTransformMakeRotation(M_PI);
+        monitorTimeView.yellowcog.transform = CGAffineTransformMakeRotation(M_PI);
+        monitorTimeView.redcog.transform = CGAffineTransformMakeRotation(M_PI);
+        
+    }
+    else{
+        monitorTimeView.pinkcog.transform = CGAffineTransformMakeRotation(0);
+        monitorTimeView.yellowcog.transform = CGAffineTransformMakeRotation(0);
+        monitorTimeView.redcog.transform = CGAffineTransformMakeRotation(0);
+    }
+    
+    rotateflag = !rotateflag;
+    [UIView commitAnimations];
+
+}
+
+/*
 -(void) rotateCogs:(NSString *) animationID finished:(NSNumber*)finished context:(void*)context{
+    NSLog(@"performing animations...");
+    
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:5.0];
     [UIView setAnimationDelegate:self];
-    [UIView setAnimationDidStopSelector:@selector(rotateCogs:finished:context:)];
+   // [UIView setAnimationDidStopSelector:@selector(rotateCogs:finished:context:)];
     
     
     if (rotateflag){
@@ -329,7 +357,7 @@ BOOL inside = NO;
     rotateflag = !rotateflag;
     [UIView commitAnimations];
 }
-
+*/
 /*
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
@@ -353,15 +381,11 @@ BOOL inside = NO;
 
 
 - (void)viewDidUnload {
-    
-    //[monitorTimeView.layer removeAllAnimations];
+    NSLog(@"TIME VIEW DID UNLOAD>>>>");
+    [monitorTimeView.layer removeAllAnimations];
     monitorView = nil;
-   // [monitorTimeView release];
     [monitorTimer invalidate], monitorTimer = nil;
     [super viewDidUnload];
-
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 

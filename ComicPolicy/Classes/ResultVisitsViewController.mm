@@ -149,7 +149,8 @@ static NSArray *labelArray = [[NSArray alloc] initWithObjects:@"news.bbc.co.uk",
     NSArray *sites  = (NSArray *) [jsonParser objectWithString:responseString error:nil];
     [cloud removeFromSuperview];
     for (NSDictionary *site in sites){
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(XSTART,YSTART,300,35)];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0,0,300,35)];
+        label.tag = labelindex++;
         label.textColor = [UIColor whiteColor];
         label.backgroundColor = [UIColor clearColor];
         label.text = [site objectForKey:@"url"];
@@ -167,13 +168,13 @@ static NSArray *labelArray = [[NSArray alloc] initWithObjects:@"news.bbc.co.uk",
     [cloud removeFromSuperview];
    // CGPoint start = self.view.center;
 
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(XSTART,YSTART,300,35)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(XSTART,YSTART,350,35)];
     label.tag = labelindex++;
     label.textColor = [UIColor whiteColor];
     label.backgroundColor = [UIColor clearColor];
     
     label.text = [labelArray objectAtIndex: (siteindex % [labelArray count])];
-    label.font = [UIFont fontWithName:@"MarkerFelt-Thin" size:35.0];
+    label.font = [UIFont fontWithName:@"MarkerFelt-Thin" size:45.0];
    
     [self.view addSubview:label];
     [self addPhysicalBodyForView:label];
@@ -188,16 +189,13 @@ static NSArray *labelArray = [[NSArray alloc] initWithObjects:@"news.bbc.co.uk",
     {
         if (b->GetUserData() != NULL){
             UIView *oneView = (UIView *) b->GetUserData();
-           // NSLog(@"Cheking %d < %d", (oneView.tag + MAXSITES), labelindex);
-            if ((oneView.tag + MAXSITES) < labelindex){
-             //   NSLog(@"rmoving from super view///");
+            oneView.alpha -= 0.1;
+            if ((oneView.tag + MAXSITES) < labelindex || oneView.alpha <= 0){
                 [oneView removeFromSuperview];
                  world->DestroyBody(b);
             }
         }   
-       
     }
-
 }
 
 - (void)growAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context {
@@ -254,12 +252,12 @@ static NSArray *labelArray = [[NSArray alloc] initWithObjects:@"news.bbc.co.uk",
         
 
 }
-
+/*
 -(void) addPivotsToPhysicalWorld: (UIView *) apivot plank:(UIView*)aplank{
     b2BodyDef pivotBodyDef;
     pivotBodyDef.type = b2_staticBody;
     CGPoint boxDimensions = CGPointMake(apivot.bounds.size.width/PTM_RATIO/2.0, apivot.bounds.size.height/PTM_RATIO/2.0);
-    pivotBodyDef.position.Set( (210) / PTM_RATIO, (220) / PTM_RATIO);
+    //pivotBodyDef.position.Set( (210) / PTM_RATIO, (220) / PTM_RATIO);
     pivotBodyDef.userData = apivot;
     b2Body *pivotbody = world->CreateBody(&pivotBodyDef);
     b2PolygonShape dynamicPivotBox;
@@ -294,7 +292,7 @@ static NSArray *labelArray = [[NSArray alloc] initWithObjects:@"news.bbc.co.uk",
     b2Vec2 anchor(200 / PTM_RATIO, 40);
     jointDef.Initialize(pivotbody, plankbody,pivotbody->GetWorldCenter());
     world->CreateJoint(&jointDef);
-}
+}*/
 
 -(void) addPhysicalBodyForView:(UIView *) physicalView
 {

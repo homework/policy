@@ -15,6 +15,7 @@
     UIImageView* pinkcog;
     UIImageView* pointer;
     UIImageView* smallpointer;
+    UILabel* routercaption;
 }
 
 @property(nonatomic,assign) UIImageView* redcog;
@@ -22,4 +23,6 @@
 @property(nonatomic,assign) UIImageView* pinkcog;
 @property(nonatomic,assign) UIImageView* pointer;
 @property(nonatomic,assign) UIImageView* smallpointer;
+@property(nonatomic,assign) UILabel* routercaption;
+
 @end

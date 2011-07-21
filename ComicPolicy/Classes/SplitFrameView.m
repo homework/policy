@@ -13,6 +13,8 @@
 
 @synthesize topImage;
 @synthesize bottomImage;
+@synthesize ownercaption;
+@synthesize devicecaption;
 
 
 - (id)initWithFrameAndLookup:(CGRect)frame lookup:(NSObject<ImageLookup>*)lookup{

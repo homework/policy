@@ -20,12 +20,14 @@
 		CGRect aframe = CGRectMake(0,20,294,321);
 	
 		NSString *topImage = [[Catalogue sharedCatalogue ]currentActionSubjectImage];
+        
 		NSString *bottomImage = [[Catalogue sharedCatalogue] currentActionImage];
 
        
 		ActionBlockView *aview = [[ActionBlockView alloc] initWithFrameAndImages:aframe topImage:topImage bottomImage:bottomImage];//
 		actionBlockView = aview;
-		self.view = aview;
+		aview.devicecaption.text = [[Catalogue sharedCatalogue ]currentActionSubjectName];
+        self.view = aview;
 		[aview release];		
     }
     return self;
@@ -34,10 +36,13 @@
 -(void) actionChange:(NSNotification *) n{
 	
 	NSString* deviceImage = [[Catalogue sharedCatalogue] currentActionImage];
+    actionBlockView.devicecaption.alpha = 0.0;
 	[UIView beginAnimations:nil context:nil];
 	[UIView setAnimationDuration:0.75];
 	[UIView setAnimationDelay:0.75];
 	[UIView setAnimationDelegate:self];
+    [UIView setAnimationDidStopSelector:@selector(addCaptions:finished:context:)];
+	
 	[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:actionBlockView.blockImage cache:YES];
 	actionBlockView.blockImage.image = [UIImage imageNamed:deviceImage];
 	[UIView commitAnimations];	
@@ -53,10 +58,13 @@
 	
 	if (CGRectContainsPoint(actionBlockView.personImage.frame, touchLocation)){
 		
+        actionBlockView.blockcaption.alpha = 0.0;
 		NSString* personImage = [[Catalogue sharedCatalogue] nextActionSubjectImage];		
 		[UIView beginAnimations:nil context:nil];
 		[UIView setAnimationDuration:0.75];
 		[UIView setAnimationDelegate:self];
+        [UIView setAnimationDidStopSelector:@selector(addCaptions:finished:context:)];
+        
 		[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight forView:actionBlockView.personImage cache:YES];
 		actionBlockView.personImage.image = [UIImage imageNamed:personImage];
 		[UIView commitAnimations];
@@ -64,10 +72,13 @@
 		
 	}
 	else if (CGRectContainsPoint(actionBlockView.blockImage.frame, touchLocation)){
+        actionBlockView.devicecaption.alpha = 0.0;
 		NSString* deviceImage = [[Catalogue sharedCatalogue] nextActionImage];		
 		[UIView beginAnimations:nil context:nil];
 		[UIView setAnimationDuration:0.75];
 		[UIView setAnimationDelegate:self];
+        [UIView setAnimationDidStopSelector:@selector(addCaptions:finished:context:)];
+        
 		[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight forView:actionBlockView.blockImage cache:YES];
 		actionBlockView.blockImage.image = [UIImage imageNamed:deviceImage];
 		[UIView commitAnimations];
@@ -77,7 +88,13 @@
 	
 }
 
+- (void)addCaptions:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context {
+    actionBlockView.devicecaption.alpha = 1.0;
+    actionBlockView.blockcaption.alpha = 1.0;
+    
+    actionBlockView.devicecaption.text = [NSString stringWithFormat:@"%@", [[Catalogue sharedCatalogue ]currentActionSubjectName]];
 
+}
 
 
 
