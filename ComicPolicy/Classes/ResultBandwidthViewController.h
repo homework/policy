@@ -18,9 +18,11 @@
     NSTimer *tickTimer;
     NSTimer *fakeDataTimer;
     UIView *topMask;
+    UILabel *caption;
     int bagindex;
 }
 
 @property(nonatomic, assign) UIView* topMask;
+@property(nonatomic, retain) UILabel* caption;
 
 @end

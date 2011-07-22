@@ -19,6 +19,7 @@
 -(void) sendPolicy:(NSString*)json;
 -(void) newDefaultPolicy;
 -(void) saveCurrentPolicy;
+-(void) createDefaultStartPolicy;
 
 
 -(NSMutableDictionary*) convertToTypedHashtable:(NSMutableDictionary*)dict;
@@ -53,33 +54,38 @@ static int localId;
     // any thread, but serialised by +sharedPolicyManager
     self = [super init];
     if (self != nil) {
-        NSString *filePath = [[NSBundle mainBundle] pathForResource:@"policies" ofType:@"json"];
-        NSString *content = [[NSString alloc] initWithContentsOfFile:filePath];
-        SBJsonParser *jsonParser = [SBJsonParser new];
-        
-        NSDictionary *data  = (NSDictionary *) [jsonParser objectWithString:content error:nil];
-        
-        
-        if (data == nil){
-            NSLog(@"policy data is malformed");
-        }
-        else{
-            localId = 1;
-            localLookup    = [[[NSMutableDictionary alloc] init] retain];
-            self.policies       = [[NSMutableDictionary alloc] init];
-                               
-            [self readInPolicies:[data objectForKey:@"policies"]];
-            
-            self.defaultPolicy = [[Policy alloc] initWithDictionary:[data objectForKey:@"default"]];
-            
-            self.policyids = [[NSMutableArray alloc] initWithArray: [policies allKeys]];
-            
-            //conditionArguments = [[[NSMutableDictionary alloc] init] retain];
-            
-            [self loadFirstPolicy];
-        }
+        [self createDefaultStartPolicy];
     }
     return self;
+}
+
+-(void) createDefaultStartPolicy{
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"policies" ofType:@"json"];
+    NSString *content = [[NSString alloc] initWithContentsOfFile:filePath];
+    
+    SBJsonParser *jsonParser = [SBJsonParser new];
+    
+    NSDictionary *data  = (NSDictionary *) [jsonParser objectWithString:content error:nil];
+    
+    
+    if (data == nil){
+        NSLog(@"policy data is malformed");
+    }
+    else{
+        localId = 1;
+        localLookup    = [[[NSMutableDictionary alloc] init] retain];
+        self.policies       = [[NSMutableDictionary alloc] init];
+        
+        [self readInPolicies:[data objectForKey:@"policies"]];
+        
+        self.defaultPolicy = [[Policy alloc] initWithDictionary:[data objectForKey:@"default"]];
+        
+        self.policyids = [[NSMutableArray alloc] initWithArray: [policies allKeys]];
+        
+        //conditionArguments = [[[NSMutableDictionary alloc] init] retain];
+        
+        [self loadFirstPolicy];
+    }
 }
 
 
@@ -203,7 +209,6 @@ static int localId;
     
     if (apolicy != nil){
          self.currentPolicy = apolicy;
-        NSLog(@"POLICY FIRED: setting subject %@, and device %@", apolicy.subjectowner, apolicy.subjectdevice);
         [[Catalogue sharedCatalogue] setSubject:apolicy.subjectowner device:apolicy.subjectdevice];
         [[Catalogue sharedCatalogue] setCondition:apolicy.conditiontype options:apolicy.conditionarguments];
         //should take an array of arguments for 'option'
@@ -334,7 +339,15 @@ static int localId;
 }
 
 - (void)policyDeleteComplete:(ASIHTTPRequest *)request{
-    NSLog(@"successfully deleted");
+    NSLog(@"*********** Policy delete complete..");
+    [policies removeAllObjects];
+    NSLog(@"policies size is now %d", [policies count]);
+    [policyids removeAllObjects];
+     NSLog(@"policyids size is now %d", [policyids count]);
+    [localLookup release];
+    [policies release];
+    [policyids release];
+    [self createDefaultStartPolicy];
 }
 
 - (void)addedRequestComplete:(ASIHTTPRequest *)request

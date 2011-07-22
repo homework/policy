@@ -12,20 +12,23 @@
 @interface ResultBandwidthViewController()
 -(void) createPhysicsWorld;
 -(void)addPhysicalBodyForView:(UIView *)aview;
--(void)addReading:(long) bytes;
+-(void) addReading:(long) currentByteCount rangeByteCount:(long) rangeByteCount limitByteCount:(long) limitByteCount;
 -(void)removeOldBags;
 @end
 
 @implementation ResultBandwidthViewController
 
 @synthesize topMask;
+@synthesize caption;
 
 #define ARC4RANDOM_MAX 0x7fffffff
 #define MAXBAGS 5
 
 static float XSTART = 100;
 static float YSTART = 140;
-static long MAXBYTES = 1 * 1024 * 1024;
+static float KBDIVISOR = 1024;
+
+//static long MAXBYTES = 1 * 1024 * 1024;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -85,6 +88,7 @@ static long MAXBYTES = 1 * 1024 * 1024;
     [self.view addSubview: monitorView];
     
    
+
     
     self.topMask = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"resultbandwidthtop.png"]];
    
@@ -100,6 +104,14 @@ static long MAXBYTES = 1 * 1024 * 1024;
                                                 repeats:YES];
     [self.view addSubview:topMask];
     
+    
+    self.caption = [[UILabel alloc] initWithFrame:CGRectMake(mview.frame.size.width - 140, mview.frame.size.height - 33, 250, 30)];
+    self.caption.textColor = [UIColor blackColor];
+    self.caption.font = [UIFont fontWithName:@"MarkerFelt-Thin" size:15.0];
+    self.caption.backgroundColor = [UIColor clearColor];
+    self.caption.text = @"- KB of - KB";
+    [self.view addSubview:caption];
+    [caption release];
     
     fakeDataTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
                                                      target:self 
@@ -119,19 +131,25 @@ static long MAXBYTES = 1 * 1024 * 1024;
 }
 
 -(void) newBandwidthData:(NSNotification *) notification{
-   
+    SBJsonParser *jsonParser = [SBJsonParser new];
+    
     NSDictionary *data = [notification userInfo];
-    NSString *responseString = [data objectForKey:@"data"];    
-    [self addReading: [responseString longLongValue]];
+    NSString *responseString = [data objectForKey:@"data"];
+    NSLog(@"response string is %@", responseString);
+    NSArray* results = (NSArray *) [jsonParser objectWithString:responseString error:nil];
+    NSLog(@"got results %@ %@ %@",[results objectAtIndex:0] , [results objectAtIndex:1], [results objectAtIndex:2]);
+    [self addReading: [[results objectAtIndex:0] longLongValue] rangeByteCount:[[results objectAtIndex:1] longLongValue] limitByteCount:[[results objectAtIndex:2] longLongValue]];
     //NSArray *sites  = (NSArray *) [jsonParser objectWithString:responseString error:nil];
 }
 
--(void) addReading:(long) bytes{
-    if (bytes <= 0) 
+-(void) addReading:(long) currentByteCount rangeByteCount:(long) rangeByteCount limitByteCount:(long) limitByteCount{
+    
+    if (currentByteCount <= 0) 
         return;
     
-    float scalefactor = ((float)bytes/MAXBYTES) + 0.4;
+    float scalefactor = ((float)currentByteCount/limitByteCount) + 0.4;
     [topMask removeFromSuperview];
+    [caption removeFromSuperview];
     UIImageView *moneyBag = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"moneybag.png"]];
     moneyBag.frame = CGRectMake(0,60,moneyBag.frame.size.width*scalefactor, moneyBag.frame.size.height*scalefactor);
     moneyBag.tag = bagindex++;
@@ -139,7 +157,13 @@ static long MAXBYTES = 1 * 1024 * 1024;
     [self addPhysicalBodyForView:moneyBag];
     [moneyBag release];
     [self.view addSubview:topMask];
+    [self.view addSubview:caption];
     [self removeOldBags];
+    
+    float rangeKB = rangeByteCount / KBDIVISOR;
+    float limitKB = limitByteCount / KBDIVISOR;
+    
+    caption.text = [NSString stringWithFormat:@"%d KB of %d KB", (int)rangeKB, (int)limitKB];
 }
 
 -(void) removeOldBags{
@@ -260,6 +284,7 @@ static long MAXBYTES = 1 * 1024 * 1024;
 {
     
     [super viewDidUnload];
+    [caption release];
     monitorView = nil;
     //[[UIAccelerometer sharedAccelerometer] setDelegate:nil];
     [tickTimer invalidate], tickTimer = nil;

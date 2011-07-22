@@ -47,14 +47,14 @@ static float PADDING = 15;
 
 
 -(void) totalPoliciesChanged:(NSNotification*) notification{
-    NSLog(@"seend a totalPoliciesChanged");
     [self updateNavigation];
 }
 
 -(void) updateNavigation{
+    
     NSArray *policyids = [[PolicyManager sharedPolicyManager]policyids];
     
-	int buttoncount = [policyids count] + 1;
+   int buttoncount = [policyids count] + 1;
     
 	float barlen = (buttoncount * 26) + (PADDING * buttoncount-1);
 	CGFloat xlen = [[UIScreen mainScreen] bounds].size.height;
@@ -67,6 +67,7 @@ static float PADDING = 15;
 	
 	
 	for (NSString *policy in policyids ){
+       
 		UIImageView *button = [[UIImageView alloc] initWithImage: [UIImage imageNamed:@"empty.png"]];
 		button.tag = [policy intValue];
         
@@ -129,6 +130,7 @@ static float PADDING = 15;
 }
 
 -(void) policyLoaded:(NSNotification *) notification{
+    [self updateNavigation];
     [self updateSelected];
 }
 

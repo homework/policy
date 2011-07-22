@@ -45,10 +45,10 @@
 }
 */
 
-float DURATION      = 0;
+/*float DURATION      = 0;
 float TIMEOUTSIDE   = 30;   //seconds
 float TIMEINSIDE    = 10;   //seconds
-float TIMEDELTA     = 3;    //seconds
+float TIMEDELTA     = 3;    //seconds*/
 BOOL inside = NO;
 
 - (void)loadView
@@ -156,34 +156,28 @@ BOOL inside = NO;
         
    
     float fraction = (float)timeLeft/(float)timeInside;   //TIMEINSIDE;
-    NSLog(@"fraction is %f / %f = %f", (float)timeLeft, (float)timeInside, fraction);
     int degrees = (int) (startInDegrees + ((90) - ((float)90 * fraction))) % 360;
-    NSLog(@"inside => degrees is now %d", degrees);
     monitorTimeView.pointer.transform = CGAffineTransformMakeRotation((float)degrees * (M_PI)/180);
    // DURATION += 3;
 }
 
 -(void) advanceOutside: (int) timeLeft timeOutside:(int)timeOutside{
     
-    NSLog(@"ADVANCING OUTSIDE!!!");
     
     float startInDegrees = ((3 * M_PI)/4) * ((float)180/M_PI);
     
     float fraction = (float)timeLeft/(float)timeOutside;///TIMEOUTSIDE;
-    NSLog(@"fraction is %f", fraction);
     int degrees = (int) (startInDegrees + ((270) - (270 * fraction))) % 360;
     
-    NSLog(@"degrees is %d", degrees);
     
     monitorTimeView.pointer.transform = CGAffineTransformMakeRotation((float)degrees * (M_PI)/180);
-    DURATION += 3;
+    //DURATION += 3;
 }
 
 -(void) newActivityData:(NSNotification *) notification{
     NSDictionary *data = [notification userInfo];
     NSString *responseString = [data objectForKey:@"data"];    
     
-    NSLog(@"response string %@", responseString);
     SBJsonParser *jsonParser = [SBJsonParser new];
     
     NSArray* results = (NSArray *) [jsonParser objectWithString:responseString error:nil];
