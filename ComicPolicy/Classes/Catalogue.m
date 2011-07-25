@@ -470,7 +470,6 @@ static NSDictionary* devicemetadata;
 
 -(void) setAction:(NSString *) action subject:(NSString*) subject options:(NSArray*)arguments{
     
-    NSLog(@"ok setting the action...");
     
     int index = 0;
     
@@ -485,7 +484,6 @@ static NSDictionary* devicemetadata;
         if (subjects != nil){
             index = 0;
             for (NSString* asubject in subjects){
-                NSLog(@"checking if %@ is equal to %@", asubject, subject);
                 if ([asubject isEqualToString:subject]){
                     
                     if (actionsubjectarray != NULL)
@@ -494,13 +492,11 @@ static NSDictionary* devicemetadata;
                     actionsubjectarray = [subjects retain];
                     actionsubjectarrayindex = index;
                     
-                    NSLog(@"setting current action type to %@", action);
                     
                     currentActionType = action;
                     
                     NSString *subject = [actionsubjectarray objectAtIndex:actionsubjectarrayindex];
                     
-                    NSLog(@"setting current action subject to %@", subject);
                     
                     [self updateActionOptions:subject];
                     
@@ -558,14 +554,14 @@ static NSDictionary* devicemetadata;
                 }
                 index += 1;
             }           
-        }else{NSLog(@"hmmm, subjects is niL!!!");}
-    }else{NSLog(@"cant find objcet for key %@", action);}
+        }
+    }
 }
 
 
 -(void) parseCatalogue:(NSString*) catalogue{
     
-    NSLog(@"in parse catalogue.....");
+   // NSLog(@"in parse catalogue.....");
     
     SBJsonParser *jsonParser = [SBJsonParser new];
     

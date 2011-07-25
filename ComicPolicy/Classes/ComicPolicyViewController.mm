@@ -82,7 +82,7 @@
 }
 
 -(void) addNavigationView{
-    NSLog(@"adding a navigation view");
+    NSLog(@"CRATETING a navigation view");
 	navigationViewController = [[NavigationViewController alloc] init];
 	[self.view addSubview: navigationViewController.view];
     [self addSaveAndCancel];
@@ -299,11 +299,10 @@
         timer = nil;
     }
         
-    NSLog(@"reading in a catalogue");
+   
     NSString *rootURL  = [[NetworkManager sharedManager] rootURL];
     NSString *strurl = [NSString stringWithFormat:@"%@/public/policies/catalogue.json", rootURL];
-    NSLog(@"reading in catalogue: %@", strurl);
-    
+   
     NSURL *url = [NSURL URLWithString:strurl];
     
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
@@ -316,13 +315,13 @@
 - (void)catalogueRequestComplete:(ASIHTTPRequest *)request
 {
     NSString *responseString = [request responseString];
-    NSLog(@"got response string %@", responseString);
+ 
     [[Catalogue sharedCatalogue] parseCatalogue:responseString];
     [self createControllers];
     
     [self addNotificationHandlers];
     [[PolicyManager sharedPolicyManager] loadFirstPolicy];
-    [self addNavigationView];
+   //[self addNavigationView];
     
 
 }
@@ -332,12 +331,12 @@
 {
     //[NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(readInCatalogue:) userInfo:nil repeats:NO]; 
      
-        
+    NSLog(@"catalogue request failed!!");
     [[Catalogue sharedCatalogue] parseCatalogue:nil];
     [self createControllers];
     [self addNotificationHandlers];
     [[PolicyManager sharedPolicyManager] loadFirstPolicy];
-    [self addNavigationView];
+   // [self addNavigationView];
     
 }
 

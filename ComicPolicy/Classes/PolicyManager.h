@@ -33,7 +33,7 @@
 -(void) deleteAll;
 -(void) newDefaultPolicy;
 -(void) policyFired:(NSString *) policyid;
--(NSString*) currentPolicyId;
+
 
 -(BOOL) hasFiredForSubject:(NSString *)subject;
 -(BOOL) hasFired;

@@ -50,7 +50,7 @@
         
         self.rootURL = [NSString stringWithFormat:@"http://%@:%d/policyserver", [self getGatewayAddress], 8080];
         
-        //self.rootURL = [NSString stringWithFormat:@"http://10.2.0.1:9000"];
+        //self.rootURL = [NSString stringWithFormat:@"http://10.2.0.13:9000"];
         
         self.networkQueue = [ASINetworkQueue queue];
         [networkQueue setDelegate:self];

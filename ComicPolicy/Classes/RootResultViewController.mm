@@ -74,11 +74,11 @@
 -(void) updateActionResultScene{
     BOOL hasFired = [[PolicyManager sharedPolicyManager] hasFiredForSubject:[[Catalogue sharedCatalogue] currentActionSubject]];
     
-    NSLog(@"POLICY HAS FIRED IS %@", (hasFired ? @"YES" : @"NO"));
+   // NSLog(@"POLICY HAS FIRED IS %@", (hasFired ? @"YES" : @"NO"));
     
 	NSString *newscene =  [[Catalogue sharedCatalogue] getActionResultImage:hasFired];
 	
-    NSLog(@"newscene is %@", newscene);
+    //NSLog(@"newscene is %@", newscene);
     
 	if (newscene != NULL){
 		//if (! [resultController.currentActionScene isEqualToString:newscene]){

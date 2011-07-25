@@ -11,6 +11,8 @@
 
 @interface Policy : NSObject {
     
+    NSString*   localid;
+    
     NSString*   identity;
     
     NSString*   subjectowner;
@@ -30,7 +32,7 @@
 - (id)initWithPolicy:(Policy *)aPolicy;
 
 @property(nonatomic, copy) NSString* identity;
-
+@property(nonatomic, copy) NSString* localid;
 @property(nonatomic, copy) NSString* subjectowner;
 @property(nonatomic, copy) NSString* subjectdevice;
 

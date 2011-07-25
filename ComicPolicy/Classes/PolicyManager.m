@@ -93,23 +93,27 @@ static int localId;
     return currentPolicy.identity;
 }
 
+-(NSString*) currentLocalPolicyId{
+    return currentPolicy.localid;
+}
+
 -(BOOL) hasFired{
     return currentPolicy.fired;
 }
 
 -(BOOL) hasFiredForSubject:(NSString *)subject{
-    NSLog(@"chekcing if policy has fired for subject %@", subject);
+   // NSLog(@"chekcing if policy has fired for subject %@", subject);
     
     if (currentPolicy.fired){
-        NSLog(@"current policy has fired...");
+     //   NSLog(@"current policy has fired...");
         if ([currentPolicy.actionsubject isEqualToString:subject]){
-            NSLog(@"returning yes");
+       //     NSLog(@"returning yes");
             return YES;
         }else{
-            NSLog(@"%@ is not the same as %@", currentPolicy.actionsubject, subject);
+         //   NSLog(@"%@ is not the same as %@", currentPolicy.actionsubject, subject);
         }
     }
-    NSLog(@"returning no..");
+   // NSLog(@"returning no..");
     return NO;
 }
 
@@ -123,22 +127,22 @@ static int localId;
         return NO;
     }
     
-    NSLog(@"1. checking %@ against %@", currentPolicy.subjectdevice, [[Catalogue sharedCatalogue] currentSubjectDevice]);
+    //NSLog(@"1. checking %@ against %@", currentPolicy.subjectdevice, [[Catalogue sharedCatalogue] currentSubjectDevice]);
     
     if ( ![currentPolicy.subjectdevice isEqualToString:[[Catalogue sharedCatalogue] currentSubjectDevice]])
         return NO;
     
-     NSLog(@"2. checking %@ against %@", currentPolicy.conditiontype, [[Catalogue sharedCatalogue] currentCondition]);
+   //  NSLog(@"2. checking %@ against %@", currentPolicy.conditiontype, [[Catalogue sharedCatalogue] currentCondition]);
     
     if (![currentPolicy.conditiontype isEqualToString: [[Catalogue sharedCatalogue] currentCondition]])
         return NO;
     
     //TODO: condition args...
-    NSLog(@"3.checking %@ against %@",currentPolicy.actiontype, [[Catalogue sharedCatalogue] currentActionType]);
+   // NSLog(@"3.checking %@ against %@",currentPolicy.actiontype, [[Catalogue sharedCatalogue] currentActionType]);
     if ( ![currentPolicy.actiontype isEqualToString: [[Catalogue sharedCatalogue] currentActionType]])
         return NO;
     
-    NSLog(@"checking %@ against %@", currentPolicy.actionsubject, [[Catalogue sharedCatalogue] currentActionSubject]);
+    //NSLog(@"checking %@ against %@", currentPolicy.actionsubject, [[Catalogue sharedCatalogue] currentActionSubject]);
     if (![currentPolicy.actionsubject isEqualToString: [[Catalogue sharedCatalogue] currentActionSubject]])
         return NO;
     
@@ -153,11 +157,13 @@ static int localId;
             
         Policy *apolicy = [[Policy alloc] initWithDictionary:[policydict objectForKey:identity]];
         
+        NSString* localid = [NSString stringWithFormat:@"%d", localId];
         [apolicy setIdentity:identity];
+        [apolicy setLocalid:localid];
         
         [self.policies setValue:apolicy forKey:[NSString stringWithFormat:@"%d", localId]];
         
-        [localLookup setValue:[NSString stringWithFormat:@"%d", localId] forKey:identity];
+        [localLookup setValue:localid forKey:identity];
         
         [apolicy release];
         
@@ -185,17 +191,18 @@ static int localId;
     
     Policy *apolicy  = [[Policy alloc] initWithPolicy:defaultPolicy];
 
-    NSString* policyid = [NSString stringWithFormat:@"%d",localId++];
+    [apolicy setLocalid:[NSString stringWithFormat:@"%d",localId++]];
+
+    [policies setObject:apolicy forKey:apolicy.localid];
     
-    [policies setObject:apolicy forKey:policyid];
-    [policyids addObject:policyid];
+    [policyids addObject:apolicy.localid];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"totalPoliciesChanged" object:nil userInfo:nil];
 }
 
 -(void) refresh{
     if (currentPolicy.identity != NULL){
-        [self loadPolicy:currentPolicy.identity];
+        [self loadPolicy:currentPolicy.localid];
     }
 }
 
@@ -205,6 +212,7 @@ static int localId;
 
 -(void) loadPolicy:(NSString*) localpolicyid{
 
+    NSLog(@"loading policy %@", localpolicyid);
     Policy *apolicy = [policies objectForKey:localpolicyid];
     
     if (apolicy != nil){
@@ -221,14 +229,22 @@ static int localId;
 }
 
 
--(void) policyFired:(NSString *) policyid{
-    NSLog(@"POLICY FIRED>>>>>>>>> loading policy %@", policyid);
-   [self loadPolicy:policyid];
+-(void) policyFired:(NSString *) globalpolicyid{
+    NSLog(@"POLICY FIRED>>>>>>>>> global policy id %@", globalpolicyid);
+   
+    NSString *localid = [localLookup objectForKey:globalpolicyid];
+    
+    NSLog(@"localpolicy id is  %@", localid);
+    
+    [self loadPolicy:localid];
+    
     currentPolicy.fired = YES;
     
-    NSDictionary *dict = [NSDictionary dictionaryWithObject:policyid forKey:@"identity"];
+    NSDictionary *dict = [NSDictionary dictionaryWithObject:localid forKey:@"identity"];
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:@"policyFired" object:nil userInfo:dict];
 }
+
 
 /*
  * Take the current representation of the policy, and send it to the policyManager backend to install
@@ -339,11 +355,9 @@ static int localId;
 }
 
 - (void)policyDeleteComplete:(ASIHTTPRequest *)request{
-    NSLog(@"*********** Policy delete complete..");
+  
     [policies removeAllObjects];
-    NSLog(@"policies size is now %d", [policies count]);
     [policyids removeAllObjects];
-     NSLog(@"policyids size is now %d", [policyids count]);
     [localLookup release];
     [policies release];
     [policyids release];
@@ -360,6 +374,8 @@ static int localId;
     
     if ([[data objectForKey:@"result"] isEqualToString:@"success"]){
         currentPolicy.identity = [data objectForKey:@"message"];
+        NSLog(@"setting local id %@ for global identity %@", currentPolicy.localid, currentPolicy.identity);
+        [localLookup setObject: currentPolicy.localid  forKey: currentPolicy.identity];
         [self saveCurrentPolicy];
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:@"saveRequestComplete" object:nil userInfo:nil];

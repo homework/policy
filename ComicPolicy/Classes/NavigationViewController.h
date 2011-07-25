@@ -15,4 +15,6 @@
 	int selectedPolicy;
 }
 
+@property(nonatomic, assign) NavigationView* navigationView;
+
 @end

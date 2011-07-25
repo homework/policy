@@ -273,8 +273,8 @@ BOOL inside = NO;
     int routerminutes = [minutecomponents minute];
     int routerseconds = [secondcomponents second];
     
-    monitorTimeView.routercaption.text = [NSString stringWithFormat:@"%d:%d", routerhour, routerminutes];
-    NSLog(@"router time is %d:%d", routerhour, routerminutes);
+    monitorTimeView.routercaption.text = [NSString stringWithFormat:@"%02d:%02d", routerhour, routerminutes];
+    //NSLog(@"router time is %d:%d", routerhour, routerminutes);
     return ((routerhour * 3600) + (routerminutes * 60) + (routerseconds));
 }
 

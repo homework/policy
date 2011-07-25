@@ -11,6 +11,8 @@
 @implementation Policy
 
 @synthesize identity;
+@synthesize localid;
+
 @synthesize subjectowner;
 @synthesize subjectdevice;
 
