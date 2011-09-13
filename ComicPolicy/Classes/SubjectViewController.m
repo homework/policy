@@ -74,6 +74,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(subjectOwnerLoaded:) name:@"subjectOwnerLoaded" object:nil];
 }
 
+
 -(void) subjectOwnerLoaded:(NSNotification *) n{
     //[UIView beginAnimations:nil context:nil];
 	//[UIView setAnimationDuration:0.75];
@@ -81,18 +82,43 @@
 	//[UIView setAnimationDelegate:self];
 	
 	//[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:subjectView.bottomImage cache:NO];
-	subjectView.topImage.image = [UIImage imageNamed:[[Catalogue sharedCatalogue] currentSubjectOwnerImage]];
-	subjectView.bottomImage.image = [UIImage imageNamed:[[Catalogue sharedCatalogue] currentSubjectDeviceImage]];
-	//subjectView.caption.text = [[Catalogue sharedCatalogue] currentSubjectOwner];
-     subjectView.ownercaption.text = [NSString stringWithFormat:@"When %@'s",[[Catalogue sharedCatalogue] currentSubjectOwner]];
-     subjectView.devicecaption.text = [NSString stringWithFormat:@"device (%@)",[[Catalogue sharedCatalogue] currentDeviceName]];
     
+  
+    NSLog(@"current subject owner is %@", [[Catalogue sharedCatalogue] currentSubjectOwner]);
+    
+    if (![[[Catalogue sharedCatalogue] currentSubjectOwner] isEqualToString:@"any"]){
+       
+        subjectView.bottomImage.image = [UIImage imageNamed:[[Catalogue sharedCatalogue] currentSubjectDeviceImage]];
+        
+        subjectView.devicecaption.text = [NSString stringWithFormat:@"device (%@)",[[Catalogue sharedCatalogue] currentDeviceName]];
+        
+        subjectView.ownercaption.text = [NSString stringWithFormat:@"When %@'s",[[Catalogue sharedCatalogue] currentSubjectOwner]];
+        
+    }else{
+        subjectView.devicecaption.text = [NSString stringWithFormat:@"any device"];
+        
+    }
+    
+    subjectView.topImage.image = [UIImage imageNamed:[[Catalogue sharedCatalogue] currentSubjectOwnerImage]];
+        
+
     //[UIView commitAnimations];
 }
 
 -(void) subjectOwnerChange:(NSNotification *) n{
-	subjectView.devicecaption.alpha = 0.0;
+    
+    /*
+     * don't do anything with the bottom image if the owner is 'any'
+     */
+	if ([[[Catalogue sharedCatalogue] currentSubjectOwner] isEqualToString:@"any"]){
+     	subjectView.bottomImage.image = nil;
+        subjectView.devicecaption.text = @"";
+        return;
+    }
+    
+    subjectView.devicecaption.alpha = 0.0;
 	
+    
   	[UIView beginAnimations:nil context:nil];
 	[UIView setAnimationDuration:0.75];
 	[UIView setAnimationDelay:0.70];
@@ -109,8 +135,13 @@
 - (void)addCaptions:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context {
     subjectView.devicecaption.alpha = 1.0;
     subjectView.ownercaption.alpha = 1.0;
-    subjectView.ownercaption.text = [NSString stringWithFormat:@"When %@'s",[[Catalogue sharedCatalogue] currentSubjectOwner]];
-    subjectView.devicecaption.text = [NSString stringWithFormat:@"device (%@)",[[Catalogue sharedCatalogue] currentDeviceName]];
+    if ([[[Catalogue sharedCatalogue] currentSubjectOwner] isEqualToString:@"any"]){
+        subjectView.ownercaption.text = @"When any device";
+        subjectView.devicecaption.text = @"";
+    }else{
+        subjectView.ownercaption.text = [NSString stringWithFormat:@"When %@'s",[[Catalogue sharedCatalogue] currentSubjectOwner]];
+        subjectView.devicecaption.text = [NSString stringWithFormat:@"device (%@)",[[Catalogue sharedCatalogue] currentDeviceName]];
+    }
 }
 
 /*

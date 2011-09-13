@@ -1,0 +1,369 @@
+{
+    "catalogue": {
+    
+        "navigation":{
+    
+            "subjects":{
+                        "dad":["00:1f:f3:bc:b2:57"],
+                        "mort":["18:E7:F4:79:52:B2","f8:1e:df:d6:73:23"],
+                        "katie":["00:00:00:cc:cc:cc"],   
+                        "mum":["00:00:00:dd:dd:dd"],
+                        "john":["00:26:08:f8:25:43"],
+                        "everyone":["00:00:00:ff:ff:ff"],
+                        "any":[""]
+            },
+
+            "conditions":{
+                        
+                "timed":{
+                        "arguments":{
+                            "from":"13:00",
+                            "to":"15:00"
+                        }
+                },
+    
+                "bandwidth":{
+                        "arguments":{
+                            "percentage":80.5
+                        }
+                },
+
+                "visiting":{
+                        "arguments":{
+                            "sites":["news.bbc.co.uk", "www.google.co.uk"]
+                        }
+                }
+            },
+
+            "actions":{
+
+                    "block":{
+                        "subjects":["18:E7:F4:79:52:B2","00:1f:f3:bc:b2:57","f8:1e:df:d6:73:23","00:00:00:cc:cc:cc","00:00:00:dd:dd:dd","00:26:08:f8:25:43", "00:00:00:ff:ff:ff"],
+                        "arguments":{
+                                "18:E7:F4:79:52:B2":["mort"],
+                                "00:1f:f3:bc:b2:57":["dad"],
+                                "f8:1e:df:d6:73:23":["mort"],
+                                "00:00:00:cc:cc:cc":["katie"],   
+                                "00:00:00:dd:dd:dd":["mum"],
+                                "00:26:08:f8:25:43":["john"],
+                                "00:00:00:ff:ff:ff":["everyone"]
+                        }
+                    }, 
+                        
+                    "notify":{
+                        "subjects":["dad","mort","mum","katie","john"],  
+                        "arguments": {
+                                "dad": ["tweet","phone","mail","growl"],
+                                "mort": ["tweet","phone","mail","growl"],
+                                "katie": ["tweet","phone","mail","growl"],           
+                                "mum": ["tweet","phone","mail","growl"],
+                                "john": ["tweet","phone","mail","growl"]
+                        }
+                    },
+
+                    "prioritise":{
+                        "subjects":["18:E7:F4:79:52:B2","00:1f:f3:bc:b2:57","f8:1e:df:d6:73:23","00:00:00:cc:cc:cc","00:00:00:dd:dd:dd","00:26:08:f8:25:43", "00:00:00:ff:ff:ff"],
+                        
+                        "arguments":{
+                            "18:E7:F4:79:52:B2":["high", "medium", "low"],
+                            "00:1f:f3:bc:b2:57":["high", "medium", "low"],
+                            "f8:1e:df:d6:73:23":["high", "medium", "low"],
+                            "00:00:00:cc:cc:cc":["high", "medium", "low"],   
+                            "00:00:00:dd:dd:dd":["high", "medium", "low"],
+                            "00:26:08:f8:25:43":["high", "medium", "low"]
+                        }
+                    }
+            },
+
+            "monitors":["bandwidth","time","visits","type"],
+
+            "mappings":{
+
+                "conditiontomonitor":{
+                    "timed":"time",
+                    "bandwidth":"bandwidth",
+                    "visiting":"visits"
+                }
+            },
+
+            "conditionactiontree":{
+                "visiting":["notify","prioritise", "block"],
+                "timed":["prioritise"],
+                "bandwidth":["notify", "block"]
+            }
+        },
+        
+        
+
+        "metadata":{
+            "devices":{
+                "18:E7:F4:79:52:B2":{
+                    "name": "mort's itouch"
+                },
+                "00:1f:f3:bc:b2:57":{
+                    "name": "dad's macair"
+                },
+                "f8:1e:df:d6:73:23":{
+                    "name": "mort's laptop"
+                },
+                "00:00:00:cc:cc:cc":{
+                    "name": "katie's desktop"   
+                },
+                    "00:00:00:dd:dd:dd":{
+                    "name": "mum's computer"
+                },
+                    "00:26:08:f8:25:43":{
+                    "name": "john's computer"
+                },
+                    "00:00:00:ff:ff:ff":{
+                    "name": "lounge computer"
+                }
+            }
+        },
+
+        "controllers":{
+
+            "conditions":{
+                "timed":"ConditionTimeViewController",
+                "bandwidth":"ConditionBandwidthViewController",
+                "visiting":"ConditionVisitingViewController"
+            },
+
+            "actions":{
+                "notify":"ActionNotifyViewController",
+                "block":"ActionBlockViewController",
+                "prioritise":"ActionPrioritiseViewController"
+            },
+
+            "results":{
+                "timed":"MonitorTimeViewController",
+                "bandwidth":"MonitorBandwidthViewController",
+                "visiting":"MonitorVisitsViewController"
+            }
+        },
+
+
+        "images":{
+        
+
+            "any":
+                {
+                    "main":"any.png"
+                },
+
+            "dad":
+                {
+                    "main":"dad.png",
+                    "block":{
+                            "action": "blockdad.png"
+                    },
+                    "notify":{
+                            "action":"notifydad.png",
+                            "result":"dadwaiting.png",
+                            "fired":"dadtold.png"
+                    }
+                },
+            "mort":
+                {
+                    "main":"mort.png",
+                    "block":{
+                            "action":"blockmort.png"
+                    },
+                    "notify":{
+                        "action":"notifymort.png",
+                        "result":"mortwaiting.png",
+                        "fired":"morttold.png"
+                    }
+                },
+            "katie":
+                {
+                    "main":"katie.png",
+                    "block":{
+                            "action":"blockkatie.png"
+                    },
+                    "notify":{
+                            "action":"notifykatie.png",
+                            "result":"katiewaiting.png",
+                            "fired":"katietold.png"
+                    }
+                },
+            "mum":
+                {
+                    "main":"mum.png",
+                    "block":{
+                            "action":"blockmum.png"
+                    },
+                    "notify":{
+                            "action":"notifymum.png",
+                            "result":"mumwaiting.png",
+                            "fired":"mumtold.png"
+                    }
+                },
+            "john":
+                {
+                    "main":"john.png",
+                    "block":{   
+                        "action":"blockjohn.png"
+                    },
+                    "notify":{
+                            "action":"notifyjohn.png",
+                            "result":"johnwaiting.png",
+                            "fired":"johntold.png"
+                    }
+                },
+            "everyone":
+                {
+                    "main":"everyone.png",
+                    "block":{
+                            "action":"blockeveryone.png"
+                    },
+                    "notify":{
+                            "action":"notifyeveryone.png",
+                            "result":"everyonewaiting.png",
+                            "fired":"everyonetold.png"
+                    }
+                },
+            "18:E7:F4:79:52:B2":
+                {
+                    "main":"condphone.png",
+                    "block":{
+                            "action":"asphone.png",
+                            "result":"phoneunblocked.png",
+                            "fired":"phoneblocked.png"
+                    }
+                },
+            "00:1f:f3:bc:b2:57":
+                {
+                    "main":"condlaptop",
+                    "block":{
+                            "action":"aslaptop.png",
+                            "result":"laptopunblocked.png",
+                            "fired":"laptopblocked.png"
+                    }
+                },
+            "f8:1e:df:d6:73:23":
+                {
+                    "main":"condlaptop",
+                    "block":{
+                            "action":"aslaptop.png",
+                            "result":"laptopunblocked.png",
+                            "fired":"laptopblocked.png"
+                    }
+                },
+            "00:00:00:cc:cc:cc":
+                {
+                    "main":"conddesktop.png",
+                    "block":{
+                            "action":"asdesktop.png",
+                            "result":"desktopunblocked.png",
+                            "fired":"desktopblocked.png"
+                    }
+                },
+            "00:00:00:dd:dd:dd":
+                {
+                    "main":"condcomputer.png",
+                    "block":{
+                            "action":"ascomputer.png",
+                            "result":"computerunblocked.png",
+                            "fired":"computerblocked.png"
+                    }
+                },
+            "00:26:08:f8:25:43":
+                {
+                    "main":"condcomputer.png",
+                    "block":{
+                            "action":"ascomputer.png",
+                            "result":"computerunblocked.png",
+                            "fired":"computerblocked.png"
+                    }
+                },
+            "00:00:00:ff:ff:ff":
+                {
+                    "main":"condcomputer.png",
+                    "block":{
+                        "action":"ascomputer.png",
+                        "result":"computerunblocked.png",
+                        "fired":"computerblocked.png"
+                    }
+                },
+
+            "tweet":
+                {
+                    "notify":{
+                        "action":"notifybytweet.png"
+                    }
+                },
+
+            "phone":
+                {
+                    "notify":{
+                        "action":"notifybyphone.png"
+                    }
+                },
+            "mail":
+                {
+                    "notify":{
+                        "action":"notifybymail.png"
+                    }
+                },
+            "growl":
+                {
+                    "notify":{
+                        "action":"notifybysound.png"
+                    }
+                },
+            "notify":
+                {
+                    "tweet":"notifybytweet.png",
+                    "phone":"notifybyphone.png",
+                    "mail":"notifybymail.png",
+                    "growl":"notifybysound.png"
+                },
+
+            "surfing":
+                {
+                    "main":"surfing.png",
+                    "result":"resulttype.png"
+                },
+
+            "downloading":
+                {
+                    "main":"downloading.png",
+                    "result":"resulttype.png"
+                },
+
+            "gaming":
+                {
+                    "main":"gaming.png",
+                    "result":"resulttype.png"
+                },
+
+            "streaming":
+                {
+                    "main":"streaming.png",
+                    "result":"resulttype.png"
+                },
+
+            "timed":
+                {
+                    "main":"timed.png",
+                    "result":"resulttime.png"
+                },
+            
+            "bandwidth":
+                {
+                    "main":"bandwidth.png",
+                    "result":"resultbandwidth.png"      
+                },
+            
+            "visiting":
+                {
+                    "main":"visiting.png",
+                    "result":"resultvisits.png"
+                }
+        }
+    }
+}
+                
+            
+        

@@ -7,6 +7,7 @@
 //
 
 #import "MonitorViewController.h"
+#import "PositionManager.h"
 
 
 
@@ -53,16 +54,27 @@
     // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView
 {
-  
+  /*
     CGRect aframe = CGRectMake(0,0,897,301);
 	UIView *rootView = [[UIView alloc] initWithFrame:aframe];	
 	self.view = rootView;
 	[rootView release];
-    MonitorView *mview = [[MonitorView alloc] initWithFrame: CGRectMake(0,0,497,301)];
+    self.view.backgroundColor = [UIColor blackColor];
+    MonitorView *mview = [[MonitorView alloc] initWithFrame: [[PositionManager sharedPositionManager] getPosition:@"resultmonitor"]];//CGRectMake(0,0,497,301)];
 	self.monitorView = mview;
     [self.view addSubview: monitorView];
+    monitorView.backgroundColor = [UIColor purpleColor];
     [mview release];
+ */
     
+    /*CGRect aframe = CGRectMake(0,0,897,301);
+	UIView *rootView = [[UIView alloc] initWithFrame:aframe];	  	
+	self.view = rootView;
+    [rootView release];
+    
+    CGRect frame =  [[PositionManager sharedPositionManager] getPosition:@"resultmonitor"];
+	*/
+	
 }
 
 

@@ -7,7 +7,7 @@
 //
 
 #import "ResultViewController.h"
-
+#import "PositionManager.h"
 
 @implementation ResultViewController
 
@@ -30,17 +30,18 @@
 	
 	currentActionScene = @"dadwaiting.png";
 	
-	CGRect aframe = CGRectMake(0,0,897,301);
-	UIView *rootView = [[UIView alloc] initWithFrame:aframe];	
+	//CGRect aframe = CGRectMake(300,0,497,301);
+    CGRect aframe = CGRectMake(0,0,897,301);
+	UIView *rootView = [[UIView alloc] initWithFrame:aframe];	  	
 	self.view = rootView;
-	[rootView release];
+    [rootView release];
 	
-	ResultView *aview = [[ResultView alloc] initWithFrame: CGRectMake(0,0,897,301)];
+	ResultView *aview = [[ResultView alloc] initWithFrame: [[PositionManager sharedPositionManager] getPosition:@"result"]];
 	resultView = aview;
 	
 	
 	[self.view addSubview: resultView];
-	
+	[aview release];
 }
 
 

@@ -9,6 +9,7 @@
 #import "RootResultViewController.h"
 #import "Catalogue.h"
 #import "PolicyManager.h"
+#import "PositionManager.h"
 
 @interface RootResultViewController() 
 -(void) updateActionResultScene;
@@ -18,7 +19,7 @@
 @implementation RootResultViewController
 @synthesize resultController;
 @synthesize currentMonitorViewController;
-@synthesize rootMonitorView;
+//@synthesize rootMonitorView;
 
 /*
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
@@ -53,21 +54,23 @@
 }
 
 -(void) updateConditionResult{
-    NSString *newcontroller = [[Catalogue sharedCatalogue] getConditionResultController];
+    
+    NSString *newcontroller = [[Catalogue sharedCatalogue] getConditionMonitorController];
     
     MonitorViewController *newController = [[NSClassFromString(newcontroller) alloc] initWithNibName:nil bundle:nil];
     
-	
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.75];
     [UIView setAnimationDelegate:self];
-    [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:self.rootMonitorView cache:YES];
+    //[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:self.rootMonitorView cache:YES];
     [currentMonitorViewController.view removeFromSuperview];
     [currentMonitorViewController viewDidUnload];
-    [self.rootMonitorView addSubview:[newController view]];
-    [UIView commitAnimations];
+    [self.view addSubview:newController.view];
     self.currentMonitorViewController = newController;
-    [newController release];
+    
+    //[self.rootMonitorView addSubview:[newController view]];
+    [UIView commitAnimations];
+        [newController release];
     
 }
 
@@ -97,44 +100,6 @@
     [self updateActionResultScene];
 }
 
--(void) actionTypeChange:(NSNotification *) n{
-    
-  
-	NSDictionary *userInfo = [n userInfo];
-	NSString* controller = [userInfo objectForKey:@"controller"];
-	
-	[UIView beginAnimations:nil context:nil];
-	[UIView setAnimationDuration:0.75];
-	[UIView setAnimationDelegate:self];
-	
-	if ([controller isEqualToString:@"ActionBlockViewController"]){
-		
-        CGRect aframe = resultController.resultView.frame;
-		aframe.origin.x = 300;
-		aframe.size.width = 600;
-		resultController.resultView.comicframe.frame = aframe;
-		resultController.resultView.resultMainImage.alpha = 1.0;
-		
-		aframe = self.rootMonitorView.frame;		
-        aframe.origin.x = 300;
-		
-		self.rootMonitorView.frame = aframe;
-		
-	}else{
-        CGRect aframe = resultController.resultView.frame;
-		aframe.size.width = 897;
-		resultController.resultView.comicframe.frame = aframe;
-		resultController.resultView.resultMainImage.alpha = 1.0;
-		aframe = self.rootMonitorView.frame;
-		aframe.origin.x = 0;
-		 self.rootMonitorView.frame = aframe;
-       
-	}
-	
-	[UIView commitAnimations];
-	
-}
-
 - (void)stopped:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context{
 	NSLog(@"stopped....");
 }
@@ -152,7 +117,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionSubjectChange:) name:@"actionSubjectChange" object:nil];
 	
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionTypeChange:) name:@"actionTypeChange" object:nil];	
+    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionTypeChange:) name:@"actionTypeChange" object:nil];	
     
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(policyFired:) name:@"policyFired" object:nil];	
     
@@ -160,21 +125,25 @@
 	CGRect aframe = CGRectMake(64,367,897,301);
 	UIView *rootView = [[UIView alloc] initWithFrame:aframe];	
 	self.view = rootView;
+    self.view.backgroundColor = [UIColor redColor];
 	[rootView release];
     
-    UIView* tmprootmonitorView = [[UIView alloc] initWithFrame:CGRectMake(0,0,502,301)];
-    self.rootMonitorView = tmprootmonitorView;
-    [tmprootmonitorView release];
+   // UIView* tmprootmonitorView = [[UIView alloc] initWithFrame:CGRectMake(0,0,502,301)];
+    //self.rootMonitorView = tmprootmonitorView;
+    //[tmprootmonitorView release];
 	
 	ResultViewController *tmpResultController = [[[NSClassFromString(@"ResultViewController") alloc] initWithNibName:nil bundle:nil] retain];
+    
     MonitorViewController *tmpMonitorController = [[[NSClassFromString(@"MonitorViewController") alloc] initWithNibName:nil bundle:nil] retain];
 
-    [self.rootMonitorView addSubview:[tmpMonitorController view]];
-    [[self view] addSubview:self.rootMonitorView];
+    
+    
+    //[self.rootMonitorView addSubview:[tmpMonitorController view]];
+   // [[self view] addSubview: [tmpMonitorController view ]];//self.rootMonitorView];
 	[[self view] addSubview:[tmpResultController view]];
- 
+    [[self view] addSubview: [tmpMonitorController view ]];
 	resultController = tmpResultController;
-	self.currentMonitorViewController = tmpMonitorController;
+	currentMonitorViewController = tmpMonitorController;
     [tmpMonitorController release];
 }
 

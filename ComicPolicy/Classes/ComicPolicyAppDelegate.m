@@ -28,6 +28,7 @@
     
     [window makeKeyAndVisible];
     
+    NSLog(@"sorting push...");
    	[[UIApplication sharedApplication] registerForRemoteNotificationTypes: (UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound)];
     
    // self.externalWindow = [[UIWindow alloc] init];
@@ -80,7 +81,7 @@
 - (void)application:(UIApplication *)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)token { 
     
     //  [[KeychainManager sharedManager] deleteAccountDetails];
-    
+    NSLog(@"DEVICE TOKEN REGISTERED>.....");  ///need to do this in the pish one!!
 	self.deviceToken = [[[[token description]
                           stringByReplacingOccurrencesOfString: @"<" withString: @""]
                          stringByReplacingOccurrencesOfString: @">" withString: @""]

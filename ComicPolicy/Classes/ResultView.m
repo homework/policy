@@ -20,14 +20,15 @@
     if ((self = [super initWithFrame:frame])) {
 		
 		
-		
+        self.backgroundColor = [UIColor yellowColor];
+		/*
 		UIImageView *tmpResultBack = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dadwaiting.png"]];
 		tmpResultBack.autoresizingMask = UIViewContentModeScaleAspectFit;// | UIViewAutoresizingFlexibleHeight;
 
 		tmpResultBack.frame = CGRectMake(897-459, 0, 458, 300);
 		[self addSubview:tmpResultBack];
 		self.resultMainImage = tmpResultBack;
-		[tmpResultBack release];
+		[tmpResultBack release];*/
 		
 		/*UIActivityIndicatorView *tmpIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
 		tmpIndicatorView.frame = CGRectMake(210,130,40,40);

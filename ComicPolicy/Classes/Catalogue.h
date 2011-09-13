@@ -11,7 +11,6 @@
 
 @interface Catalogue : NSObject {
     NSMutableDictionary *currentConditionArguments;
-    
 }
 
 @property(nonatomic, retain) NSMutableDictionary *currentConditionArguments;
@@ -47,7 +46,7 @@
 
 #pragma mark *result images 
 -(NSString *) getActionResultImage:(BOOL) isfired;
--(NSString *) getConditionResultController;
+-(NSString *) getConditionMonitorController;
 -(NSString *) getConditionResultImage;
 
 

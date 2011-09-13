@@ -21,11 +21,15 @@
             [self addSubview:whiteMask];
             [whiteMask release];*/
             
-            UIImageView *tmpMonitor = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"resultvisits.png"]];
-                       tmpMonitor.autoresizingMask = UIViewContentModeScaleAspectFit;// UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-            [self addSubview:tmpMonitor];
-            self.monitorImage = tmpMonitor;
-            [tmpMonitor release];
+            //self.backgroundColor = [UIColor redColor];
+            
+            /*UIImageView *tmpMonitor = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"resultvisits.png"]];
+                       tmpMonitor.autoresizingMask = UIViewContentModeScaleAspectFit | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;*/
+            
+        
+            //[self addSubview:tmpMonitor];
+            //self.monitorImage = tmpMonitor;
+            //[tmpMonitor release];
             
             /*
              UIImageView *tmpTest = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ok.png"]];

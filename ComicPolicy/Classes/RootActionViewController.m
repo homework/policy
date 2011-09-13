@@ -9,6 +9,7 @@
 #import "RootActionViewController.h"
 #import "ActionBlockViewController.h"
 #import "Catalogue.h"
+#import "PositionManager.h"
 
 @implementation RootActionViewController
 
@@ -24,6 +25,7 @@
 	[[self view] addSubview:[newController view]];
 	currentViewController = newController;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionLoaded:) name:@"actionLoaded" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(conditionChange:) name:@"conditionChange" object:nil];
 }
 
 -(void) actionLoaded:(NSNotification *) n{
@@ -33,6 +35,29 @@
     [currentViewController release];
     [[self view] addSubview:[newController view]];
     currentViewController = newController;
+}
+
+-(void) conditionChange:(NSNotification *) n{
+    NSString *controller = [[Catalogue sharedCatalogue] currentActionViewController];
+   // NSLog(@"seen a condition change loading up controller %@", controller);
+    //NSLog(@"current condition is %@", [[Catalogue sharedCatalogue] currentCondition]);
+                                       
+    UIViewController *newController = [[[NSClassFromString(controller) alloc] initWithNibName:nil bundle:nil] retain];
+   
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:0.75];
+    [UIView setAnimationDelegate:self];
+    
+    [currentViewController.view removeFromSuperview];
+    [[self view] addSubview:[newController view]];
+    newController.view.superview.frame = [[PositionManager sharedPositionManager] getPosition:@"action"];
+    [currentViewController release];
+    currentViewController = newController;
+
+    if(![[[Catalogue sharedCatalogue] currentCondition] isEqualToString:@"visiting"]){
+        [UIView setAnimationTransition:UIViewAnimationTransitionCurlUp forView:self.view cache:YES];
+    }
+    [UIView commitAnimations];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {

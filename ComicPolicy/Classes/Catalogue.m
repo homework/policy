@@ -20,7 +20,7 @@
 -(NSString *) nextActionSubject;
 -(NSString *) nextAction;
 -(void) updateActionOptions:(NSString *)subject;
--(void)addedRequestComplete:(ASIHTTPRequest *)request;
+//-(void)addedRequestComplete:(ASIHTTPRequest *)request;
 
 
 @end
@@ -60,8 +60,7 @@ static int conditionvcsindex;           //curretly selected condition view contr
 static NSDictionary* actionLookup;      //mapping of action type to action details (block, notofy etc)
 static NSDictionary* actionvcs;         //mapping of action type to associated view controller
 
-static NSString* currentActionType;     //the currently selectd action type (block, notify etc).
-
+static NSString* currentActionType;     //the currently selectd action type (block, notify, prioritise etc).
 
 static NSArray* actionvcsarray;         //array of action view controllers 
 static int actionvcsindex;              //currently selected action view controller
@@ -80,6 +79,10 @@ static NSDictionary* conditionresultvcs; //mapping of currently selected conditi
 #pragma mark *data structure for device metadata
 
 static NSDictionary* devicemetadata;
+
+#pragma mark *data structure for policy navigation
+NSMutableDictionary *tree;
+
 
 @synthesize currentConditionArguments;
 
@@ -128,15 +131,38 @@ static NSDictionary* devicemetadata;
 }
 
 -(void) initActions{
+    
+    NSLog(@"in init actions and the current condition is %@", [self currentCondition]);
 	
-	actionvcsarray = (NSArray *) [[actionvcs allKeys] retain];
-	actionvcsindex = 0;
+    if (actionvcsarray != nil){
+        [actionvcsarray release];
+        actionvcsarray = nil;
+    }
+    if (actionsubjectarray != nil){
+        [actionsubjectarray release];
+        actionsubjectarray = nil;
+    }
+    if (actionoptionsarray != nil){
+        [actionoptionsarray release];
+        actionoptionsarray = nil;
+
+    }
+    
+	//actionvcsarray = (NSArray *) [[actionvcs allKeys] retain];
+	actionvcsarray = [(NSArray *) [tree objectForKey:[self currentCondition]] retain];
+    
+    if (actionvcsarray == nil){
+        NSLog(@"action vcs is nil!!!");
+    }
+    
+    actionvcsindex = 0;
     
     /*
      * Set the current action type (block, notify etc).
      */
 	currentActionType = [actionvcsarray objectAtIndex:actionvcsindex];
     
+    NSLog(@"current action type has been set to %@", currentActionType);
     /*
      * Get the relevant dictionary for the current action type...
      */
@@ -156,11 +182,20 @@ static NSDictionary* devicemetadata;
     
     NSString *subject = [self currentActionSubject];
     
-	if ([tmp objectForKey:@"options"] != NULL){
-        NSDictionary* tmpoptdict = [tmp objectForKey:@"options"];
+    NSLog(@"current action subject is %@", subject);
+    
+	if ([tmp objectForKey:@"arguments"] != NULL){
+        NSDictionary* tmpoptdict = [tmp objectForKey:@"arguments"];
         actionoptionsarray =  [[tmpoptdict objectForKey:subject] retain];
         actionoptionsarrayindex = 0;
     }
+    
+    /*
+     * Post a notification to tell UI that the action has changed.
+     */
+    //NSString* controller = [self currentActionViewController];
+    //NSDictionary* dict = [NSDictionary dictionaryWithObject:controller forKey:@"controller"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"actionTypeChange" object:nil userInfo:nil];
 }
 
 
@@ -224,8 +259,14 @@ static NSDictionary* devicemetadata;
     return condition;
 }
 
--(NSString*) nextCondition{
+/*
+ * When the condition changes, the associated list of permitted actions will also change. This function
+ * will update the condition and regenerate the actionvcs array to populate it with the set of allowed
+ * actions (derived from the conditionactiontree json object).
+ */
+-(NSString*) nextCondition{    
     NSString *condition = (NSString*) [conditions objectAtIndex:++conditionindex % [conditions count]];
+    [self initActions];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"conditionChange" object:nil userInfo:nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"catalogueChange" object:nil userInfo:nil];
     
@@ -298,11 +339,13 @@ static NSDictionary* devicemetadata;
 -(NSString *) nextActionViewController{
 	
 	currentActionType = [actionvcsarray objectAtIndex:++actionvcsindex % [actionvcsarray count]];
-	NSDictionary *tmp = [actionLookup objectForKey:currentActionType];
+	
+    NSDictionary *tmp = [actionLookup objectForKey:currentActionType];
 	
 	
 	if (actionsubjectarray != NULL)
 		[actionsubjectarray release];
+    
 	if (actionoptionsarray != NULL)
 		[actionoptionsarray release];
 	
@@ -317,10 +360,16 @@ static NSDictionary* devicemetadata;
         actionoptionsarray =  [[tmpoptdict objectForKey:subject] retain];
         actionoptionsarrayindex = 0;
 	}
-    NSString* controller = [self currentActionViewController];
     
-    NSDictionary* dict = [NSDictionary dictionaryWithObject:controller forKey:@"controller"];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"actionTypeChange" object:nil userInfo:dict];
+    
+    
+    /*
+     * Notify relevant listeners of the change....
+     */
+    
+    NSString* controller = [self currentActionViewController];
+   // NSDictionary* dict = [NSDictionary dictionaryWithObject:controller forKey:@"controller"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"actionTypeChange" object:nil userInfo:nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"actionSubjectChange" object:nil userInfo:nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"catalogueChange" object:nil userInfo:nil];
 	return controller;
@@ -340,7 +389,7 @@ static NSDictionary* devicemetadata;
     
 }
 
--(NSString*) getConditionResultController{
+-(NSString*) getConditionMonitorController{
     return [conditionresultvcs objectForKey:[self currentCondition]];
 }
 
@@ -571,16 +620,19 @@ static NSDictionary* devicemetadata;
         data  = (NSDictionary *) [jsonParser objectWithString:catalogue error:nil];
     
     if (data == nil){
-        NSLog(@"DATA IS NIL>>>>");
-        NSString *filePath = [[NSBundle mainBundle] pathForResource:@"data" ofType:@"json"];
+        NSLog(@"READING IN LOCAL COPY");
+        NSString *filePath = [[NSBundle mainBundle] pathForResource:@"catalogue" ofType:@"json"];
         NSString *content = [[NSString alloc] initWithContentsOfFile:filePath];
         data  = (NSDictionary *) [jsonParser objectWithString:content error:nil];
+    }else{
+        NSLog(@"successfully read in the catalogue data");
     }
     
     self.currentConditionArguments = [[NSMutableDictionary alloc] init];
     
     NSDictionary *main = (NSDictionary *) [data objectForKey:@"catalogue"];
     imageLookup = [(NSDictionary *) [main objectForKey:@"images"] retain];
+    
     NSDictionary *navigation =  (NSDictionary *) [main objectForKey:@"navigation"];
     NSDictionary *controllers = (NSDictionary *) [main objectForKey:@"controllers"];
     
@@ -615,6 +667,8 @@ static NSDictionary* devicemetadata;
     /*
      * Generate the arrays to handle navigation through actions and associated view controllers
      */
+    
+    tree = [(NSDictionary *) [navigation objectForKey:@"conditionactiontree"] retain];
     actionLookup = [(NSDictionary *) [navigation objectForKey:@"actions"] retain];
     actionvcs = (NSDictionary *) [[controllers objectForKey:@"actions"] retain];
     [self initActions];

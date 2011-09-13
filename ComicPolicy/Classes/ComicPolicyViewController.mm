@@ -11,6 +11,8 @@
 #import "Catalogue.h"
 #import "NetworkManager.h"
 #import "ASIHTTPRequest.h"
+#import "PositionManager.h"
+
 @interface ComicPolicyViewController()
 
 -(void) addNavigationView;
@@ -82,7 +84,6 @@
 }
 
 -(void) addNavigationView{
-    NSLog(@"CRATETING a navigation view");
 	navigationViewController = [[NavigationViewController alloc] init];
 	[self.view addSubview: navigationViewController.view];
     [self addSaveAndCancel];
@@ -233,30 +234,51 @@
 	AVAudioPlayer *currentPlayer = tickPlayer;
 	[currentPlayer play];
 	
-	NSDictionary *userInfo = [n userInfo];
-	NSString* controller = [userInfo objectForKey:@"controller"];
+	
 	CGRect deadFrame = CGRectMake(64, 800, 294, 301);
 	CGRect liveFrame = CGRectMake(64, 367, 294, 301);
 	
-	if ([controller isEqualToString:@"ActionBlockViewController"]){
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:0.75];
+    [UIView setAnimationDelegate:self];
+    
+    if ([[[Catalogue sharedCatalogue] currentActionType] isEqualToString:@"block"]){
 		actionTimeViewController.view.frame = deadFrame;
 		[self.view addSubview:actionTimeViewController.view];
-		[UIView beginAnimations:nil context:nil];
-		[UIView setAnimationDuration:0.75];
-		[UIView setAnimationDelegate:self];
 		actionTimeViewController.view.frame = liveFrame;
-		[UIView commitAnimations];
+        
+        //CGRect aframe = resultViewController.resultController.resultView.frame;
+		//aframe.origin.x = 300;
+		//aframe.size.width = 600;
+		
+        resultViewController.resultController.resultView.frame = [[PositionManager sharedPositionManager] getPosition:@"result"];
+		
+        
+        
+        resultViewController.resultController.resultView.resultMainImage.alpha = 1.0;
+		//aframe = resultViewController.rootMonitorView.frame;		
+        //aframe.origin.x = 300;
+		
+		resultViewController.currentMonitorViewController.monitorView.superview.frame = [[PositionManager sharedPositionManager] getPosition:@"resultmonitor"];
+       
 	}else{
 		
-		[UIView beginAnimations:nil context:nil];
-		[UIView setAnimationDuration:0.75];
-		[UIView setAnimationDelegate:self];
+		
 		[UIView setAnimationDidStopSelector:@selector(actionOffScreen:finished:context:)];
 		
 		actionTimeViewController.view.frame = deadFrame;
-		[UIView commitAnimations];
-	}
+        resultViewController.resultController.resultView.frame = [[PositionManager sharedPositionManager] getPosition:@"result"];
+		resultViewController.resultController.resultView.resultMainImage.alpha = 1.0;
+		
+        
+        resultViewController.currentMonitorViewController.monitorView.superview.frame = [[PositionManager sharedPositionManager] getPosition:@"resultmonitor"];
+        
+       
+    }
+    [UIView commitAnimations];
+
 }
+
 
 -(void) actionOffScreen:(NSString *)animationID finished:(BOOL)finished context:(void *)context {
 	[actionTimeViewController.view removeFromSuperview];	
@@ -314,6 +336,7 @@
 
 - (void)catalogueRequestComplete:(ASIHTTPRequest *)request
 {
+     NSLog(@"catalogue request success!!");
     NSString *responseString = [request responseString];
  
     [[Catalogue sharedCatalogue] parseCatalogue:responseString];
@@ -366,8 +389,7 @@
 	subjectViewController = [[SubjectViewController alloc] init];
 	[self.view addSubview:subjectViewController.view];
 	
-	actionViewController = [[RootActionViewController alloc] init];
-	[self.view addSubview:actionViewController.view];
+	
 	
 	eventViewController = [[RootConditionViewController alloc] init];
 	[self.view addSubview:eventViewController.view];
@@ -375,6 +397,9 @@
 	resultViewController = [[RootResultViewController alloc] init];
 	[self.view addSubview:resultViewController.view];
 	
+    actionViewController = [[RootActionViewController alloc] init];
+	[self.view addSubview:actionViewController.view];
+    
 	actionTimeViewController = [[ActionTimeViewController alloc] init];
 	
 	[self addNavigationView];

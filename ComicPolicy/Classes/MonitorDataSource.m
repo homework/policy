@@ -37,7 +37,7 @@
 }
 
 -(void) requestURL:(NSString*) strurl callback:(NSString*) callback{
-    NSLog(@"connecting to %@", strurl);
+   // NSLog(@"connecting to %@", strurl);
     NSURL *url = [NSURL URLWithString:strurl];
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
     [request setDelegate:self];

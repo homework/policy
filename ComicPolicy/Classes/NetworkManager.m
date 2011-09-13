@@ -7,6 +7,7 @@
 //
 #include <ifaddrs.h>
 #include <arpa/inet.h>
+#import "RPCComm.h"
 #import "NetworkManager.h"
 #import "ASINetworkQueue.h"
 #import "ASIHTTPRequest.h"
@@ -17,6 +18,7 @@
 - (void)delegateRequest:(ASIHTTPRequest *)request receivedResponseHeaders:(NSDictionary *)responseHeaders;
 - (void)delegateFailed:(ASIHTTPRequest *)request;
 - (NSString*)getGatewayAddress;
+- (NSString*)getMyAddress;
 @end
 
 @implementation NetworkManager
@@ -48,9 +50,16 @@
     self = [super init];
     if (self != nil) {
         
-        self.rootURL = [NSString stringWithFormat:@"http://%@:%d/policyserver", [self getGatewayAddress], 8080];
+        NSString *gwaddr = [self getGatewayAddress];
         
-        //self.rootURL = [NSString stringWithFormat:@"http://10.2.0.13:9000"];
+        NSString *myaddr = [self getMyAddress];
+        
+        //NSString *gwaddr = @"localhost";
+      
+        
+        self.rootURL = [NSString stringWithFormat:@"http://%@:%d/policyserver", gwaddr , 8080];
+        
+       // self.rootURL = [NSString stringWithFormat:@"http://10.2.0.1:8080"];
         
         self.networkQueue = [ASINetworkQueue queue];
         [networkQueue setDelegate:self];
@@ -59,11 +68,20 @@
         [networkQueue setRequestDidFailSelector:@selector(delegateFailed:)];
         [networkQueue go];
         
+        /*
+        NSLog(@"starting to connect to the hwdb directly...");
+        [[RPCComm sharedRPCComm] init:gwaddr];
+        NSLog(@"subscribing....");
+        [[RPCComm sharedRPCComm] subscribe:myaddr];
+         */
+        
+        //BOOL success = [[RPCComm sharedRPCComm] connect];
+        //NSLog(@"connected %s", success ? "SUCCESSFULLY" : "UNSUCCESSFULLY"); 
     }
     return self;
 }
 
--(NSString *)getGatewayAddress
+-(NSString *)getMyAddress
 {
     NSString *address = @"error";
     struct ifaddrs *interfaces = NULL;
@@ -94,6 +112,17 @@
     
     // Free memory
     freeifaddrs(interfaces);
+    
+    return address;
+    
+   
+
+
+}
+
+-(NSString *)getGatewayAddress
+{
+    NSString *address = [self getMyAddress]; 
     NSArray *addrs = [address componentsSeparatedByString:@"."];
     int gwbit =  [((NSString *) [addrs objectAtIndex:3]) intValue];
     return [NSString stringWithFormat:@"%@.%@.%@.%d",[addrs objectAtIndex:0], [addrs objectAtIndex:1], [addrs objectAtIndex:2], gwbit+1];
@@ -125,7 +154,7 @@
 
 - (void)delegateFailed:(ASIHTTPRequest *)request
 {
-    NSLog(@"connection failed....");
+    //NSLog(@"connection failed....");
 }
 
 
