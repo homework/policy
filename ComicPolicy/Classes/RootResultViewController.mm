@@ -125,7 +125,7 @@
 	CGRect aframe = CGRectMake(64,367,897,301);
 	UIView *rootView = [[UIView alloc] initWithFrame:aframe];	
 	self.view = rootView;
-    self.view.backgroundColor = [UIColor redColor];
+    //self.view.backgroundColor = [UIColor redColor];
 	[rootView release];
     
    // UIView* tmprootmonitorView = [[UIView alloc] initWithFrame:CGRectMake(0,0,502,301)];

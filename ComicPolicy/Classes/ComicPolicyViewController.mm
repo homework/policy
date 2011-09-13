@@ -234,19 +234,16 @@
 	AVAudioPlayer *currentPlayer = tickPlayer;
 	[currentPlayer play];
 	
-	
-	CGRect deadFrame = CGRectMake(64, 800, 294, 301);
-	CGRect liveFrame = CGRectMake(64, 367, 294, 301);
-	
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.75];
     [UIView setAnimationDelegate:self];
     
     if ([[[Catalogue sharedCatalogue] currentActionType] isEqualToString:@"block"]){
-		actionTimeViewController.view.frame = deadFrame;
+		//actionTimeViewController.view.frame = deadFrame;
 		[self.view addSubview:actionTimeViewController.view];
-		actionTimeViewController.view.frame = liveFrame;
-        
+		actionTimeViewController.view.frame = [[PositionManager sharedPositionManager] getPosition:@"actiontime"];
+        conditionVisitingTimeViewController.view.frame = [[PositionManager sharedPositionManager] getPosition:@"conditionvisitingtime"];
+
         //CGRect aframe = resultViewController.resultController.resultView.frame;
 		//aframe.origin.x = 300;
 		//aframe.size.width = 600;
@@ -266,10 +263,11 @@
 		
 		[UIView setAnimationDidStopSelector:@selector(actionOffScreen:finished:context:)];
 		
-		actionTimeViewController.view.frame = deadFrame;
+		actionTimeViewController.view.frame = [[PositionManager sharedPositionManager] getPosition:@"actiontime"];
         resultViewController.resultController.resultView.frame = [[PositionManager sharedPositionManager] getPosition:@"result"];
 		resultViewController.resultController.resultView.resultMainImage.alpha = 1.0;
-		
+        
+        conditionVisitingTimeViewController.view.frame = [[PositionManager sharedPositionManager] getPosition:@"conditionvisitingtime"];
         
         resultViewController.currentMonitorViewController.monitorView.superview.frame = [[PositionManager sharedPositionManager] getPosition:@"resultmonitor"];
         
@@ -389,10 +387,11 @@
 	subjectViewController = [[SubjectViewController alloc] init];
 	[self.view addSubview:subjectViewController.view];
 	
-	
-	
 	eventViewController = [[RootConditionViewController alloc] init];
 	[self.view addSubview:eventViewController.view];
+	
+    conditionVisitingTimeViewController = [[ConditionVisitingTimeViewController alloc] init];
+    [self.view addSubview:conditionVisitingTimeViewController.view];
 	
 	resultViewController = [[RootResultViewController alloc] init];
 	[self.view addSubview:resultViewController.view];

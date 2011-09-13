@@ -60,13 +60,16 @@ static NSArray *labelArray = [[NSArray alloc] initWithObjects:@"news.bbc.co.uk",
 	UIView *rootView = [[UIView alloc] initWithFrame:aframe];		
     
 	self.view = rootView;
-	self.view.backgroundColor = [UIColor blueColor];
+	//self.view.backgroundColor = [UIColor blueColor];
     [rootView release];
     
     
     self.monitorView = [[MonitorVisitsView alloc] initWithFrame: CGRectMake(0,0,rootView.frame.size.width, rootView.frame.size.height)];
     
     [self.view setAutoresizesSubviews:YES];
+    UIImageView *tmpBack = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"resultvisits.png"]];
+    tmpBack.autoresizingMask = UIViewContentModeScaleAspectFit | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    
     UIImageView *tmpCloud = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"resultvisitscloud1.png"]];
     
     tmpCloud.autoresizingMask = UIViewContentModeScaleAspectFit | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -82,8 +85,9 @@ static NSArray *labelArray = [[NSArray alloc] initWithObjects:@"news.bbc.co.uk",
     
 	    
     [self.view addSubview: monitorView];
-    [self.monitorView addSubview:tmpCloud];
-    [self.monitorView addSubview:cloud];
+    [self.view addSubview:tmpBack];
+    [self.view addSubview:tmpCloud];
+    [self.view addSubview:cloud];
     
     
     /*UIView *apivot = [[UIView alloc] initWithFrame:CGRectMake(200,280,20,20)];

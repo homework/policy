@@ -16,20 +16,20 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-            /*UIImageView *whiteMask = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"whitemask.png"]];
+           /* UIImageView *whiteMask = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"whitemask.png"]];
             whiteMask.frame = CGRectMake(439, 0, 130, 298);
             [self addSubview:whiteMask];
             [whiteMask release];*/
-            
-            //self.backgroundColor = [UIColor redColor];
-            
-            /*UIImageView *tmpMonitor = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"resultvisits.png"]];
-                       tmpMonitor.autoresizingMask = UIViewContentModeScaleAspectFit | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;*/
+    
+            //self.backgroundColor = [UIColor Color];
+            /*[self setAutoresizesSubviews:YES];
+            UIImageView *tmpMonitor = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"resultvisits.png"]];
+                       tmpMonitor.autoresizingMask = UIViewContentModeScaleAspectFit | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
             
         
-            //[self addSubview:tmpMonitor];
-            //self.monitorImage = tmpMonitor;
-            //[tmpMonitor release];
+            [self addSubview:tmpMonitor];
+            self.monitorImage = tmpMonitor;
+            [tmpMonitor release];*/
             
             /*
              UIImageView *tmpTest = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ok.png"]];

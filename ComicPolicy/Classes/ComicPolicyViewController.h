@@ -17,6 +17,7 @@
 #import "ActionTimeViewController.h"
 #import "NavigationViewController.h"
 #import "RouterConnectionViewController.h"
+#import "ConditionVisitingTimeViewController.h"
 
 @interface ComicPolicyViewController : UIViewController {
 	
@@ -37,6 +38,7 @@
 	RootResultViewController        *resultViewController;
 	ActionTimeViewController        *actionTimeViewController;
     RouterConnectionViewController  *routerConnectionViewController;
+    ConditionVisitingTimeViewController *conditionVisitingTimeViewController;
     
     UIView *progressView;
     

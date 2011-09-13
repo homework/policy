@@ -71,7 +71,7 @@ BOOL inside = NO;
     
    // CGRect aframe = [[PositionManager sharedPositionManager] getPosition:@"resultmonitor"];
     self.monitorView = [[MonitorTimeView alloc] initWithFrame: CGRectMake(0,0,rootView.frame.size.width, rootView.frame.size.height)];
-    self.monitorView.backgroundColor = [UIColor magentaColor];
+    
     [self.view addSubview: monitorView];
     
     [monitorView release];

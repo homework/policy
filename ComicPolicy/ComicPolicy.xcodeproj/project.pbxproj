@@ -91,6 +91,7 @@
 		A3448E4E13D8BD0400D30FDE /* mortwaiting.png in Resources */ = {isa = PBXBuildFile; fileRef = A3448E4C13D8BD0400D30FDE /* mortwaiting.png */; };
 		A345438413D5DAC5004D0744 /* blockeveryone.png in Resources */ = {isa = PBXBuildFile; fileRef = A345438313D5DAC5004D0744 /* blockeveryone.png */; };
 		A346B123141F5D8E009C3F3A /* PositionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A346B122141F5D8E009C3F3A /* PositionManager.m */; };
+		A346B126141FCA33009C3F3A /* ConditionVisitingTimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A346B125141FCA33009C3F3A /* ConditionVisitingTimeViewController.m */; };
 		A3476047134C630D00430CE0 /* ResultTypeViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3476046134C630D00430CE0 /* ResultTypeViewController.mm */; };
 		A3476055134C637500430CE0 /* MonitorVisitsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3476054134C637500430CE0 /* MonitorVisitsViewController.mm */; };
 		A34760AC134C7B5F00430CE0 /* MonitorView.mm in Sources */ = {isa = PBXBuildFile; fileRef = A34760AB134C7B5F00430CE0 /* MonitorView.mm */; };
@@ -358,6 +359,8 @@
 		A345438313D5DAC5004D0744 /* blockeveryone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blockeveryone.png; sourceTree = "<group>"; };
 		A346B121141F5D8E009C3F3A /* PositionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PositionManager.h; sourceTree = "<group>"; };
 		A346B122141F5D8E009C3F3A /* PositionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PositionManager.m; sourceTree = "<group>"; };
+		A346B124141FCA32009C3F3A /* ConditionVisitingTimeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConditionVisitingTimeViewController.h; sourceTree = "<group>"; };
+		A346B125141FCA33009C3F3A /* ConditionVisitingTimeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConditionVisitingTimeViewController.m; sourceTree = "<group>"; };
 		A3476045134C630D00430CE0 /* ResultTypeViewController.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = ResultTypeViewController.h; sourceTree = "<group>"; };
 		A3476046134C630D00430CE0 /* ResultTypeViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ResultTypeViewController.mm; sourceTree = "<group>"; };
 		A3476053134C637500430CE0 /* MonitorVisitsViewController.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = MonitorVisitsViewController.h; sourceTree = "<group>"; };
@@ -952,6 +955,8 @@
 				A30AE3731316CE0C0060D2F1 /* ConditionBandwidthViewController.m */,
 				A30AE3A31316F6F80060D2F1 /* ConditionVisitingViewController.h */,
 				A30AE3A41316F6F80060D2F1 /* ConditionVisitingViewController.m */,
+				A346B124141FCA32009C3F3A /* ConditionVisitingTimeViewController.h */,
+				A346B125141FCA33009C3F3A /* ConditionVisitingTimeViewController.m */,
 				A352AAE1131D0A570053867A /* ConditionTimeViewController.h */,
 				A352AAE2131D0A570053867A /* ConditionTimeViewController.m */,
 				A372A5AD13A8B92F006CF4B4 /* ConditionVisitingView.h */,
@@ -1671,6 +1676,7 @@
 				A3068500141A71CC000A867B /* ActionPrioritiseViewController.m in Sources */,
 				A3068503141A7225000A867B /* ActionPrioritiseView.m in Sources */,
 				A346B123141F5D8E009C3F3A /* PositionManager.m in Sources */,
+				A346B126141FCA33009C3F3A /* ConditionVisitingTimeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
