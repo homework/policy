@@ -138,6 +138,8 @@
         [[PolicyManager sharedPolicyManager] reset];
     }
 	else if (CGRectContainsPoint( saveButton.frame , touchLocation)){
+        [[PolicyManager sharedPolicyManager] createPonderTalk];
+        /*
         [[PolicyManager sharedPolicyManager] savePolicy];
         
         CGRect frame = CGRectMake(0,0, [[UIScreen mainScreen] applicationFrame].size.height, [[UIScreen mainScreen] applicationFrame].size.width);
@@ -146,9 +148,9 @@
         progressView.backgroundColor = [UIColor blackColor];
         progressView.alpha = 0.5;
         [self.view addSubview:progressView];
-        inprogress = YES;
+        inprogress = YES;*/
     }
-     }
+   }
 }
 
 -(void) requestComplete:(NSNotification *) notification{
@@ -314,12 +316,14 @@
 
 -(void) readInCatalogue:(NSTimer*) timer{
     
+    [self catalogueRequestFailed:nil];
+    
     if(timer != nil){
         [timer invalidate];
         timer = nil;
     }
         
-   
+   /*
     NSString *rootURL  = [[NetworkManager sharedManager] rootURL];
     NSString *strurl = [NSString stringWithFormat:@"%@/public/policies/catalogue.json", rootURL];
    
@@ -329,11 +333,14 @@
     [request setDelegate:self];
     [request setDidFinishSelector:@selector(catalogueRequestComplete:)];
     [request setDidFailSelector:@selector(catalogueRequestFailed:)];
-    [[NetworkManager sharedManager] addRequest:request];
+    [[NetworkManager sharedManager] addRequest:request];*/
 }
 
 - (void)catalogueRequestComplete:(ASIHTTPRequest *)request
 {
+    
+    
+    
      NSLog(@"catalogue request success!!");
     NSString *responseString = [request responseString];
  

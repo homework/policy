@@ -246,6 +246,12 @@ static int localId;
 }
 
 
+-(NSString *) createPonderTalk{
+    [self saveCurrentPolicy];
+    NSLog(@"current policy is %@", [currentPolicy toPonderString]);
+    return @"";
+}
+
 /*
  * Take the current representation of the policy, and send it to the policyManager backend to install
  * This method is triggered from the UI.  Data needs a bit of massaging to get in a form to allow it to

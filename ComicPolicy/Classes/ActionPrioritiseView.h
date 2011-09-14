@@ -11,7 +11,9 @@
 #import "FlipFrameView.h"
 
 @interface ActionPrioritiseView : FlipFrameView {
-    
+    UIImageView *deviceImage;
 }
+
+- (id)initWithFrameAndImage:(CGRect)frame topImage:(NSString*)topImage;
 
 @end

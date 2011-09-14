@@ -88,8 +88,8 @@ BOOL toScaled = NO;
   
     NSString *from = [NSString stringWithFormat:@"%02d:%02d", fromhour, fromminute];
     NSString *to = [NSString stringWithFormat:@"%02d:%02d", tohour, tominute];
-    
-    NSMutableDictionary *newargs = [[NSMutableDictionary alloc] initWithObjects:[[NSArray alloc] initWithObjects:from, to,nil] forKeys:[[NSArray alloc] initWithObjects:@"from", @"to",nil]];
+    NSArray *daysofweek = [NSArray arrayWithObjects:@"Mo", @"Tu", @"We", nil];
+    NSMutableDictionary *newargs = [[NSMutableDictionary alloc] initWithObjects:[[NSArray alloc] initWithObjects:from, to, daysofweek, nil] forKeys:[[NSArray alloc] initWithObjects:@"from", @"to", @"daysofweek",nil]];
     
     [[Catalogue sharedCatalogue] setConditionArguments:newargs];
     

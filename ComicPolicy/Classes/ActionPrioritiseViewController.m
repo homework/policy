@@ -7,7 +7,8 @@
 //
 
 #import "ActionPrioritiseViewController.h"
-
+#import "math.h"
+#import "Catalogue.h"
 
 @implementation ActionPrioritiseViewController
 
@@ -17,13 +18,36 @@
     if (self) {
         CGRect aframe = CGRectMake(0,20,294,321);
         
-		ActionPrioritiseView *aview = [[ActionPrioritiseView alloc] initWithFrame:aframe];
-		self.view = aview;
+        NSString *topImage = [[Catalogue sharedCatalogue ]currentActionSubjectImage];
+        
+		NSLog(@"top image is %@", topImage);
+        ActionPrioritiseView *aview = [[ActionPrioritiseView alloc] initWithFrameAndImage:aframe topImage:topImage];
+		
+        slider = [[UISlider alloc] initWithFrame:CGRectMake(-70.0f, 150.0f, 200.0f, 20.f)];
+        
+        [slider setMaximumValue:2.0f];
+        [slider setMinimumValue:0.0f];
+        slider.layer.anchorPoint = CGPointMake(0.5,0.5); 
+        slider.transform = CGAffineTransformMakeRotation(M_PI * -0.5);
+        [slider setContinuous:NO];
+        
+        [slider addTarget:self action:@selector(sliderAction:) forControlEvents:UIControlEventValueChanged];
+        [slider setThumbImage:[UIImage imageNamed:@"greenup.png"] forState:UIControlStateNormal];
+        [aview addSubview:slider];
+        
+        
+        self.view = aview;
 		[aview release];
     }
     return self;
 }
 
+-(void) sliderAction:(UISlider*)sender{
+    //CGFloat value = [sender value];
+    slider.value =  round([sender value]);
+    
+    
+}
 - (void)dealloc
 {
     [super dealloc];

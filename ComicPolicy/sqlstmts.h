@@ -40,7 +40,11 @@
 #define SQL_FILTER_TYPE_AND 0
 #define SQL_FILTER_TYPE_OR 1
 
-extern const int sql_colattrib_types[];
+#if !(TARGET_IPHONE_SIMULATOR)
+    extern const int sql_colattrib_types[];
+#else
+    const int sql_colattrib_types[];
+#endif
 
 #define SQL_COLATTRIB_NONE 	&sql_colattrib_types[0]
 #define SQL_COLATTRIB_COUNT &sql_colattrib_types[1]
@@ -49,7 +53,11 @@ extern const int sql_colattrib_types[];
 #define SQL_COLATTRIB_AVG 	&sql_colattrib_types[4]
 #define SQL_COLATTRIB_SUM 	&sql_colattrib_types[5]
 
-extern const char *colattrib_name[];
+#if !(TARGET_IPHONE_SIMULATOR)
+ const char *colattrib_name[];
+#else
+ extern const char *colattrib_name[];
+#endif
 
 union filterval {
 	int intv;

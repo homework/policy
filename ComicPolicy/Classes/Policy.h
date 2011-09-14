@@ -30,6 +30,7 @@
 
 - (id)initWithDictionary:(NSDictionary *)aDictionary;
 - (id)initWithPolicy:(Policy *)aPolicy;
+- (NSString*) toPonderString;
 
 @property(nonatomic, copy) NSString* identity;
 @property(nonatomic, copy) NSString* localid;

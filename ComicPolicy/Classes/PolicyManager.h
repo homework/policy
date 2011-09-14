@@ -27,6 +27,7 @@
 
 -(void) loadPolicy:(NSString*) policyid;
 -(NSString *) savePolicy;
+-(NSString *) createPonderTalk; 
 -(void) loadFirstPolicy;
 -(void) refresh;
 -(void) reset;

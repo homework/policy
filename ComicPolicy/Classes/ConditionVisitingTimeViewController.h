@@ -11,8 +11,6 @@
 #import "PositionManager.h"
 
 @interface ConditionVisitingTimeViewController : ConditionTimeViewController {
-
-    
 }
 
 

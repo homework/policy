@@ -11,6 +11,8 @@
 
 @implementation ConditionVisitingTimeViewController
 
+bool timerangeselected = false;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -37,6 +39,9 @@
         }
         else{
             conditionTimeView.caption.text = @"at any time";
+            timerangeselected = false;
+            [self updateCatalogue];
+            NSLog(@"setting time range selected to false");
         }
     }
     [super touchesBegan:touches withEvent:event];
@@ -44,7 +49,31 @@
 
 
 -(void) updateCaption{
+    NSLog(@"in update caption..");
+    timerangeselected = true;
     conditionTimeView.caption.text = [NSString stringWithFormat:@"between %02d:%02d and %02d:%02d",  fromhour, fromminute, tohour, tominute];
+    
+}
+
+-(void) updateCatalogue{
+    
+    NSLog(@"in update catalogue..and time range selected is %@", timerangeselected ? @"TRUE": @"FALSE");
+    NSString *from = [NSString stringWithFormat:@"%02d:%02d", fromhour, fromminute];
+    NSString *to = [NSString stringWithFormat:@"%02d:%02d", tohour, tominute];
+    
+    
+    NSMutableDictionary *newargs = [[Catalogue sharedCatalogue] conditionArguments];
+    
+    if (timerangeselected == true){
+        [newargs setObject:from forKey:@"from"];
+        [newargs setObject:to forKey:@"to"];
+    }else{
+        NSLog(@"removing objects from and to");
+        [newargs removeObjectForKey:@"from"];
+        [newargs removeObjectForKey:@"to"];
+    }
+    
+    [[Catalogue sharedCatalogue] setConditionArguments:newargs];
     
 }
 - (void)didReceiveMemoryWarning

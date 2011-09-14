@@ -10,7 +10,7 @@
                         "mum":["00:00:00:dd:dd:dd"],
                         "john":["00:26:08:f8:25:43"],
                         "everyone":["00:00:00:ff:ff:ff"],
-                        "any":[""]
+                        "any":["*"]
             },
 
             "conditions":{

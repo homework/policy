@@ -86,8 +86,9 @@
 -(void) updateCatalogue{
     
     NSNumber* bwidth = [NSNumber numberWithInt:bandwidth];
-   
-    NSMutableDictionary *newargs = [[NSMutableDictionary alloc] initWithObjects:[[NSArray alloc] initWithObjects:bwidth,nil] forKeys:[[NSArray alloc] initWithObjects:@"percentage",nil]];
+    NSString* captype = @"*";
+    
+    NSMutableDictionary *newargs = [[NSMutableDictionary alloc] initWithObjects:[[NSArray alloc] initWithObjects:bwidth,captype,nil] forKeys:[[NSArray alloc] initWithObjects:@"percentage",@"captype",nil]];
     
     [[Catalogue sharedCatalogue] setConditionArguments:newargs];
 }

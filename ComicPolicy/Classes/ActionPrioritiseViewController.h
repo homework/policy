@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <QuartzCore/QuartzCore.h>
+
 #import "ActionPrioritiseView.h"
 
 @interface ActionPrioritiseViewController : UIViewController {
-    
+    UISlider* slider;
 }
 
 @end
