@@ -85,6 +85,7 @@ NSMutableDictionary *tree;
 
 
 @synthesize currentConditionArguments;
+@synthesize currentActionArguments;
 
 + (Catalogue *)sharedCatalogue
 {
@@ -104,7 +105,8 @@ NSMutableDictionary *tree;
     // any thread, but serialised by +sharedManager
     self = [super init];
     if (self != nil) {
-        
+        self.currentConditionArguments = [[NSMutableDictionary alloc] init];
+        self.currentActionArguments = [[NSMutableDictionary alloc] init];
         // [self readInCatalogue];
         
         
@@ -277,7 +279,8 @@ NSMutableDictionary *tree;
 
 
 -(NSString *) nextActionSubject{
-	if (actionsubjectarray == NULL)
+    
+    if (actionsubjectarray == NULL)
 		return NULL;
 	
 	NSString *subject = [actionsubjectarray objectAtIndex:++actionsubjectarrayindex % [actionsubjectarray count]];
@@ -302,14 +305,46 @@ NSMutableDictionary *tree;
 }
 
 
+-(NSMutableDictionary *) actionArguments/*:(NSString*) type*/{
+    if ([currentActionArguments objectForKey:[self currentActionType]] == nil){
+        return [[NSMutableDictionary alloc] init];
+    }
+    return [currentActionArguments objectForKey:[self currentActionType]];
+}
+
+-(void) setActionArguments:(NSMutableDictionary *) args{
+    NSLog(@"setting action arguments %@", args);
+    
+    
+    NSMutableDictionary *currentargs = [self actionArguments];
+    
+    for (NSObject* key in [args allKeys]){
+        [currentargs setObject:[args objectForKey:key] forKey:key];
+    }
+    
+    //[newargs setObject:priority forKey:@"priority"];
+    
+    //[[Catalogue sharedCatalogue] setActionArguments:newargs];
+    
+    
+    [currentActionArguments setObject:currentargs forKey:[self currentActionType]];
+}
+
+
 -(NSString *) nextAction{
 	if (actionoptionsarray == NULL){
 		return NULL;
 	}
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:@"actionSubjectChange" object:nil userInfo:nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"catalogueChange" object:nil userInfo:nil];
     
-	return [actionoptionsarray objectAtIndex:++actionoptionsarrayindex % [actionoptionsarray count]];
+	NSString* nextAction =  [actionoptionsarray objectAtIndex:++actionoptionsarrayindex % [actionoptionsarray count]];
+    
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithObjects:[NSArray arrayWithObjects:nextAction, nil] forKeys:[NSArray arrayWithObjects:@"type", nil]];
+    
+    [self setActionArguments:dict];
+    return nextAction;
 }
 
 -(NSString *) currentActionType{
@@ -330,8 +365,14 @@ NSMutableDictionary *tree;
 -(NSString *) currentAction{
     if (actionoptionsarray == NULL)
 		return NULL;
-	
-    return [actionoptionsarray objectAtIndex:actionoptionsarrayindex % [actionoptionsarray count]];
+    
+    NSString* currentAction =  [actionoptionsarray objectAtIndex:actionoptionsarrayindex % [actionoptionsarray count]];
+    
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithObjects:[NSArray arrayWithObjects:currentAction, nil] forKeys:[NSArray arrayWithObjects:@"type", nil]];
+    
+    [self setActionArguments:dict];
+
+    return currentAction;
 }
 
 #pragma mark * Public controller getters
@@ -412,6 +453,7 @@ NSMutableDictionary *tree;
 
 -(NSString *) currentActionSubjectImage{
 	NSString *subject = [self currentActionSubject];
+    NSLog(@"subject is %@", subject);
 	NSDictionary *images = (NSDictionary *) [imageLookup objectForKey:subject];
     NSDictionary *action =  (NSDictionary*) [images objectForKey:currentActionType];
     NSString *image = [action objectForKey:@"action"];
@@ -579,7 +621,7 @@ NSMutableDictionary *tree;
                             
                             
                             index = 0;
-                            NSString* argument = [arguments objectAtIndex:0];
+                            NSString* argument = [arguments objectAtIndex:0]; //this is now a dict!!
                             
                             for(NSString* anargument in actionoptionsarray){
                                 if ([anargument isEqualToString:argument]){
@@ -628,7 +670,6 @@ NSMutableDictionary *tree;
         NSLog(@"successfully read in the catalogue data");
     }
     
-    self.currentConditionArguments = [[NSMutableDictionary alloc] init];
     
     NSDictionary *main = (NSDictionary *) [data objectForKey:@"catalogue"];
     imageLookup = [(NSDictionary *) [main objectForKey:@"images"] retain];

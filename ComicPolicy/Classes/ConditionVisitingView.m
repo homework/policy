@@ -13,6 +13,7 @@
 
 @synthesize addButton;
 @synthesize addTextField;
+@synthesize sitecaption;
 
 - (id)initWithFrameAndImage:(CGRect)frame image:(NSString *) image{
 	if ((self = [super initWithFrame:frame])) {
@@ -32,7 +33,23 @@
 		UIImageView* tmpframe = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"frame.png"]];
 		[self addSubview:tmpframe];
 		[tmpframe release];
+        
+        
+        UIImageView* bottomcaptionframe = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"captionframelong.png"]];
+		bottomcaptionframe.frame = CGRectMake(87, (300-33), bottomcaptionframe.frame.size.width, bottomcaptionframe.frame.size.height);
+        [self addSubview:bottomcaptionframe];
+        [bottomcaptionframe release];
+        
+        self.sitecaption = [[UILabel alloc] initWithFrame:CGRectMake(87,300-32, 200, 30)];
+        self.sitecaption.textColor = [UIColor blackColor];
+        self.sitecaption.textAlignment = UITextAlignmentCenter;
+        self.sitecaption.font = [UIFont fontWithName:@"MarkerFelt-Thin" size:15.0];
+        self.sitecaption.backgroundColor = [UIColor clearColor];
+        self.sitecaption.text = @"visits any of these sites";
+        [self addSubview:sitecaption];
+        [sitecaption release];
     
+       
     }
     return self;
 }

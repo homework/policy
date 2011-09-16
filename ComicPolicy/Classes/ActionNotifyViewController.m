@@ -13,6 +13,8 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionChange:) name:@"actionChange" object:nil];	
+		
 		CGRect aframe = CGRectMake(0,20,294,321);
 		 NSString *topImage = [[Catalogue sharedCatalogue] currentActionSubjectImage];
 		NSString *bottomImage = [[Catalogue sharedCatalogue ]currentActionImage];
@@ -28,7 +30,18 @@
 }
 
 
+-(void) actionChange:(NSNotification *) n{
+	
+    NSString *notificationImage = [[Catalogue sharedCatalogue] currentActionImage];
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:0.75];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight forView:actionNotifyView.notifyImage cache:YES];
+    actionNotifyView.notifyImage.image = [UIImage imageNamed:notificationImage];
+    [UIView commitAnimations];
+    
 
+}
 
 /*
 // Implement loadView to create a view hierarchy programmatically, without using a nib.

@@ -270,9 +270,11 @@ static int localId;
     
     [action setObject: [[Catalogue sharedCatalogue] currentActionType] forKey:@"type"];
     [action setObject: [[Catalogue sharedCatalogue] currentActionSubject] forKey:@"subject"];
-    NSArray* actionArgs = [[NSArray alloc] initWithObjects:[[Catalogue sharedCatalogue] currentAction], nil];
-    [action setObject: [self convertToTypedArray:actionArgs] forKey:@"arguments"];
+    //NSArray* actionArgs = [[NSArray alloc] initWithObjects:[[Catalogue sharedCatalogue] currentAction], nil];
+    //[action setObject: [self convertToTypedArray:actionArgs] forKey:@"arguments"];
 
+    [action setObject: [self convertToTypedHashtable:[[Catalogue sharedCatalogue] actionArguments]] forKey:@"arguments"];
+    
     SBJsonWriter* writer = [SBJsonWriter new];
     writer.sortKeys = YES;
     /*
@@ -399,7 +401,9 @@ static int localId;
     currentPolicy.conditiontype      = [[Catalogue sharedCatalogue] currentCondition];
     currentPolicy.conditionarguments = [[Catalogue sharedCatalogue] conditionArguments];
     
-    currentPolicy.actionarguments   = [[NSArray alloc] initWithObjects:[[Catalogue sharedCatalogue] currentAction], nil];
+    currentPolicy.actionarguments   = [[Catalogue sharedCatalogue] actionArguments];
+    //[currentPolicy.actionarguments setObject:[[Catalogue sharedCatalogue] currentAction] forKey:@"type"];
+    //[[NSArray alloc] initWithObjects:[[Catalogue sharedCatalogue] currentAction], nil];
     currentPolicy.actionsubject     = [[Catalogue sharedCatalogue] currentActionSubject];
     currentPolicy.actiontype        = [[Catalogue sharedCatalogue] currentActionType];
     currentPolicy.fired = NO;

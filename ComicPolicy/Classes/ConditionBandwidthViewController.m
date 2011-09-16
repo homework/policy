@@ -81,6 +81,7 @@
 
 -(void) updateCaption{
     conditionBandwidthView.bandwidthLabel.text = [NSString stringWithFormat:@"%d%%", bandwidth];
+    conditionBandwidthView.bandwidthcaption.text = [NSString stringWithFormat:@"uses %d%% of the household limit", bandwidth];
 }
 
 -(void) updateCatalogue{

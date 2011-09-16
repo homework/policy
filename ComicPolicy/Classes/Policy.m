@@ -45,7 +45,7 @@
         
         self.actionsubject      = aPolicy.actionsubject;
         self.actiontype         = aPolicy.actiontype;
-        self.actionarguments    = aPolicy.actionarguments;
+        //self.actionarguments    = aPolicy.actionarguments;
         
         self.fired = NO;
     
@@ -157,7 +157,7 @@
         
         self.actionsubject      = [action valueForKey:@"subject"];
         self.actiontype         = [action valueForKey:@"type"];
-        self.actionarguments    = (NSArray*) [action valueForKey:@"arguments"];
+       // self.actionarguments    = (NSArray*) [action valueForKey:@"arguments"];
     
     }
     

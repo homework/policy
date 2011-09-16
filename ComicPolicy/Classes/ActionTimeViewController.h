@@ -7,10 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <QuartzCore/QuartzCore.h>
 #import "ActionTimeView.h"
 
 @interface ActionTimeViewController : UIViewController {
-
+    UISlider* slider;
+    ActionTimeView* timeView;
 }
+
+
 
 @end

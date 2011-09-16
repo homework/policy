@@ -10,7 +10,12 @@
 #import "FrameView.h"
 
 @interface ActionTimeView : FrameView{
-
+    UILabel *timecaption;
+    UIImageView *light;
+    UIImageView *dark;
+    
 }
-
+@property(nonatomic, assign) UILabel *timecaption;
+@property(nonatomic, assign) UIImageView *light;
+@property(nonatomic, assign) UIImageView *dark;
 @end

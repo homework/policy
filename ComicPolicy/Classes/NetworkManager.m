@@ -122,10 +122,12 @@
 
 -(NSString *)getGatewayAddress
 {
+    return @"localhost";
+    /*
     NSString *address = [self getMyAddress]; 
     NSArray *addrs = [address componentsSeparatedByString:@"."];
     int gwbit =  [((NSString *) [addrs objectAtIndex:3]) intValue];
-    return [NSString stringWithFormat:@"%@.%@.%@.%d",[addrs objectAtIndex:0], [addrs objectAtIndex:1], [addrs objectAtIndex:2], gwbit+1];
+    return [NSString stringWithFormat:@"%@.%@.%@.%d",[addrs objectAtIndex:0], [addrs objectAtIndex:1], [addrs objectAtIndex:2], gwbit+1];*/
 }
 
 

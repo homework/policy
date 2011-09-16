@@ -105,8 +105,9 @@
         
 		[self addSubview:toClockFace];
         
-        self.caption = [[UILabel alloc] initWithFrame:CGRectMake(53, self.frame.size.height - 38, 250, 30)];
+        self.caption = [[UILabel alloc] initWithFrame:CGRectMake(53, self.frame.size.height - 30, 250, 30)];
         self.caption.textColor = [UIColor blackColor];
+        self.caption.textAlignment = UITextAlignmentCenter;
         self.caption.font = [UIFont fontWithName:@"MarkerFelt-Thin" size:16.0];
         self.caption.backgroundColor = [UIColor clearColor];
         [self addSubview:caption];

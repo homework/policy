@@ -13,6 +13,7 @@
 //@synthesize conditionImage;
 @synthesize moneyImage;
 @synthesize bandwidthLabel;
+@synthesize bandwidthcaption;
 
 - (id)initWithFrameAndImage:(CGRect)frame image:(NSString *) image{
 	if ((self = [super initWithFrame:frame])) {
@@ -38,6 +39,17 @@
 		bandwidthLabel.shadowColor = [UIColor blackColor];
 		bandwidthLabel.backgroundColor = [UIColor clearColor];
 		[self addSubview:bandwidthLabel];
+        
+        UIImageView* bottomcaptionframe = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"captionframelong.png"]];
+		bottomcaptionframe.frame = CGRectMake(87, (300-33), bottomcaptionframe.frame.size.width, bottomcaptionframe.frame.size.height);
+        [self addSubview:bottomcaptionframe];
+        
+        self.bandwidthcaption = [[UILabel alloc] initWithFrame:CGRectMake(94,300-34, 200, 30)];
+        self.bandwidthcaption.textColor = [UIColor blackColor];
+        self.bandwidthcaption.font = [UIFont fontWithName:@"MarkerFelt-Thin" size:15.0];
+        self.bandwidthcaption.backgroundColor = [UIColor clearColor];
+        [self addSubview:bandwidthcaption];
+        [bandwidthcaption release];
     }
     return self;
 }

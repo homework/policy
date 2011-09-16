@@ -94,7 +94,7 @@
     //first remove all views that we currently have
     int index = 0;
     for (UIView *aview in self.view.subviews){
-        if (index++ > 4){
+        if (index++ > 5){
             [aview removeFromSuperview];
         }
     }

@@ -70,9 +70,13 @@
     }
 }
 -(CGRect) getActionPosition{
+    NSLog(@"GETTING NEW ACTION POSITION");
     if (![[[Catalogue sharedCatalogue] currentCondition] isEqualToString:@"visiting"]){
+        NSLog(@"returning top right...");
         return CGRectMake(666,26,294,334);
+        
     }else{
+        NSLog(@"returning bottom left");
         return CGRectMake(64,334,294,301);
     }
 }

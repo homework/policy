@@ -161,6 +161,12 @@
 		A3A81A43138E84E20001CF25 /* semicog.png in Resources */ = {isa = PBXBuildFile; fileRef = A3A81A3F138E84E00001CF25 /* semicog.png */; };
 		A3A81A46138E89A80001CF25 /* pointer.png in Resources */ = {isa = PBXBuildFile; fileRef = A3A81A45138E89A70001CF25 /* pointer.png */; };
 		A3A81A48138E89B20001CF25 /* smallpointer.png in Resources */ = {isa = PBXBuildFile; fileRef = A3A81A47138E89B20001CF25 /* smallpointer.png */; };
+		A3B6FA4B142110A600089153 /* captionframe.png in Resources */ = {isa = PBXBuildFile; fileRef = A3B6FA4A142110A600089153 /* captionframe.png */; };
+		A3B6FA4D1421234800089153 /* smallcaptionframe.png in Resources */ = {isa = PBXBuildFile; fileRef = A3B6FA4C1421234800089153 /* smallcaptionframe.png */; };
+		A3B6FA4F1422786500089153 /* captionframelong.png in Resources */ = {isa = PBXBuildFile; fileRef = A3B6FA4E1422786500089153 /* captionframelong.png */; };
+		A3B6FA511423525400089153 /* clockfacesmall.png in Resources */ = {isa = PBXBuildFile; fileRef = A3B6FA501423525400089153 /* clockfacesmall.png */; };
+		A3B6FA5414235CB500089153 /* selecthoursdark.png in Resources */ = {isa = PBXBuildFile; fileRef = A3B6FA5214235CB500089153 /* selecthoursdark.png */; };
+		A3B6FA5514235CB500089153 /* selecthourslight.png in Resources */ = {isa = PBXBuildFile; fileRef = A3B6FA5314235CB500089153 /* selecthourslight.png */; };
 		A3BBD42B13817EF200FA75AF /* MonitorBandwidthViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3BBD42A13817EF200FA75AF /* MonitorBandwidthViewController.mm */; };
 		A3BBD4311382845400FA75AF /* MonitorVisitsView.m in Sources */ = {isa = PBXBuildFile; fileRef = A3BBD4301382845300FA75AF /* MonitorVisitsView.m */; };
 		A3C5C25D1383D33400FF413F /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = A3C5C2471383D33400FF413F /* Reachability.m */; };
@@ -198,7 +204,6 @@
 		A3DCB61D1344D1E500A38D5E /* SBJsonTokeniser.m in Sources */ = {isa = PBXBuildFile; fileRef = A3DCB6131344D1E500A38D5E /* SBJsonTokeniser.m */; };
 		A3DCB61E1344D1E500A38D5E /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = A3DCB6151344D1E500A38D5E /* SBJsonWriter.m */; };
 		A3DCB7091344EDB300A38D5E /* data.json in Resources */ = {isa = PBXBuildFile; fileRef = A3DCB7081344EDAD00A38D5E /* data.json */; };
-		A3DCBB81134B201000A38D5E /* selecthours.png in Resources */ = {isa = PBXBuildFile; fileRef = A3DCBB80134B201000A38D5E /* selecthours.png */; };
 		A3DCBBEE134B738B00A38D5E /* MonitorTimeViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3DCBBED134B738B00A38D5E /* MonitorTimeViewController.mm */; };
 		A3DCBBFC134B769700A38D5E /* ResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A3DCBBFB134B769700A38D5E /* ResultViewController.m */; };
 		A3E7FBF71372F51F003FFE37 /* MonitorDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = A3E7FBF61372F51F003FFE37 /* MonitorDataSource.m */; };
@@ -396,7 +401,7 @@
 		A352A971131BF83E0053867A /* greenup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greenup.png; sourceTree = "<group>"; };
 		A352A9F8131C02AD0053867A /* ActionBlockViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionBlockViewController.h; sourceTree = "<group>"; };
 		A352A9F9131C02AD0053867A /* ActionBlockViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionBlockViewController.m; sourceTree = "<group>"; };
-		A352A9FD131C02F90053867A /* ActionBlockView.h */ = {isa = PBXFileReference; fileEncoding = 4; path = ActionBlockView.h; sourceTree = "<group>"; };
+		A352A9FD131C02F90053867A /* ActionBlockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionBlockView.h; sourceTree = "<group>"; };
 		A352A9FE131C02F90053867A /* ActionBlockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionBlockView.m; sourceTree = "<group>"; };
 		A352AA91131D03B10053867A /* computerunblocked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = computerunblocked.png; sourceTree = "<group>"; };
 		A352AA92131D03B10053867A /* desktopunblocked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = desktopunblocked.png; sourceTree = "<group>"; };
@@ -463,6 +468,12 @@
 		A3A81A3F138E84E00001CF25 /* semicog.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = semicog.png; sourceTree = "<group>"; };
 		A3A81A45138E89A70001CF25 /* pointer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pointer.png; sourceTree = "<group>"; };
 		A3A81A47138E89B20001CF25 /* smallpointer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = smallpointer.png; sourceTree = "<group>"; };
+		A3B6FA4A142110A600089153 /* captionframe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = captionframe.png; sourceTree = "<group>"; };
+		A3B6FA4C1421234800089153 /* smallcaptionframe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = smallcaptionframe.png; sourceTree = "<group>"; };
+		A3B6FA4E1422786500089153 /* captionframelong.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = captionframelong.png; sourceTree = "<group>"; };
+		A3B6FA501423525400089153 /* clockfacesmall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clockfacesmall.png; sourceTree = "<group>"; };
+		A3B6FA5214235CB500089153 /* selecthoursdark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selecthoursdark.png; sourceTree = "<group>"; };
+		A3B6FA5314235CB500089153 /* selecthourslight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selecthourslight.png; sourceTree = "<group>"; };
 		A3BBD42913817EF200FA75AF /* MonitorBandwidthViewController.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = MonitorBandwidthViewController.h; sourceTree = "<group>"; };
 		A3BBD42A13817EF200FA75AF /* MonitorBandwidthViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MonitorBandwidthViewController.mm; sourceTree = "<group>"; };
 		A3BBD42C13827DBC00FA75AF /* MonitorViewController.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = MonitorViewController.h; sourceTree = "<group>"; };
@@ -531,7 +542,6 @@
 		A3DCB6141344D1E500A38D5E /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
 		A3DCB6151344D1E500A38D5E /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
 		A3DCB7081344EDAD00A38D5E /* data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = data.json; sourceTree = "<group>"; };
-		A3DCBB80134B201000A38D5E /* selecthours.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selecthours.png; sourceTree = "<group>"; };
 		A3DCBBEC134B738B00A38D5E /* MonitorTimeViewController.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = MonitorTimeViewController.h; sourceTree = "<group>"; };
 		A3DCBBED134B738B00A38D5E /* MonitorTimeViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MonitorTimeViewController.mm; sourceTree = "<group>"; };
 		A3DCBBFA134B769700A38D5E /* ResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultViewController.h; sourceTree = "<group>"; };
@@ -763,8 +773,10 @@
 		A30ADEF9131528F70060D2F1 /* action */ = {
 			isa = PBXGroup;
 			children = (
+				A3B6FA5214235CB500089153 /* selecthoursdark.png */,
+				A3B6FA5314235CB500089153 /* selecthourslight.png */,
+				A3B6FA501423525400089153 /* clockfacesmall.png */,
 				A346B1991420F0E4009C3F3A /* prioritise */,
-				A3DCBB80134B201000A38D5E /* selecthours.png */,
 				A30ADEFA131528F70060D2F1 /* notify */,
 				A30ADF01131528F70060D2F1 /* block */,
 			);
@@ -877,6 +889,9 @@
 		A30ADF28131528F80060D2F1 /* misc */ = {
 			isa = PBXGroup;
 			children = (
+				A3B6FA4E1422786500089153 /* captionframelong.png */,
+				A3B6FA4C1421234800089153 /* smallcaptionframe.png */,
+				A3B6FA4A142110A600089153 /* captionframe.png */,
 				A358AFFC13D450BC00B9A228 /* loadingcatalogue.png */,
 				A303B8CC13C5D5F5004F4AD0 /* refresh.png */,
 				A303B8CD13C5D5F5004F4AD0 /* reset.png */,
@@ -1515,7 +1530,6 @@
 				A327496B1340AB4100212CAB /* addnew.png in Resources */,
 				A327496C1340AB4100212CAB /* empty.png in Resources */,
 				A3DCB7091344EDB300A38D5E /* data.json in Resources */,
-				A3DCBB81134B201000A38D5E /* selecthours.png in Resources */,
 				A34760CB134C816700430CE0 /* tick.caf in Resources */,
 				A34760CC134C816700430CE0 /* tock.caf in Resources */,
 				A3DB62CC1371A6AF00AEBF46 /* policies.json in Resources */,
@@ -1556,6 +1570,12 @@
 				A3448E4E13D8BD0400D30FDE /* mortwaiting.png in Resources */,
 				A30684FD141A655A000A867B /* catalogue.json in Resources */,
 				A346B19B1420F0E4009C3F3A /* priority.png in Resources */,
+				A3B6FA4B142110A600089153 /* captionframe.png in Resources */,
+				A3B6FA4D1421234800089153 /* smallcaptionframe.png in Resources */,
+				A3B6FA4F1422786500089153 /* captionframelong.png in Resources */,
+				A3B6FA511423525400089153 /* clockfacesmall.png in Resources */,
+				A3B6FA5414235CB500089153 /* selecthoursdark.png in Resources */,
+				A3B6FA5514235CB500089153 /* selecthourslight.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

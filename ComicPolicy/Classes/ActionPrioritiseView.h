@@ -12,7 +12,14 @@
 
 @interface ActionPrioritiseView : FlipFrameView {
     UIImageView *deviceImage;
+    UILabel *prioritisedevicecaption;
+    UILabel *prioritiseamountcaption;
+
 }
+
+@property(nonatomic, assign) UILabel* prioritisedevicecaption;
+@property(nonatomic, assign) UILabel* prioritiseamountcaption;
+@property(nonatomic, assign) UIImageView *deviceImage;
 
 - (id)initWithFrameAndImage:(CGRect)frame topImage:(NSString*)topImage;
 

@@ -10,41 +10,103 @@
 #import "math.h"
 #import "Catalogue.h"
 
+@interface ActionPrioritiseViewController()
+-(void) updateCatalogue:(NSString*)priority;
+@end
+
 @implementation ActionPrioritiseViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        
+        
         CGRect aframe = CGRectMake(0,20,294,321);
         
         NSString *topImage = [[Catalogue sharedCatalogue ]currentActionSubjectImage];
         
 		NSLog(@"top image is %@", topImage);
-        ActionPrioritiseView *aview = [[ActionPrioritiseView alloc] initWithFrameAndImage:aframe topImage:topImage];
+        prioritiseview = [[ActionPrioritiseView alloc] initWithFrameAndImage:aframe topImage:topImage];
 		
-        slider = [[UISlider alloc] initWithFrame:CGRectMake(-70.0f, 150.0f, 200.0f, 20.f)];
+        slider = [[UISlider alloc] initWithFrame:CGRectMake(40.0f, 220.0f, 200.0f, 20.f)];
         
         [slider setMaximumValue:2.0f];
         [slider setMinimumValue:0.0f];
-        slider.layer.anchorPoint = CGPointMake(0.5,0.5); 
-        slider.transform = CGAffineTransformMakeRotation(M_PI * -0.5);
         [slider setContinuous:NO];
         
         [slider addTarget:self action:@selector(sliderAction:) forControlEvents:UIControlEventValueChanged];
         [slider setThumbImage:[UIImage imageNamed:@"greenup.png"] forState:UIControlStateNormal];
-        [aview addSubview:slider];
+        [prioritiseview addSubview:slider];
         
+        prioritiseview.prioritisedevicecaption.text = [NSString stringWithFormat:@"give %@", [[Catalogue sharedCatalogue ]currentActionSubjectName]];
         
-        self.view = aview;
-		[aview release];
+        prioritiseview.prioritiseamountcaption.text = [NSString stringWithFormat:@"low priority"];
+
+        
+        self.view = prioritiseview;
+		[prioritiseview release];
     }
     return self;
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+	
+	
+	
+	UITouch *touch = [[event allTouches] anyObject];
+	CGPoint touchLocation = [touch locationInView:self.view];
+
+    if (CGRectContainsPoint(prioritiseview.deviceImage.frame, touchLocation)){
+        prioritiseview.prioritisedevicecaption.alpha = 0.0;
+		NSString* deviceImage = [[Catalogue sharedCatalogue ]nextActionSubjectImage];	
+		[UIView beginAnimations:nil context:nil];
+		[UIView setAnimationDuration:0.75];
+		[UIView setAnimationDelegate:self];
+        [UIView setAnimationDidStopSelector:@selector(addCaptions:finished:context:)];
+        
+		[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight forView:prioritiseview.deviceImage cache:YES];
+		prioritiseview.deviceImage.image = [UIImage imageNamed:deviceImage];
+		[UIView commitAnimations];
+		
+	}
+	[super touchesBegan:touches withEvent:event];
+
+
+}
+
+-(void) updateCatalogue:(NSString*)priority{
+    NSMutableDictionary *newargs = [[NSMutableDictionary alloc] initWithObjects:[[NSArray alloc] initWithObjects:priority, nil] forKeys:[[NSArray alloc] initWithObjects:@"priority",nil]];
+    
+    /*NSMutableDictionary *newargs = [[Catalogue sharedCatalogue] actionArguments];
+    
+    [newargs setObject:priority forKey:@"priority"];*/
+    
+    [[Catalogue sharedCatalogue] setActionArguments:newargs];
+}
+
+- (void)addCaptions:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context {
+    prioritiseview.prioritisedevicecaption.alpha = 1.0;
+
+    prioritiseview.prioritisedevicecaption.text = [NSString stringWithFormat:@"give %@", [[Catalogue sharedCatalogue ]currentActionSubjectName]];    
+    
 }
 
 -(void) sliderAction:(UISlider*)sender{
     //CGFloat value = [sender value];
     slider.value =  round([sender value]);
+   
+    NSString* priority = @"";
+    
+    if (slider.value == 0)
+        priority = @"low";
+    else if (slider.value == 1)
+        priority = @"medium";
+    else
+        priority = @"high";
+    
+    prioritiseview.prioritiseamountcaption.text = [NSString stringWithFormat:@"%@ priority", priority];
+    [self updateCatalogue:priority];
     
     
 }

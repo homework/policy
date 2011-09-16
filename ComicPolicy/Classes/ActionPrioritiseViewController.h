@@ -13,6 +13,7 @@
 
 @interface ActionPrioritiseViewController : UIViewController {
     UISlider* slider;
+    ActionPrioritiseView *prioritiseview; 
 }
 
 @end

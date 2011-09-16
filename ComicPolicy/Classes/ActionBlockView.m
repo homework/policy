@@ -34,6 +34,10 @@
 		upImage.frame = CGRectMake(135, 4, 27, 26);
 		[self addSubview:upImage];
         
+        UIImageView* topcaptionframe = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"smallcaptionframe.png"]];
+		topcaptionframe.frame = CGRectMake(6, 19, topcaptionframe.frame.size.width, topcaptionframe.frame.size.height);
+        [self addSubview:topcaptionframe];
+        
         self.blockcaption = [[UILabel alloc] initWithFrame:CGRectMake(20,20, 150, 30)];
         self.blockcaption.textColor = [UIColor blackColor];
         self.blockcaption.font = [UIFont fontWithName:@"MarkerFelt-Thin" size:15.0];

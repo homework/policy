@@ -11,15 +11,32 @@
 
 @implementation ActionPrioritiseView
 
+@synthesize prioritisedevicecaption;
+@synthesize prioritiseamountcaption;
+@synthesize deviceImage;
 
 - (id)initWithFrameAndImage:(CGRect)frame topImage:(NSString*)topImage{
 	if ((self = [super initWithFrame:frame])) {
         
-        UIImageView* background = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"priority.png"]];
-        
-		background.frame = CGRectMake(background.frame.origin.x, background.frame.origin.y + 13, background.frame.size.width, background.frame.size.height);
+        UIImageView* priority = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"priority.png"]];
+		priority.frame = CGRectMake(0, (300-128), 295, 142);
 		
-        [self addSubview:background];	
+        [self addSubview:priority];	
+        
+        
+       
+        
+        UIImageView* bottomcaptionframe = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"captionframe.png"]];
+		bottomcaptionframe.frame = CGRectMake(143, (300-18), bottomcaptionframe.frame.size.width, bottomcaptionframe.frame.size.height);
+        [self addSubview:bottomcaptionframe];
+        
+        deviceImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:topImage]];
+		deviceImage.frame = CGRectMake(0, 14, 295, 160);
+		[self addSubview:deviceImage];
+        
+        UIImageView* topcaptionframe = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"captionframe.png"]];
+		topcaptionframe.frame = CGRectMake(6, 19, topcaptionframe.frame.size.width, topcaptionframe.frame.size.height);
+        [self addSubview:topcaptionframe];
         
         UIImageView* tmpframe = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"frame2.png"]];
 		[self addSubview:tmpframe];
@@ -29,11 +46,23 @@
 		upImage.frame = CGRectMake(135, 4, 27, 26);
 		[self addSubview:upImage];
         
-        deviceImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:topImage]];
-		deviceImage.frame = CGRectMake(0, 14, 295, 160);
-		[self addSubview:deviceImage];
-
+        self.prioritisedevicecaption = [[UILabel alloc] initWithFrame:CGRectMake(20,20, 150, 30)];
+        self.prioritisedevicecaption.textColor = [UIColor blackColor];
+        self.prioritisedevicecaption.font = [UIFont fontWithName:@"MarkerFelt-Thin" size:15.0];
+        self.prioritisedevicecaption.backgroundColor = [UIColor clearColor];
         
+        self.prioritiseamountcaption = [[UILabel alloc] initWithFrame:CGRectMake(143,(300-18), bottomcaptionframe.frame.size.width, bottomcaptionframe.frame.size.height)];
+        self.prioritiseamountcaption.textColor = [UIColor blackColor];
+        self.prioritiseamountcaption.textAlignment = UITextAlignmentCenter;
+        self.prioritiseamountcaption.font = [UIFont fontWithName:@"MarkerFelt-Thin" size:15.0];
+        self.prioritiseamountcaption.backgroundColor = [UIColor clearColor];
+        
+        
+        [self addSubview:prioritisedevicecaption];
+        [self addSubview:prioritiseamountcaption];
+        
+        [prioritisedevicecaption release];
+        [prioritiseamountcaption release];
     }
     return self;
 }

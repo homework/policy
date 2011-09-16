@@ -12,8 +12,10 @@
 @interface ConditionVisitingView : FrameView {
     UIImageView* addButton;
     UITextField* addTextField;
+    UILabel* sitecaption;
 }
 
 @property(nonatomic, retain) UIImageView* addButton;
 @property(nonatomic, retain) UITextField* addTextField;
+@property(nonatomic, assign) UILabel* sitecaption;
 @end

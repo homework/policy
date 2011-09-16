@@ -11,8 +11,10 @@
 #import "FrameView.h"
 
 @interface HandView : UIView {
-
+  
 }
+
+
 
 - (id)initWithFrameAndImage:(CGRect)frame image:(NSString*)image;
 

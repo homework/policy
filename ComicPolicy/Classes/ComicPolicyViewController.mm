@@ -233,6 +233,12 @@
 -(void) actionTypeChange:(NSNotification *) n{
 	
 	
+    
+    NSLog(@"------> action type change <----------: %@", [[Catalogue sharedCatalogue] currentActionType] );
+    
+    
+    
+    
 	AVAudioPlayer *currentPlayer = tickPlayer;
 	[currentPlayer play];
 	
@@ -243,7 +249,9 @@
     if ([[[Catalogue sharedCatalogue] currentActionType] isEqualToString:@"block"]){
 		//actionTimeViewController.view.frame = deadFrame;
 		[self.view addSubview:actionTimeViewController.view];
-		actionTimeViewController.view.frame = [[PositionManager sharedPositionManager] getPosition:@"actiontime"];
+		actionViewController.view.frame = [[PositionManager sharedPositionManager] getPosition:@"action"];
+        actionTimeViewController.view.frame = [[PositionManager sharedPositionManager] getPosition:@"actiontime"];
+        
         conditionVisitingTimeViewController.view.frame = [[PositionManager sharedPositionManager] getPosition:@"conditionvisitingtime"];
 
         //CGRect aframe = resultViewController.resultController.resultView.frame;
@@ -264,7 +272,8 @@
 		
 		
 		[UIView setAnimationDidStopSelector:@selector(actionOffScreen:finished:context:)];
-		
+		actionViewController.view.frame = [[PositionManager sharedPositionManager] getPosition:@"action"];
+        
 		actionTimeViewController.view.frame = [[PositionManager sharedPositionManager] getPosition:@"actiontime"];
         resultViewController.resultController.resultView.frame = [[PositionManager sharedPositionManager] getPosition:@"result"];
 		resultViewController.resultController.resultView.resultMainImage.alpha = 1.0;
@@ -385,6 +394,9 @@
      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(policyFired:) name:@"policyFired" object:nil];
      
      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(requestComplete:) name:@"saveRequestComplete" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(conditionChange:) name:@"totalPoliciesChanged" object:nil];
+    
 }
 
 -(void) createControllers{

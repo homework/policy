@@ -11,15 +11,17 @@
 @implementation HandView
 
 
+
 -(id) initWithFrameAndImage:(CGRect)frame image:(NSString *)image{
 	if ((self = [super initWithFrame:frame])) {
-		UIImageView* hand = [[UIImageView alloc] initWithImage:[UIImage imageNamed:image]];
-		hand.frame = CGRectMake(0,0, frame.size.width, frame.size.height);
+		UIImageView* background = [[UIImageView alloc] initWithImage:[UIImage imageNamed:image]];
+		background.frame = CGRectMake(0,0, frame.size.width, frame.size.height);
 		//self.backgroundColor = [UIColor cyanColor];
-		[self addSubview: hand];
+		[self addSubview: background];
 		[self.layer setAnchorPoint:CGPointMake(0.5, 0.9)]; 
-		[hand release];
-	}
+		[background release];
+        
+       	}
     return self;
 }
 

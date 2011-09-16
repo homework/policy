@@ -23,7 +23,7 @@
     
     NSString*    actionsubject;
     NSString*    actiontype;
-    NSArray*    actionarguments;
+    NSMutableDictionary*    actionarguments;
     
     BOOL fired;
 }
@@ -42,7 +42,7 @@
 
 @property(nonatomic, copy) NSString*  actionsubject;
 @property(nonatomic, copy) NSString*  actiontype;
-@property(nonatomic, copy) NSArray*  actionarguments;
+@property(nonatomic, copy) NSMutableDictionary*  actionarguments;
 
 @property(nonatomic, assign)  BOOL  fired;
 

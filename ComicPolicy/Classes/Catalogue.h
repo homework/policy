@@ -11,9 +11,11 @@
 
 @interface Catalogue : NSObject {
     NSMutableDictionary *currentConditionArguments;
+    NSMutableDictionary *currentActionArguments;
 }
 
 @property(nonatomic, retain) NSMutableDictionary *currentConditionArguments;
+@property(nonatomic, retain) NSMutableDictionary *currentActionArguments;
 
 + (Catalogue *)sharedCatalogue;
 
@@ -35,6 +37,7 @@
 
 -(NSString *) currentActionSubjectImage;
 -(NSString *) nextActionSubjectImage;
+-(NSMutableDictionary *) actionArguments; 
 
 #pragma mark *condition getters for UI
 -(NSString *) currentConditionViewController;
@@ -65,8 +68,10 @@
 
 -(void) setSubject:(NSString *)owner device:(NSString*) device;
 -(void) setCondition:(NSString *)condition options:(NSDictionary*) options;
--(void) setAction:(NSString *) action subject:(NSString*) subject options:(NSArray*)options;
 -(void) setConditionArguments:(NSMutableDictionary *) args;
+
+-(void) setAction:(NSString *) action subject:(NSString*) subject options:(NSArray*)options;
+-(void) setActionArguments:(NSMutableDictionary *) args;
 -(void) parseCatalogue:(NSString*) catalogue;
 
 @end
