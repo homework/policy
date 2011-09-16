@@ -15,6 +15,10 @@
 
 -(NSString *) generatePonderTalkConditionString;
 -(NSString *) generatePonderTalkActionString;
+
+-(void) generateCondition:(NSString*) event time:(NSString*) time;
+-(void) generateAction:(NSString*) action applyfor:(NSString*) applyfor;
+
 @end
 
 @implementation Policy
@@ -40,71 +44,64 @@
     if ([self init]){
         NSError *error = NULL;
         
+        NSString *event = nil;
+        NSString *time = nil;
         
-        NSRegularExpression *eventregex = [NSRegularExpression regularExpressionWithPattern:@"event:#\\(*\\)" options:NSRegularExpressionCaseInsensitive error:&error];
-        
-        NSString* teststr = @"pw/hwpe addPolicy:\"an example policy\" event:#(\"allowance\" \"*\" \"0.81\" \"18:E7:F4:79:52:B2\") action:#(\"notify\" \"dad:phone\")";
-        
-        NSRange rangeOfFirstMatch = [eventregex rangeOfFirstMatchInString:teststr options:0 range:NSMakeRange(0, [teststr length])];
-        
-        if (!NSEqualRanges(rangeOfFirstMatch, NSMakeRange(NSNotFound, 0))){
-            NSString *substringForFirstMatch = [teststr substringWithRange:rangeOfFirstMatch];
-            NSLog(@"got out %@", substringForFirstMatch);
-        }else{
-            NSLog(@"couldn't find it...");
-        }
-                                     
-                                    
-        
-    }
-    return self;
-}
-
--(void) testStringParse:(NSString *) teststr{
-   
-        NSError *error = NULL;
+        NSString *applyfor = nil;
+        NSString *action = nil;
         
         
         NSRegularExpression *eventregex = [NSRegularExpression regularExpressionWithPattern:@"event:#\\(.*?\\)" options:NSRegularExpressionCaseInsensitive error:&error];
         
         NSRegularExpression *actionregex = [NSRegularExpression regularExpressionWithPattern:@"action:#\\(.*?\\)" options:NSRegularExpressionCaseInsensitive error:&error];
-    
+        
         NSRegularExpression *timeregex = [NSRegularExpression regularExpressionWithPattern:@"time:#\\(.*?\\)" options:NSRegularExpressionCaseInsensitive error:&error];
         
         NSRegularExpression *forregex = [NSRegularExpression regularExpressionWithPattern:@"for:#\\(.*?\\)" options:NSRegularExpressionCaseInsensitive error:&error];
-    
-        NSRange rangeOfFirstMatch = [eventregex rangeOfFirstMatchInString:teststr options:0 range:NSMakeRange(0, [teststr length])];
+        
+        NSRange rangeOfFirstMatch = [eventregex rangeOfFirstMatchInString:ponderString options:0 range:NSMakeRange(0, [ponderString length])];
         
         if (!NSEqualRanges(rangeOfFirstMatch, NSMakeRange(NSNotFound, 0))){
-            NSString *substringForFirstMatch = [teststr substringWithRange:rangeOfFirstMatch];
-            NSLog(@"got out %@", substringForFirstMatch);
+            event = [ponderString substringWithRange:rangeOfFirstMatch];
         } 
-    
-        rangeOfFirstMatch = [actionregex rangeOfFirstMatchInString:teststr options:0 range:NSMakeRange(0, [teststr length])];
-    
-
-        if (!NSEqualRanges(rangeOfFirstMatch, NSMakeRange(NSNotFound, 0))){
-            NSString *substringForFirstMatch = [teststr substringWithRange:rangeOfFirstMatch];
-            NSLog(@"got out %@", substringForFirstMatch);
-        }
-    
-        rangeOfFirstMatch = [timeregex rangeOfFirstMatchInString:teststr options:0 range:NSMakeRange(0, [teststr length])];
-    
-        if (!NSEqualRanges(rangeOfFirstMatch, NSMakeRange(NSNotFound, 0))){
-            NSString *substringForFirstMatch = [teststr substringWithRange:rangeOfFirstMatch];
-            NSLog(@"got out %@", substringForFirstMatch);
-        }
-    
-        rangeOfFirstMatch = [forregex rangeOfFirstMatchInString:teststr options:0 range:NSMakeRange(0, [teststr length])];
-    
+        
+        rangeOfFirstMatch = [actionregex rangeOfFirstMatchInString:ponderString options:0 range:NSMakeRange(0, [ponderString length])];
+        
         
         if (!NSEqualRanges(rangeOfFirstMatch, NSMakeRange(NSNotFound, 0))){
-            NSString *substringForFirstMatch = [teststr substringWithRange:rangeOfFirstMatch];
-            NSLog(@"got out %@", substringForFirstMatch);
+            action = [ponderString substringWithRange:rangeOfFirstMatch];
         }
+        
+        rangeOfFirstMatch = [timeregex rangeOfFirstMatchInString:ponderString options:0 range:NSMakeRange(0, [ponderString length])];
+        
+        if (!NSEqualRanges(rangeOfFirstMatch,  NSMakeRange(NSNotFound, 0))){
+            time = [ponderString substringWithRange:rangeOfFirstMatch];
+        }
+        
+        rangeOfFirstMatch = [forregex rangeOfFirstMatchInString:ponderString options:0 range:NSMakeRange(0, [ponderString length])];
+        
+        
+        if (!NSEqualRanges(rangeOfFirstMatch, NSMakeRange(NSNotFound, 0))){
+            applyfor = [ponderString substringWithRange:rangeOfFirstMatch];
+        }
+
+        
+        [self generateCondition:event  time:time];
+        [self generateAction:action applyfor:applyfor];
+        
+    }
+    return self;
 }
 
 
+-(void) generateCondition:(NSString*) event time:(NSString*) time{
+    
+}
+
+-(void) generateAction:(NSString*) action applyfor:(NSString*) applyfor{
+
+    
+}
 
 - (id)initWithPolicy:(Policy *)aPolicy{
     
@@ -157,7 +154,7 @@
          
     //NSLog(@"%@",policyString);
     
-    [self testStringParse:policyString];
+    [self ponderStringParse:policyString];
     
     return policyString;
     
