@@ -20,7 +20,10 @@
                     "action":{
                             "type":"block",
                             "subject":"00:1f:f3:bc:b2:57",
-                            "arguments":["dad"]
+                            "arguments":{
+                                "options":"dad",
+                                "duration":10
+                            }
                     }
                 }                
     },
@@ -43,7 +46,10 @@
             "action":{
                 "type":"block",
                 "subject":"00:1f:f3:bc:b2:57",
-                "arguments":["dad"]
+                "arguments":{
+                    "options":"dad",
+                    "duration":10
+                }            
             }
     }
 }

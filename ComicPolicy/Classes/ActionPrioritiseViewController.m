@@ -20,7 +20,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        
+        [self updateCatalogue:@"low"];
         
         CGRect aframe = CGRectMake(0,20,294,321);
         

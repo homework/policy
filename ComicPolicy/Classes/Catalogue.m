@@ -184,10 +184,8 @@ NSMutableDictionary *tree;
     
     NSString *subject = [self currentActionSubject];
     
-    NSLog(@"current action subject is %@", subject);
-    
 	if ([tmp objectForKey:@"arguments"] != NULL){
-        NSDictionary* tmpoptdict = [tmp objectForKey:@"arguments"];
+        NSDictionary* tmpoptdict = [(NSDictionary*) [tmp objectForKey:@"arguments"] objectForKey:@"options"];
         actionoptionsarray =  [[tmpoptdict objectForKey:subject] retain];
         actionoptionsarrayindex = 0;
     }
@@ -298,7 +296,7 @@ NSMutableDictionary *tree;
     }
     NSDictionary *tmp = [actionLookup objectForKey:currentActionType];
     if ([tmp objectForKey:@"arguments"] != NULL){
-        NSDictionary* tmpoptdict = [tmp objectForKey:@"arguments"];
+        NSDictionary* tmpoptdict = [(NSDictionary*)[tmp objectForKey:@"arguments"] objectForKey:@"options"];
         actionoptionsarray =  [[tmpoptdict objectForKey:subject] retain];
         actionoptionsarrayindex = 0;
     }
@@ -315,19 +313,13 @@ NSMutableDictionary *tree;
 -(void) setActionArguments:(NSMutableDictionary *) args{
     NSLog(@"setting action arguments %@", args);
     
+    NSMutableDictionary* currentArgs = [self actionArguments];
     
-    NSMutableDictionary *currentargs = [self actionArguments];
-    
-    for (NSObject* key in [args allKeys]){
-        [currentargs setObject:[args objectForKey:key] forKey:key];
+    for (NSObject *key in [args allKeys]){
+        [currentArgs setObject:[args objectForKey:key] forKey:key];
     }
     
-    //[newargs setObject:priority forKey:@"priority"];
-    
-    //[[Catalogue sharedCatalogue] setActionArguments:newargs];
-    
-    
-    [currentActionArguments setObject:currentargs forKey:[self currentActionType]];
+    [currentActionArguments setObject:currentArgs forKey:[self currentActionType]];
 }
 
 
@@ -341,10 +333,10 @@ NSMutableDictionary *tree;
     
 	NSString* nextAction =  [actionoptionsarray objectAtIndex:++actionoptionsarrayindex % [actionoptionsarray count]];
     
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithObjects:[NSArray arrayWithObjects:nextAction, nil] forKeys:[NSArray arrayWithObjects:@"type", nil]];
+    NSMutableDictionary *newargs = [[NSMutableDictionary alloc] initWithObjects:[[NSArray alloc] initWithObjects:nextAction, nil] forKeys:[[NSArray alloc] initWithObjects:@"options",nil]];
     
-    [self setActionArguments:dict];
-    return nextAction;
+    [self setActionArguments:newargs];
+    return  nextAction;
 }
 
 -(NSString *) currentActionType{
@@ -365,12 +357,13 @@ NSMutableDictionary *tree;
 -(NSString *) currentAction{
     if (actionoptionsarray == NULL)
 		return NULL;
+	
     
     NSString* currentAction =  [actionoptionsarray objectAtIndex:actionoptionsarrayindex % [actionoptionsarray count]];
     
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithObjects:[NSArray arrayWithObjects:currentAction, nil] forKeys:[NSArray arrayWithObjects:@"type", nil]];
+    NSMutableDictionary *newargs = [[NSMutableDictionary alloc] initWithObjects:[[NSArray alloc] initWithObjects:currentAction, nil] forKeys:[[NSArray alloc] initWithObjects:@"options",nil]];
     
-    [self setActionArguments:dict];
+    [self setActionArguments:newargs];
 
     return currentAction;
 }
@@ -397,7 +390,7 @@ NSMutableDictionary *tree;
 	
 	if ([tmp objectForKey:@"arguments"] != NULL){
         NSString* subject = [self currentActionSubject];
-        NSDictionary* tmpoptdict = [tmp objectForKey:@"arguments"];
+        NSDictionary* tmpoptdict = [(NSDictionary *)[tmp objectForKey:@"arguments"] objectForKey:@"options"];
         actionoptionsarray =  [[tmpoptdict objectForKey:subject] retain];
         actionoptionsarrayindex = 0;
 	}
@@ -559,7 +552,7 @@ NSMutableDictionary *tree;
  * Option  =   tweet, notify    /   owner (i.e. mum/dad)
  */
 
--(void) setAction:(NSString *) action subject:(NSString*) subject options:(NSArray*)arguments{
+-(void) setAction:(NSString *) action subject:(NSString*) subject options:(NSMutableDictionary*)arguments{
     
     
     int index = 0;
@@ -613,16 +606,24 @@ NSMutableDictionary *tree;
                         
                         if ([tmp objectForKey:@"arguments"] != NULL){
                             
-                            NSDictionary* tmpoptdict = [tmp objectForKey:@"arguments"];
+                            NSDictionary* tmpoptdict = [(NSDictionary*)[tmp objectForKey:@"arguments"] objectForKey:@"options"];
                             
+                            /*
+                             * Get the array of all possible actions from the catalogue.
+                             */
                             actionoptionsarray =  [[tmpoptdict objectForKey:subject] retain];
                             
+                        
                             actionoptionsarrayindex = 0;
                             
+                            /*
+                             * Now loop through the options to set to the argument passed in here in the dictionary
+                             */
                             
                             index = 0;
-                            NSString* argument = [arguments objectAtIndex:0]; //this is now a dict!!
+                            NSString* argument = [arguments objectForKey:@"options"];
                             
+                           
                             for(NSString* anargument in actionoptionsarray){
                                 if ([anargument isEqualToString:argument]){
                                     actionoptionsarrayindex = index;

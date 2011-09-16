@@ -61,6 +61,7 @@ static int localId;
 
 -(void) createDefaultStartPolicy{
     NSString *filePath = [[NSBundle mainBundle] pathForResource:@"policies" ofType:@"json"];
+    
     NSString *content = [[NSString alloc] initWithContentsOfFile:filePath];
     
     SBJsonParser *jsonParser = [SBJsonParser new];
@@ -81,8 +82,6 @@ static int localId;
         self.defaultPolicy = [[Policy alloc] initWithDictionary:[data objectForKey:@"default"]];
         
         self.policyids = [[NSMutableArray alloc] initWithArray: [policies allKeys]];
-        
-        //conditionArguments = [[[NSMutableDictionary alloc] init] retain];
         
         [self loadFirstPolicy];
     }

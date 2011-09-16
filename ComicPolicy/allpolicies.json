@@ -20,7 +20,7 @@
             "action":{
                 "type":"block",
                 "subject":"0000bbbb",
-                "arguments":["dad"]
+                "arguments":{"user":"dad"}
             }
         },
 
@@ -40,7 +40,7 @@
         "action":{
             "type":"notify",
             "subject":"john",
-            "arguments":["tweet"]
+            "arguments":{"type":"tweet"}
         }
     },
 
@@ -60,7 +60,7 @@
         "action":{
             "type":"notify",
             "subject":"dad",
-            "arguments":["phone"]
+            "arguments":{"type:":"phone"}
         }
     }
 
@@ -84,7 +84,9 @@
         "action":{
             "type":"block",
             "subject":"0000bbbb",
-            "arguments":["dad"]
+            "arguments":{
+                "user":"dad"
+            }
         }
     }
 }

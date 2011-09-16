@@ -40,6 +40,7 @@
                     "block":{
                         "subjects":["18:E7:F4:79:52:B2","00:1f:f3:bc:b2:57","f8:1e:df:d6:73:23","00:00:00:cc:cc:cc","00:00:00:dd:dd:dd","00:26:08:f8:25:43", "00:00:00:ff:ff:ff"],
                         "arguments":{
+                            "options":{
                                 "18:E7:F4:79:52:B2":["mort"],
                                 "00:1f:f3:bc:b2:57":["dad"],
                                 "f8:1e:df:d6:73:23":["mort"],
@@ -47,17 +48,21 @@
                                 "00:00:00:dd:dd:dd":["mum"],
                                 "00:26:08:f8:25:43":["john"],
                                 "00:00:00:ff:ff:ff":["everyone"]
+                            },
+                            "duration":"forever"
                         }
                     }, 
                         
                     "notify":{
                         "subjects":["dad","mort","mum","katie","john"],  
                         "arguments": {
+                            "options":{
                                 "dad": ["tweet","phone","mail","growl"],
                                 "mort": ["tweet","phone","mail","growl"],
                                 "katie": ["tweet","phone","mail","growl"],           
                                 "mum": ["tweet","phone","mail","growl"],
                                 "john": ["tweet","phone","mail","growl"]
+                            }
                         }
                     },
 
@@ -65,12 +70,14 @@
                         "subjects":["18:E7:F4:79:52:B2","00:1f:f3:bc:b2:57","f8:1e:df:d6:73:23","00:00:00:cc:cc:cc","00:00:00:dd:dd:dd","00:26:08:f8:25:43", "00:00:00:ff:ff:ff"],
                         
                         "arguments":{
-                            "18:E7:F4:79:52:B2":["high", "medium", "low"],
-                            "00:1f:f3:bc:b2:57":["high", "medium", "low"],
-                            "f8:1e:df:d6:73:23":["high", "medium", "low"],
-                            "00:00:00:cc:cc:cc":["high", "medium", "low"],   
-                            "00:00:00:dd:dd:dd":["high", "medium", "low"],
-                            "00:26:08:f8:25:43":["high", "medium", "low"]
+                            "options":{
+                                "18:E7:F4:79:52:B2":["high", "medium", "low"],
+                                "00:1f:f3:bc:b2:57":["high", "medium", "low"],
+                                "f8:1e:df:d6:73:23":["high", "medium", "low"],
+                                "00:00:00:cc:cc:cc":["high", "medium", "low"],   
+                                "00:00:00:dd:dd:dd":["high", "medium", "low"],
+                                "00:26:08:f8:25:43":["high", "medium", "low"]
+                            }
                         }
                     }
             },

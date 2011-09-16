@@ -70,7 +70,7 @@
 -(void) setCondition:(NSString *)condition options:(NSDictionary*) options;
 -(void) setConditionArguments:(NSMutableDictionary *) args;
 
--(void) setAction:(NSString *) action subject:(NSString*) subject options:(NSArray*)options;
+-(void) setAction:(NSString *) action subject:(NSString*) subject options:(NSMutableDictionary*)options;
 -(void) setActionArguments:(NSMutableDictionary *) args;
 -(void) parseCatalogue:(NSString*) catalogue;
 

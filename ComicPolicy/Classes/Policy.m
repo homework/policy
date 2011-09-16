@@ -34,6 +34,78 @@
 
 @synthesize fired;
 
+
+
+- (id) initWithPonderString:(NSString *) ponderString{
+    if ([self init]){
+        NSError *error = NULL;
+        
+        
+        NSRegularExpression *eventregex = [NSRegularExpression regularExpressionWithPattern:@"event:#\\(*\\)" options:NSRegularExpressionCaseInsensitive error:&error];
+        
+        NSString* teststr = @"pw/hwpe addPolicy:\"an example policy\" event:#(\"allowance\" \"*\" \"0.81\" \"18:E7:F4:79:52:B2\") action:#(\"notify\" \"dad:phone\")";
+        
+        NSRange rangeOfFirstMatch = [eventregex rangeOfFirstMatchInString:teststr options:0 range:NSMakeRange(0, [teststr length])];
+        
+        if (!NSEqualRanges(rangeOfFirstMatch, NSMakeRange(NSNotFound, 0))){
+            NSString *substringForFirstMatch = [teststr substringWithRange:rangeOfFirstMatch];
+            NSLog(@"got out %@", substringForFirstMatch);
+        }else{
+            NSLog(@"couldn't find it...");
+        }
+                                     
+                                    
+        
+    }
+    return self;
+}
+
+-(void) testStringParse:(NSString *) teststr{
+   
+        NSError *error = NULL;
+        
+        
+        NSRegularExpression *eventregex = [NSRegularExpression regularExpressionWithPattern:@"event:#\\(.*?\\)" options:NSRegularExpressionCaseInsensitive error:&error];
+        
+        NSRegularExpression *actionregex = [NSRegularExpression regularExpressionWithPattern:@"action:#\\(.*?\\)" options:NSRegularExpressionCaseInsensitive error:&error];
+    
+        NSRegularExpression *timeregex = [NSRegularExpression regularExpressionWithPattern:@"time:#\\(.*?\\)" options:NSRegularExpressionCaseInsensitive error:&error];
+        
+        NSRegularExpression *forregex = [NSRegularExpression regularExpressionWithPattern:@"for:#\\(.*?\\)" options:NSRegularExpressionCaseInsensitive error:&error];
+    
+        NSRange rangeOfFirstMatch = [eventregex rangeOfFirstMatchInString:teststr options:0 range:NSMakeRange(0, [teststr length])];
+        
+        if (!NSEqualRanges(rangeOfFirstMatch, NSMakeRange(NSNotFound, 0))){
+            NSString *substringForFirstMatch = [teststr substringWithRange:rangeOfFirstMatch];
+            NSLog(@"got out %@", substringForFirstMatch);
+        } 
+    
+        rangeOfFirstMatch = [actionregex rangeOfFirstMatchInString:teststr options:0 range:NSMakeRange(0, [teststr length])];
+    
+
+        if (!NSEqualRanges(rangeOfFirstMatch, NSMakeRange(NSNotFound, 0))){
+            NSString *substringForFirstMatch = [teststr substringWithRange:rangeOfFirstMatch];
+            NSLog(@"got out %@", substringForFirstMatch);
+        }
+    
+        rangeOfFirstMatch = [timeregex rangeOfFirstMatchInString:teststr options:0 range:NSMakeRange(0, [teststr length])];
+    
+        if (!NSEqualRanges(rangeOfFirstMatch, NSMakeRange(NSNotFound, 0))){
+            NSString *substringForFirstMatch = [teststr substringWithRange:rangeOfFirstMatch];
+            NSLog(@"got out %@", substringForFirstMatch);
+        }
+    
+        rangeOfFirstMatch = [forregex rangeOfFirstMatchInString:teststr options:0 range:NSMakeRange(0, [teststr length])];
+    
+        
+        if (!NSEqualRanges(rangeOfFirstMatch, NSMakeRange(NSNotFound, 0))){
+            NSString *substringForFirstMatch = [teststr substringWithRange:rangeOfFirstMatch];
+            NSLog(@"got out %@", substringForFirstMatch);
+        }
+}
+
+
+
 - (id)initWithPolicy:(Policy *)aPolicy{
     
     if ([self init]) {
@@ -45,7 +117,7 @@
         
         self.actionsubject      = aPolicy.actionsubject;
         self.actiontype         = aPolicy.actiontype;
-        //self.actionarguments    = aPolicy.actionarguments;
+        self.actionarguments    = aPolicy.actionarguments;
         
         self.fired = NO;
     
@@ -85,7 +157,12 @@
          
     //NSLog(@"%@",policyString);
     
+    [self testStringParse:policyString];
+    
     return policyString;
+    
+    
+    
 }
 
 -(NSString *) generatePonderTalkConditionString{
@@ -125,9 +202,8 @@
         
     }else if ([conditiontype isEqualToString: @"bandwidth"]){
         
-        conditionstring = [NSString stringWithFormat:@"event:#(\"allowance\" \"%@\" \"%@\", \"%@\", \"%@\")", 
-                                subjectdevice,
-                                [conditionarguments objectForKey:@"captype"],
+        conditionstring = [NSString stringWithFormat:@"event:#(\"allowance\" \"%@\" \"%@\" \"%@\")", 
+                                @"*",
                                 [self percentagestring:[conditionarguments objectForKey:@"percentage"]],
                                 subjectdevice
                            ];
@@ -137,9 +213,46 @@
 
 
 -(NSString *) generatePonderTalkActionString{
-     NSString *actionstring = @"";
     
-    return actionstring;
+    if ([actiontype isEqualToString:@"prioritise"]){
+        
+        NSString *priority = [NSString stringWithFormat:@"action:#(\"prio\" \"%@\" \"%@\")",
+                    actionsubject,
+                    [actionarguments objectForKey:@"priority"]
+                ];
+        
+        NSString* duration = [conditiontype isEqualToString: @"timed"] ? @"" : @"for (\"30\" \"m\")";
+        
+        return [NSString stringWithFormat:@"%@ %@",priority, duration];
+        
+    }else if ([actiontype isEqualToString:@"block"]){
+
+         NSString *block = [NSString stringWithFormat:@"action:#(\"block\" \"%@\")",
+                actionsubject
+                ];
+        
+        
+        
+        NSString* duration =  [actionarguments objectForKey:@"timeframe"];
+        
+        if ([duration isEqualToString:@"forever"])
+            duration = @"";
+        else{
+        
+            duration = [NSString stringWithFormat:@"for:#(\"%@\" \"m\")",duration];
+        }
+                             
+        
+        return [NSString stringWithFormat:@"%@ %@",block, duration];
+        
+        
+    }else if ([actiontype isEqualToString:@"notify"]){
+        
+        return [NSString stringWithFormat:@"action:#(\"notify\" \"%@:%@\")",actionsubject,[actionarguments objectForKey:@"options"]];
+        
+
+    }
+    return @"";
 }
 
 - (id)initWithDictionary:(NSDictionary *)aDictionary{
@@ -157,7 +270,7 @@
         
         self.actionsubject      = [action valueForKey:@"subject"];
         self.actiontype         = [action valueForKey:@"type"];
-       // self.actionarguments    = (NSArray*) [action valueForKey:@"arguments"];
+        self.actionarguments    = (NSMutableDictionary*) [action valueForKey:@"arguments"];
     
     }
     

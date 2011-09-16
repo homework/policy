@@ -74,7 +74,10 @@
 
 
 -(void) updateCatalogue{
-    NSMutableDictionary *newargs = [[NSMutableDictionary alloc] initWithObjects:[[NSArray alloc] initWithObjects:[NSNumber numberWithFloat:round([slider value])], nil] forKeys:[[NSArray alloc] initWithObjects:@"timeframe",nil]];
+    
+    NSNumber* duration = [NSNumber numberWithFloat: (round([slider value])) * 60];
+    
+    NSMutableDictionary *newargs = [[NSMutableDictionary alloc] initWithObjects:[[NSArray alloc] initWithObjects: [duration stringValue], nil] forKeys:[[NSArray alloc] initWithObjects:@"timeframe",nil]];
     
     //NSMutableDictionary *newargs = [[Catalogue sharedCatalogue] actionArguments];
     
