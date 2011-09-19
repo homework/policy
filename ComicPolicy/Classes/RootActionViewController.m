@@ -19,7 +19,7 @@
 	CGRect aframe = CGRectMake(666,26,294,334);
 	self.view = [[UIView alloc] initWithFrame: aframe];
 	
-	NSString *controller = [[Catalogue sharedCatalogue] nextActionViewController];
+	NSString *controller = [[Catalogue sharedCatalogue] currentActionViewController];
 	
 	UIViewController *newController = [[[NSClassFromString(controller) alloc] initWithNibName:nil bundle:nil] retain];
 	[[self view] addSubview:[newController view]];

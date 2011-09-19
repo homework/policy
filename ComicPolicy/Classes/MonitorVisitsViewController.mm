@@ -48,54 +48,62 @@ static NSArray *labelArray = [[NSArray alloc] initWithObjects:@"news.bbc.co.uk",
 }
 */
 
+
+/*
+ * NB still need to resioze images at strat to correct proportions - the scale subviews only works
+ * when the UIView is explicitly resized.
+ */
+
 - (void)loadView
 {
+    
+    
+    NSLog(@"in monitor view load view....");
+
     labelindex = 0;
-   siteindex = 0;
+    siteindex = 0;
     //self.testImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ok.png"]];
     //[self.view addSubview:testImage];
     //currentMonitorScene = @"resultvisits.png";
     
     CGRect aframe = [[PositionManager sharedPositionManager] getPosition:@"resultmonitor"];
 	UIView *rootView = [[UIView alloc] initWithFrame:aframe];		
-    
+    [rootView setAutoresizesSubviews:YES];
 	self.view = rootView;
-	//self.view.backgroundColor = [UIColor blueColor];
+	self.view.backgroundColor = [UIColor blueColor];
     [rootView release];
     
     
     self.monitorView = [[MonitorVisitsView alloc] initWithFrame: CGRectMake(0,0,rootView.frame.size.width, rootView.frame.size.height)];
+    [self.monitorView setAutoresizesSubviews:YES];
     
-    [self.view setAutoresizesSubviews:YES];
     UIImageView *tmpBack = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"resultvisits.png"]];
     tmpBack.autoresizingMask = UIViewContentModeScaleAspectFit | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    tmpBack.frame = CGRectMake(0, 0, monitorView.frame.size.width, monitorView.frame.size.height);
     
     UIImageView *tmpCloud = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"resultvisitscloud1.png"]];
-    
+    tmpCloud.frame = tmpBack.frame;
     tmpCloud.autoresizingMask = UIViewContentModeScaleAspectFit | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
 
     UIImageView *tmpCloud2 =[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"resultvisitscloud2.png"]];
-    
+    tmpCloud2.frame = tmpBack.frame;
     tmpCloud2.autoresizingMask = UIViewContentModeScaleAspectFit | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
 
     self.cloud = tmpCloud2;
     [tmpCloud2 release];
     
-	    
-    [self.view addSubview: monitorView];
+	
+    
+    
     [self.view addSubview:tmpBack];
     [self.view addSubview:tmpCloud];
     [self.view addSubview:cloud];
     
+    [self.view addSubview: monitorView];
     
-    /*UIView *apivot = [[UIView alloc] initWithFrame:CGRectMake(200,280,20,20)];
-    [apivot setBackgroundColor:[UIColor greenColor]];
     
-    UIView *aplank = [[UIView alloc] initWithFrame:CGRectMake(50,260,300,20)];
-    [aplank setBackgroundColor:[UIColor redColor]];*/
-
     [self createPhysicsWorld];
     
     [[UIAccelerometer sharedAccelerometer] setUpdateInterval:(1.0/60.0)];
@@ -157,6 +165,7 @@ static NSArray *labelArray = [[NSArray alloc] initWithObjects:@"news.bbc.co.uk",
 }
 
 -(void) newVisitsData:(NSNotification *) notification{
+   
     NSDictionary *data = [notification userInfo];
     NSString *responseString = [data objectForKey:@"data"];    
     
@@ -182,6 +191,8 @@ static NSArray *labelArray = [[NSArray alloc] initWithObjects:@"news.bbc.co.uk",
 
 
 -(void) addSite:(NSTimer *) timer{
+
+    
     [cloud removeFromSuperview];
    // CGPoint start = self.view.center;
 

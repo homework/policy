@@ -25,7 +25,7 @@
  */
 
 
-- (id)initWithFrameAndImage:(CGRect)frame image:(NSString *)image{
+- (id)initWithFrame:(CGRect)frame{
 	if ((self = [super initWithFrame:frame])) {
 		hour    = 0;
         minute  = 0;
@@ -33,7 +33,7 @@
 		
 		clockToFrame= CGRectMake(164,11,120,121);
 		
-        UIImageView *tmpImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:image]];
+        UIImageView *tmpImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"timed.png"]];
 		self.mainImage = tmpImage;
 		[self addSubview:mainImage];
 		[tmpImage release];
@@ -116,13 +116,6 @@
 }
 
 
-
-- (id)initWithFrame:(CGRect)frame {
-    if ((self = [super initWithFrame:frame])) {
-        // Initialization code
-    }
-    return self;
-}
 
 
 // Only override drawRect: if you perform custom drawing.

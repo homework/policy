@@ -15,7 +15,7 @@
     
     NSString*   identity;
     
-    NSString*   subjectowner;
+    //NSString*   subjectowner;
     NSString*   subjectdevice;
     
     NSString*       conditiontype;
@@ -30,11 +30,13 @@
 
 - (id)initWithDictionary:(NSDictionary *)aDictionary;
 - (id)initWithPolicy:(Policy *)aPolicy;
+- (id) initWithPonderString:(NSString *) ponderString;
 - (NSString*) toPonderString;
+-(void) print;
 
 @property(nonatomic, copy) NSString* identity;
 @property(nonatomic, copy) NSString* localid;
-@property(nonatomic, copy) NSString* subjectowner;
+//@property(nonatomic, copy) NSString* subjectowner;
 @property(nonatomic, copy) NSString* subjectdevice;
 
 @property(nonatomic, copy) NSString* conditiontype;

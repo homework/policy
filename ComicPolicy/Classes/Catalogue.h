@@ -27,6 +27,7 @@
 -(NSString *) currentSubjectDeviceImage;
 -(NSString *) nextSubjectDeviceImage;
 -(NSString *) currentDeviceName;
+-(NSString*) getDeviceOwner:(NSString *) device;
 
 #pragma mark *action getters for UI
 -(NSString *) currentActionViewController;
@@ -66,7 +67,7 @@
 -(NSString *) currentActionType;
 
 
--(void) setSubject:(NSString *)owner device:(NSString*) device;
+-(void) setSubjectDevice:(NSString*) device;
 -(void) setCondition:(NSString *)condition options:(NSDictionary*) options;
 -(void) setConditionArguments:(NSMutableDictionary *) args;
 

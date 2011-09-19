@@ -55,6 +55,7 @@
 
 -(void) updateConditionResult{
     
+    NSLog(@"in update condition result");
     NSString *newcontroller = [[Catalogue sharedCatalogue] getConditionMonitorController];
     
     MonitorViewController *newController = [[NSClassFromString(newcontroller) alloc] initWithNibName:nil bundle:nil];
@@ -144,6 +145,7 @@
     [[self view] addSubview: [tmpMonitorController view ]];
 	resultController = tmpResultController;
 	currentMonitorViewController = tmpMonitorController;
+    
     [tmpMonitorController release];
 }
 

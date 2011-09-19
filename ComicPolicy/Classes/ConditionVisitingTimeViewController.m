@@ -29,10 +29,9 @@ bool timerangeselected = false;
 }
 
 -(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
-    NSLog(@"touched something...");
-	UITouch *touch = [[event allTouches] anyObject];
+    UITouch *touch = [[event allTouches] anyObject];
 	CGPoint touchLocation = [touch locationInView:self.view];
-	NSLog(@"touch location y is %f", touchLocation.y);
+	
     if ( touchLocation.y > 250){
         if ([conditionTimeView.caption.text isEqualToString:@"at any time"]){
             [self updateCaption];
@@ -41,7 +40,6 @@ bool timerangeselected = false;
             conditionTimeView.caption.text = @"at any time";
             timerangeselected = false;
             [self updateCatalogue];
-            NSLog(@"setting time range selected to false");
         }
     }
     [super touchesBegan:touches withEvent:event];
@@ -49,7 +47,6 @@ bool timerangeselected = false;
 
 
 -(void) updateCaption{
-    NSLog(@"in update caption..");
     timerangeselected = true;
     conditionTimeView.caption.text = [NSString stringWithFormat:@"between %02d:%02d and %02d:%02d",  fromhour, fromminute, tohour, tominute];
     
@@ -57,7 +54,6 @@ bool timerangeselected = false;
 
 -(void) updateCatalogue{
     
-    NSLog(@"in update catalogue..and time range selected is %@", timerangeselected ? @"TRUE": @"FALSE");
     NSString *from = [NSString stringWithFormat:@"%02d:%02d", fromhour, fromminute];
     NSString *to = [NSString stringWithFormat:@"%02d:%02d", tohour, tominute];
     

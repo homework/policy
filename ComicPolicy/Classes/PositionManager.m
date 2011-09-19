@@ -70,13 +70,12 @@
     }
 }
 -(CGRect) getActionPosition{
-    NSLog(@"GETTING NEW ACTION POSITION");
+   
     if (![[[Catalogue sharedCatalogue] currentCondition] isEqualToString:@"visiting"]){
-        NSLog(@"returning top right...");
         return CGRectMake(666,26,294,334);
         
     }else{
-        NSLog(@"returning bottom left");
+        
         return CGRectMake(64,334,294,301);
     }
 }
@@ -108,24 +107,29 @@
 
 -(CGRect) getResultPosition{
     
+    NSLog(@"getting result position");
+    
     if ([[[Catalogue sharedCatalogue] currentActionType] isEqualToString:@"block"]){
         
         if ([[[Catalogue sharedCatalogue] currentCondition] isEqualToString:@"visiting"]){
+            NSLog(@"returning block visiting");
             return CGRectMake(600,150,300,150);
             
             
         }else{
-            
+            NSLog(@"returning block not visiting");
+
             return CGRectMake(729,0,168,301);
             
         }
         
     }else{
         if ([[[Catalogue sharedCatalogue] currentCondition] isEqualToString:@"visiting"]){
-            NSLog(@"am in here....result = notify,visiting frame");
+            NSLog(@"returning not block  visiting");
             return CGRectMake(697,0,199,301);
             
         }else{
+             NSLog(@"returning not block not visiting");
             return  CGRectMake(438,0,458,301);
         }
     }
@@ -139,23 +143,23 @@
     if ([[[Catalogue sharedCatalogue] currentActionType] isEqualToString:@"block"]){
         
         if ([[[Catalogue sharedCatalogue] currentCondition] isEqualToString:@"visiting"]){
-             NSLog(@"returning block,  --- visiting");
+            NSLog(@"monitor returning block visiting");
             return  CGRectMake(600,0,300,150);
 
         
         }else{
-            NSLog(@"returning block,  not visiting");
+            NSLog(@"monitor returning block not visiting");
             return CGRectMake(300,0,497,301);
 
         }
     
     }else{
         if ([[[Catalogue sharedCatalogue] currentCondition] isEqualToString:@"visiting"]){
-             NSLog(@"returning NOT BLOCK,   visiting");
+             NSLog(@"monotor returning NOT BLOCK,   visiting");
             return CGRectMake(300,0,497,301);
 
         }else{
-            NSLog(@"returning NOT BLOCK,   not visiting");
+            NSLog(@"monitor returning NOT BLOCK,   not visiting");
 
             return CGRectMake(0,0,497,301);
         }

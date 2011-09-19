@@ -24,12 +24,14 @@
 		[self addSubview:whiteMask];
 		[whiteMask release];*/
 		
+        [self setBackgroundColor:[UIColor greenColor]];
+        /*
         UIImageView *tmpMonitor = [[UIImageView alloc] initWithImage:[UIImage imageNamed:image]];
         
 		tmpMonitor.autoresizingMask = UIViewContentModeScaleAspectFit | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 		[self addSubview:tmpMonitor];
 		self.monitorImage = tmpMonitor;
-		[tmpMonitor release];
+		[tmpMonitor release];*/
         
         /*
          UIImageView *tmpTest = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ok.png"]];

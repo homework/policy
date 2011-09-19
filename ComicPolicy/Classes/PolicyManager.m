@@ -19,7 +19,7 @@
 -(void) sendPolicy:(NSString*)json;
 -(void) newDefaultPolicy;
 -(void) saveCurrentPolicy;
--(void) createDefaultStartPolicy;
+-(void) readPoliciesFromFile;
 
 
 -(NSMutableDictionary*) convertToTypedHashtable:(NSMutableDictionary*)dict;
@@ -54,12 +54,37 @@ static int localId;
     // any thread, but serialised by +sharedPolicyManager
     self = [super init];
     if (self != nil) {
-        [self createDefaultStartPolicy];
+        [self readPoliciesFromFile];
     }
     return self;
 }
 
--(void) createDefaultStartPolicy{
+-(void) readPoliciesFromFile{
+    
+    NSLog(@"in create default start policy...");
+    
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"ponderpolicies" ofType:@"txt"];
+    
+    NSString *content = [[NSString alloc] initWithContentsOfFile:filePath];
+    
+    NSScanner *scanner = [NSScanner scannerWithString:content];
+    
+    localId = 1;
+    localLookup    = [[[NSMutableDictionary alloc] init] retain];
+    self.policies  = [[NSMutableDictionary alloc] init];
+    
+    while ([scanner isAtEnd] == NO){
+        NSString *pstring;
+        [scanner scanUpToString:@"\n\n" intoString:&pstring];
+        Policy *p = [[Policy alloc] initWithPonderString:pstring];
+        NSString* policyid = [NSString stringWithFormat:@"%d",localId++];
+        [policies setObject:p forKey:policyid];
+    }
+
+    self.policyids = [[NSMutableArray alloc] initWithArray: [policies allKeys]];
+    //[self loadFirstPolicy];
+    
+    /*
     NSString *filePath = [[NSBundle mainBundle] pathForResource:@"policies" ofType:@"json"];
     
     NSString *content = [[NSString alloc] initWithContentsOfFile:filePath];
@@ -84,7 +109,7 @@ static int localId;
         self.policyids = [[NSMutableArray alloc] initWithArray: [policies allKeys]];
         
         [self loadFirstPolicy];
-    }
+    }*/
 }
 
 
@@ -172,7 +197,9 @@ static int localId;
 
 -(void) loadFirstPolicy{
     if (self.policyids != nil){
+      
         [self loadPolicy:[policyids objectAtIndex:0]];
+        
     }
 }
 
@@ -215,8 +242,12 @@ static int localId;
     Policy *apolicy = [policies objectForKey:localpolicyid];
     
     if (apolicy != nil){
+        NSLog(@"LOADED:");
+        [apolicy print];
          self.currentPolicy = apolicy;
-        [[Catalogue sharedCatalogue] setSubject:apolicy.subjectowner device:apolicy.subjectdevice];
+        
+        [[Catalogue sharedCatalogue]  setSubjectDevice:apolicy.subjectdevice];
+        
         [[Catalogue sharedCatalogue] setCondition:apolicy.conditiontype options:apolicy.conditionarguments];
         //should take an array of arguments for 'option'
        
@@ -395,7 +426,7 @@ static int localId;
 
 -(void) saveCurrentPolicy{
     currentPolicy.subjectdevice = [[Catalogue sharedCatalogue] currentSubjectDevice];
-    currentPolicy.subjectowner =  [[Catalogue sharedCatalogue] currentSubjectOwner];
+    //currentPolicy.subjectowner =  [[Catalogue sharedCatalogue] currentSubjectOwner];
     
     currentPolicy.conditiontype      = [[Catalogue sharedCatalogue] currentCondition];
     currentPolicy.conditionarguments = [[Catalogue sharedCatalogue] conditionArguments];

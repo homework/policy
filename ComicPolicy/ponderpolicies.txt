@@ -1,0 +1,7 @@
+pe/hwpe addPolicy:"Tom's example blocking 1"
+event:#("visits" "*" "facebook.com" "ebay.com")
+action:#("block" "10.2.0.9")
+
+pe/hwpe addPolicy:"Tom's example blocking 2"
+event:#("visits" "10.2.0.21" "facebook.com" "ebay.com")
+action:#("block" "10.2.0.21")

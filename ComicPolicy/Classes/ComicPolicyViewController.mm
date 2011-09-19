@@ -23,7 +23,7 @@
 -(void) createControllers;
 -(void) readInCatalogue:(NSTimer *) timer;
 -(void) addNotificationHandlers;
-
+-(void) updateFramePositions;
 @end
 
 @implementation ComicPolicyViewController
@@ -84,6 +84,7 @@
 }
 
 -(void) addNavigationView{
+    
 	navigationViewController = [[NavigationViewController alloc] init];
 	[self.view addSubview: navigationViewController.view];
     [self addSaveAndCancel];
@@ -127,14 +128,19 @@
 	CGPoint touchLocation = [touch locationInView:self.view];
 	
 	if (CGRectContainsPoint( deleteButton.frame , touchLocation)){
-		
+        NSLog(@"delete pressed");
+		[self updateFramePositions];
         //[[PolicyManager sharedPolicyManager] policyFired:@"1"];
-        [[PolicyManager sharedPolicyManager] deleteAll];
+        
+        ///[[PolicyManager sharedPolicyManager] deleteAll];
     }
     else if (CGRectContainsPoint( refreshButton.frame , touchLocation)){
-        [[PolicyManager sharedPolicyManager] refresh];
+       [[PolicyManager sharedPolicyManager] refresh];
+     //   [self updateFramePositions];
+
     }
     else if (CGRectContainsPoint( resetButton.frame , touchLocation)){
+       
         [[PolicyManager sharedPolicyManager] reset];
     }
 	else if (CGRectContainsPoint( saveButton.frame , touchLocation)){
@@ -232,12 +238,13 @@
 
 -(void) actionTypeChange:(NSNotification *) n{
 	
-	
+	[self updateFramePositions];
     
-    NSLog(@"------> action type change <----------: %@", [[Catalogue sharedCatalogue] currentActionType] );
-    
-    
-    
+}
+
+
+-(void) updateFramePositions{
+
     
 	AVAudioPlayer *currentPlayer = tickPlayer;
 	[currentPlayer play];
@@ -247,27 +254,22 @@
     [UIView setAnimationDelegate:self];
     
     if ([[[Catalogue sharedCatalogue] currentActionType] isEqualToString:@"block"]){
-		//actionTimeViewController.view.frame = deadFrame;
 		[self.view addSubview:actionTimeViewController.view];
 		actionViewController.view.frame = [[PositionManager sharedPositionManager] getPosition:@"action"];
         actionTimeViewController.view.frame = [[PositionManager sharedPositionManager] getPosition:@"actiontime"];
         
         conditionVisitingTimeViewController.view.frame = [[PositionManager sharedPositionManager] getPosition:@"conditionvisitingtime"];
 
-        //CGRect aframe = resultViewController.resultController.resultView.frame;
-		//aframe.origin.x = 300;
-		//aframe.size.width = 600;
-		
+		NSLog(@"-----");
         resultViewController.resultController.resultView.frame = [[PositionManager sharedPositionManager] getPosition:@"result"];
-		
-        
-        
+    	NSLog(@"-----");
         resultViewController.resultController.resultView.resultMainImage.alpha = 1.0;
-		//aframe = resultViewController.rootMonitorView.frame;		
-        //aframe.origin.x = 300;
-		
-		resultViewController.currentMonitorViewController.monitorView.superview.frame = [[PositionManager sharedPositionManager] getPosition:@"resultmonitor"];
-       
+				
+        CGRect newframe = [[PositionManager sharedPositionManager] getPosition:@"resultmonitor"];
+
+		resultViewController.currentMonitorViewController.monitorView.superview.frame = newframe;
+        
+        resultViewController.currentMonitorViewController.monitorView.frame = CGRectMake(0,0, newframe.size.width, newframe.size.height);      
 	}else{
 		
 		
@@ -280,7 +282,11 @@
         
         conditionVisitingTimeViewController.view.frame = [[PositionManager sharedPositionManager] getPosition:@"conditionvisitingtime"];
         
-        resultViewController.currentMonitorViewController.monitorView.superview.frame = [[PositionManager sharedPositionManager] getPosition:@"resultmonitor"];
+        CGRect newframe = [[PositionManager sharedPositionManager] getPosition:@"resultmonitor"];
+        
+		resultViewController.currentMonitorViewController.monitorView.superview.frame = newframe;
+        
+        resultViewController.currentMonitorViewController.monitorView.frame = CGRectMake(0,0, newframe.size.width, newframe.size.height); 
         
        
     }
@@ -290,7 +296,7 @@
 
 
 -(void) actionOffScreen:(NSString *)animationID finished:(BOOL)finished context:(void *)context {
-	[actionTimeViewController.view removeFromSuperview];	
+	//[actionTimeViewController.view removeFromSuperview];	
 }
 
 
@@ -357,7 +363,7 @@
     [self createControllers];
     
     [self addNotificationHandlers];
-    [[PolicyManager sharedPolicyManager] loadFirstPolicy];
+    //[[PolicyManager sharedPolicyManager] loadFirstPolicy];
    //[self addNavigationView];
     
 
@@ -369,11 +375,17 @@
     //[NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(readInCatalogue:) userInfo:nil repeats:NO]; 
      
     NSLog(@"catalogue request failed!!");
+    
     [[Catalogue sharedCatalogue] parseCatalogue:nil];
-    [self createControllers];
-    [self addNotificationHandlers];
+    
     [[PolicyManager sharedPolicyManager] loadFirstPolicy];
-   // [self addNavigationView];
+    
+    [self addNotificationHandlers];
+    
+    [self createControllers];
+    
+    [self updateFramePositions];
+    
     
 }
 
@@ -389,8 +401,9 @@
      
      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(catalogueChange:) name:@"catalogueChange" object:nil];
      
-     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(policyLoaded:) name:@"policyLoaded" object:nil];	
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(policyLoaded:) name:@"policyLoaded" object:nil];	
      
+   
      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(policyFired:) name:@"policyFired" object:nil];
      
      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(requestComplete:) name:@"saveRequestComplete" object:nil];
@@ -420,6 +433,7 @@
     
 	actionTimeViewController = [[ActionTimeViewController alloc] init];
 	
+   
 	[self addNavigationView];
 
 }

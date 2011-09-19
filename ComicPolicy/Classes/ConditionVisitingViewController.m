@@ -94,7 +94,7 @@
     //first remove all views that we currently have
     int index = 0;
     for (UIView *aview in self.view.subviews){
-        if (index++ > 5){
+        if (index++ > 4){
             [aview removeFromSuperview];
         }
     }
@@ -127,10 +127,11 @@
         if ([aLabel.text isEqualToString:site]){
             
             NSMutableArray *currentsites = [conditionArguments objectForKey:@"sites"];
-            
-            for (NSString *site in currentsites){
-                if ([site isEqualToString:aLabel.text]){
-                    [currentsites removeObject:site];   
+            if (currentsites != nil){
+                for (NSString *site in currentsites){
+                    if ([site isEqualToString:aLabel.text]){
+                        [currentsites removeObject:site];   
+                    }
                 }
             }
             

@@ -4,9 +4,9 @@
         "navigation":{
     
             "subjects":{
-                        "dad":["00:1f:f3:bc:b2:57"],
+                        "dad":["10.2.0.9"],
                         "mort":["18:E7:F4:79:52:B2","f8:1e:df:d6:73:23"],
-                        "katie":["00:00:00:cc:cc:cc"],   
+                        "katie":["10.2.0.21"],   
                         "mum":["00:00:00:dd:dd:dd"],
                         "john":["00:26:08:f8:25:43"],
                         "everyone":["00:00:00:ff:ff:ff"],
@@ -38,13 +38,13 @@
             "actions":{
 
                     "block":{
-                        "subjects":["18:E7:F4:79:52:B2","00:1f:f3:bc:b2:57","f8:1e:df:d6:73:23","00:00:00:cc:cc:cc","00:00:00:dd:dd:dd","00:26:08:f8:25:43", "00:00:00:ff:ff:ff"],
+                        "subjects":["18:E7:F4:79:52:B2","10.2.0.9","f8:1e:df:d6:73:23","10.2.0.21","00:00:00:dd:dd:dd","00:26:08:f8:25:43", "00:00:00:ff:ff:ff"],
                         "arguments":{
                             "options":{
                                 "18:E7:F4:79:52:B2":["mort"],
-                                "00:1f:f3:bc:b2:57":["dad"],
+                                "10.2.0.9":["dad"],
                                 "f8:1e:df:d6:73:23":["mort"],
-                                "00:00:00:cc:cc:cc":["katie"],   
+                                "10.2.0.21":["katie"],   
                                 "00:00:00:dd:dd:dd":["mum"],
                                 "00:26:08:f8:25:43":["john"],
                                 "00:00:00:ff:ff:ff":["everyone"]
@@ -67,14 +67,14 @@
                     },
 
                     "prioritise":{
-                        "subjects":["18:E7:F4:79:52:B2","00:1f:f3:bc:b2:57","f8:1e:df:d6:73:23","00:00:00:cc:cc:cc","00:00:00:dd:dd:dd","00:26:08:f8:25:43", "00:00:00:ff:ff:ff"],
+                        "subjects":["18:E7:F4:79:52:B2","10.2.0.9","f8:1e:df:d6:73:23","10.2.0.21","00:00:00:dd:dd:dd","00:26:08:f8:25:43", "00:00:00:ff:ff:ff"],
                         
                         "arguments":{
                             "options":{
                                 "18:E7:F4:79:52:B2":["high", "medium", "low"],
-                                "00:1f:f3:bc:b2:57":["high", "medium", "low"],
+                                "10.2.0.9":["high", "medium", "low"],
                                 "f8:1e:df:d6:73:23":["high", "medium", "low"],
-                                "00:00:00:cc:cc:cc":["high", "medium", "low"],   
+                                "10.2.0.21":["high", "medium", "low"],   
                                 "00:00:00:dd:dd:dd":["high", "medium", "low"],
                                 "00:26:08:f8:25:43":["high", "medium", "low"]
                             }
@@ -107,13 +107,13 @@
                 "18:E7:F4:79:52:B2":{
                     "name": "mort's itouch"
                 },
-                "00:1f:f3:bc:b2:57":{
+                "10.2.0.9":{
                     "name": "dad's macair"
                 },
                 "f8:1e:df:d6:73:23":{
                     "name": "mort's laptop"
                 },
-                "00:00:00:cc:cc:cc":{
+                "10.2.0.21":{
                     "name": "katie's desktop"   
                 },
                     "00:00:00:dd:dd:dd":{
@@ -244,7 +244,7 @@
                             "fired":"phoneblocked.png"
                     }
                 },
-            "00:1f:f3:bc:b2:57":
+            "10.2.0.9":
                 {
                     "main":"condlaptop",
                     "block":{
@@ -272,7 +272,7 @@
                             "fired":"laptopblocked.png"
                     }
                 },
-            "00:00:00:cc:cc:cc":
+            "10.2.0.21":
                 {
                     "main":"conddesktop.png",
                     "block":{

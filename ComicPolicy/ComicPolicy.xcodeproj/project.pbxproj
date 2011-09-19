@@ -167,6 +167,8 @@
 		A3B6FA511423525400089153 /* clockfacesmall.png in Resources */ = {isa = PBXBuildFile; fileRef = A3B6FA501423525400089153 /* clockfacesmall.png */; };
 		A3B6FA5414235CB500089153 /* selecthoursdark.png in Resources */ = {isa = PBXBuildFile; fileRef = A3B6FA5214235CB500089153 /* selecthoursdark.png */; };
 		A3B6FA5514235CB500089153 /* selecthourslight.png in Resources */ = {isa = PBXBuildFile; fileRef = A3B6FA5314235CB500089153 /* selecthourslight.png */; };
+		A3B6FA57142783EF00089153 /* ponderpolicies.txt in Resources */ = {isa = PBXBuildFile; fileRef = A3B6FA56142783EF00089153 /* ponderpolicies.txt */; };
+		A3B6FA591427A51200089153 /* any.png in Resources */ = {isa = PBXBuildFile; fileRef = A3B6FA581427A51200089153 /* any.png */; };
 		A3BBD42B13817EF200FA75AF /* MonitorBandwidthViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3BBD42A13817EF200FA75AF /* MonitorBandwidthViewController.mm */; };
 		A3BBD4311382845400FA75AF /* MonitorVisitsView.m in Sources */ = {isa = PBXBuildFile; fileRef = A3BBD4301382845300FA75AF /* MonitorVisitsView.m */; };
 		A3C5C25D1383D33400FF413F /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = A3C5C2471383D33400FF413F /* Reachability.m */; };
@@ -474,6 +476,8 @@
 		A3B6FA501423525400089153 /* clockfacesmall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clockfacesmall.png; sourceTree = "<group>"; };
 		A3B6FA5214235CB500089153 /* selecthoursdark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selecthoursdark.png; sourceTree = "<group>"; };
 		A3B6FA5314235CB500089153 /* selecthourslight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selecthourslight.png; sourceTree = "<group>"; };
+		A3B6FA56142783EF00089153 /* ponderpolicies.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ponderpolicies.txt; sourceTree = "<group>"; };
+		A3B6FA581427A51200089153 /* any.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = any.png; sourceTree = "<group>"; };
 		A3BBD42913817EF200FA75AF /* MonitorBandwidthViewController.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = MonitorBandwidthViewController.h; sourceTree = "<group>"; };
 		A3BBD42A13817EF200FA75AF /* MonitorBandwidthViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MonitorBandwidthViewController.mm; sourceTree = "<group>"; };
 		A3BBD42C13827DBC00FA75AF /* MonitorViewController.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = MonitorViewController.h; sourceTree = "<group>"; };
@@ -742,6 +746,7 @@
 				A30684FC141A655A000A867B /* catalogue.json */,
 				A3DCB7081344EDAD00A38D5E /* data.json */,
 				A3DB62CB1371A6AF00AEBF46 /* policies.json */,
+				A3B6FA56142783EF00089153 /* ponderpolicies.txt */,
 				A343D61013BBA4EA00B25BC1 /* allpolicies.json */,
 				A30ADEF9131528F70060D2F1 /* action */,
 				A30ADF06131528F70060D2F1 /* actionsubject */,
@@ -827,6 +832,7 @@
 		A30ADF0C131528F70060D2F1 /* conditionsubject */ = {
 			isa = PBXGroup;
 			children = (
+				A3B6FA581427A51200089153 /* any.png */,
 				A30ADF0D131528F70060D2F1 /* people */,
 				A30ADF14131528F70060D2F1 /* devices */,
 			);
@@ -1576,6 +1582,8 @@
 				A3B6FA511423525400089153 /* clockfacesmall.png in Resources */,
 				A3B6FA5414235CB500089153 /* selecthoursdark.png in Resources */,
 				A3B6FA5514235CB500089153 /* selecthourslight.png in Resources */,
+				A3B6FA57142783EF00089153 /* ponderpolicies.txt in Resources */,
+				A3B6FA591427A51200089153 /* any.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

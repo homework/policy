@@ -35,7 +35,8 @@ static NSDictionary* imageLookup;
 
 #pragma mark *data structures for subjects
 
-static NSDictionary* subjectLookup;     //mapping from owner name to array of macaddresses
+static NSDictionary* subjectLookup;       //mapping from owner name to array of macaddresses
+static NSMutableDictionary* deviceLookup; //reverse lookup: device to owner
 
 static NSArray* ownership;              //array of each of the owners (e.g. mum, dad etc) 
 static int ownershipindex;              //current index in the owners array
@@ -134,7 +135,7 @@ NSMutableDictionary *tree;
 
 -(void) initActions{
     
-    NSLog(@"in init actions and the current condition is %@", [self currentCondition]);
+   // NSLog(@"in init actions and the current condition is %@", [self currentCondition]);
 	
     if (actionvcsarray != nil){
         [actionvcsarray release];
@@ -164,7 +165,7 @@ NSMutableDictionary *tree;
      */
 	currentActionType = [actionvcsarray objectAtIndex:actionvcsindex];
     
-    NSLog(@"current action type has been set to %@", currentActionType);
+   // NSLog(@"current action type has been set to %@", currentActionType);
     /*
      * Get the relevant dictionary for the current action type...
      */
@@ -198,6 +199,23 @@ NSMutableDictionary *tree;
     [[NSNotificationCenter defaultCenter] postNotificationName:@"actionTypeChange" object:nil userInfo:nil];
 }
 
+
+-(void) mapDevicesToOwners{
+    
+    deviceLookup = [[NSMutableDictionary alloc] init];
+    
+    for (NSString *key in [subjectLookup allKeys]){
+        NSArray* devices = [subjectLookup objectForKey:key];
+        for (NSString *device in devices){
+            [deviceLookup setObject:key forKey:device];
+        }
+    }
+}
+
+
+-(NSString*) getDeviceOwner:(NSString *) device{
+    return  [deviceLookup objectForKey:device];
+}
 
 -(NSString *) lookupImage:(NSString*)identity type:(NSString*)type state:(NSString*)state{
     
@@ -503,7 +521,9 @@ NSMutableDictionary *tree;
 
 #pragma mark * Public policy setters
 
--(void) setSubject:(NSString *)owner device:(NSString*) adevice{
+-(void) setSubjectDevice:(NSString*) adevice{
+    
+    NSString *owner = [self getDeviceOwner:adevice];
     
     NSDictionary* tmpdevices = [subjectLookup objectForKey:owner];
     int index = 0;
@@ -555,6 +575,7 @@ NSMutableDictionary *tree;
 -(void) setAction:(NSString *) action subject:(NSString*) subject options:(NSMutableDictionary*)arguments{
     
     
+    NSLog(@"**+> setting action: %@ subject: %@  options: %@", action, subject, arguments);
     int index = 0;
     
     //first check to see if action exists
@@ -565,6 +586,7 @@ NSMutableDictionary *tree;
         
         NSArray *subjects = [tmp objectForKey:@"subjects"];
         
+        NSLog(@"subjects are %@", subjects);
         if (subjects != nil){
             index = 0;
             for (NSString* asubject in subjects){
@@ -663,7 +685,7 @@ NSMutableDictionary *tree;
         data  = (NSDictionary *) [jsonParser objectWithString:catalogue error:nil];
     
     if (data == nil){
-        NSLog(@"READING IN LOCAL COPY");
+        NSLog(@"READING IN LOCAL COPY OF CATALOGUE");
         NSString *filePath = [[NSBundle mainBundle] pathForResource:@"catalogue" ofType:@"json"];
         NSString *content = [[NSString alloc] initWithContentsOfFile:filePath];
         data  = (NSDictionary *) [jsonParser objectWithString:content error:nil];
@@ -727,6 +749,7 @@ NSMutableDictionary *tree;
     
     devicemetadata = [[(NSDictionary *) [main objectForKey:@"metadata"] objectForKey:@"devices"] retain];
     
+    [self mapDevicesToOwners];
     
 }
 

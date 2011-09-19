@@ -10,6 +10,10 @@
 #import "SplitFrameView.h"
 
 @interface SubjectView : SplitFrameView {
-	}
+}
 
+- (id)initWithFrameAndImages:(CGRect)frame topImage:(NSString*) ti: (NSString*) bi;
+
+
+-(void) setImage:(NSString *) device owner: (NSString *) owner;
 @end

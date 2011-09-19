@@ -8,18 +8,18 @@
 
 #import "SubjectView.h"
 
-
 @implementation SubjectView
 
-- (id)initWithFrame:(CGRect)frame {
+- (id)initWithFrameAndImages:(CGRect)frame topImage:(NSString*) ti bottomImage: (NSString*) bi {
 	
     if ((self = [super initWithFrame:frame])) {
-        bottomImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"conddesktop.png"]];
+        
+        bottomImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:bi]];
 		bottomImage.frame = CGRectMake(0, (300-175), 295, 175);
 		[self addSubview:bottomImage];
 		
-		topImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dad.png"]];
-		[self addSubview:topImage];
+		topImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:ti]];
+        [self addSubview:topImage];
         
         self.ownercaption = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, 250, 30)];
         self.ownercaption.textColor = [UIColor blackColor];
@@ -36,6 +36,12 @@
         [devicecaption release];
     }
     return self;
+}
+
+-(void) setImage:(NSString *) device owner: (NSString *) owner{
+    topImage.image = [UIImage imageNamed: owner];
+    [self doResize:device owner:owner]; 
+
 }
 
 /*

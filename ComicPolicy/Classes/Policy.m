@@ -9,6 +9,8 @@
 #import "Policy.h"
 
 @interface Policy()
+
+
 -(NSString *) weekdaystring:(NSArray *) daysofweek;
 -(NSString *) sitestring:(NSArray *) sites;
 -(NSString *) percentagestring:(NSNumber *) percentage;
@@ -19,6 +21,9 @@
 -(void) generateCondition:(NSString*) event time:(NSString*) time;
 -(void) generateAction:(NSString*) action applyfor:(NSString*) applyfor;
 
+-(void) setAdditionalConditionArgumentsFromPonder:(NSString*) args;
+-(NSArray *) getArrayFromPonderString:(NSString *) ponderString;
+
 @end
 
 @implementation Policy
@@ -26,7 +31,7 @@
 @synthesize identity;
 @synthesize localid;
 
-@synthesize subjectowner;
+//@synthesize subjectowner;
 @synthesize subjectdevice;
 
 @synthesize conditiontype;
@@ -41,7 +46,9 @@
 
 
 - (id) initWithPonderString:(NSString *) ponderString{
+    
     if ([self init]){
+        
         NSError *error = NULL;
         
         NSString *event = nil;
@@ -85,7 +92,6 @@
             applyfor = [ponderString substringWithRange:rangeOfFirstMatch];
         }
 
-        
         [self generateCondition:event  time:time];
         [self generateAction:action applyfor:applyfor];
         
@@ -95,18 +101,149 @@
 
 
 -(void) generateCondition:(NSString*) event time:(NSString*) time{
+   
+    NSArray* argumentarray = [self getArrayFromPonderString:event];
     
+    NSString *type = [argumentarray objectAtIndex:0];
+    
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    
+    if ([type isEqualToString:@"used"]){
+        self.conditiontype =  @"timed";
+        self.subjectdevice = [argumentarray objectAtIndex:1];
+        
+        self.conditionarguments = dict;
+        
+        [self setAdditionalConditionArgumentsFromPonder:time];
+    
+    }else if ([type isEqualToString:@"allowance"]){
+    
+        self.conditiontype = @"bandwidth";      
+        self.subjectdevice = [argumentarray objectAtIndex:1];
+        float percent = [[argumentarray objectAtIndex:2] floatValue] * (float) 100;
+        
+        [dict setObject: [[NSNumber numberWithFloat:percent] stringValue] forKey:@"percentage"];
+        
+        self.conditionarguments = dict;
+    }else if ([type isEqualToString:@"visits"]){
+        
+        self.conditiontype = @"visiting";
+        self.subjectdevice = [argumentarray objectAtIndex:1];
+       
+        if ([argumentarray count] > 2){
+            
+            NSMutableArray *sitearray = [[NSMutableArray alloc] initWithCapacity:([argumentarray count] - 2)];
+            
+            int i;
+            
+            for (i = 2; i < [argumentarray count] ; i++){
+                [sitearray addObject:[argumentarray objectAtIndex:i]];
+            }
+            [dict setObject:sitearray forKey:@"sites"];
+            self.conditionarguments = dict;
+            [self setAdditionalConditionArgumentsFromPonder:time];
+        }
+    }
 }
 
 -(void) generateAction:(NSString*) action applyfor:(NSString*) applyfor{
 
+    NSArray* argumentarray = [self getArrayFromPonderString:action];
+
+   // NSLog(@"action is %@ %@", action, applyfor);
     
+    NSString *type = [argumentarray objectAtIndex:0];
+   
+    //NSLog(@"type is %@", type);
+    
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    
+    if ([type isEqualToString:@"block"]){
+        self.actiontype = @"block";
+        self.actionsubject = [argumentarray objectAtIndex:1];
+        
+        //[dict setObject:[argumentarray objectAtIndex:1] forKey:@"options"];
+        
+        if (applyfor != nil){
+            NSArray *actionargumentarray =  [self getArrayFromPonderString:applyfor];
+            int timeframe =  [(NSString*) [actionargumentarray objectAtIndex:0] intValue];
+            [dict setObject:[NSString stringWithFormat:@"%d",timeframe] forKey:@"timeframe"];
+        }
+        
+        self.actionarguments = dict;
+        
+    }else if ([type isEqualToString:@"notify"]){
+        self.actiontype = @"notify";
+        NSArray* chunks = [[argumentarray objectAtIndex:1] componentsSeparatedByString:@":"];
+        self.actionsubject = [chunks objectAtIndex:0];
+        [dict setObject:[chunks objectAtIndex:1] forKey: @"options"];
+        self.actionarguments = dict;
+    }else if ([type isEqualToString:@"prio"]){
+        self.actiontype = @"prioritise";
+        self.actionsubject = [argumentarray objectAtIndex:1];
+        [dict setObject:[argumentarray objectAtIndex:2] forKey:@"priority"];
+         self.actionarguments = dict;
+    }
+    
+}
+
+-(NSArray *) getArrayFromPonderString:(NSString *) ponderString{
+    
+    if (ponderString != nil && ![ponderString isEqualToString:@""]){
+        
+        NSError *error = NULL;
+        
+        NSRegularExpression *eventregex = [NSRegularExpression regularExpressionWithPattern:@"\\(.*?\\)" options:NSRegularExpressionCaseInsensitive error:&error];
+        
+        NSRegularExpression *whitespaceregex = [NSRegularExpression regularExpressionWithPattern:@"\\s" options:NSRegularExpressionCaseInsensitive error:&error];
+        
+        NSRegularExpression *quoteregex = [NSRegularExpression regularExpressionWithPattern:@"\"" options:NSRegularExpressionCaseInsensitive error:&error];
+        
+        NSRange rangeOfFirstMatch = [eventregex rangeOfFirstMatchInString:ponderString options:0 range:NSMakeRange(0, [ponderString length])];
+        
+        if (!NSEqualRanges(rangeOfFirstMatch, NSMakeRange(NSNotFound, 0))){
+            ponderString = [ponderString substringWithRange:NSMakeRange(rangeOfFirstMatch.location + 1, rangeOfFirstMatch.length-2)];
+        } 
+        
+        
+        NSString *tmp = [whitespaceregex stringByReplacingMatchesInString:ponderString options:0 range:NSMakeRange(0, [ponderString length]) withTemplate:@";"];
+        
+        tmp = [quoteregex stringByReplacingMatchesInString:tmp options:0 range:NSMakeRange(0, [tmp length]) withTemplate:@""];
+        
+        return [tmp componentsSeparatedByString:@";"];
+    }
+    return nil;
+}
+
+-(void) setAdditionalConditionArgumentsFromPonder:(NSString*) args{
+  
+    if (args != nil && ![args isEqualToString:@""]){
+        
+                
+        NSArray* conditionargs = [self getArrayFromPonderString:args];
+        
+        if (conditionargs != nil && [conditionargs count] > 0){
+                
+            NSMutableDictionary *dict =  [[NSMutableDictionary alloc] initWithDictionary:conditionarguments];
+            
+                if ([conditionargs count] != 3)
+                    return;
+                
+                [dict setObject:[conditionargs objectAtIndex:0] forKey:@"from"];
+                [dict setObject:[conditionargs objectAtIndex:1] forKey:@"to"];
+                if (![[conditionargs objectAtIndex:2] isEqualToString:@"*"]){
+                    [dict setObject:[[conditionargs objectAtIndex:2] componentsSeparatedByString:@","] forKey:@"daysofweek"];
+                }
+            self.conditionarguments = dict;
+            
+        }
+    }
 }
 
 - (id)initWithPolicy:(Policy *)aPolicy{
     
     if ([self init]) {
-        self.subjectowner       = aPolicy.subjectowner;
+       // self.subjectowner       = aPolicy.subjectowner;
         self.subjectdevice      = aPolicy.subjectdevice;
         
         self.conditiontype      = aPolicy.conditiontype;
@@ -134,32 +271,34 @@
 }
 
 -(NSString *) percentagestring:(NSNumber *) percentage{
-    return [NSString stringWithFormat:@"%.2f", [percentage floatValue] / 100]; 
+    return [NSString stringWithFormat:@"%.3f", [percentage floatValue] / (float)100]; 
 }
   
 -(NSString *) toPonderString{
-    NSLog(@"subject owner %@", subjectowner);
+    
+    
+   
+    NSString* conditionstring = [self generatePonderTalkConditionString];
+    NSString* actionstring    = [self generatePonderTalkActionString];
+    NSString* policyString = [NSString stringWithFormat:@"pw/hwpe addPolicy:\"%@\" %@ %@", @"an example policy", conditionstring, actionstring];
+         
+    
+    [self initWithPonderString:policyString];
+    
+    return policyString;
+    
+    
+    
+}
+
+-(void) print{
+  //  NSLog(@"subject owner %@", subjectowner);
     NSLog(@"subject device %@", subjectdevice);
     NSLog(@"condition type %@", conditiontype);
     NSLog(@"condition arguments %@", conditionarguments);
     NSLog(@"action subject %@", actionsubject);
     NSLog(@"action type is %@", actiontype);
     NSLog(@"action arguments is %@", actionarguments);
-   
-    NSString* conditionstring = [self generatePonderTalkConditionString];
-    NSString* actionstring    = [self generatePonderTalkActionString];
-    
-       
-    NSString* policyString = [NSString stringWithFormat:@"pw/hwpe addPolicy:\"%@\" %@ %@", @"an example policy", conditionstring, actionstring];
-         
-    //NSLog(@"%@",policyString);
-    
-    [self ponderStringParse:policyString];
-    
-    return policyString;
-    
-    
-    
 }
 
 -(NSString *) generatePonderTalkConditionString{
@@ -200,9 +339,9 @@
     }else if ([conditiontype isEqualToString: @"bandwidth"]){
         
         conditionstring = [NSString stringWithFormat:@"event:#(\"allowance\" \"%@\" \"%@\" \"%@\")", 
-                                @"*",
+                                subjectdevice,
                                 [self percentagestring:[conditionarguments objectForKey:@"percentage"]],
-                                subjectdevice
+                                @"*"
                            ];
     }
     return conditionstring;
@@ -232,7 +371,7 @@
         
         NSString* duration =  [actionarguments objectForKey:@"timeframe"];
         
-        if ([duration isEqualToString:@"forever"])
+        if (duration == nil || [duration isEqualToString:@"forever"])
             duration = @"";
         else{
         
@@ -259,7 +398,7 @@
         NSDictionary *condition = [aDictionary objectForKey:@"condition"];
         NSDictionary *action    = [aDictionary objectForKey:@"action"];
         
-        self.subjectowner       = [subject objectForKey:@"owner"];
+        //self.subjectowner       = [subject objectForKey:@"owner"];
         self.subjectdevice      = [subject objectForKey:@"device"];
     
         self.conditiontype      = [condition objectForKey:@"type"];

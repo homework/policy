@@ -28,8 +28,10 @@ BOOL toScaled = NO;
     if ((self = [super initWithNibNameAndType:nibNameOrNil bundle:nibBundleOrNil type:@"timed"])) {
         
 		CGRect aframe = CGRectMake(0,0,294,301);
-		ConditionTimeView *aconditionview = [[ConditionTimeView alloc] initWithFrameAndImage:aframe image: [[Catalogue sharedCatalogue] getConditionImage]];
+		
+        /*ConditionTimeView *aconditionview = [[ConditionTimeView alloc] initWithFrameAndImage:aframe image: [[Catalogue sharedCatalogue] getConditionImage]];*/
 
+        ConditionTimeView *aconditionview = [[ConditionTimeView alloc] initWithFrame:aframe];        
 		conditionTimeView = aconditionview;
         
         [conditionTimeView.toAMPM addTarget:self action:@selector(AMPMClicked:) forControlEvents:UIControlEventTouchUpInside];

@@ -8,6 +8,9 @@
 
 #import "SubjectViewController.h"
 
+@interface SubjectViewController()
+-(void) doResize;
+@end
 
 @implementation SubjectViewController
 
@@ -36,9 +39,12 @@
          [UIView setAnimationDidStopSelector:@selector(addCaptions:finished:context:)];
 		[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight forView:subjectView.topImage cache:NO];
 		subjectView.topImage.image = [UIImage imageNamed: [[Catalogue sharedCatalogue] nextSubjectOwnerImage]];
-        
+        [self doResize];
 		[UIView commitAnimations];
-        NSLog(@"the owners name is %@", [[Catalogue sharedCatalogue] currentSubjectOwner]);
+        
+        
+        
+        
 	}
 	else if (CGRectContainsPoint(subjectView.bottomImage.frame, touchLocation)){
       subjectView.devicecaption.alpha = 0.0;
@@ -50,24 +56,38 @@
 		subjectView.bottomImage.image = [UIImage imageNamed:[[Catalogue sharedCatalogue] nextSubjectDeviceImage]];
         
 		[UIView commitAnimations];
-         NSLog(@"the device's name is %@", [[Catalogue sharedCatalogue] currentDeviceName]);
+        
 	}
 
 
 		
 }
 
+-(void) doResize{
+    NSLog(@"doing a resize...");
+    if (![[[Catalogue sharedCatalogue] currentSubjectDevice] isEqualToString:@"*"]){
+        subjectView.topImage.frame = CGRectMake(0, 0, 295, 180);
+    }else{
+        subjectView.topImage.frame = CGRectMake(0, 0, 295, 301);
+    }
+}
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
 	
 	
-	
 	//lookup = [[SubjectImageLookup alloc] init];
 	CGRect aframe = CGRectMake(64,60,294,301);
-	SubjectView *aview = [[SubjectView alloc] initWithFrame:aframe];//  lookup:nil];//
-	subjectView = aview;
+    
+    
+	SubjectView *aview = [[SubjectView alloc] initWithFrameAndImages:aframe topImage: [[Catalogue sharedCatalogue] currentSubjectOwnerImage] bottomImage: [[Catalogue sharedCatalogue] currentSubjectDeviceImage] ];//  lookup:nil];//
+	
+   
+    
+    subjectView = aview;
+    
 	self.view = subjectView;
+     [self doResize];
 	[aview release];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(subjectOwnerChange:) name:@"subjectOwnerChange" object:nil];	
 
@@ -100,7 +120,8 @@
     }
     
     subjectView.topImage.image = [UIImage imageNamed:[[Catalogue sharedCatalogue] currentSubjectOwnerImage]];
-        
+    [self doResize];
+
 
     //[UIView commitAnimations];
 }
