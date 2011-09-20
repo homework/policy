@@ -9,12 +9,7 @@
 #import "ConditionTimeViewController.h"
 
 @interface ConditionTimeViewController()
--(void) updateCaption;
--(void) updateCatalogue;
--(void) setFromHour:(int) hour;
--(void) setToHour:(int) hour;
--(void) setFromMinute:(int) minute;
--(void) setToMinute:(int) minute;
+
 @end
 
 @implementation ConditionTimeViewController
@@ -27,42 +22,51 @@ BOOL toScaled = NO;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if ((self = [super initWithNibNameAndType:nibNameOrNil bundle:nibBundleOrNil type:@"timed"])) {
         
-		CGRect aframe = CGRectMake(0,0,294,301);
-		
-        /*ConditionTimeView *aconditionview = [[ConditionTimeView alloc] initWithFrameAndImage:aframe image: [[Catalogue sharedCatalogue] getConditionImage]];*/
-
-        ConditionTimeView *aconditionview = [[ConditionTimeView alloc] initWithFrame:aframe];        
-		conditionTimeView = aconditionview;
-        
-        [conditionTimeView.toAMPM addTarget:self action:@selector(AMPMClicked:) forControlEvents:UIControlEventTouchUpInside];
-        [conditionTimeView.fromAMPM addTarget:self action:@selector(AMPMClicked:) forControlEvents:UIControlEventTouchUpInside];
-        self.view = aconditionview;
-        
-        
-        NSString *from = [self.conditionArguments objectForKey:@"from"];
-        NSString *to = [self.conditionArguments objectForKey:@"to"];
-        
-        NSArray *fchunks = [from componentsSeparatedByString:@":"];
-        NSArray *tchunks = [to componentsSeparatedByString:@":"];                  
-        
-        NSString* fhstr = [fchunks objectAtIndex:0];
-        NSString* fmstr = [fchunks objectAtIndex:1];
-        
-        NSString* thstr = [tchunks objectAtIndex:0];
-        NSString* tmstr = [tchunks objectAtIndex:1];
-        
-        [self setFromHour: [fhstr intValue]];
-        
-        [self setFromMinute:[fmstr intValue]];
-        
-        [self setToHour: [thstr intValue]];
-        
-        [self setToMinute:[tmstr intValue]];
-        
+        [self setUpConditionView];
+        [self initialiseClocks];
         [self updateCaption];
         [self updateCatalogue];
 	}
     return self;
+}
+
+-(void) setUpConditionView{
+    CGRect aframe = CGRectMake(0,0,294,301);
+    ConditionTimeView *aconditionview = [[ConditionTimeView alloc] initWithFrame:aframe];        
+    conditionTimeView = aconditionview;
+    self.view = aconditionview;
+}
+
+-(void) initialiseClocks{
+    
+    NSLog(@"----------------------> initing clocks.......%@", [[Catalogue sharedCatalogue] conditionArguments]);
+    
+    [conditionTimeView.toAMPM addTarget:self action:@selector(AMPMClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [conditionTimeView.fromAMPM addTarget:self action:@selector(AMPMClicked:) forControlEvents:UIControlEventTouchUpInside];
+    
+    NSString *from = [[[Catalogue sharedCatalogue] conditionArguments] objectForKey:@"from"];
+    NSString *to = [[[Catalogue sharedCatalogue] conditionArguments] objectForKey:@"to"];
+    
+    NSLog(@"from = %@ to = %@", from, to);
+    
+    NSArray *fchunks = [from componentsSeparatedByString:@":"];
+    NSArray *tchunks = [to componentsSeparatedByString:@":"];                  
+    
+    NSString* fhstr = [fchunks objectAtIndex:0];
+    NSString* fmstr = [fchunks objectAtIndex:1];
+    
+    NSString* thstr = [tchunks objectAtIndex:0];
+    NSString* tmstr = [tchunks objectAtIndex:1];
+    
+    [self setFromHour: [fhstr intValue]];
+    
+    [self setFromMinute:[fmstr intValue]];
+    
+    [self setToHour: [thstr intValue]];
+    
+    [self setToMinute:[tmstr intValue]];
+
+
 }
 
 -(void) AMPMClicked:(id) sender{

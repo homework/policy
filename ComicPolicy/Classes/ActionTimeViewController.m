@@ -11,6 +11,7 @@
 
 @interface ActionTimeViewController()
 -(void) updateCatalogue;
+-(void) setSlider:(float) value;
 @end
 
 
@@ -44,21 +45,17 @@
     [slider addTarget:self action:@selector(sliderAction:) forControlEvents:UIControlEventValueChanged];
     //[slider setThumbImage:[UIImage imageNamed:@"clockfacesmall.png"] forState:UIControlStateNormal];
     [timeView addSubview:slider];
-
-   
-
+    [self update];
     [self.view addSubview:timeView];
 	[timeView release];
 }
 
--(void) sliderAction:(UISlider*)sender{
-    
-    CGFloat value = [sender value];
+-(void) setSlider:(float) value{
     
     timeView.dark.alpha = value / [slider maximumValue]; 
     timeView.light.alpha = 1 - (value / [slider maximumValue]);
     
-    slider.value =  round([sender value]);
+    slider.value =  round(value);
     if (slider.value == 0){
         timeView.timecaption.text = @"forever!";
     }else if (slider.value == 24){
@@ -67,7 +64,25 @@
     else{
         timeView.timecaption.text = [NSString stringWithFormat:@"for %0.f hours", slider.value];
     }
+}
+
+-(void) update{
+
+    NSDictionary *dict = [[Catalogue sharedCatalogue] actionArguments];
+    NSLog(@"in update and dict is %@", dict);
+    NSString* timeframe = [dict objectForKey:@"timeframe"];
+        if (timeframe == nil)
+        [self setSlider:0];
+    else{
+        [self setSlider:[timeframe floatValue]];
+    }
     
+
+}
+
+-(void) sliderAction:(UISlider*)sender{
+    
+    [self setSlider:[sender value]];
     [self updateCatalogue];
 }
 

@@ -65,12 +65,26 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Classes/PolicyManager.m"
-         timestampString = "338137774.127458"
+         timestampString = "338223507.657166"
          startingColumnNumber = "2147483647"
          endingColumnNumber = "2147483647"
-         startingLineNumber = "239"
-         endingLineNumber = "239"
+         startingLineNumber = "241"
+         endingLineNumber = "241"
          landmarkName = "-loadPolicy:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "1"
+         filePath = "Classes/Catalogue.m"
+         timestampString = "338210708.678408"
+         startingColumnNumber = "2147483647"
+         endingColumnNumber = "2147483647"
+         startingLineNumber = "566"
+         endingLineNumber = "566"
+         landmarkName = "-setSubjectDevice:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

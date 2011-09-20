@@ -46,5 +46,6 @@
 @property(nonatomic, retain) Policy* defaultPolicy;
 
 -(NSMutableDictionary *) getConditionArguments:(NSString*) localpolicyid;
+-(NSString*) savePolicyToHWDB;
 
 @end

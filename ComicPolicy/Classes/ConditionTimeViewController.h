@@ -25,4 +25,13 @@
    
 }
 
+-(void) updateCaption;
+-(void) updateCatalogue;
+-(void) setFromHour:(int) hour;
+-(void) setToHour:(int) hour;
+-(void) setFromMinute:(int) minute;
+-(void) setToMinute:(int) minute;
+-(void) setUpConditionView;
+-(void) initialiseClocks;
+
 @end

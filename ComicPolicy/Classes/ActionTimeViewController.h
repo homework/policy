@@ -15,6 +15,6 @@
     ActionTimeView* timeView;
 }
 
-
+-(void) update;
 
 @end

@@ -38,11 +38,12 @@
     return self;
 }
 
+/*
 -(void) setImage:(NSString *) device owner: (NSString *) owner{
     topImage.image = [UIImage imageNamed: owner];
-    [self doResize:device owner:owner]; 
+    //[self doResize:device owner:owner]; 
 
-}
+}*/
 
 /*
 // Only override drawRect: if you perform custom drawing.

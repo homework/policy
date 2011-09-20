@@ -269,10 +269,10 @@ static void *reader(void *args) {
 		    case NEW:
                         cplen = CP_SIZE;
                         cp = (ControlPayload *)mem_alloc(cplen);
-			cp_complete(cp, ep.subport, QACK, seqno, fnum, nfrags);
+                        cp_complete(cp, ep.subport, QACK, seqno, fnum, nfrags);
                         crecord_setPayload(cr, cp, cplen, ATTEMPTS, TICKS);
                         (void)send_payload(cr->ep, cp, cplen);
-			tsl_append(cr->svc->s_queue, cr->ep, p, dplen);
+                        tsl_append(cr->svc->s_queue, cr->ep, p, dplen);
                         crecord_setState(cr, ST_QACK_SENT);
 			break;
 	            case OLD:

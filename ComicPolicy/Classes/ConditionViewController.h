@@ -13,10 +13,10 @@
 #import "Policy.h"
 
 @interface ConditionViewController : UIViewController {
-	NSMutableDictionary* conditionArguments;
+	//NSMutableDictionary* conditionArguments;
 
 }
 
-@property(nonatomic, retain) NSMutableDictionary* conditionArguments;
+//@property(nonatomic, retain) NSMutableDictionary* conditionArguments;
 - (id)initWithNibNameAndType:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil type:(NSString*) type;
 @end

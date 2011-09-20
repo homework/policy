@@ -10,6 +10,7 @@
 
 @interface SubjectViewController()
 -(void) doResize;
+-(void) loadCaptions;
 @end
 
 @implementation SubjectViewController
@@ -88,6 +89,7 @@
     
 	self.view = subjectView;
      [self doResize];
+    [self loadCaptions];
 	[aview release];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(subjectOwnerChange:) name:@"subjectOwnerChange" object:nil];	
 
@@ -115,8 +117,8 @@
         subjectView.ownercaption.text = [NSString stringWithFormat:@"When %@'s",[[Catalogue sharedCatalogue] currentSubjectOwner]];
         
     }else{
-        subjectView.devicecaption.text = [NSString stringWithFormat:@"any device"];
-        
+        subjectView.devicecaption.text = [NSString stringWithFormat:@"When any device"];
+        subjectView.ownercaption.text = @"";
     }
     
     subjectView.topImage.image = [UIImage imageNamed:[[Catalogue sharedCatalogue] currentSubjectOwnerImage]];
@@ -154,6 +156,10 @@
 }
 
 - (void)addCaptions:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context {
+    [self loadCaptions];
+}
+
+-(void) loadCaptions{
     subjectView.devicecaption.alpha = 1.0;
     subjectView.ownercaption.alpha = 1.0;
     if ([[[Catalogue sharedCatalogue] currentSubjectOwner] isEqualToString:@"any"]){
@@ -163,6 +169,7 @@
         subjectView.ownercaption.text = [NSString stringWithFormat:@"When %@'s",[[Catalogue sharedCatalogue] currentSubjectOwner]];
         subjectView.devicecaption.text = [NSString stringWithFormat:@"device (%@)",[[Catalogue sharedCatalogue] currentDeviceName]];
     }
+
 }
 
 /*

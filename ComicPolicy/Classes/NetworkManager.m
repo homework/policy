@@ -68,15 +68,18 @@
         [networkQueue setRequestDidFailSelector:@selector(delegateFailed:)];
         [networkQueue go];
         
-        /*
+        
         NSLog(@"starting to connect to the hwdb directly...");
         [[RPCComm sharedRPCComm] init:gwaddr];
-        NSLog(@"subscribing....");
-        [[RPCComm sharedRPCComm] subscribe:myaddr];
-         */
         
-        //BOOL success = [[RPCComm sharedRPCComm] connect];
-        //NSLog(@"connected %s", success ? "SUCCESSFULLY" : "UNSUCCESSFULLY"); 
+        char *query = "PolicyEvents";
+        
+        NSLog(@"subscribing....");
+        [[RPCComm sharedRPCComm] subscribe:myaddr query:query];
+         
+        
+        BOOL success = [[RPCComm sharedRPCComm] connect];
+        NSLog(@"connected %s", success ? "SUCCESSFULLY" : "UNSUCCESSFULLY"); 
     }
     return self;
 }
@@ -122,12 +125,12 @@
 
 -(NSString *)getGatewayAddress
 {
-    return @"localhost";
-    /*
+    //return @"localhost";
+    
     NSString *address = [self getMyAddress]; 
     NSArray *addrs = [address componentsSeparatedByString:@"."];
     int gwbit =  [((NSString *) [addrs objectAtIndex:3]) intValue];
-    return [NSString stringWithFormat:@"%@.%@.%@.%d",[addrs objectAtIndex:0], [addrs objectAtIndex:1], [addrs objectAtIndex:2], gwbit+1];*/
+    return [NSString stringWithFormat:@"%@.%@.%@.%d",[addrs objectAtIndex:0], [addrs objectAtIndex:1], [addrs objectAtIndex:2], gwbit+1];
 }
 
 

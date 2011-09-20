@@ -114,7 +114,7 @@ static void *handler(void *args) {
 		event[len] = '\0';
 		results = rtab_unpack(event, len);
 		if (results && ! rtab_status(event, stsmsg)) {
-			
+			printf("got results\n");
 			/* 
  			 * 
  			 * Do process */
@@ -122,10 +122,15 @@ static void *handler(void *args) {
 			pd = policy_convert(results);
 			
 			/* print results */
-			char *s = timestamp_to_string(pd->tstamp);
-			printf( "%s %s;%lu;%s\n", s, pd->action, pd->identifier, pd->metadata);
-			free(s);
-			policy_free(pd);
+            if (pd != NULL){
+                char *s = timestamp_to_string(pd->tstamp);
+                printf( "%s %s;%lu;%s\n", s, pd->action, pd->identifier, pd->metadata);
+            
+                free(s);
+                policy_free(pd);
+            }else{
+                printf("got a load of rows...");
+            }
 		}
 		rtab_free(results);
 	}
@@ -144,14 +149,21 @@ PolicyData *policy_convert(Rtab *results){
 	
     PolicyData *ans;
 	
-	if (! results || results->mtype != 0)
-		return NULL;
-	
-    if (!(ans = (PolicyData *)malloc(sizeof(PolicyData))))
-		return NULL;
-	
-	if (results->nrows != 1)
+	if (! results || results->mtype != 0){
+        printf("returning null as !results!\n");
         return NULL;
+        
+    }
+	
+    if (!(ans = (PolicyData *)malloc(sizeof(PolicyData)))){
+		printf("returning null as cannot malloc\n");
+        return NULL;
+    }
+	
+	//if (results->nrows != 1){
+     //   printf("returning null as nrows > 1\n");
+      //  return NULL;
+   // }
     
     char **columns;
     columns = rtab_getrow(results, 0);
@@ -250,7 +262,7 @@ static void signal_handler(int signum) {
 	sig_received = signum;
 }
 
--(BOOL) subscribe: (NSString*) listeninghost{
+-(BOOL) subscribe: (NSString*) listeninghost query:(char*) query{
    
     
 	unsigned rlen;
@@ -262,24 +274,27 @@ static void signal_handler(int signum) {
 	char *target;
 	char *service;
     
-	sigset_t mask, oldmask;
+	//sigset_t mask, oldmask;
     
 	//target = HWDB_SERVER_ADDR;
 	port = HWDB_SERVER_PORT;
     
-	service = "PolicyMonitorHandler";
-    
+	
+    service = "PolicyMonitorHandler";
 	/* initialize the RPC system and offer the Callback service */
 	if (!rpc_init(0)) {
 		fprintf(stderr, "Initialization failure for rpc system\n");
-		exit(-1);
+	//	exit(-1);
 	}
-	rps = rpc_offer(service);
-	if (! rps) {
+	
+    rps = rpc_offer(service);
+	
+    if (! rps) {
 		fprintf(stderr, "Failure offering %s service\n", service);
-		exit(-1);
+		//exit(-1);
 	}
-	rpc_details(myhost, &myport);
+	
+    rpc_details(myhost, &myport);
     
     sprintf(myhost, [listeninghost UTF8String]);
     
@@ -293,13 +308,13 @@ static void signal_handler(int signum) {
 		exit(1);
 	}
 	
-	sprintf(qname, "PolicyEvents");
+	sprintf(qname, query);
 	/* subscribe to query 'qname' */
 	sprintf(question, "SQL:subscribe %s %s %hu %s", 
             qname, myhost, myport, service);
 	if (!rpc_call(rpc, question, strlen(question)+1, resp, 100, &rlen)) {
 		fprintf(stderr, "Error issuing subscribe command\n");
-		exit(1);
+		//exit(1);
 	}
 	resp[rlen] = '\0';
 	printf("Response to subscribe command: %s", resp);
@@ -307,11 +322,11 @@ static void signal_handler(int signum) {
 	/* start handler thread */
 	if (pthread_create(&thr, NULL, handler, NULL)) {
 		fprintf(stderr, "Failure to start handler thread\n");
-		exit(-1);
+		//exit(-1);
 	}
     
-	/* establish signal handlers to gracefully exit from loop */
-	if (signal(SIGTERM, signal_handler) == SIG_IGN)
+    
+	/*	if (signal(SIGTERM, signal_handler) == SIG_IGN)
 		signal(SIGTERM, SIG_IGN);
 	if (signal(SIGINT, signal_handler) == SIG_IGN)
 		signal(SIGINT, SIG_IGN);
@@ -322,13 +337,13 @@ static void signal_handler(int signum) {
 	sigaddset(&mask, SIGINT);
 	sigaddset(&mask, SIGHUP);
 	sigaddset(&mask, SIGTERM);
-	/* suspend until signal */
+	// suspend until signal 
 	sigprocmask(SIG_BLOCK, &mask, &oldmask);
 	while (!sig_received)
 		sigsuspend(&oldmask);
 	sigprocmask(SIG_UNBLOCK, &mask, NULL);
 	
-	/* issue unsubscribe command */
+	// issue unsubscribe command 
 	sprintf(question, "SQL:unsubscribe %s %s %hu %s", 
             qname, myhost, myport, service);
 	if (!rpc_call(rpc, question, strlen(question)+1, resp, 100, &rlen)) {
@@ -338,8 +353,8 @@ static void signal_handler(int signum) {
 	resp[rlen] = '\0';
 	printf("Response to unsubscribe command: %s", resp);
     
-	/* disconnect from server */
-	rpc_disconnect(rpc);    
+	// disconnect from server 
+	rpc_disconnect(rpc);    */
 }
 
 -(BOOL) send: (void *) query qlen:(unsigned) qlen resp: (void*) resp rsize:(unsigned) rs len:(unsigned *) len{

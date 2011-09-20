@@ -66,7 +66,7 @@ PolicyData *policy_convert(Rtab *results);
 
 -(BOOL) connect;
 -(BOOL) send: (void *) query qlen:(unsigned) qlen resp: (void*) resp rsize:(unsigned) rs len:(unsigned *) len;
--(BOOL) subscribe:(NSString*)host;
+-(BOOL) subscribe:(NSString*)host query:(char*) query;
 -(BOOL) sendquery:(NSString *)q;
 -(void) notifydisconnected:(NSObject*)o;
 -(void) notifyconnected:(NSObject*)o;

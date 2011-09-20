@@ -8,6 +8,9 @@
 
 #import "ConditionVisitingTimeViewController.h"
 
+@interface ConditionVisitingTimeViewController() 
+-(void) updateSelected;
+@end
 
 @implementation ConditionVisitingTimeViewController
 
@@ -15,11 +18,15 @@ bool timerangeselected = false;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-       
-        self.view.frame = [[PositionManager sharedPositionManager] getPosition:@"conditionvisitingtime"];
-    }
+    
+    [self setUpConditionView];
+    
+    [self initialiseClocks];
+    
+    self.view.frame = [[PositionManager sharedPositionManager] getPosition:@"conditionvisitingtime"];
+   
+    [self updateSelected];
+    [self updateCaption];
     return self;
 }
 
@@ -28,43 +35,58 @@ bool timerangeselected = false;
     [super dealloc];
 }
 
+-(void) updateSelected{
+    if ([[[Catalogue sharedCatalogue] conditionArguments] objectForKey:@"from"] == nil){
+        timerangeselected = false;
+    }else{
+        timerangeselected = true;
+    }
+}
+
 -(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     UITouch *touch = [[event allTouches] anyObject];
 	CGPoint touchLocation = [touch locationInView:self.view];
 	
     if ( touchLocation.y > 250){
-        if ([conditionTimeView.caption.text isEqualToString:@"at any time"]){
-            [self updateCaption];
-        }
-        else{
-            conditionTimeView.caption.text = @"at any time";
-            timerangeselected = false;
-            [self updateCatalogue];
-        }
+        timerangeselected = !timerangeselected;
+        [self updateCaption];
     }
+    if (timerangeselected)
+        [self updateCatalogue];
+    
     [super touchesBegan:touches withEvent:event];
 }
 
 
 -(void) updateCaption{
-    timerangeselected = true;
-    conditionTimeView.caption.text = [NSString stringWithFormat:@"between %02d:%02d and %02d:%02d",  fromhour, fromminute, tohour, tominute];
     
+    if (!timerangeselected){
+        conditionTimeView.caption.text = @"at any time";
+    }
+    else{
+        conditionTimeView.caption.text = [NSString stringWithFormat:@"between %02d:%02d and %02d:%02d",  fromhour, fromminute, tohour, tominute];
+   }
+}
+
+-(void) initialiseClocks{
+    [super initialiseClocks];
+    [self updateSelected];
+    [self updateCaption];
 }
 
 -(void) updateCatalogue{
     
+  
     NSString *from = [NSString stringWithFormat:@"%02d:%02d", fromhour, fromminute];
     NSString *to = [NSString stringWithFormat:@"%02d:%02d", tohour, tominute];
     
     
     NSMutableDictionary *newargs = [[Catalogue sharedCatalogue] conditionArguments];
     
-    if (timerangeselected == true){
+    if (timerangeselected){
         [newargs setObject:from forKey:@"from"];
         [newargs setObject:to forKey:@"to"];
     }else{
-        NSLog(@"removing objects from and to");
         [newargs removeObjectForKey:@"from"];
         [newargs removeObjectForKey:@"to"];
     }

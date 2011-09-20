@@ -58,19 +58,14 @@ static NSArray *labelArray = [[NSArray alloc] initWithObjects:@"news.bbc.co.uk",
 {
     
     
-    NSLog(@"in monitor view load view....");
-
     labelindex = 0;
     siteindex = 0;
-    //self.testImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ok.png"]];
-    //[self.view addSubview:testImage];
-    //currentMonitorScene = @"resultvisits.png";
+   
     
     CGRect aframe = [[PositionManager sharedPositionManager] getPosition:@"resultmonitor"];
 	UIView *rootView = [[UIView alloc] initWithFrame:aframe];		
     [rootView setAutoresizesSubviews:YES];
 	self.view = rootView;
-	self.view.backgroundColor = [UIColor blueColor];
     [rootView release];
     
     
@@ -93,9 +88,6 @@ static NSArray *labelArray = [[NSArray alloc] initWithObjects:@"news.bbc.co.uk",
 
     self.cloud = tmpCloud2;
     [tmpCloud2 release];
-    
-	
-    
     
     [self.view addSubview:tmpBack];
     [self.view addSubview:tmpCloud];

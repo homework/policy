@@ -166,8 +166,8 @@
         
         if (applyfor != nil){
             NSArray *actionargumentarray =  [self getArrayFromPonderString:applyfor];
-            int timeframe =  [(NSString*) [actionargumentarray objectAtIndex:0] intValue];
-            [dict setObject:[NSString stringWithFormat:@"%d",timeframe] forKey:@"timeframe"];
+            float timeframe =  [(NSString*) [actionargumentarray objectAtIndex:0] floatValue];
+            [dict setObject:[NSString stringWithFormat:@"%0.f",timeframe/(float)60] forKey:@"timeframe"];
         }
         
         self.actionarguments = dict;

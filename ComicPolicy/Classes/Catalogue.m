@@ -264,12 +264,22 @@ NSMutableDictionary *tree;
 #pragma mark * Condition frames (public)
 
 -(NSMutableDictionary *) conditionArguments/*:(NSString*) type*/{
+    if ([currentConditionArguments objectForKey:[self currentCondition]] == nil){
+        return [[NSMutableDictionary alloc] init];
+    }
     return [currentConditionArguments objectForKey:[self currentCondition]];
 }
 
 -(void) setConditionArguments:(NSMutableDictionary *) args{
     NSLog(@"setting condtion arguments %@", [self currentCondition]);
-    [currentConditionArguments setObject:args forKey:[self currentCondition]];
+    
+    NSMutableDictionary* currentArgs = [self conditionArguments];
+    for (NSObject *key in [args allKeys]){
+        [currentArgs setObject:[args objectForKey:key] forKey:key];
+    }
+    
+    [currentConditionArguments setObject:currentArgs forKey:[self currentCondition]];
+    NSLog(@"condition args is now %@", [self conditionArguments]);
 }
 
 -(NSString*) currentCondition{
@@ -329,7 +339,9 @@ NSMutableDictionary *tree;
 }
 
 -(void) setActionArguments:(NSMutableDictionary *) args{
+    
     NSLog(@"setting action arguments %@", args);
+    NSLog(@"current args is %@", [self actionArguments]);
     
     NSMutableDictionary* currentArgs = [self actionArguments];
     
@@ -338,6 +350,7 @@ NSMutableDictionary *tree;
     }
     
     [currentActionArguments setObject:currentArgs forKey:[self currentActionType]];
+    NSLog(@"after args is %@", [self actionArguments]);
 }
 
 
@@ -556,6 +569,7 @@ NSMutableDictionary *tree;
 -(void) setCondition:(NSString *)condition options:(NSDictionary *)options{
     
     int index = 0;
+    [currentConditionArguments removeAllObjects];
     
     for (NSString* acondition in conditions){
         if ([acondition isEqualToString:condition]){
@@ -577,7 +591,8 @@ NSMutableDictionary *tree;
     
     NSLog(@"**+> setting action: %@ subject: %@  options: %@", action, subject, arguments);
     int index = 0;
-    
+    [currentActionArguments removeAllObjects];
+  
     //first check to see if action exists
     NSDictionary *tmp = [actionLookup objectForKey:action];
     
@@ -586,7 +601,7 @@ NSMutableDictionary *tree;
         
         NSArray *subjects = [tmp objectForKey:@"subjects"];
         
-        NSLog(@"subjects are %@", subjects);
+       
         if (subjects != nil){
             index = 0;
             for (NSString* asubject in subjects){
@@ -605,7 +620,7 @@ NSMutableDictionary *tree;
                     
                     
                     [self updateActionOptions:subject];
-                    
+                    [self setActionArguments:arguments];
                     //set the view controller index...
                     
                     index = 0;

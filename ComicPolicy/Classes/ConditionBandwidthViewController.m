@@ -30,7 +30,7 @@
 		[self.view addGestureRecognizer:pinchGestureRecognizer];
 		[pinchGestureRecognizer release];
 		[aconditionview release];
-        bandwidth = [(NSNumber*) [self.conditionArguments objectForKey:@"percentage"] intValue];
+        bandwidth = [(NSNumber*) [[[Catalogue sharedCatalogue] conditionArguments] objectForKey:@"percentage"] intValue];
         conditionBandwidthView.moneyImage.transform =  CGAffineTransformScale(conditionBandwidthView.moneyImage.transform, (float) bandwidth/100, (float) bandwidth/100);
         [self updateCaption];
 		

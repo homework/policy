@@ -74,41 +74,40 @@
 }
 
 -(void) updateCatalogue:(NSString*) site{
-    NSLog(@"updating catalogue");
     
-    NSArray *currentsites = [conditionArguments objectForKey:@"sites"];
+    NSArray *currentsites = [[[Catalogue sharedCatalogue] conditionArguments] objectForKey:@"sites"];
     
     NSMutableArray *newargs = [[NSMutableArray alloc] initWithArray:currentsites];
     
     [newargs addObject:site];
     
-    [self.conditionArguments removeObjectForKey:@"sites"];
+    //[self.conditionArguments removeObjectForKey:@"sites"];
     
-    [self.conditionArguments setObject:newargs forKey:@"sites"];
+    //[self.conditionArguments setObject:newargs forKey:@"sites"];
     
-    [[Catalogue sharedCatalogue] setConditionArguments:conditionArguments];
+    [[Catalogue sharedCatalogue] setConditionArguments:newargs];
     
 }
 
 -(void) relayout{
+    
     //first remove all views that we currently have
     int index = 0;
     for (UIView *aview in self.view.subviews){
-        if (index++ > 4){
+        if (index++ > 5){
             [aview removeFromSuperview];
         }
     }
     [self.sites removeAllObjects];
     
-    /*
-     * regenerate labels from the catalogue...
-     */
+    
+     // regenerate labels from the catalogue...
+     
     
     int YPOS = 40;
     
-    //NSMutableDictionary* arguments = [[Catalogue sharedCatalogue] conditionArguments];
     
-    NSMutableArray *currentsites = [conditionArguments objectForKey:@"sites"];
+    NSMutableArray *currentsites = [[[Catalogue sharedCatalogue] conditionArguments] objectForKey:@"sites"];
     
     for (NSString *site in currentsites){
         UILabel *asitelabel = [[UILabel alloc] initWithFrame:CGRectMake(20,YPOS,250,35)];
@@ -126,13 +125,16 @@
     for (UILabel* aLabel in sites){
         if ([aLabel.text isEqualToString:site]){
             
-            NSMutableArray *currentsites = [conditionArguments objectForKey:@"sites"];
+            NSMutableArray *currentsites = [[[Catalogue sharedCatalogue] conditionArguments] objectForKey:@"sites"];
+            NSMutableArray *todiscard = [[NSMutableArray alloc] init];
+            
             if (currentsites != nil){
                 for (NSString *site in currentsites){
                     if ([site isEqualToString:aLabel.text]){
-                        [currentsites removeObject:site];   
+                        [todiscard addObject:site];
                     }
                 }
+                  [currentsites removeObjectsInArray:todiscard];
             }
             
             [aLabel removeFromSuperview];

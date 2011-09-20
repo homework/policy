@@ -55,7 +55,6 @@
 
 -(void) updateConditionResult{
     
-    NSLog(@"in update condition result");
     NSString *newcontroller = [[Catalogue sharedCatalogue] getConditionMonitorController];
     
     MonitorViewController *newController = [[NSClassFromString(newcontroller) alloc] initWithNibName:nil bundle:nil];
@@ -71,7 +70,7 @@
     
     //[self.rootMonitorView addSubview:[newController view]];
     [UIView commitAnimations];
-        [newController release];
+    [newController release];
     
 }
 
@@ -118,29 +117,19 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionSubjectChange:) name:@"actionSubjectChange" object:nil];
 	
-    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionTypeChange:) name:@"actionTypeChange" object:nil];	
-    
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(policyFired:) name:@"policyFired" object:nil];	
     
     
 	CGRect aframe = CGRectMake(64,367,897,301);
 	UIView *rootView = [[UIView alloc] initWithFrame:aframe];	
 	self.view = rootView;
-    //self.view.backgroundColor = [UIColor redColor];
-	[rootView release];
+    [rootView release];
     
-   // UIView* tmprootmonitorView = [[UIView alloc] initWithFrame:CGRectMake(0,0,502,301)];
-    //self.rootMonitorView = tmprootmonitorView;
-    //[tmprootmonitorView release];
-	
 	ResultViewController *tmpResultController = [[[NSClassFromString(@"ResultViewController") alloc] initWithNibName:nil bundle:nil] retain];
     
     MonitorViewController *tmpMonitorController = [[[NSClassFromString(@"MonitorViewController") alloc] initWithNibName:nil bundle:nil] retain];
 
-    
-    
-    //[self.rootMonitorView addSubview:[tmpMonitorController view]];
-   // [[self view] addSubview: [tmpMonitorController view ]];//self.rootMonitorView];
+
 	[[self view] addSubview:[tmpResultController view]];
     [[self view] addSubview: [tmpMonitorController view ]];
 	resultController = tmpResultController;

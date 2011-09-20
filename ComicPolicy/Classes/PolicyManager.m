@@ -13,6 +13,7 @@
 #import "ASIFormDataRequest.h"
 #import "ASIHTTPRequest.h"
 #import "Policy.h"
+#import "RPCComm.h"
 
 @interface PolicyManager()
 -(void) readInPolicies:(NSMutableDictionary *) policydict;
@@ -61,7 +62,6 @@ static int localId;
 
 -(void) readPoliciesFromFile{
     
-    NSLog(@"in create default start policy...");
     
     NSString *filePath = [[NSBundle mainBundle] pathForResource:@"ponderpolicies" ofType:@"txt"];
     
@@ -72,6 +72,7 @@ static int localId;
     localId = 1;
     localLookup    = [[[NSMutableDictionary alloc] init] retain];
     self.policies  = [[NSMutableDictionary alloc] init];
+    self.policyids = [[NSMutableArray alloc] init];
     
     while ([scanner isAtEnd] == NO){
         NSString *pstring;
@@ -79,9 +80,10 @@ static int localId;
         Policy *p = [[Policy alloc] initWithPonderString:pstring];
         NSString* policyid = [NSString stringWithFormat:@"%d",localId++];
         [policies setObject:p forKey:policyid];
+        [policyids addObject:policyid];
     }
 
-    self.policyids = [[NSMutableArray alloc] initWithArray: [policies allKeys]];
+    //self.policyids = [[NSMutableArray alloc] initWithArray: [policies allKeys]];
     //[self loadFirstPolicy];
     
     /*
@@ -282,6 +284,28 @@ static int localId;
     return @"";
 }
 
+
+-(NSString*) savePolicyToHWDB{
+    NSError *error = NULL;
+    
+    
+    NSString *policy = [currentPolicy toPonderString];
+       
+    
+    NSRegularExpression *quoteregex = [NSRegularExpression regularExpressionWithPattern:@"\"" options:NSRegularExpressionCaseInsensitive error:&error];
+    
+    policy = [quoteregex stringByReplacingMatchesInString:policy options:0 range:NSMakeRange(0, [policy length]) withTemplate:@"@"];
+    
+    
+    // NSLog(@"querys is %@", policy);
+    
+   /* NSString* query = [NSString stringWithFormat:@"SQL:insert into PolicyRequest values ('%d', \"%@\", '%d', \"%@\")\n", 1, @"CREATE", 0, policy];*/
+    
+    NSString *query = [NSString stringWithFormat:@"SQL:insert into Policies values (\"%@\", '%d', \"@\")", @"help", 6, @"me"];
+
+    [[RPCComm sharedRPCComm] sendquery:query];
+    return @"";
+}
 /*
  * Take the current representation of the policy, and send it to the policyManager backend to install
  * This method is triggered from the UI.  Data needs a bit of massaging to get in a form to allow it to

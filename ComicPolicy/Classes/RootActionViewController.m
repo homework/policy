@@ -39,9 +39,6 @@
 
 -(void) conditionChange:(NSNotification *) n{
     NSString *controller = [[Catalogue sharedCatalogue] currentActionViewController];
-   // NSLog(@"seen a condition change loading up controller %@", controller);
-    //NSLog(@"current condition is %@", [[Catalogue sharedCatalogue] currentCondition]);
-                                       
     UIViewController *newController = [[[NSClassFromString(controller) alloc] initWithNibName:nil bundle:nil] retain];
    
     [UIView beginAnimations:nil context:nil];

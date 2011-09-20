@@ -11,7 +11,7 @@
 
 @implementation ConditionViewController
 
-@synthesize conditionArguments;
+//@synthesize conditionArguments;
 
 
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
@@ -19,18 +19,19 @@
     if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
         
         NSMutableDictionary *dict = [[PolicyManager sharedPolicyManager] getConditionArguments:type];
-        
-        if (dict != nil){
+         [[Catalogue sharedCatalogue] setConditionArguments:dict];
+        /*if (dict != nil){
             self.conditionArguments = [[NSMutableDictionary alloc] initWithDictionary:dict];
             //sync with the catalogue...
             [[Catalogue sharedCatalogue] setConditionArguments:conditionArguments];
-        }
+        }*/
+        /*
         if (conditionArguments == nil){
             self.conditionArguments = [[Catalogue sharedCatalogue] conditionArguments];//:@"visiting"]; 
             NSLog(@"type - got default condition arguments %@", conditionArguments);
         }else{
             NSLog(@"got policy condition arguments %@", conditionArguments);
-        }
+        }*/
         
 
     }
@@ -67,7 +68,7 @@
 
 - (void)viewDidUnload {
     [super viewDidUnload];
-    [conditionArguments release];
+    //[conditionArguments release];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }

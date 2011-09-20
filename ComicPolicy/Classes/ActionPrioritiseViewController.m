@@ -11,7 +11,8 @@
 #import "Catalogue.h"
 
 @interface ActionPrioritiseViewController()
--(void) updateCatalogue:(NSString*)priority;
+-(void) updateCatalogue:(int)pint;
+-(void) updateSlider:(NSString*) priority;
 @end
 
 @implementation ActionPrioritiseViewController
@@ -20,13 +21,12 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        [self updateCatalogue:@"low"];
         
         CGRect aframe = CGRectMake(0,20,294,321);
         
         NSString *topImage = [[Catalogue sharedCatalogue ]currentActionSubjectImage];
         
-		NSLog(@"top image is %@", topImage);
+	
         prioritiseview = [[ActionPrioritiseView alloc] initWithFrameAndImage:aframe topImage:topImage];
 		
         slider = [[UISlider alloc] initWithFrame:CGRectMake(40.0f, 220.0f, 200.0f, 20.f)];
@@ -39,11 +39,14 @@
         [slider setThumbImage:[UIImage imageNamed:@"greenup.png"] forState:UIControlStateNormal];
         [prioritiseview addSubview:slider];
         
+        NSDictionary *args = [[Catalogue sharedCatalogue] actionArguments];
+        
+        
+        [self updateSlider:[args objectForKey:@"priority"]];
+        
         prioritiseview.prioritisedevicecaption.text = [NSString stringWithFormat:@"give %@", [[Catalogue sharedCatalogue ]currentActionSubjectName]];
         
-        prioritiseview.prioritiseamountcaption.text = [NSString stringWithFormat:@"low priority"];
 
-        
         self.view = prioritiseview;
 		[prioritiseview release];
     }
@@ -75,12 +78,17 @@
 
 }
 
--(void) updateCatalogue:(NSString*)priority{
+-(void) updateCatalogue:(int)pint{
+    
+    NSString* priority = @"low";
+    
+   
+    if (pint== 1)
+        priority = @"medium";
+    else
+        priority = @"high";
+    
     NSMutableDictionary *newargs = [[NSMutableDictionary alloc] initWithObjects:[[NSArray alloc] initWithObjects:priority, nil] forKeys:[[NSArray alloc] initWithObjects:@"priority",nil]];
-    
-    /*NSMutableDictionary *newargs = [[Catalogue sharedCatalogue] actionArguments];
-    
-    [newargs setObject:priority forKey:@"priority"];*/
     
     [[Catalogue sharedCatalogue] setActionArguments:newargs];
 }
@@ -92,24 +100,35 @@
     
 }
 
+-(void) updateSlider:(NSString *) priority{
+   
+    if ([priority isEqualToString:@"medium"]){
+        slider.value =  1;
+    }
+    else if ([priority isEqualToString:@"high"]){
+        slider.value = 2;
+    }else{
+        priority = @"low";
+        slider.value = 0;
+    }
+    prioritiseview.prioritiseamountcaption.text = [NSString stringWithFormat:@"%@ priority", priority];
+}
+
 -(void) sliderAction:(UISlider*)sender{
     //CGFloat value = [sender value];
     slider.value =  round([sender value]);
-   
-    NSString* priority = @"";
     
-    if (slider.value == 0)
-        priority = @"low";
-    else if (slider.value == 1)
-        priority = @"medium";
-    else
-        priority = @"high";
+    if (slider.value == 1){
+        [self updateSlider:@"medium"];
+    }else if (slider.value == 2){
+         [self updateSlider:@"high"];
+    }else{
+        [self updateSlider:@"low"];
+    }
     
-    prioritiseview.prioritiseamountcaption.text = [NSString stringWithFormat:@"%@ priority", priority];
-    [self updateCatalogue:priority];
-    
-    
+    [self updateCatalogue:slider.value];
 }
+
 - (void)dealloc
 {
     [super dealloc];

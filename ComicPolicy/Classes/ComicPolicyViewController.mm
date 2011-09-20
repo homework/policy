@@ -144,7 +144,8 @@
         [[PolicyManager sharedPolicyManager] reset];
     }
 	else if (CGRectContainsPoint( saveButton.frame , touchLocation)){
-        [[PolicyManager sharedPolicyManager] createPonderTalk];
+       // [[PolicyManager sharedPolicyManager] createPonderTalk];
+        [[PolicyManager sharedPolicyManager] savePolicyToHWDB];
         /*
         [[PolicyManager sharedPolicyManager] savePolicy];
         
@@ -254,15 +255,19 @@
     [UIView setAnimationDelegate:self];
     
     if ([[[Catalogue sharedCatalogue] currentActionType] isEqualToString:@"block"]){
-		[self.view addSubview:actionTimeViewController.view];
+		
+        
+       // [self.view addSubview:actionTimeViewController.view];
 		actionViewController.view.frame = [[PositionManager sharedPositionManager] getPosition:@"action"];
+        
         actionTimeViewController.view.frame = [[PositionManager sharedPositionManager] getPosition:@"actiontime"];
+        [actionTimeViewController update];
         
         conditionVisitingTimeViewController.view.frame = [[PositionManager sharedPositionManager] getPosition:@"conditionvisitingtime"];
-
-		NSLog(@"-----");
-        resultViewController.resultController.resultView.frame = [[PositionManager sharedPositionManager] getPosition:@"result"];
-    	NSLog(@"-----");
+        [conditionVisitingTimeViewController initialiseClocks];
+        
+	
+        resultViewController.resultController.resultView.frame = [[PositionManager sharedPositionManager] getPosition:@"result"];        
         resultViewController.resultController.resultView.resultMainImage.alpha = 1.0;
 				
         CGRect newframe = [[PositionManager sharedPositionManager] getPosition:@"resultmonitor"];
@@ -275,12 +280,12 @@
 		
 		[UIView setAnimationDidStopSelector:@selector(actionOffScreen:finished:context:)];
 		actionViewController.view.frame = [[PositionManager sharedPositionManager] getPosition:@"action"];
-        
 		actionTimeViewController.view.frame = [[PositionManager sharedPositionManager] getPosition:@"actiontime"];
         resultViewController.resultController.resultView.frame = [[PositionManager sharedPositionManager] getPosition:@"result"];
 		resultViewController.resultController.resultView.resultMainImage.alpha = 1.0;
         
         conditionVisitingTimeViewController.view.frame = [[PositionManager sharedPositionManager] getPosition:@"conditionvisitingtime"];
+        [conditionVisitingTimeViewController initialiseClocks];
         
         CGRect newframe = [[PositionManager sharedPositionManager] getPosition:@"resultmonitor"];
         
@@ -378,11 +383,13 @@
     
     [[Catalogue sharedCatalogue] parseCatalogue:nil];
     
-    [[PolicyManager sharedPolicyManager] loadFirstPolicy];
+    
     
     [self addNotificationHandlers];
     
     [self createControllers];
+    
+    [[PolicyManager sharedPolicyManager] loadFirstPolicy];
     
     [self updateFramePositions];
     
@@ -432,7 +439,10 @@
 	[self.view addSubview:actionViewController.view];
     
 	actionTimeViewController = [[ActionTimeViewController alloc] init];
-	
+    [self.view addSubview:actionTimeViewController.view];
+    
+    actionTimeViewController.view.frame = [[PositionManager sharedPositionManager] getPosition:@"actiontime"];
+    
    
 	[self addNavigationView];
 
