@@ -195,6 +195,9 @@
 		A3C5C333138BD17A00FF413F /* moneybag.png in Resources */ = {isa = PBXBuildFile; fileRef = A3C5C332138BD17900FF413F /* moneybag.png */; };
 		A3C5C366138C0E5700FF413F /* resultbandwidthtop.png in Resources */ = {isa = PBXBuildFile; fileRef = A3C5C365138C0E5700FF413F /* resultbandwidthtop.png */; };
 		A3CD11A11329173C00D3720E /* whitemask.png in Resources */ = {isa = PBXBuildFile; fileRef = A3CD11A01329173C00D3720E /* whitemask.png */; };
+		A3D1761D142CB0AD003753BB /* PolicyStateObject.m in Sources */ = {isa = PBXBuildFile; fileRef = A3D1761C142CB0AC003753BB /* PolicyStateObject.m */; };
+		A3D17620142CD951003753BB /* RequestObject.m in Sources */ = {isa = PBXBuildFile; fileRef = A3D1761F142CD94E003753BB /* RequestObject.m */; };
+		A3D17622142CF61B003753BB /* activate.png in Resources */ = {isa = PBXBuildFile; fileRef = A3D17621142CF61B003753BB /* activate.png */; };
 		A3DB62CC1371A6AF00AEBF46 /* policies.json in Resources */ = {isa = PBXBuildFile; fileRef = A3DB62CB1371A6AF00AEBF46 /* policies.json */; };
 		A3DB62CF1371AC5000AEBF46 /* PolicyManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A3DB62CE1371AC5000AEBF46 /* PolicyManager.m */; };
 		A3DCB58C13437F7B00A38D5E /* NavigationViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3DCB58B13437F7B00A38D5E /* NavigationViewController.mm */; };
@@ -527,6 +530,11 @@
 		A3C5C332138BD17900FF413F /* moneybag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = moneybag.png; sourceTree = "<group>"; };
 		A3C5C365138C0E5700FF413F /* resultbandwidthtop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = resultbandwidthtop.png; sourceTree = "<group>"; };
 		A3CD11A01329173C00D3720E /* whitemask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = whitemask.png; sourceTree = "<group>"; };
+		A3D1761B142CB0AC003753BB /* PolicyStateObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PolicyStateObject.h; sourceTree = "<group>"; };
+		A3D1761C142CB0AC003753BB /* PolicyStateObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PolicyStateObject.m; sourceTree = "<group>"; };
+		A3D1761E142CD94C003753BB /* RequestObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestObject.h; sourceTree = "<group>"; };
+		A3D1761F142CD94E003753BB /* RequestObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestObject.m; sourceTree = "<group>"; };
+		A3D17621142CF61B003753BB /* activate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = activate.png; sourceTree = "<group>"; };
 		A3DB62CB1371A6AF00AEBF46 /* policies.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = policies.json; sourceTree = "<group>"; };
 		A3DB62CD1371AC5000AEBF46 /* PolicyManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PolicyManager.h; sourceTree = "<group>"; };
 		A3DB62CE1371AC5000AEBF46 /* PolicyManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PolicyManager.m; sourceTree = "<group>"; };
@@ -904,6 +912,7 @@
 		A30ADF28131528F80060D2F1 /* misc */ = {
 			isa = PBXGroup;
 			children = (
+				A3D17621142CF61B003753BB /* activate.png */,
 				A3B6FA4E1422786500089153 /* captionframelong.png */,
 				A3B6FA4C1421234800089153 /* smallcaptionframe.png */,
 				A3B6FA4A142110A600089153 /* captionframe.png */,
@@ -1151,10 +1160,14 @@
 			children = (
 				A379FF6A13A617A1004FDBB9 /* Policy.h */,
 				A379FF6B13A617A1004FDBB9 /* Policy.m */,
+				A3D1761B142CB0AC003753BB /* PolicyStateObject.h */,
+				A3D1761C142CB0AC003753BB /* PolicyStateObject.m */,
 				A33CBF02142B2E1C00ABA195 /* Response.h */,
 				A33CBF03142B2E1C00ABA195 /* Response.m */,
 				A33CBF05142B3C4700ABA195 /* FiredEvent.h */,
 				A33CBF06142B3C4700ABA195 /* FiredEvent.m */,
+				A3D1761E142CD94C003753BB /* RequestObject.h */,
+				A3D1761F142CD94E003753BB /* RequestObject.m */,
 			);
 			name = Data;
 			sourceTree = "<group>";
@@ -1598,6 +1611,7 @@
 				A3B6FA57142783EF00089153 /* ponderpoliciesall.txt in Resources */,
 				A3B6FA591427A51200089153 /* any.png in Resources */,
 				A33CBF09142B456B00ABA195 /* ponderpolicies.txt in Resources */,
+				A3D17622142CF61B003753BB /* activate.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1733,6 +1747,8 @@
 				A346B126141FCA33009C3F3A /* ConditionVisitingTimeViewController.m in Sources */,
 				A33CBF04142B2E1C00ABA195 /* Response.m in Sources */,
 				A33CBF07142B3C4700ABA195 /* FiredEvent.m in Sources */,
+				A3D1761D142CB0AD003753BB /* PolicyStateObject.m in Sources */,
+				A3D17620142CD951003753BB /* RequestObject.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

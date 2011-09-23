@@ -11,10 +11,11 @@
 
 @interface NavigationViewController : UIViewController {
 	NavigationView *navigationView;
+    NSMutableDictionary* policyIdLookup;
 	UIView *selectedView;
-	int selectedPolicy;
+	NSString* selectedPolicy;
 }
 
 @property(nonatomic, assign) NavigationView* navigationView;
-
+@property(nonatomic, retain) NSMutableDictionary* policyIdLookup;
 @end

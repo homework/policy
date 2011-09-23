@@ -120,6 +120,9 @@ NSMutableDictionary *tree;
 #pragma mark * Private methods
 
 -(void) initConditions{
+    
+    
+   
     conditionvcsarray = (NSArray*) [[conditionvcs allValues] retain];
     conditionvcsindex = 0;
     
@@ -267,17 +270,21 @@ NSMutableDictionary *tree;
     if ([currentConditionArguments objectForKey:[self currentCondition]] == nil){
         return [[NSMutableDictionary alloc] init];
     }
-    return [currentConditionArguments objectForKey:[self currentCondition]];
+  return [currentConditionArguments objectForKey:[self currentCondition]];
 }
 
 -(void) setConditionArguments:(NSMutableDictionary *) args{
     
     NSMutableDictionary* currentArgs = [self conditionArguments];
+    
+ 
     for (NSObject *key in [args allKeys]){
         [currentArgs setObject:[args objectForKey:key] forKey:key];
     }
     
+    
     [currentConditionArguments setObject:currentArgs forKey:[self currentCondition]];
+   
 }
 
 -(NSString*) currentCondition{
@@ -561,10 +568,11 @@ NSMutableDictionary *tree;
     }    
 }
 
--(void) setCondition:(NSString *)condition options:(NSDictionary *)options{
+-(void) setCondition:(NSString *)condition options:(NSMutableDictionary *)options{
     
     int index = 0;
-    [currentConditionArguments removeAllObjects];
+    //[currentConditionArguments removeAllObjects];
+    [self setConditionArguments:options];
     
     for (NSString* acondition in conditions){
         if ([acondition isEqualToString:condition]){

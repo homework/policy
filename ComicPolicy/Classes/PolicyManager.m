@@ -16,6 +16,8 @@
 #import "RPCComm.h"
 #import "Response.h"
 #import "FiredEvent.h"
+#import "PolicyStateObject.h"
+#import "RequestObject.h"
 
 @interface PolicyManager()
 -(void) readInPolicies:(NSMutableDictionary *) policydict;
@@ -24,6 +26,10 @@
 -(void) saveCurrentPolicy;
 -(void) readPoliciesFromFile;
 -(void) createSnapshot:(Policy*) p;
+
+-(int) registerRequest:(NSString *) lid type:(RequestType) type;
+-(RequestObject *) getRequestObjectFor:(int) requestid;
+
 -(NSString *) encodePolicyForDatabase:(NSString *)policy;
 -(NSString *) decodePolicyFromDatabase:(NSString *)policy;
 
@@ -40,6 +46,7 @@
 @synthesize defaultPolicy;
 
 static int localId;
+static int requestId;
 
 + (PolicyManager *)sharedPolicyManager
 {
@@ -60,9 +67,30 @@ static int localId;
     self = [super init];
     if (self != nil) {
         localId = 1;
-        [self readPoliciesFromFile];
+        requestId = 1;
+        
+        localLookup    = [[[NSMutableDictionary alloc] init] retain];
+        requesttable   = [[[NSMutableDictionary alloc] init] retain];
+        self.policies  = [[NSMutableDictionary alloc] init];
+        self.policyids = [[NSMutableArray alloc] init];
+        //[self readPoliciesFromFile];
     }
     return self;
+}
+
+-(void) setUpWithPolicies:(NSMutableArray *) policystateobjects{
+    for (PolicyStateObject* pso in policystateobjects){
+        Policy *p = [[Policy alloc] initWithPonderString:[self decodePolicyFromDatabase:pso.pondertalk]];
+        NSString* policylid = [NSString stringWithFormat:@"%d",localId];
+        NSString* policygid = [NSString stringWithFormat:@"%d",pso.pid];
+        [p updateStatus:pso.state];
+        p.localid  = policylid;
+        p.identity = policygid;
+        [policies setObject:p forKey:policylid];
+        [policyids addObject:policylid];
+        [localLookup setObject:policygid forKey:policylid];
+        localId++;
+    }
 }
 
 -(void) readPoliciesFromFile{
@@ -74,12 +102,9 @@ static int localId;
     
     NSScanner *scanner = [NSScanner scannerWithString:content];
     
-  
-    localLookup    = [[[NSMutableDictionary alloc] init] retain];
-    self.policies  = [[NSMutableDictionary alloc] init];
-    self.policyids = [[NSMutableArray alloc] init];
     
     while ([scanner isAtEnd] == NO){
+        NSLog(@"READING IN POLICY FROM FILE");
         NSString *pstring;
         [scanner scanUpToString:@"\n\n" intoString:&pstring];
         Policy *p = [[Policy alloc] initWithPonderString:pstring];
@@ -160,23 +185,19 @@ static int localId;
         return NO;
     }
     
-    //NSLog(@"1. checking %@ against %@", currentPolicy.subjectdevice, [[Catalogue sharedCatalogue] currentSubjectDevice]);
     
     if ( ![currentPolicy.subjectdevice isEqualToString:[[Catalogue sharedCatalogue] currentSubjectDevice]])
         return NO;
     
-   //  NSLog(@"2. checking %@ against %@", currentPolicy.conditiontype, [[Catalogue sharedCatalogue] currentCondition]);
     
     if (![currentPolicy.conditiontype isEqualToString: [[Catalogue sharedCatalogue] currentCondition]])
         return NO;
     
     //TODO: condition args...
-   // NSLog(@"3.checking %@ against %@",currentPolicy.actiontype, [[Catalogue sharedCatalogue] currentActionType]);
-    if ( ![currentPolicy.actiontype isEqualToString: [[Catalogue sharedCatalogue] currentActionType]])
+   if ( ![currentPolicy.actiontype isEqualToString: [[Catalogue sharedCatalogue] currentActionType]])
         return NO;
     
-    //NSLog(@"checking %@ against %@", currentPolicy.actionsubject, [[Catalogue sharedCatalogue] currentActionSubject]);
-    if (![currentPolicy.actionsubject isEqualToString: [[Catalogue sharedCatalogue] currentActionSubject]])
+   if (![currentPolicy.actionsubject isEqualToString: [[Catalogue sharedCatalogue] currentActionSubject]])
         return NO;
     
     //TODO: actionargs....
@@ -224,8 +245,6 @@ static int localId;
 
 -(void) newDefaultPolicy{
    
-    NSLog(@"**************************************** creating a NEW DEFAULT POLICY ****************************************");
-    
     Policy *apolicy  = [[Policy alloc] initWithPolicy:defaultPolicy];
 
     apolicy.status = unsaved;
@@ -236,7 +255,6 @@ static int localId;
     
     [policyids addObject:apolicy.localid];
     
-    NSLog(@"**************************************** polidy id is %@ ( %d ) ****************************************", apolicy.localid, [apolicy.localid intValue]);
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"totalPoliciesChanged" object:nil userInfo:nil];
 }
@@ -253,13 +271,11 @@ static int localId;
 
 -(void) loadPolicy:(NSString*) localpolicyid{
 
-    NSLog(@"loading policy %@", localpolicyid);
     Policy *apolicy = [policies objectForKey:localpolicyid];
     
     if (apolicy != nil){
         NSLog(@"LOADED:");
         [apolicy print];
-        
         
         [[Catalogue sharedCatalogue]  setSubjectDevice:apolicy.subjectdevice];
         
@@ -289,6 +305,8 @@ static int localId;
     NSDictionary *dict = [NSDictionary dictionaryWithObject:localid forKey:@"identity"];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"policyFired" object:nil userInfo:dict];
+    
+    //dict release??
 }
 
 
@@ -321,38 +339,54 @@ static int localId;
 
 -(void) handlePolicyResponse:(Response *) pr{
     
-        NSLog(@"OK - handle policy response %u;%u;%u;%@\n", pr.requestid, pr.pid, pr.success, pr.message);
-    
+        
         /*
          * Reconstruct the policy from the message and then save representation. 
          */
-        NSString* ponderString = [self decodePolicyFromDatabase:pr.message];
-        
-        NSLog(@"got a policy string %@", ponderString);
-        
-        Policy *tosave = [[Policy alloc] initWithPonderString:ponderString];
-        tosave.localid  = [NSString stringWithFormat:@"%d",pr.requestid];
-        tosave.identity = [NSString stringWithFormat:@"%d",pr.pid];
-        
-        NSLog(@"saved policy is ");
-        [tosave print];
     
-        [localLookup setObject:tosave.localid forKey:tosave.identity];
-        [policies setObject:tosave forKey:tosave.localid];
-        [self loadPolicy:tosave.localid];
-        //Policy *p = [policies objectForKey:[NSString stringWithFormat:@"%d", pr.requestid]];
+        RequestObject *robj = [self getRequestObjectFor:pr.requestid];
     
-        //[localLookup objectForKey:[NSString stringWithFormat:@"%d", pr.requestid]];
-        //p.identity = [NSString stringWithFormat:@"%d", pr.pid];
-        //[localLookup setObject: p.localid  forKey: p.identity];
-        //[policies setObject:p forKey:p.localid];
-        //currentPolicy = p;
+        NSLog(@"got request object: %@", robj);
         
+        if (robj.requestType == requestCreate){
+            
+            
+            NSString* ponderString = [self decodePolicyFromDatabase:pr.message];
+            
+            NSLog(@"got a policy string %@", ponderString);
+            
+            Policy *tosave = [[Policy alloc] initWithPonderString:ponderString];
+            tosave.localid  = robj.localId;
+            tosave.identity = [NSString stringWithFormat:@"%d",pr.pid];
+            tosave.status = disabled;
+            
+            NSLog(@"saved policy is ");
+            [tosave print];
+            
+            [localLookup setObject:tosave.localid forKey:tosave.identity];
+            [policies setObject:tosave forKey:tosave.localid];
+            [self loadPolicy:tosave.localid];
+            
+            
+        }    
+        [robj release];
     
-        //[[NSNotificationCenter defaultCenter] postNotificationName:@"saveRequestComplete" object:nil userInfo:nil];
-       
-        //NSLog(@"after save policy is ");
-        //[currentPolicy print];
+        
+}
+
+
+-(void) deleteCurrentPolicy{
+   
+    
+    if ([policyids count] > 1){
+    
+  
+        [policies removeObjectForKey:currentPolicy.localid];
+        [policyids removeObjectIdenticalTo:currentPolicy.localid];
+        [currentPolicy release];
+        [self loadPolicy:[policyids objectAtIndex:0]];
+    }
+     //[[NSNotificationCenter defaultCenter] postNotificationName:@"totalPoliciesChanged" object:nil userInfo:nil];
 }
 
 -(NSString*) savePolicyToHWDB{
@@ -365,40 +399,44 @@ static int localId;
     NSString *policystr = [p toPonderString];
     
     policystr = [self encodePolicyForDatabase:policystr];
-    
-    NSLog(@"created a snapshot as follows");
-    [p print];
 
-    NSLog(@"resulting policy string is %@", policystr);
-    
-    
     
     int identity = [p.identity isEqualToString:@"-1"] ? 0 :[p.identity intValue];
     
-    NSLog(@"the int value of %@ is %d", p.identity, [p.identity intValue]);
-    
-    NSString* query = [NSString stringWithFormat:@"SQL:insert into PolicyRequest values ('%d', \"%@\", '%d', \"%@\")\n", [p.localid intValue], @"CREATE", identity, policystr];
-    
-    NSLog(@"resulting query %@", query);
 
+    
+    int requestid = [self registerRequest:p.localid type:requestCreate];
+    
+    NSLog(@"registered request localid %@ and requestid %d", p.localid, requestid);
+    
+    NSString* query = [NSString stringWithFormat:@"SQL:insert into PolicyRequest values ('%d', \"%@\", '%d', \"%@\")\n", requestid, @"CREATE", identity, policystr];
+    
+  
+    
+   
+    [[RPCComm sharedRPCComm] sendquery:query];
     [p release];
     
-    [[RPCComm sharedRPCComm] sendquery:query];
-
-    // NSLog(@"querys is %@", policy);
-    
-   /* NSString* query = [NSString stringWithFormat:@"SQL:insert into PolicyRequest values ('%d', \"%@\", '%d', \"%@\")\n", 1, @"CREATE", 0, policy];*/
-    
-   /*NSString *query = [NSString stringWithFormat:@"SQL:insert into PolicyResponse values ('%d', '%d', '%d', \"@\")", 1, 2,3, @"amessage"];
-
-    [[RPCComm sharedRPCComm] sendquery:query];
-    
-    query = [NSString stringWithFormat:@"SQL:insert into PolicyFired values ('%d', \"@\")", 1, @"fired"];
-    
-   [[RPCComm sharedRPCComm] sendquery:query];
-    */
     return @"";
 }
+
+
+-(RequestObject *) getRequestObjectFor:(int) requestid{
+    NSString *key = [NSString stringWithFormat:@"%d", requestid];
+    RequestObject *reqobj = [requesttable objectForKey:key];
+    [requesttable removeObjectForKey:key];
+    return reqobj;
+}
+
+-(int) registerRequest:(NSString *) lid type:(RequestType) type{
+    int rid = requestId++;
+    
+    RequestObject *reqobj = [[RequestObject alloc] initWithValues: lid type: type];
+    [requesttable setObject: reqobj forKey:[NSString stringWithFormat:@"%d",rid]];
+    NSLog(@"created requestobject %@ %d", reqobj.localId, rid);
+    return rid;
+}
+
 /*
  * Take the current representation of the policy, and send it to the policyManager backend to install
  * This method is triggered from the UI.  Data needs a bit of massaging to get in a form to allow it to
@@ -417,9 +455,6 @@ static int localId;
     
     [action setObject: [[Catalogue sharedCatalogue] currentActionType] forKey:@"type"];
     [action setObject: [[Catalogue sharedCatalogue] currentActionSubject] forKey:@"subject"];
-    //NSArray* actionArgs = [[NSArray alloc] initWithObjects:[[Catalogue sharedCatalogue] currentAction], nil];
-    //[action setObject: [self convertToTypedArray:actionArgs] forKey:@"arguments"];
-
     [action setObject: [self convertToTypedHashtable:[[Catalogue sharedCatalogue] actionArguments]] forKey:@"arguments"];
     
     SBJsonWriter* writer = [SBJsonWriter new];
@@ -529,7 +564,6 @@ static int localId;
     
     if ([[data objectForKey:@"result"] isEqualToString:@"success"]){
         currentPolicy.identity = [data objectForKey:@"message"];
-        NSLog(@"setting local id %@ for global identity %@", currentPolicy.localid, currentPolicy.identity);
         [localLookup setObject: currentPolicy.localid  forKey: currentPolicy.identity];
         [self saveCurrentPolicy];
     }

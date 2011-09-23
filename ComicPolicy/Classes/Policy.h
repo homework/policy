@@ -40,6 +40,8 @@ typedef enum {
 - (id)initWithDictionary:(NSDictionary *)aDictionary;
 - (id)initWithPolicy:(Policy *)aPolicy;
 - (id) initWithPonderString:(NSString *) ponderString;
+- (void) updateStatus:(NSString *) state;
+-(NSString *) statusAsString;
 - (NSString*) toPonderString;
 -(void) print;
 

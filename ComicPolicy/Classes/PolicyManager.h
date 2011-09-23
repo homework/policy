@@ -10,6 +10,8 @@
 @class Policy;
 @class Response;
 @class FiredEvent;
+@class PolicyStateObject;
+@class RequestObject;
 
 @interface PolicyManager : NSObject {
     
@@ -22,7 +24,8 @@
     NSMutableDictionary *policies;     //the dictionary containing all known policies
     
     NSMutableDictionary *localLookup;  //mapping between the system allocated policy id and the locally generated one.
-    
+   
+    NSMutableDictionary *requesttable;
 }
 
 + (PolicyManager *)sharedPolicyManager;
@@ -34,9 +37,11 @@
 -(void) refresh;
 -(void) reset;
 -(void) deleteAll;
+-(void) deleteCurrentPolicy;
 -(void) newDefaultPolicy;
--(void) policyFired:(NSString *) policyid;
+-(void) policyFired:(FiredEvent *) fe;
 -(void) handlePolicyResponse:(Response *) response;
+-(void) setUpWithPolicies:(NSMutableArray *) policystateobjects;
 
 -(BOOL) hasFiredForSubject:(NSString *)subject;
 -(BOOL) hasFired;

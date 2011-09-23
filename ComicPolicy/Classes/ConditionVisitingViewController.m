@@ -81,22 +81,19 @@
     
     [newargs addObject:site];
     
-    //[self.conditionArguments removeObjectForKey:@"sites"];
-    
-    //[self.conditionArguments setObject:newargs forKey:@"sites"];
-    
-    [[Catalogue sharedCatalogue] setConditionArguments:newargs];
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    [dict setObject:newargs forKey:@"sites"];
+    [[Catalogue sharedCatalogue] setConditionArguments:dict];
+    [dict release];
     
 }
 
 -(void) relayout{
     
-    //first remove all views that we currently have
-    int index = 0;
-    for (UIView *aview in self.view.subviews){
-        if (index++ > 5){
+    
+   for (UIView *aview in self.view.subviews){
+        if (aview.tag >= 100)
             [aview removeFromSuperview];
-        }
     }
     [self.sites removeAllObjects];
     
@@ -108,6 +105,7 @@
     
     
     NSMutableArray *currentsites = [[[Catalogue sharedCatalogue] conditionArguments] objectForKey:@"sites"];
+    int tag = 100;
     
     for (NSString *site in currentsites){
         UILabel *asitelabel = [[UILabel alloc] initWithFrame:CGRectMake(20,YPOS,250,35)];
@@ -115,6 +113,7 @@
         asitelabel.backgroundColor = [UIColor clearColor];
         asitelabel.text = site;
         asitelabel.font = [UIFont fontWithName:@"MarkerFelt-Thin" size:35.0];
+        asitelabel.tag = tag++;
         [sites addObject:asitelabel];
         [self.view addSubview:asitelabel];
         YPOS += 40;
@@ -161,6 +160,7 @@
         return;
     }
     
+         
     if (!editing){//plus button was touched
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationDuration:0.75];

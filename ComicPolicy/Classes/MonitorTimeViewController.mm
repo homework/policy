@@ -204,7 +204,7 @@ BOOL inside = NO;
         [self rotateActivityMonitor:ACTIVE];
     }
     
-    NSMutableDictionary *args =  [(NSMutableDictionary *) [[Catalogue sharedCatalogue] currentConditionArguments] objectForKey:@"timed"];
+    NSMutableDictionary *args =  [(NSMutableDictionary *) [[Catalogue sharedCatalogue] conditionArguments] objectForKey:@"timed"];
     
     NSString *from = [args objectForKey:@"from"];
     NSString *to   = [args objectForKey:@"to"];

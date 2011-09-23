@@ -21,7 +21,7 @@ typedef struct policy_response{
     unsigned int requestid;
     unsigned int pid;
     unsigned int success;
-    char message[1024];
+    char message[1025];
     tstamp_t tstamp;
 }PolicyResponse;
 

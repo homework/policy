@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "Response.h"
 #import "FiredEvent.h"
+#import "PolicyStateObject.h"
 #import "PolicyManager.h"
 
 #include "config.h"
@@ -43,30 +44,28 @@ typedef struct lease_results {
 } DhcpResults;
 
 typedef struct policy_data{
-    char action[5];
+    char action[6];
     unsigned long identifier;
-    char metadata[256];
+    char metadata[257];
     tstamp_t tstamp;
 }PolicyData;
 
 
 typedef struct policy_request{
     unsigned int requestid;
-    char request[8];
+    char request[9];
     unsigned int pid;
-    char pondertalk[1024];
+    char pondertalk[1025];
     tstamp_t tstamp;
 }PolicyRequest;
 
 
 
 
-typedef struct policy_state{
-    unsigned int pid;
-    char state[8];
-    char pondertalk[1024];
-    tstamp_t tstamp;
-}PolicyState;
+typedef struct policy_state_results {
+    unsigned long npolicies;
+    PolicyState **data;
+} PolicyStateResults;
 
 @interface RPCComm : NSObject {
 	
@@ -89,21 +88,25 @@ PolicyResponse *policy_response_convert(Rtab *results);
 void policy_request_free(PolicyRequest *p);
 PolicyRequest *policy_request_convert(Rtab *results);
 
+PolicyStateResults *policy_state_convert(Rtab *results);
 void policy_state_free(PolicyState *p);
-PolicyState *policy_state_convert(Rtab *results);
+void policy_state_results_free(PolicyStateResults *p); 
+tstamp_t processpolicystateresults(char *buf, unsigned int len);
+//PolicyState *policy_state_convert(Rtab *results);
 
 void policy_fired_free(PolicyFired *p);
 PolicyFired *policy_fired_convert(Rtab *results);
 
 
--(id) init:(NSString*) gwaddr;
+-(id) init:(NSString*) gwaddr:(NSString *) callbackaddr;
 
--(BOOL) connect:(NSString *) callbackaddr;
+-(BOOL) connect;
 -(BOOL) send: (void *) query qlen:(unsigned) qlen resp: (void*) resp rsize:(unsigned) rs len:(unsigned *) len;
 //-(BOOL) subscribe:(NSString*)host query:(char*) query;
 
--(BOOL) subscribe_to_policy_response:(NSString *) host;
--(BOOL) subscribe_to_policy_fired:(NSString *) host;
+-(void) subscribe_to_policy_response;
+-(void) subscribe_to_policy_fired;
+-(void) getStoredPolicies;
 -(BOOL) sendquery:(NSString *)q;
 -(void) notifydisconnected:(NSObject*)o;
 -(void) notifyconnected:(NSObject*)o;

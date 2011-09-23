@@ -47,9 +47,33 @@
 
 -(id) init{
     if (self = [super init]){
-       identity = @"-1"; 
+        identity = @"-1"; 
+        status = unsaved;
     }
     return self;
+}
+
+- (void) updateStatus:(NSString *) state{
+    if ([state isEqualToString:@"ENABLED"])
+        status = enabled;
+    else if ([state isEqualToString:@"DISABLED"])
+        status = disabled;
+    else 
+        status = unsaved;
+}
+
+
+-(NSString *) statusAsString{
+    switch (status) {
+        case enabled:
+            return @"active";
+        
+        case disabled:
+            return @"saved (but NOT active)";
+            
+        default:
+            return @"unsaved";
+    }
 }
 
 - (id) initWithPonderString:(NSString *) ponderString{

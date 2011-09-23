@@ -127,7 +127,6 @@
 
 
 - (void)dealloc {
-    NSLog(@"time view in dealloc...");
     [super dealloc];
 	[fromClockFace release];
     [toClockFace release];

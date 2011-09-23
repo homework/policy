@@ -396,7 +396,7 @@ static NSArray *labelArray = [[NSArray alloc] initWithObjects:@"news.bbc.co.uk",
 
 
 - (void)dealloc {
-    NSLog(@"visits view deallocing");
+   
     [super dealloc];
     
 }

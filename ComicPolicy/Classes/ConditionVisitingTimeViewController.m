@@ -91,6 +91,7 @@ bool timerangeselected = false;
         [newargs removeObjectForKey:@"to"];
     }
     
+    
     [[Catalogue sharedCatalogue] setConditionArguments:newargs];
     
 }

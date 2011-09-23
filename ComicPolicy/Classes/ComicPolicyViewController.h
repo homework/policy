@@ -27,7 +27,8 @@
 	UIImageView *saveButton;
     UIImageView *refreshButton;
     UIImageView *resetButton;
-	
+	UIImageView *activateButton;
+    UILabel * statusLabel;
     AVAudioPlayer *tickPlayer;
 	AVAudioPlayer *tockPlayer;
 	
@@ -52,5 +53,6 @@
 @property (nonatomic, retain) NSMutableArray *policyids;
 @property (nonatomic, retain) AVAudioPlayer *tickPlayer;
 @property (nonatomic, retain) AVAudioPlayer *tockPlayer;
+@property (nonatomic, assign) UILabel* statusLabel;
 @end
 

@@ -45,7 +45,6 @@ BOOL toScaled = NO;
     
     NSString *from = [[[Catalogue sharedCatalogue] conditionArguments] objectForKey:@"from"];
     NSString *to = [[[Catalogue sharedCatalogue] conditionArguments] objectForKey:@"to"];
-    
    
     NSArray *fchunks = [from componentsSeparatedByString:@":"];
     NSArray *tchunks = [to componentsSeparatedByString:@":"];                  

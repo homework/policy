@@ -11,7 +11,7 @@
 
 @interface RPCComm (PrivateMethods)
 +(NSString *)getGatewayAddress;
--(BOOL) subscribe: (NSString*) listeninghost service:(char*) service query:(char*) query handler: (void * (void *args)) handler;
+-(void) subscribe: (NSString*) listeninghost service:(char*) service query:(char*) query handler: (void * (void *args)) handler;
 @end
 
 @implementation RPCComm
@@ -29,6 +29,7 @@ static RpcService firedservice, responseservice;
 
 char* responseservicename; 
 char* firedservicename; 
+NSString* callbackaddr;
 
 + (RPCComm *)sharedRPCComm
 {
@@ -47,13 +48,14 @@ char* firedservicename;
     return sRPCComm;
 }
 
--(id) init:(NSString *) gwaddr{
+-(id) init:(NSString *) gwaddr callback:(NSString *) cb{
     self = [super init];
     
     if (self != nil) {
         port = 987;
         
         NSLog(@"WIFI IP ADDR IS %@",gwaddr);
+        callbackaddr = cb;
         
         sprintf(hwdbaddr, [gwaddr UTF8String]);
         
@@ -75,15 +77,15 @@ char* firedservicename;
 }
 
 
--(BOOL) connect:(NSString*) callbackaddr{
+-(BOOL) connect{
 	NSLog(@"connecting to router %s, %d", host, port);
 	rpc = rpc_connect(host, port, "HWDB", 1l);
 	if (rpc){
-        [self subscribe_to_policy_fired:callbackaddr];
-        [self subscribe_to_policy_response:callbackaddr];
-		connected = TRUE;
+        connected = TRUE;
+        [self subscribe_to_policy_fired];
+        [self subscribe_to_policy_response];
+        [self getStoredPolicies];
 		[self performSelectorOnMainThread:@selector(notifyconnected:) withObject:nil waitUntilDone:NO];
-		NSLog(@"successfully connected");
 		return TRUE;
 	}
 	[self performSelectorOnMainThread:@selector(notifydisconnected:) withObject:nil waitUntilDone:NO];
@@ -91,11 +93,21 @@ char* firedservicename;
     return FALSE;
 }
 
+
+-(void) getStoredPolicies{
+     NSString* query = [NSString stringWithFormat:@"SQL:select * from PolicyState\n"];
+    sprintf(sendquery, [query UTF8String]);
+	querylen = strlen(sendquery) + 1;
+    [self send: sendquery qlen:querylen resp: response rsize: sizeof(response) len:length callback:processpolicystateresults];
+}
+
 -(BOOL) sendquery:(NSString *)q{
 	sprintf(sendquery, [q UTF8String]);
 	querylen = strlen(sendquery) + 1;
-	return [self send: sendquery qlen:querylen resp: response rsize: sizeof(response) len:&length];
+	return [self send: sendquery qlen:querylen resp: response rsize: sizeof(response) len:length callback:NULL];
 }
+
+
 
 static void *policy_fired_handler(void *args) {
     printf("in policy fired handler\n");
@@ -209,6 +221,7 @@ void policy_request_free(PolicyRequest *p){
     }
 }
 
+
 void policy_state_free(PolicyState *p){
     if (p) {
         free(p);
@@ -311,7 +324,7 @@ PolicyRequest *policy_request_convert(Rtab *results){
 }
 
 
-
+/*
 PolicyState *policy_state_convert(Rtab *results){
     PolicyState *ans;
 	
@@ -328,14 +341,13 @@ PolicyState *policy_state_convert(Rtab *results){
     
     char **columns;
     columns = rtab_getrow(results, 0);
-	
-    /* populate record */
+
     ans->tstamp = string_to_timestamp(columns[0]);
     ans->pid = atol(columns[1]);
     strncpy(ans->state, columns[2], 8);
     strncpy(ans->pondertalk, columns[4], 1024);
     return ans;
-}
+}*/
 
 
 
@@ -362,6 +374,100 @@ PolicyFired *policy_fired_convert(Rtab *results){
     strncpy(ans->event, columns[2], 512);
     return ans;
 }
+
+
+
+PolicyStateResults *policy_state_convert(Rtab *results) {
+	PolicyStateResults *ans;
+	unsigned int i;
+	
+	if (! results || results->mtype != 0)
+		return NULL;
+	if (!(ans = (PolicyStateResults *)malloc(sizeof(PolicyStateResults))))
+		return NULL;
+	
+	ans->npolicies = results->nrows;
+	ans->data    = (PolicyState **)calloc(ans->npolicies, sizeof(PolicyState *));
+	
+	if (!ans->data){
+		free(ans);
+		return NULL;
+	}
+	
+	for (i = 0; i < ans->npolicies; i++) {
+		char **columns;
+		PolicyState *ps = (PolicyState *)malloc(sizeof(PolicyState));
+		
+		if (!ps) {
+            policy_state_results_free(ans);
+			return NULL;
+		}
+		ans->data[i] = ps;
+		columns = rtab_getrow(results, i);
+		/* populate record */
+		ps->tstamp = string_to_timestamp(columns[0]);
+        ps->pid = atol(columns[1]);
+        strncpy(ps->state, columns[2], 8);
+        strncpy(ps->pondertalk, columns[3], 1024);
+	}
+	return ans;
+}
+
+void policy_state_results_free(PolicyStateResults *p) {
+	unsigned int i;
+	
+    if (p) {
+        for (i = 0; i < p->npolicies && p->data[i]; i++)
+            free(p->data[i]);
+		free(p->data);	
+        free(p);
+    }
+}
+
+
+
+tstamp_t processpolicystateresults(char *buf, unsigned int len) {
+	
+	Rtab *results;
+    char stsmsg[RTAB_MSG_MAX_LENGTH];
+    PolicyStateResults *psr;
+    unsigned long i;
+	tstamp_t last = timestamp_now();
+    results = rtab_unpack(buf, len);
+    
+	if (results && ! rtab_status(buf, stsmsg)) {
+		// rtab_print(results);
+		psr = policy_state_convert(results);
+		// do something with the data pointed to by p 
+        
+		NSLog(@"Retrieved %ld policy records from database\n", psr->npolicies);
+        NSMutableArray *policies = [[NSMutableArray alloc] initWithCapacity:psr->npolicies];
+        
+		for (i = 0; i < psr->npolicies; i++) {
+			PolicyState *ps = psr->data[i];
+			
+			char *s = timestamp_to_string(ps->tstamp);
+			
+			printf("pf readin policy %s and  %s\n", ps->state , ps->pondertalk);
+			PolicyStateObject *psobj = [[PolicyStateObject alloc] initWithPolicyState:ps];
+            NSLog(@"ns read in a policy %d %@ %@\n", psobj.pid, psobj.state, psobj.pondertalk);
+            [policies addObject:psobj];
+			//[psobj release];
+            free(s);
+        }
+		policy_state_results_free(psr);
+        
+        NSAutoreleasePool *autoreleasepool = [[NSAutoreleasePool alloc] init];
+        [[PolicyManager sharedPolicyManager] performSelectorOnMainThread:@selector(setUpWithPolicies:) withObject:policies waitUntilDone:YES];
+        [policies release];
+        [autoreleasepool release];
+
+    }
+    rtab_free(results);
+	
+    return (last);
+}
+
 
 
 void dhcp_free(DhcpResults *p) {
@@ -446,7 +552,7 @@ char *index2action(unsigned int index) {
 
 
 
--(BOOL) subscribe_to_policy_response:(NSString *) host{
+-(void) subscribe_to_policy_response{
   
         char* query = "PolicyResponseLast";
        responseservicename= "PolicyResponseService";
@@ -454,11 +560,11 @@ char *index2action(unsigned int index) {
         if (!responseservice){
             fprintf(stderr, "Failure offering %s service\n", responseservicename);
         }
-        return [self subscribe:host service:responseservicename query:query handler:policy_response_handler];
+         [self subscribe:callbackaddr service:responseservicename query:query handler:policy_response_handler];
     
 }
 
--(BOOL) subscribe_to_policy_fired:(NSString *) host{
+-(void) subscribe_to_policy_fired{
     
         char* query = "PolicyFiredLast";
         firedservicename= "PolicyFiredService";
@@ -468,14 +574,14 @@ char *index2action(unsigned int index) {
             fprintf(stderr, "Failure offering %s service\n", firedservicename);
             //exit(-1);
         }
-        return [self subscribe:host service:firedservicename query:query handler:policy_fired_handler ];
+         [self subscribe:callbackaddr service:firedservicename query:query handler:policy_fired_handler ];
 
 }
 
 
 
 
--(BOOL) subscribe: (NSString*) listeninghost service:(char*) s query:(char*) query handler: (void * (void *args)) handler{
+-(void) subscribe: (NSString*) listeninghost service:(char*) s query:(char*) query handler: (void * (void *args)) handler{
     
     
 	unsigned rlen;
@@ -487,15 +593,6 @@ char *index2action(unsigned int index) {
 	char *target;
 	port = HWDB_SERVER_PORT;
     sprintf(service, s);
-    //service = "PolicyMonitorHandler";
-	/* initialize the RPC system and offer the Callback service */
-	//if (!rpc_init(0)) {
-	//	fprintf(stderr, "Initialization failure for rpc system\n");
-	//	exit(-1);
-    //}
-	
-    
-    
 	
     rpc_details(myhost, &myport);
     
@@ -532,27 +629,26 @@ char *index2action(unsigned int index) {
 }
 
 
--(BOOL) send: (void *) query qlen:(unsigned) qlen resp: (void*) resp rsize:(unsigned) rs len:(unsigned *) len{
+-(void) send: (void *) query qlen:(unsigned) qlen resp: (void*) resp rsize:(unsigned) rs len:(unsigned int) len callback: (tstamp_t (char *buf, unsigned int len)) callback{
 	
 	if (!connected)
 		if (![self connect]){
 			connected = FALSE;
 			[self performSelectorOnMainThread:@selector(notifydisconnected:) withObject:nil waitUntilDone:NO];
-			return FALSE;
 		}
 	
 	if (rpc){
 		@synchronized(rpc){
-			if (rpc_call(rpc, query, qlen, resp, rs, len)){
-				return TRUE;
+			if (rpc_call(rpc, query, qlen, resp, rs, &len)){
+                connected=TRUE;
+                if (callback != NULL)
+                    callback(resp, len);
 			}else{
 				rpc_disconnect(rpc);
-				connected = FALSE;
 				[self performSelectorOnMainThread:@selector(notifydisconnected:) withObject:nil waitUntilDone:NO];
 			}
 		}
 	}
-	return FALSE;
 }
 
 -(void) notifydisconnected:(NSObject *) o{

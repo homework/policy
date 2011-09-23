@@ -59,9 +59,6 @@
 	 * set up the view condition controllers
 	 */
 	
-	
-	//ConditionTypeViewController* conditionTypeViewController = [[ConditionTypeViewController alloc] initWithNibName:nil bundle:nil];
-	//[[Catalogue sharedCatalogue] currentCondition];
 	NSString *controller = [[Catalogue sharedCatalogue] getConditionViewController];
 	
     ConditionViewController *newcontroller = [[[NSClassFromString(controller) alloc] initWithNibName:nil bundle:nil] retain];
@@ -77,7 +74,6 @@
 
 -(void) conditionLoaded:(NSNotification *) n{
     
-    //[[Catalogue sharedCatalogue] currentCondition];
     NSString *controller = [[Catalogue sharedCatalogue] getConditionViewController];
 	
     ConditionViewController *newController = [[[NSClassFromString(controller) alloc] initWithNibName:nil bundle:nil] retain];

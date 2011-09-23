@@ -21,6 +21,7 @@
 @implementation NavigationViewController
 
 @synthesize navigationView;
+@synthesize policyIdLookup;
 
 static float PADDING = 15;
 /*
@@ -37,6 +38,7 @@ static float PADDING = 15;
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
 
+    self.policyIdLookup = [[NSMutableDictionary alloc] init];
     
 	CGFloat ylen = [[UIScreen mainScreen] bounds].size.height;
     UIView *rootView = [[UIView alloc] initWithFrame:CGRectMake(0,0, ylen,50)];	
@@ -73,18 +75,22 @@ static float PADDING = 15;
 	CGFloat xlen = [[UIScreen mainScreen] bounds].size.height;
 	float origin = (xlen / 2) - (barlen / 2);
 	int count = 0;
-	
+	int index = 1;
+    
 	for (UIView *view in self.navigationView.subviews){
      //   NSLog(@"rmoving view from superview///");
 		[view removeFromSuperview];	
 	}
 	
+    [policyIdLookup removeAllObjects];
 	
 	for (NSString *policy in policyids ){
        
        
 		UIImageView *button = [[UIImageView alloc] initWithImage: [UIImage imageNamed:@"empty.png"]];
-		button.tag = [policy intValue];
+		button.tag = index;
+        
+        [policyIdLookup setObject:policy forKey:[NSString stringWithFormat:@"%d", button.tag]];
         
        //UILabel *tmp = [[UILabel alloc] initWithFrame:CGRectMake((count < 9) ? 8 : 3,0,45,47)];
         UILabel *tmp = [[UILabel alloc] initWithFrame:CGRectMake(0,0,45,47)];
@@ -101,6 +107,7 @@ static float PADDING = 15;
 		[self.navigationView addSubview:button];
         [button release];
 		count++;
+        index++;
 	}
 	
 	UIImageView *tmpAdd = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"addnew.png"]];
@@ -128,7 +135,7 @@ static float PADDING = 15;
         [[PolicyManager sharedPolicyManager] newDefaultPolicy];
     }
 	
-	for(UIView *view in self.navigationView.subviews){  ///how come none here yet??
+	for(UIView *view in self.navigationView.subviews){  
        
                
 		if (CGRectContainsPoint(view.frame, touchLocation)){
@@ -140,12 +147,12 @@ static float PADDING = 15;
 					selectedView.transform = CGAffineTransformMakeScale(0.8, 0.8);	
 				}	
                 
-                selectedPolicy = view.tag;
+                selectedPolicy = [policyIdLookup objectForKey:[NSString stringWithFormat:@"%d", view.tag]];
                 
                 selectedView = view;
                 
-               // NSLog(@"SELECTED POLICY IS %d", selectedPolicy);
-                [[PolicyManager sharedPolicyManager] loadPolicy:[NSString stringWithFormat:@"%d",selectedPolicy]];
+                NSLog(@"SELECTED POLICY IS %@", selectedPolicy);
+                [[PolicyManager sharedPolicyManager] loadPolicy:selectedPolicy];
                 
 				//view.transform = CGAffineTransformMakeScale(2.0, 2.0);
 				
@@ -159,7 +166,7 @@ static float PADDING = 15;
     
     Policy *p = [[PolicyManager sharedPolicyManager] currentPolicy];
        
-    selectedPolicy = [p.localid intValue];
+    selectedPolicy = p.localid;
     
     [self updateNavigation];
     //[self updateSelected];
@@ -174,7 +181,9 @@ static float PADDING = 15;
     
     for(UIView *view in self.navigationView.subviews){
         
-        if (view.tag == selectedPolicy){
+        NSString* localId = [policyIdLookup objectForKey:[NSString stringWithFormat:@"%d", view.tag]];
+        
+        if ([localId isEqualToString:selectedPolicy]){
             
             if (selectedView != nil){
                 selectedView.transform = CGAffineTransformMakeScale(0.8, 0.8);	
@@ -220,6 +229,7 @@ static float PADDING = 15;
 
 
 - (void)dealloc {
+    [policyIdLookup release];
     [super dealloc];
 }
 

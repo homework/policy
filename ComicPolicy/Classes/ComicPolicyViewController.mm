@@ -33,6 +33,8 @@
 @synthesize tickPlayer;
 @synthesize tockPlayer;
 @synthesize addNew;
+@synthesize statusLabel;
+
 /* The designated initializer. Override to perform setup that is required before the view is loaded.*/
 
 /*
@@ -91,6 +93,14 @@
 	
 }
 
+-(void) addStatusLabel{
+    self.statusLabel = [[UILabel alloc] initWithFrame:CGRectMake(64, 680, 500, 55)];
+    self.statusLabel.textColor = [UIColor blackColor];
+    self.statusLabel.font = [UIFont fontWithName:@"MarkerFelt-Thin" size:20.0];
+    self.statusLabel.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:statusLabel];
+}
+
 -(void) addSaveAndCancel{
 	UIImageView *tmpCancel = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cancel.png"]];
 	tmpCancel.frame = CGRectMake(900, 680, 55, 57);
@@ -117,6 +127,14 @@
 	[self.view addSubview:tmpReset];
 	[tmpReset release];
     
+    UIImageView *tmpActivate = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"activate.png"]];
+	tmpActivate.frame = CGRectMake(660, 680, 55, 57);
+	activateButton = tmpActivate;
+    activateButton.alpha = 0.0;
+	[self.view addSubview:tmpActivate];
+	[tmpActivate release];
+
+    
 }
 
 
@@ -129,7 +147,8 @@
 	
 	if (CGRectContainsPoint( deleteButton.frame , touchLocation)){
         NSLog(@"delete pressed");
-		[self updateFramePositions];
+        [[PolicyManager sharedPolicyManager] deleteCurrentPolicy];
+		//[self updateFramePositions];
         //[[PolicyManager sharedPolicyManager] policyFired:@"1"];
         
         ///[[PolicyManager sharedPolicyManager] deleteAll];
@@ -140,7 +159,7 @@
 
     }
     else if (CGRectContainsPoint( resetButton.frame , touchLocation)){
-       
+        
         [[PolicyManager sharedPolicyManager] reset];
     }
 	else if (CGRectContainsPoint( saveButton.frame , touchLocation)){
@@ -209,6 +228,18 @@
 
 -(void) pageLoaded:(NSString*)animationID finished:(BOOL)finished context:(void*)context{
    
+    Policy *p = [[PolicyManager sharedPolicyManager] currentPolicy];
+                 
+    self.statusLabel.text = [NSString stringWithFormat:@"This comic is currently %@", [p statusAsString]];
+  
+    
+    if (p.status == disabled){
+       
+        activateButton.alpha = 1.0;
+    }else{
+       
+        activateButton.alpha = 0.0;
+    }
 }
 
 - (void)playTick{
@@ -445,6 +476,7 @@
     
    
 	[self addNavigationView];
+    [self addStatusLabel];
 
 }
 

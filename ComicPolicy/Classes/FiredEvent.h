@@ -17,7 +17,7 @@
 
 typedef struct policy_fired{
     unsigned int pid;
-    char event[512];
+    char event[513];
     tstamp_t tstamp;
 }PolicyFired;
 

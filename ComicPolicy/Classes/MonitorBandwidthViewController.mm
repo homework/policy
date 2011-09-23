@@ -136,11 +136,8 @@ static float KBDIVISOR = 1024;
     
     NSDictionary *data = [notification userInfo];
     NSString *responseString = [data objectForKey:@"data"];
-    NSLog(@"response string is %@", responseString);
     NSArray* results = (NSArray *) [jsonParser objectWithString:responseString error:nil];
-    NSLog(@"got results %@ %@ %@",[results objectAtIndex:0] , [results objectAtIndex:1], [results objectAtIndex:2]);
     [self addReading: [[results objectAtIndex:0] longLongValue] rangeByteCount:[[results objectAtIndex:1] longLongValue] limitByteCount:[[results objectAtIndex:2] longLongValue]];
-    //NSArray *sites  = (NSArray *) [jsonParser objectWithString:responseString error:nil];
 }
 
 -(void) addReading:(long) currentByteCount rangeByteCount:(long) rangeByteCount limitByteCount:(long) limitByteCount{
