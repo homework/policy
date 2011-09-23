@@ -62,6 +62,7 @@ CRecord *ctable_lookup(RpcEndpoint *ep) {
     unsigned hash = endpoint_hash(ep, CTABLE_SIZE);
     CRecord *r, *ans = NULL;
 
+
     for (r = ctable[hash]; r != NULL; r = r->next)
         if (endpoint_equal(ep, r->ep)) {
             ans = r;

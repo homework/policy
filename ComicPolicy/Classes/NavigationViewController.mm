@@ -82,7 +82,7 @@ static float PADDING = 15;
 	
 	for (NSString *policy in policyids ){
        
-        NSLog(@"in here adding button %@", policy);
+       
 		UIImageView *button = [[UIImageView alloc] initWithImage: [UIImage imageNamed:@"empty.png"]];
 		button.tag = [policy intValue];
         

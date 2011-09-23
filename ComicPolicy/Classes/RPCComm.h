@@ -7,6 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Response.h"
+#import "FiredEvent.h"
+#import "PolicyManager.h"
 
 #include "config.h"
 #include "srpc.h"
@@ -47,6 +50,24 @@ typedef struct policy_data{
 }PolicyData;
 
 
+typedef struct policy_request{
+    unsigned int requestid;
+    char request[8];
+    unsigned int pid;
+    char pondertalk[1024];
+    tstamp_t tstamp;
+}PolicyRequest;
+
+
+
+
+typedef struct policy_state{
+    unsigned int pid;
+    char state[8];
+    char pondertalk[1024];
+    tstamp_t tstamp;
+}PolicyState;
+
 @interface RPCComm : NSObject {
 	
 }
@@ -62,11 +83,27 @@ uint64_t string_to_mac(char *s);
 void policy_free(PolicyData *p);
 PolicyData *policy_convert(Rtab *results);
 
+void policy_response_free(PolicyResponse *p);
+PolicyResponse *policy_response_convert(Rtab *results);
+
+void policy_request_free(PolicyRequest *p);
+PolicyRequest *policy_request_convert(Rtab *results);
+
+void policy_state_free(PolicyState *p);
+PolicyState *policy_state_convert(Rtab *results);
+
+void policy_fired_free(PolicyFired *p);
+PolicyFired *policy_fired_convert(Rtab *results);
+
+
 -(id) init:(NSString*) gwaddr;
 
--(BOOL) connect;
+-(BOOL) connect:(NSString *) callbackaddr;
 -(BOOL) send: (void *) query qlen:(unsigned) qlen resp: (void*) resp rsize:(unsigned) rs len:(unsigned *) len;
--(BOOL) subscribe:(NSString*)host query:(char*) query;
+//-(BOOL) subscribe:(NSString*)host query:(char*) query;
+
+-(BOOL) subscribe_to_policy_response:(NSString *) host;
+-(BOOL) subscribe_to_policy_fired:(NSString *) host;
 -(BOOL) sendquery:(NSString *)q;
 -(void) notifydisconnected:(NSObject*)o;
 -(void) notifyconnected:(NSObject*)o;

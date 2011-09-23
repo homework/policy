@@ -8,14 +8,19 @@
 
 #import <Foundation/Foundation.h>
 
+typedef enum {
+    unsaved,
+    enabled,
+    disabled
+}PolicyStatus;
 
 @interface Policy : NSObject {
+    
     
     NSString*   localid;
     
     NSString*   identity;
     
-    //NSString*   subjectowner;
     NSString*   subjectdevice;
     
     NSString*       conditiontype;
@@ -26,7 +31,11 @@
     NSMutableDictionary*    actionarguments;
     
     BOOL fired;
+    
+    PolicyStatus status;
 }
+
+
 
 - (id)initWithDictionary:(NSDictionary *)aDictionary;
 - (id)initWithPolicy:(Policy *)aPolicy;
@@ -47,5 +56,7 @@
 @property(nonatomic, copy) NSMutableDictionary*  actionarguments;
 
 @property(nonatomic, assign)  BOOL  fired;
+@property(nonatomic, assign) PolicyStatus status;
+
 
 @end

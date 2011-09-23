@@ -26,6 +26,7 @@
 @synthesize networkQueue;
 @synthesize rootURL;
 
+
 + (NetworkManager *)sharedManager
 {
     static NetworkManager * sNetworkManager;
@@ -50,9 +51,11 @@
     self = [super init];
     if (self != nil) {
         
+   // [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(connected:) name:@"connected" object:nil];
+        
         NSString *gwaddr = [self getGatewayAddress];
         
-        NSString *myaddr = [self getMyAddress];
+       NSString *myaddr = [self getMyAddress];
         
         //NSString *gwaddr = @"localhost";
       
@@ -72,16 +75,23 @@
         NSLog(@"starting to connect to the hwdb directly...");
         [[RPCComm sharedRPCComm] init:gwaddr];
         
-        char *query = "PolicyEvents";
+        BOOL success = [[RPCComm sharedRPCComm] connect:myaddr];
+        NSLog(@"connected %s", success ? "SUCCESSFULLY" : "UNSUCCESSFULLY"); 
+
         
-        NSLog(@"subscribing....");
-        [[RPCComm sharedRPCComm] subscribe:myaddr query:query];
+    
          
         
-        BOOL success = [[RPCComm sharedRPCComm] connect];
-        NSLog(@"connected %s", success ? "SUCCESSFULLY" : "UNSUCCESSFULLY"); 
     }
     return self;
+}
+
+
+
+-(void) subscribe:(NSTimer *)t{
+   NSString *myaddr = [self getMyAddress];
+   [[RPCComm sharedRPCComm] subscribe_to_policy_fired:myaddr];
+    [[RPCComm sharedRPCComm] subscribe_to_policy_response:myaddr];
 }
 
 -(NSString *)getMyAddress

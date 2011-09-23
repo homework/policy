@@ -271,7 +271,6 @@ NSMutableDictionary *tree;
 }
 
 -(void) setConditionArguments:(NSMutableDictionary *) args{
-    NSLog(@"setting condtion arguments %@", [self currentCondition]);
     
     NSMutableDictionary* currentArgs = [self conditionArguments];
     for (NSObject *key in [args allKeys]){
@@ -279,7 +278,6 @@ NSMutableDictionary *tree;
     }
     
     [currentConditionArguments setObject:currentArgs forKey:[self currentCondition]];
-    NSLog(@"condition args is now %@", [self conditionArguments]);
 }
 
 -(NSString*) currentCondition{
@@ -340,8 +338,6 @@ NSMutableDictionary *tree;
 
 -(void) setActionArguments:(NSMutableDictionary *) args{
     
-    NSLog(@"setting action arguments %@", args);
-    NSLog(@"current args is %@", [self actionArguments]);
     
     NSMutableDictionary* currentArgs = [self actionArguments];
     
@@ -350,7 +346,7 @@ NSMutableDictionary *tree;
     }
     
     [currentActionArguments setObject:currentArgs forKey:[self currentActionType]];
-    NSLog(@"after args is %@", [self actionArguments]);
+   
 }
 
 
@@ -477,7 +473,6 @@ NSMutableDictionary *tree;
 
 -(NSString *) currentActionSubjectImage{
 	NSString *subject = [self currentActionSubject];
-    NSLog(@"subject is %@", subject);
 	NSDictionary *images = (NSDictionary *) [imageLookup objectForKey:subject];
     NSDictionary *action =  (NSDictionary*) [images objectForKey:currentActionType];
     NSString *image = [action objectForKey:@"action"];
@@ -589,7 +584,7 @@ NSMutableDictionary *tree;
 -(void) setAction:(NSString *) action subject:(NSString*) subject options:(NSMutableDictionary*)arguments{
     
     
-    NSLog(@"**+> setting action: %@ subject: %@  options: %@", action, subject, arguments);
+   
     int index = 0;
     [currentActionArguments removeAllObjects];
   
@@ -690,8 +685,7 @@ NSMutableDictionary *tree;
 
 -(void) parseCatalogue:(NSString*) catalogue{
     
-   // NSLog(@"in parse catalogue.....");
-    
+   
     SBJsonParser *jsonParser = [SBJsonParser new];
     
     NSDictionary *data = nil;

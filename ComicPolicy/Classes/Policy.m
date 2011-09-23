@@ -41,9 +41,16 @@
 @synthesize actiontype;
 @synthesize actionarguments;
 
+@synthesize status;
 @synthesize fired;
 
 
+-(id) init{
+    if (self = [super init]){
+       identity = @"-1"; 
+    }
+    return self;
+}
 
 - (id) initWithPonderString:(NSString *) ponderString{
     
@@ -94,7 +101,6 @@
 
         [self generateCondition:event  time:time];
         [self generateAction:action applyfor:applyfor];
-        
     }
     return self;
 }
@@ -253,6 +259,7 @@
         self.actiontype         = aPolicy.actiontype;
         self.actionarguments    = aPolicy.actionarguments;
         
+        self.identity = aPolicy.identity;
         self.fired = NO;
     
     }
@@ -275,30 +282,21 @@
 }
   
 -(NSString *) toPonderString{
-    
-    
-   
     NSString* conditionstring = [self generatePonderTalkConditionString];
     NSString* actionstring    = [self generatePonderTalkActionString];
     NSString* policyString = [NSString stringWithFormat:@"pw/hwpe addPolicy:\"%@\" %@ %@", @"an example policy", conditionstring, actionstring];
-         
-    
-    [self initWithPonderString:policyString];
-    
     return policyString;
-    
-    
-    
 }
 
 -(void) print{
-  //  NSLog(@"subject owner %@", subjectowner);
-    NSLog(@"subject device %@", subjectdevice);
-    NSLog(@"condition type %@", conditiontype);
-    NSLog(@"condition arguments %@", conditionarguments);
-    NSLog(@"action subject %@", actionsubject);
-    NSLog(@"action type is %@", actiontype);
-    NSLog(@"action arguments is %@", actionarguments);
+    NSLog(@"PRINTOUT OF THE POLICY localid %@  globalid %@{", localid, identity);
+    NSLog(@"    subject device %@", subjectdevice);
+    NSLog(@"    condition type %@", conditiontype);
+    NSLog(@"    condition arguments %@", conditionarguments);
+    NSLog(@"    action subject %@", actionsubject);
+    NSLog(@"    action type is %@", actiontype);
+    NSLog(@"    action arguments is %@", actionarguments);
+    NSLog(@"}"); 
 }
 
 -(NSString *) generatePonderTalkConditionString{
@@ -407,7 +405,6 @@
         self.actionsubject      = [action valueForKey:@"subject"];
         self.actiontype         = [action valueForKey:@"type"];
         self.actionarguments    = (NSMutableDictionary*) [action valueForKey:@"arguments"];
-    
     }
     
     return self;

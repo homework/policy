@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 @class Policy;
+@class Response;
+@class FiredEvent;
 
 @interface PolicyManager : NSObject {
     
@@ -34,7 +36,7 @@
 -(void) deleteAll;
 -(void) newDefaultPolicy;
 -(void) policyFired:(NSString *) policyid;
-
+-(void) handlePolicyResponse:(Response *) response;
 
 -(BOOL) hasFiredForSubject:(NSString *)subject;
 -(BOOL) hasFired;

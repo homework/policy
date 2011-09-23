@@ -39,7 +39,6 @@ BOOL toScaled = NO;
 
 -(void) initialiseClocks{
     
-    NSLog(@"----------------------> initing clocks.......%@", [[Catalogue sharedCatalogue] conditionArguments]);
     
     [conditionTimeView.toAMPM addTarget:self action:@selector(AMPMClicked:) forControlEvents:UIControlEventTouchUpInside];
     [conditionTimeView.fromAMPM addTarget:self action:@selector(AMPMClicked:) forControlEvents:UIControlEventTouchUpInside];
@@ -47,8 +46,7 @@ BOOL toScaled = NO;
     NSString *from = [[[Catalogue sharedCatalogue] conditionArguments] objectForKey:@"from"];
     NSString *to = [[[Catalogue sharedCatalogue] conditionArguments] objectForKey:@"to"];
     
-    NSLog(@"from = %@ to = %@", from, to);
-    
+   
     NSArray *fchunks = [from componentsSeparatedByString:@":"];
     NSArray *tchunks = [to componentsSeparatedByString:@":"];                  
     

@@ -1,0 +1,34 @@
+pe/hwpe addPolicy:"Tom's example blocking 1"
+event:#("visits" "*" "facebook.com" "ebay.com")
+action:#("block" "10.2.0.9")
+
+pe/hwpe addPolicy:"Tom's example blocking 2"
+event:#("visits" "10.2.0.21" "facebook.com" "ebay.com")
+action:#("block" "10.2.0.21")
+
+pe/hwpe addPolicy:"Tom's example blocking 3"
+event:#("visits" "10.2.0.9" "facebook.com" "ebay.com")
+action:#("block" "10.2.0.21")
+for:#("120" "m")
+
+pe/hwpe addPolicy:"Tom's example blocking 5"
+time:#("18:00" "00:00" "*")
+event:#("visits" "10.2.0.9" "facebook.com" "ebay.com")
+action:#("block" "10.2.0.21")
+
+pe/hwpe addPolicy:"Tom's example blocking 9"
+event:#("allowance" "10.2.0.9" "0.15" "*")
+action:#("block" "10.2.0.21")
+
+pe/hwpe addPolicy:"Tom's example blocking 9"
+event:#("allowance" "*" "0.15" "*")
+action:#("block" "10.2.0.21")
+
+pe/hwpe addPolicy:"Tom's example notification 1"
+event:#("visits" "10.2.0.9" "facebook.com" "ebay.com")
+action:#("notify" "dad:phone")
+
+pe/hwpe addPolicy:"Tom's example prio 1"
+event:#("visits" "10.2.0.9" "facebook.com" "ebay.com")
+action:#("prio" "10.2.0.21" "high")
+for:#("10" "m")

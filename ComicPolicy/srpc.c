@@ -177,8 +177,8 @@ static void *reader(void *args) {
         if (cmd >= CMD_LOW && cmd <= CMD_HIGH) {
             //printf("%s from %s:%05u:%08lx; seqno = %ld, frag/nfrag = %u/%u\n",
               //     cmdnames[cmd], sp, pt, sb, seqno, fnum, nfrags);
-            printf("%s from %s:%05u:%08lx; seqno = %ld, frag/nfrag = %u/%u\n",
-                   cmdnames[cmd], sp, pt, sb, seqno, fnum, nfrags);
+           // printf("%s from %s:%05u:%08lx; seqno = %ld, frag/nfrag = %u/%u\n",
+             //      cmdnames[cmd], sp, pt, sb, seqno, fnum, nfrags);
 
         } else {
             errorf("Illegal command received: %d\n", cmd);

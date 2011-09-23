@@ -14,6 +14,8 @@
 #import "ASIHTTPRequest.h"
 #import "Policy.h"
 #import "RPCComm.h"
+#import "Response.h"
+#import "FiredEvent.h"
 
 @interface PolicyManager()
 -(void) readInPolicies:(NSMutableDictionary *) policydict;
@@ -21,7 +23,9 @@
 -(void) newDefaultPolicy;
 -(void) saveCurrentPolicy;
 -(void) readPoliciesFromFile;
-
+-(void) createSnapshot:(Policy*) p;
+-(NSString *) encodePolicyForDatabase:(NSString *)policy;
+-(NSString *) decodePolicyFromDatabase:(NSString *)policy;
 
 -(NSMutableDictionary*) convertToTypedHashtable:(NSMutableDictionary*)dict;
 -(NSDictionary *) convertToTypedArray:(NSArray *) array;
@@ -55,6 +59,7 @@ static int localId;
     // any thread, but serialised by +sharedPolicyManager
     self = [super init];
     if (self != nil) {
+        localId = 1;
         [self readPoliciesFromFile];
     }
     return self;
@@ -69,7 +74,7 @@ static int localId;
     
     NSScanner *scanner = [NSScanner scannerWithString:content];
     
-    localId = 1;
+  
     localLookup    = [[[NSMutableDictionary alloc] init] retain];
     self.policies  = [[NSMutableDictionary alloc] init];
     self.policyids = [[NSMutableArray alloc] init];
@@ -78,9 +83,11 @@ static int localId;
         NSString *pstring;
         [scanner scanUpToString:@"\n\n" intoString:&pstring];
         Policy *p = [[Policy alloc] initWithPonderString:pstring];
-        NSString* policyid = [NSString stringWithFormat:@"%d",localId++];
+        NSString* policyid = [NSString stringWithFormat:@"%d",localId];
+        [p setLocalid:policyid];
         [policies setObject:p forKey:policyid];
         [policyids addObject:policyid];
+        localId++;
     }
 
     //self.policyids = [[NSMutableArray alloc] initWithArray: [policies allKeys]];
@@ -198,10 +205,10 @@ static int localId;
 }
 
 -(void) loadFirstPolicy{
+    
     if (self.policyids != nil){
-      
         [self loadPolicy:[policyids objectAtIndex:0]];
-        
+        self.defaultPolicy = [[Policy alloc] initWithPolicy:currentPolicy];
     }
 }
 
@@ -216,14 +223,20 @@ static int localId;
 
 
 -(void) newDefaultPolicy{
+   
+    NSLog(@"**************************************** creating a NEW DEFAULT POLICY ****************************************");
     
     Policy *apolicy  = [[Policy alloc] initWithPolicy:defaultPolicy];
 
+    apolicy.status = unsaved;
+    
     [apolicy setLocalid:[NSString stringWithFormat:@"%d",localId++]];
 
     [policies setObject:apolicy forKey:apolicy.localid];
     
     [policyids addObject:apolicy.localid];
+    
+    NSLog(@"**************************************** polidy id is %@ ( %d ) ****************************************", apolicy.localid, [apolicy.localid intValue]);
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"totalPoliciesChanged" object:nil userInfo:nil];
 }
@@ -246,14 +259,15 @@ static int localId;
     if (apolicy != nil){
         NSLog(@"LOADED:");
         [apolicy print];
-         self.currentPolicy = apolicy;
+        
         
         [[Catalogue sharedCatalogue]  setSubjectDevice:apolicy.subjectdevice];
         
         [[Catalogue sharedCatalogue] setCondition:apolicy.conditiontype options:apolicy.conditionarguments];
-        //should take an array of arguments for 'option'
        
         [[Catalogue sharedCatalogue] setAction:apolicy.actiontype subject:apolicy.actionsubject options:apolicy.actionarguments];
+    
+        self.currentPolicy = apolicy;
         
     }
     
@@ -261,10 +275,10 @@ static int localId;
 }
 
 
--(void) policyFired:(NSString *) globalpolicyid{
-    NSLog(@"POLICY FIRED>>>>>>>>> global policy id %@", globalpolicyid);
+-(void) policyFired:(FiredEvent *) event{
+    NSLog(@"POLICY FIRED>>>>>>>>> global policy id %d", event.pid);
    
-    NSString *localid = [localLookup objectForKey:globalpolicyid];
+    NSString *localid = [localLookup objectForKey: [NSString stringWithFormat:@"%d", event.pid]];
     
     NSLog(@"localpolicy id is  %@", localid);
     
@@ -278,32 +292,111 @@ static int localId;
 }
 
 
+-(NSString *) encodePolicyForDatabase:(NSString *)policy{
+    
+    NSError *error = NULL;
+    
+    NSRegularExpression *quoteregex = [NSRegularExpression regularExpressionWithPattern:@"\"" options:NSRegularExpressionCaseInsensitive error:&error];
+    
+    policy = [quoteregex stringByReplacingMatchesInString:policy options:0 range:NSMakeRange(0, [policy length]) withTemplate:@"@"];
+    
+    return policy;
+}
+
+-(NSString *) decodePolicyFromDatabase:(NSString *)policy{
+    NSError *error = NULL;
+    
+    NSRegularExpression *atregex = [NSRegularExpression regularExpressionWithPattern:@"@" options:NSRegularExpressionCaseInsensitive error:&error];
+    
+    policy = [atregex stringByReplacingMatchesInString:policy options:0 range:NSMakeRange(0, [policy length]) withTemplate:@"\""];
+    
+    return policy;
+}
+
 -(NSString *) createPonderTalk{
     [self saveCurrentPolicy];
     NSLog(@"current policy is %@", [currentPolicy toPonderString]);
     return @"";
 }
 
+-(void) handlePolicyResponse:(Response *) pr{
+    
+        NSLog(@"OK - handle policy response %u;%u;%u;%@\n", pr.requestid, pr.pid, pr.success, pr.message);
+    
+        /*
+         * Reconstruct the policy from the message and then save representation. 
+         */
+        NSString* ponderString = [self decodePolicyFromDatabase:pr.message];
+        
+        NSLog(@"got a policy string %@", ponderString);
+        
+        Policy *tosave = [[Policy alloc] initWithPonderString:ponderString];
+        tosave.localid  = [NSString stringWithFormat:@"%d",pr.requestid];
+        tosave.identity = [NSString stringWithFormat:@"%d",pr.pid];
+        
+        NSLog(@"saved policy is ");
+        [tosave print];
+    
+        [localLookup setObject:tosave.localid forKey:tosave.identity];
+        [policies setObject:tosave forKey:tosave.localid];
+        [self loadPolicy:tosave.localid];
+        //Policy *p = [policies objectForKey:[NSString stringWithFormat:@"%d", pr.requestid]];
+    
+        //[localLookup objectForKey:[NSString stringWithFormat:@"%d", pr.requestid]];
+        //p.identity = [NSString stringWithFormat:@"%d", pr.pid];
+        //[localLookup setObject: p.localid  forKey: p.identity];
+        //[policies setObject:p forKey:p.localid];
+        //currentPolicy = p;
+        
+    
+        //[[NSNotificationCenter defaultCenter] postNotificationName:@"saveRequestComplete" object:nil userInfo:nil];
+       
+        //NSLog(@"after save policy is ");
+        //[currentPolicy print];
+}
 
 -(NSString*) savePolicyToHWDB{
-    NSError *error = NULL;
+   
+    Policy *p = [[Policy alloc] init];
+    
+    [self createSnapshot:p];
+    
+        
+    NSString *policystr = [p toPonderString];
+    
+    policystr = [self encodePolicyForDatabase:policystr];
+    
+    NSLog(@"created a snapshot as follows");
+    [p print];
+
+    NSLog(@"resulting policy string is %@", policystr);
     
     
-    NSString *policy = [currentPolicy toPonderString];
-       
     
-    NSRegularExpression *quoteregex = [NSRegularExpression regularExpressionWithPattern:@"\"" options:NSRegularExpressionCaseInsensitive error:&error];
+    int identity = [p.identity isEqualToString:@"-1"] ? 0 :[p.identity intValue];
     
-    policy = [quoteregex stringByReplacingMatchesInString:policy options:0 range:NSMakeRange(0, [policy length]) withTemplate:@"@"];
+    NSLog(@"the int value of %@ is %d", p.identity, [p.identity intValue]);
     
+    NSString* query = [NSString stringWithFormat:@"SQL:insert into PolicyRequest values ('%d', \"%@\", '%d', \"%@\")\n", [p.localid intValue], @"CREATE", identity, policystr];
     
+    NSLog(@"resulting query %@", query);
+
+    [p release];
+    
+    [[RPCComm sharedRPCComm] sendquery:query];
+
     // NSLog(@"querys is %@", policy);
     
    /* NSString* query = [NSString stringWithFormat:@"SQL:insert into PolicyRequest values ('%d', \"%@\", '%d', \"%@\")\n", 1, @"CREATE", 0, policy];*/
     
-    NSString *query = [NSString stringWithFormat:@"SQL:insert into Policies values (\"%@\", '%d', \"@\")", @"help", 6, @"me"];
+   /*NSString *query = [NSString stringWithFormat:@"SQL:insert into PolicyResponse values ('%d', '%d', '%d', \"@\")", 1, 2,3, @"amessage"];
 
     [[RPCComm sharedRPCComm] sendquery:query];
+    
+    query = [NSString stringWithFormat:@"SQL:insert into PolicyFired values ('%d', \"@\")", 1, @"fired"];
+    
+   [[RPCComm sharedRPCComm] sendquery:query];
+    */
     return @"";
 }
 /*
@@ -423,7 +516,7 @@ static int localId;
     [localLookup release];
     [policies release];
     [policyids release];
-    [self createDefaultStartPolicy];
+    //[self createDefaultStartPolicy];
 }
 
 - (void)addedRequestComplete:(ASIHTTPRequest *)request
@@ -450,19 +543,26 @@ static int localId;
 
 -(void) saveCurrentPolicy{
     currentPolicy.subjectdevice = [[Catalogue sharedCatalogue] currentSubjectDevice];
-    //currentPolicy.subjectowner =  [[Catalogue sharedCatalogue] currentSubjectOwner];
     
     currentPolicy.conditiontype      = [[Catalogue sharedCatalogue] currentCondition];
     currentPolicy.conditionarguments = [[Catalogue sharedCatalogue] conditionArguments];
     
     currentPolicy.actionarguments   = [[Catalogue sharedCatalogue] actionArguments];
-    //[currentPolicy.actionarguments setObject:[[Catalogue sharedCatalogue] currentAction] forKey:@"type"];
-    //[[NSArray alloc] initWithObjects:[[Catalogue sharedCatalogue] currentAction], nil];
     currentPolicy.actionsubject     = [[Catalogue sharedCatalogue] currentActionSubject];
     currentPolicy.actiontype        = [[Catalogue sharedCatalogue] currentActionType];
     currentPolicy.fired = NO;
 }
 
+-(void)createSnapshot: (Policy*) p{
+    p.identity           = currentPolicy.identity;
+    p.localid            = currentPolicy.localid;
+    p.subjectdevice      = [[Catalogue sharedCatalogue] currentSubjectDevice];
+    p.conditiontype      = [[Catalogue sharedCatalogue] currentCondition];
+    p.conditionarguments = [[Catalogue sharedCatalogue] conditionArguments];
+    p.actionarguments    = [[Catalogue sharedCatalogue] actionArguments];
+    p.actionsubject      = [[Catalogue sharedCatalogue] currentActionSubject];
+    p.actiontype         = [[Catalogue sharedCatalogue] currentActionType];
+}
 
 
 

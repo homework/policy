@@ -59,12 +59,16 @@ SRecord *stable_create(char *serviceName) {
 }
 
 SRecord *stable_lookup(char *name) {
+    
+    /*
+     * modified by tlodge to check for r->s_name = NULL condition
+     */
     int hv = hash(name);
     SRecord *r, *ans = NULL;
 
     pthread_mutex_lock(&mutex);
     for (r = stable[hv]; r != NULL; r = r->s_next)
-        if (strcmp(r->s_name, name) == 0) {
+        if (r->s_name != NULL && strcmp(r->s_name, name) == 0) {
             ans = r;
             break;
         }

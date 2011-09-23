@@ -11,6 +11,7 @@
 
 @interface RPCComm (PrivateMethods)
 +(NSString *)getGatewayAddress;
+-(BOOL) subscribe: (NSString*) listeninghost service:(char*) service query:(char*) query handler: (void * (void *args)) handler;
 @end
 
 @implementation RPCComm
@@ -24,9 +25,10 @@ static char response[SOCK_RECV_BUF_LEN];
 static char sendquery[SOCK_RECV_BUF_LEN];
 static unsigned querylen;
 static unsigned length;
-static int sig_received;
-static RpcService rps;
+static RpcService firedservice, responseservice;
 
+char* responseservicename; 
+char* firedservicename; 
 
 + (RPCComm *)sharedRPCComm
 {
@@ -49,7 +51,6 @@ static RpcService rps;
     self = [super init];
     
     if (self != nil) {
-         
         port = 987;
         
         NSLog(@"WIFI IP ADDR IS %@",gwaddr);
@@ -74,17 +75,20 @@ static RpcService rps;
 }
 
 
--(BOOL) connect{
+-(BOOL) connect:(NSString*) callbackaddr{
 	NSLog(@"connecting to router %s, %d", host, port);
 	rpc = rpc_connect(host, port, "HWDB", 1l);
 	if (rpc){
+        [self subscribe_to_policy_fired:callbackaddr];
+        [self subscribe_to_policy_response:callbackaddr];
 		connected = TRUE;
 		[self performSelectorOnMainThread:@selector(notifyconnected:) withObject:nil waitUntilDone:NO];
 		NSLog(@"successfully connected");
 		return TRUE;
 	}
 	[self performSelectorOnMainThread:@selector(notifydisconnected:) withObject:nil waitUntilDone:NO];
-	return FALSE;
+
+    return FALSE;
 }
 
 -(BOOL) sendquery:(NSString *)q{
@@ -93,10 +97,54 @@ static RpcService rps;
 	return [self send: sendquery qlen:querylen resp: response rsize: sizeof(response) len:&length];
 }
 
-
-
-static void *handler(void *args) {
+static void *policy_fired_handler(void *args) {
+    printf("in policy fired handler\n");
+    char event[SOCK_RECV_BUF_LEN], resp[100];
+	char stsmsg[RTAB_MSG_MAX_LENGTH];
+	RpcConnection sender;
+	unsigned len, rlen;
+	
+    Rtab *results;
     
+	PolicyFired *pf;
+	
+    while ((len = rpc_query(firedservice, &sender, event, SOCK_RECV_BUF_LEN)) > 0) {
+        
+		sprintf(resp, "OK");
+		rlen = strlen(resp) + 1;
+		rpc_response(firedservice, sender, resp, rlen);
+		event[len] = '\0';
+		results = rtab_unpack(event, len);
+		if (results && ! rtab_status(event, stsmsg)) {
+			printf("got fired results\n");
+			/* 
+ 			 * 
+ 			 * Do process */
+            
+			pf = policy_fired_convert(results);
+			
+			/* print results */
+            if (pf != NULL){
+                char *s = timestamp_to_string(pf->tstamp);
+                printf( "%s %u %s\n", s, pf->pid, pf->event);
+                NSAutoreleasePool *autoreleasepool = [[NSAutoreleasePool alloc] init];
+                FiredEvent *fe = [[FiredEvent alloc] initWithPolicyFiredEvent:pf];
+                [[PolicyManager sharedPolicyManager] performSelectorOnMainThread:@selector(policyFired:) withObject:fe waitUntilDone:YES];
+                [fe release];
+                [autoreleasepool release];
+                free(s);
+                
+                policy_fired_free(pf);
+            }
+		}
+		rtab_free(results);
+	}
+	return (args) ? NULL : args;	/* unused warning subterfuge */
+}
+
+static void *policy_response_handler(void *args) {
+    
+    printf("in policy response handler\n");
    	char event[SOCK_RECV_BUF_LEN], resp[100];
 	char stsmsg[RTAB_MSG_MAX_LENGTH];
 	RpcConnection sender;
@@ -104,32 +152,36 @@ static void *handler(void *args) {
 	
     Rtab *results;
     
-	PolicyData *pd;
+	PolicyResponse *pr;
 	
-    while ((len = rpc_query(rps, &sender, event, SOCK_RECV_BUF_LEN)) > 0) {
-
+    while ((len = rpc_query(responseservice, &sender, event, SOCK_RECV_BUF_LEN)) > 0) {
+        
 		sprintf(resp, "OK");
 		rlen = strlen(resp) + 1;
-		rpc_response(rps, sender, resp, rlen);
+		rpc_response(responseservice, sender, resp, rlen);
 		event[len] = '\0';
 		results = rtab_unpack(event, len);
 		if (results && ! rtab_status(event, stsmsg)) {
-			printf("got results\n");
+			printf("got response results\n");
 			/* 
  			 * 
  			 * Do process */
             
-			pd = policy_convert(results);
+			pr = policy_response_convert(results);
 			
 			/* print results */
-            if (pd != NULL){
-                char *s = timestamp_to_string(pd->tstamp);
-                printf( "%s %s;%lu;%s\n", s, pd->action, pd->identifier, pd->metadata);
-            
+            if (pr != NULL){
+                char *s = timestamp_to_string(pr->tstamp);
+                printf( "%s %u;%u;%u;%s\n", s, pr->requestid, pr->pid, pr->success, pr->message);
+                
+                NSAutoreleasePool *autoreleasepool = [[NSAutoreleasePool alloc] init];
+                Response *r = [[Response alloc] initWithPolicyResponse:pr];
+                [[PolicyManager sharedPolicyManager] performSelectorOnMainThread:@selector(handlePolicyResponse:) withObject:r waitUntilDone:YES];
+                [r release];
+                [autoreleasepool release];
+                
                 free(s);
-                policy_free(pd);
-            }else{
-                printf("got a load of rows...");
+                policy_response_free(pr);
             }
 		}
 		rtab_free(results);
@@ -144,6 +196,32 @@ void policy_free(PolicyData *p){
         free(p);
     }
 }
+
+void policy_response_free(PolicyResponse *p){
+    if (p) {
+        free(p);
+    }
+}
+
+void policy_request_free(PolicyRequest *p){
+    if (p) {
+        free(p);
+    }
+}
+
+void policy_state_free(PolicyState *p){
+    if (p) {
+        free(p);
+    }
+}
+
+void policy_fired_free(PolicyFired *p){
+    if (p) {
+        free(p);
+    }   
+}
+
+
 
 PolicyData *policy_convert(Rtab *results){
 	
@@ -161,9 +239,9 @@ PolicyData *policy_convert(Rtab *results){
     }
 	
 	//if (results->nrows != 1){
-     //   printf("returning null as nrows > 1\n");
-      //  return NULL;
-   // }
+    //   printf("returning null as nrows > 1\n");
+    //  return NULL;
+    // }
     
     char **columns;
     columns = rtab_getrow(results, 0);
@@ -176,6 +254,115 @@ PolicyData *policy_convert(Rtab *results){
     return ans;
     
 }
+
+
+
+PolicyResponse *policy_response_convert(Rtab *results){
+    PolicyResponse *ans;
+	
+	if (! results || results->mtype != 0){
+        printf("returning null as !results!\n");
+        return NULL;
+        
+    }
+	
+    if (!(ans = (PolicyResponse *)malloc(sizeof(PolicyResponse)))){
+		printf("returning null as cannot malloc\n");
+        return NULL;
+    }
+    
+    char **columns;
+    columns = rtab_getrow(results, 0);
+	
+    /* populate record */
+    ans->tstamp = string_to_timestamp(columns[0]);
+    ans->requestid = atol(columns[1]);
+    ans->pid = atol(columns[2]);
+    ans->success = atol(columns[3]);
+    strncpy(ans->message, columns[4], 1024);
+    return ans;
+}
+
+
+PolicyRequest *policy_request_convert(Rtab *results){
+    PolicyRequest *ans;
+	
+	if (! results || results->mtype != 0){
+        printf("returning null as !results!\n");
+        return NULL;
+        
+    }
+	
+    if (!(ans = (PolicyRequest *)malloc(sizeof(PolicyRequest)))){
+		printf("returning null as cannot malloc\n");
+        return NULL;
+    }
+    
+    char **columns;
+    columns = rtab_getrow(results, 0);
+	
+    /* populate record */
+    ans->tstamp = string_to_timestamp(columns[0]);
+    ans->requestid = atol(columns[1]);
+    strncpy(ans->request, columns[2], 8);
+    ans->pid = atol(columns[3]);
+    strncpy(ans->pondertalk, columns[4], 1024);
+    return ans;
+}
+
+
+
+PolicyState *policy_state_convert(Rtab *results){
+    PolicyState *ans;
+	
+	if (! results || results->mtype != 0){
+        printf("returning null as !results!\n");
+        return NULL;
+        
+    }
+	
+    if (!(ans = (PolicyState *)malloc(sizeof(PolicyState)))){
+		printf("returning null as cannot malloc\n");
+        return NULL;
+    }
+    
+    char **columns;
+    columns = rtab_getrow(results, 0);
+	
+    /* populate record */
+    ans->tstamp = string_to_timestamp(columns[0]);
+    ans->pid = atol(columns[1]);
+    strncpy(ans->state, columns[2], 8);
+    strncpy(ans->pondertalk, columns[4], 1024);
+    return ans;
+}
+
+
+
+PolicyFired *policy_fired_convert(Rtab *results){
+    PolicyFired *ans;
+	
+	if (! results || results->mtype != 0){
+        printf("returning null as !results!\n");
+        return NULL;
+        
+    }
+	
+    if (!(ans = (PolicyFired *)malloc(sizeof(PolicyFired)))){
+		printf("returning null as cannot malloc\n");
+        return NULL;
+    }
+    
+    char **columns;
+    columns = rtab_getrow(results, 0);
+	
+    /* populate record */
+    ans->tstamp = string_to_timestamp(columns[0]);
+    ans->pid = atol(columns[1]);
+    strncpy(ans->event, columns[2], 512);
+    return ans;
+}
+
 
 void dhcp_free(DhcpResults *p) {
 	unsigned int i;
@@ -258,41 +445,57 @@ char *index2action(unsigned int index) {
 }
 
 
-static void signal_handler(int signum) {
-	sig_received = signum;
+
+-(BOOL) subscribe_to_policy_response:(NSString *) host{
+  
+        char* query = "PolicyResponseLast";
+       responseservicename= "PolicyResponseService";
+        responseservice = rpc_offer(responseservicename);
+        if (!responseservice){
+            fprintf(stderr, "Failure offering %s service\n", responseservicename);
+        }
+        return [self subscribe:host service:responseservicename query:query handler:policy_response_handler];
+    
 }
 
--(BOOL) subscribe: (NSString*) listeninghost query:(char*) query{
-   
+-(BOOL) subscribe_to_policy_fired:(NSString *) host{
+    
+        char* query = "PolicyFiredLast";
+        firedservicename= "PolicyFiredService";
+
+        firedservice = rpc_offer(firedservicename);
+        if (! firedservice) {
+            fprintf(stderr, "Failure offering %s service\n", firedservicename);
+            //exit(-1);
+        }
+        return [self subscribe:host service:firedservicename query:query handler:policy_fired_handler ];
+
+}
+
+
+
+
+-(BOOL) subscribe: (NSString*) listeninghost service:(char*) s query:(char*) query handler: (void * (void *args)) handler{
+    
     
 	unsigned rlen;
-	char question[1000], resp[100], myhost[100], qname[64];
+	char question[1000], resp[100], myhost[100], qname[64], service[100];
 	unsigned short myport;
 	pthread_t thr;
 	
 	unsigned short port;
 	char *target;
-	char *service;
-    
-	//sigset_t mask, oldmask;
-    
-	//target = HWDB_SERVER_ADDR;
 	port = HWDB_SERVER_PORT;
-    
-	
-    service = "PolicyMonitorHandler";
+    sprintf(service, s);
+    //service = "PolicyMonitorHandler";
 	/* initialize the RPC system and offer the Callback service */
-	if (!rpc_init(0)) {
-		fprintf(stderr, "Initialization failure for rpc system\n");
+	//if (!rpc_init(0)) {
+	//	fprintf(stderr, "Initialization failure for rpc system\n");
 	//	exit(-1);
-	}
+    //}
 	
-    rps = rpc_offer(service);
-	
-    if (! rps) {
-		fprintf(stderr, "Failure offering %s service\n", service);
-		//exit(-1);
-	}
+    
+    
 	
     rpc_details(myhost, &myport);
     
@@ -301,61 +504,33 @@ static void signal_handler(int signum) {
 	printf("my callback port is %05u and host is %s\n", myport, myhost);
     
 	/* connect to HWDB service */
-	rpc = rpc_connect(host, port, "HWDB", 1l);
+	//rpc = rpc_connect(host, port, "HWDB", 1l);
 	
     if (rpc == NULL) {
 		fprintf(stderr, "Error connecting to HWDB at %s:%05u\n", target, port);
-		exit(1);
+        //		exit(1);
 	}
 	
 	sprintf(qname, query);
 	/* subscribe to query 'qname' */
 	sprintf(question, "SQL:subscribe %s %s %hu %s", 
             qname, myhost, myport, service);
-	if (!rpc_call(rpc, question, strlen(question)+1, resp, 100, &rlen)) {
-		fprintf(stderr, "Error issuing subscribe command\n");
-		//exit(1);
-	}
-	resp[rlen] = '\0';
-	printf("Response to subscribe command: %s", resp);
-    
-	/* start handler thread */
-	if (pthread_create(&thr, NULL, handler, NULL)) {
-		fprintf(stderr, "Failure to start handler thread\n");
-		//exit(-1);
-	}
     
     
-	/*	if (signal(SIGTERM, signal_handler) == SIG_IGN)
-		signal(SIGTERM, SIG_IGN);
-	if (signal(SIGINT, signal_handler) == SIG_IGN)
-		signal(SIGINT, SIG_IGN);
-	if (signal(SIGHUP, signal_handler) == SIG_IGN)
-		signal(SIGHUP, SIG_IGN);
+    if (!rpc_call(rpc, question, strlen(question)+1, resp, 100, &rlen)) {
+        fprintf(stderr, "Error issuing subscribe command\n");
+        //exit(1);
+    }
+    resp[rlen] = '\0';
+    printf("Response to subscribe command: %s", resp);
     
-	sigemptyset(&mask);
-	sigaddset(&mask, SIGINT);
-	sigaddset(&mask, SIGHUP);
-	sigaddset(&mask, SIGTERM);
-	// suspend until signal 
-	sigprocmask(SIG_BLOCK, &mask, &oldmask);
-	while (!sig_received)
-		sigsuspend(&oldmask);
-	sigprocmask(SIG_UNBLOCK, &mask, NULL);
-	
-	// issue unsubscribe command 
-	sprintf(question, "SQL:unsubscribe %s %s %hu %s", 
-            qname, myhost, myport, service);
-	if (!rpc_call(rpc, question, strlen(question)+1, resp, 100, &rlen)) {
-		fprintf(stderr, "Error issuing unsubscribe command\n");
-		exit(1);
-	}
-	resp[rlen] = '\0';
-	printf("Response to unsubscribe command: %s", resp);
-    
-	// disconnect from server 
-	rpc_disconnect(rpc);    */
+    /* start handler thread */
+    if (pthread_create(&thr, NULL, handler, NULL)) {
+        fprintf(stderr, "Failure to start handler thread\n");
+    }
+
 }
+
 
 -(BOOL) send: (void *) query qlen:(unsigned) qlen resp: (void*) resp rsize:(unsigned) rs len:(unsigned *) len{
 	

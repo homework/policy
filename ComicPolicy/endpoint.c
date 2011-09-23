@@ -40,6 +40,13 @@ RpcEndpoint *endpoint_duplicate(RpcEndpoint *ep) {
 
 int endpoint_equal(RpcEndpoint *ep1, RpcEndpoint *ep2) {
 	int answer = 0;		/* assume not equal */
+    
+    /*
+     * added by tlodge
+     */
+    if (ep1 == NULL || ep2 == NULL)
+        return answer;
+    
 	if (memeq(&(ep1->addr), &(ep1->addr), sizeof(struct sockaddr_in)))
 		if (ep1->subport == ep2->subport)
 			answer = 1;
