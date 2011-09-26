@@ -21,20 +21,16 @@
 
 @interface PolicyManager()
 -(void) readInPolicies:(NSMutableDictionary *) policydict;
--(void) sendPolicy:(NSString*)json;
 -(void) newDefaultPolicy;
 -(void) saveCurrentPolicy;
 -(void) readPoliciesFromFile;
 -(void) createSnapshot:(Policy*) p;
 
--(int) registerRequest:(NSString *) lid type:(RequestType) type;
+-(int) registerRequest:(NSString *) lid type:(RequestType) type request:(NSString*) request;
 -(RequestObject *) getRequestObjectFor:(int) requestid;
 
 -(NSString *) encodePolicyForDatabase:(NSString *)policy;
 -(NSString *) decodePolicyFromDatabase:(NSString *)policy;
-
--(NSMutableDictionary*) convertToTypedHashtable:(NSMutableDictionary*)dict;
--(NSDictionary *) convertToTypedArray:(NSArray *) array;
 
 @end
 
@@ -115,35 +111,7 @@ static int requestId;
         localId++;
     }
 
-    //self.policyids = [[NSMutableArray alloc] initWithArray: [policies allKeys]];
-    //[self loadFirstPolicy];
-    
-    /*
-    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"policies" ofType:@"json"];
-    
-    NSString *content = [[NSString alloc] initWithContentsOfFile:filePath];
-    
-    SBJsonParser *jsonParser = [SBJsonParser new];
-    
-    NSDictionary *data  = (NSDictionary *) [jsonParser objectWithString:content error:nil];
-    
-    
-    if (data == nil){
-        NSLog(@"policy data is malformed");
-    }
-    else{
-        localId = 1;
-        localLookup    = [[[NSMutableDictionary alloc] init] retain];
-        self.policies       = [[NSMutableDictionary alloc] init];
-        
-        [self readInPolicies:[data objectForKey:@"policies"]];
-        
-        self.defaultPolicy = [[Policy alloc] initWithDictionary:[data objectForKey:@"default"]];
-        
-        self.policyids = [[NSMutableArray alloc] initWithArray: [policies allKeys]];
-        
-        [self loadFirstPolicy];
-    }*/
+    [self loadFirstPolicy];
 }
 
 
@@ -160,18 +128,11 @@ static int requestId;
 }
 
 -(BOOL) hasFiredForSubject:(NSString *)subject{
-   // NSLog(@"chekcing if policy has fired for subject %@", subject);
-    
     if (currentPolicy.fired){
-     //   NSLog(@"current policy has fired...");
         if ([currentPolicy.actionsubject isEqualToString:subject]){
-       //     NSLog(@"returning yes");
             return YES;
-        }else{
-         //   NSLog(@"%@ is not the same as %@", currentPolicy.actionsubject, subject);
         }
     }
-   // NSLog(@"returning no..");
     return NO;
 }
 
@@ -227,9 +188,11 @@ static int requestId;
 
 -(void) loadFirstPolicy{
     
-    if (self.policyids != nil){
+    if (self.policyids != nil && [policyids count] > 0){ 
         [self loadPolicy:[policyids objectAtIndex:0]];
         self.defaultPolicy = [[Policy alloc] initWithPolicy:currentPolicy];
+    }else{
+        [self readPoliciesFromFile];
     }
 }
 
@@ -316,7 +279,7 @@ static int requestId;
     
     NSRegularExpression *quoteregex = [NSRegularExpression regularExpressionWithPattern:@"\"" options:NSRegularExpressionCaseInsensitive error:&error];
     
-    policy = [quoteregex stringByReplacingMatchesInString:policy options:0 range:NSMakeRange(0, [policy length]) withTemplate:@"@"];
+    policy = [quoteregex stringByReplacingMatchesInString:policy options:0 range:NSMakeRange(0, [policy length]) withTemplate:@"\\^"];
     
     return policy;
 }
@@ -324,7 +287,7 @@ static int requestId;
 -(NSString *) decodePolicyFromDatabase:(NSString *)policy{
     NSError *error = NULL;
     
-    NSRegularExpression *atregex = [NSRegularExpression regularExpressionWithPattern:@"@" options:NSRegularExpressionCaseInsensitive error:&error];
+    NSRegularExpression *atregex = [NSRegularExpression regularExpressionWithPattern:@"\\^" options:NSRegularExpressionCaseInsensitive error:&error];
     
     policy = [atregex stringByReplacingMatchesInString:policy options:0 range:NSMakeRange(0, [policy length]) withTemplate:@"\""];
     
@@ -333,8 +296,7 @@ static int requestId;
 
 -(NSString *) createPonderTalk{
     [self saveCurrentPolicy];
-    NSLog(@"current policy is %@", [currentPolicy toPonderString]);
-    return @"";
+      return @"";
 }
 
 -(void) handlePolicyResponse:(Response *) pr{
@@ -346,32 +308,29 @@ static int requestId;
     
         RequestObject *robj = [self getRequestObjectFor:pr.requestid];
     
-        NSLog(@"got request object: %@", robj);
         
-        if (robj.requestType == requestCreate){
+        if (robj.requestType == requestCreate || robj.requestType == requestEnable){
             
             
-            NSString* ponderString = [self decodePolicyFromDatabase:pr.message];
-            
-            NSLog(@"got a policy string %@", ponderString);
-            
+            NSString* ponderString = robj.requestString;
             Policy *tosave = [[Policy alloc] initWithPonderString:ponderString];
             tosave.localid  = robj.localId;
             tosave.identity = [NSString stringWithFormat:@"%d",pr.pid];
             tosave.status = disabled;
             
-            NSLog(@"saved policy is ");
+            if (robj.requestType == requestEnable){
+                tosave.status = enabled;
+            }
+            
             [tosave print];
             
             [localLookup setObject:tosave.localid forKey:tosave.identity];
+            
             [policies setObject:tosave forKey:tosave.localid];
             [self loadPolicy:tosave.localid];
-            
-            
-        }    
-        [robj release];
+        }     
     
-        
+        [robj release];
 }
 
 
@@ -389,7 +348,22 @@ static int requestId;
      //[[NSNotificationCenter defaultCenter] postNotificationName:@"totalPoliciesChanged" object:nil userInfo:nil];
 }
 
--(NSString*) savePolicyToHWDB{
+
+-(void) enablePolicy{
+    NSString *policystr = [currentPolicy toPonderString];
+    int requestid = [self registerRequest:currentPolicy.localid type:requestEnable request:policystr];
+
+    policystr = [self encodePolicyForDatabase:policystr];
+    int identity = [currentPolicy.identity isEqualToString:@"-1"] ? 0 :[currentPolicy.identity intValue];
+    
+    NSString* query = [NSString stringWithFormat:@"SQL:insert into PolicyRequest values ('%d', \"%@\", '%d', \"%@\")\n", requestid, @"ENABLE", identity, policystr];
+    
+    [[RPCComm sharedRPCComm] sendquery:query];
+
+}
+
+
+-(void) savePolicyToHWDB{
    
     Policy *p = [[Policy alloc] init];
     
@@ -398,6 +372,8 @@ static int requestId;
         
     NSString *policystr = [p toPonderString];
     
+    int requestid = [self registerRequest:p.localid type:requestCreate request:policystr];
+    
     policystr = [self encodePolicyForDatabase:policystr];
 
     
@@ -405,9 +381,7 @@ static int requestId;
     
 
     
-    int requestid = [self registerRequest:p.localid type:requestCreate];
     
-    NSLog(@"registered request localid %@ and requestid %d", p.localid, requestid);
     
     NSString* query = [NSString stringWithFormat:@"SQL:insert into PolicyRequest values ('%d', \"%@\", '%d', \"%@\")\n", requestid, @"CREATE", identity, policystr];
     
@@ -416,8 +390,7 @@ static int requestId;
    
     [[RPCComm sharedRPCComm] sendquery:query];
     [p release];
-    
-    return @"";
+
 }
 
 
@@ -428,108 +401,13 @@ static int requestId;
     return reqobj;
 }
 
--(int) registerRequest:(NSString *) lid type:(RequestType) type{
+-(int) registerRequest:(NSString *) lid type:(RequestType) type request:(NSString*)requeststr {
     int rid = requestId++;
-    
-    RequestObject *reqobj = [[RequestObject alloc] initWithValues: lid type: type];
+    RequestObject *reqobj = [[RequestObject alloc] initWithValues: lid type: type request:requeststr];
     [requesttable setObject: reqobj forKey:[NSString stringWithFormat:@"%d",rid]];
-    NSLog(@"created requestobject %@ %d", reqobj.localId, rid);
     return rid;
 }
 
-/*
- * Take the current representation of the policy, and send it to the policyManager backend to install
- * This method is triggered from the UI.  Data needs a bit of massaging to get in a form to allow it to
- * be marhalled at the server.
- */
-
--(NSString *)savePolicy{
-    
-      
-    NSMutableDictionary *condition = [[NSMutableDictionary alloc] init];
-    NSMutableDictionary *action = [[NSMutableDictionary alloc] init];
-    
-    [condition setObject: [[Catalogue sharedCatalogue] currentCondition] forKey:@"type"];
-    
-    [condition setObject: [self convertToTypedHashtable:[[Catalogue sharedCatalogue] conditionArguments]] forKey:@"arguments"];
-    
-    [action setObject: [[Catalogue sharedCatalogue] currentActionType] forKey:@"type"];
-    [action setObject: [[Catalogue sharedCatalogue] currentActionSubject] forKey:@"subject"];
-    [action setObject: [self convertToTypedHashtable:[[Catalogue sharedCatalogue] actionArguments]] forKey:@"arguments"];
-    
-    SBJsonWriter* writer = [SBJsonWriter new];
-    writer.sortKeys = YES;
-    /*
-     * To control the ordering of the json elements we need to parse each section independently
-     * rather than as a single dictionary.
-     */
-  
-    NSString *constring = [writer stringWithObject:condition];
-    NSString *actstring = [writer stringWithObject:action];
-    NSString * myjson;
-    
-    if ( currentPolicy.identity != NULL){
-        myjson = [NSString stringWithFormat:@"{\"policy\":{\"identity\":\"%@\",\"subject\":\"%@\",\"condition\":%@,\"action\":%@}}",  currentPolicy.identity, [[Catalogue sharedCatalogue] currentSubjectDevice] ,constring, actstring];
-    }else{
-        myjson = [NSString stringWithFormat:@"{\"policy\":{\"subject\":\"%@\",\"condition\":%@,\"action\":%@}}", [[Catalogue sharedCatalogue] currentSubjectDevice] ,constring, actstring];
-    }
-    
-    [self sendPolicy: myjson];
-    
-    return myjson;
-}
-
--(NSDictionary *) convertToTypedArray:(NSArray *) array{
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-    [dict setObject:array forKey:@"string"];
-    return dict;
-}
-
--(NSMutableDictionary *) convertToTypedHashtable:(NSMutableDictionary*)dict{
-    
-    NSMutableDictionary* hashtable = [[NSMutableDictionary alloc] init];
-    
-    NSMutableArray *entries = [[NSMutableArray alloc] init];
-    
-    
-    for (NSString* key in [dict allKeys]){
-        NSObject *value = [dict objectForKey:key];
-        
-        if ([value isKindOfClass:[NSArray class]]){
-             
-            NSMutableDictionary *arraydict = [[NSMutableDictionary alloc] init];
-            [arraydict setObject:value forKey:@"string"]; 
-            
-            NSMutableDictionary *entrydict = [[NSMutableDictionary alloc] init];
-            [entrydict setObject: key forKey:@"string"];
-            [entrydict setObject: arraydict forKey:@"string-array"]; 
-            [entries addObject:entrydict];
-        }
-        //if ([value isKindOfClass:[NSString class]]){
-        else{
-            NSArray* entry = [[NSArray alloc] initWithObjects:key, [dict objectForKey:key], nil];
-            NSMutableDictionary *entrydict = [[NSMutableDictionary alloc] init];
-            [entrydict setObject:entry forKey:@"string"];
-            [entries addObject:entrydict];
-        }
-    }
-    [hashtable setObject:entries forKey:@"entry"];
-    return hashtable;
-}
-
-
--(void) sendPolicy:(NSString*) json{
-    NSString *rootURL  = [[NetworkManager sharedManager] rootURL];
-    NSString *strurl = [NSString stringWithFormat:@"%@/policy/save", rootURL];
-   
-    NSURL *url = [NSURL URLWithString:strurl];
-    ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
-    [request addPostValue:json forKey:@"policy"];
-    [request setDelegate:self];
-    [request setDidFinishSelector:@selector(addedRequestComplete:)];
-    [request setDidFailSelector:@selector(delegateFailed:)];
-    [[NetworkManager sharedManager] addRequest:request]; 
-}
 
 -(void) deleteAll{
     NSString *rootURL  = [[NetworkManager sharedManager] rootURL];
@@ -560,7 +438,7 @@ static int requestId;
     
     SBJsonParser *jsonParser = [SBJsonParser new];
     NSDictionary *data  = (NSDictionary *) [jsonParser objectWithString:responseString error:nil];
-    NSLog(@"got response %@ %@ %@", responseString, [data objectForKey:@"result"], [data objectForKey:@"message"]); 
+  
     
     if ([[data objectForKey:@"result"] isEqualToString:@"success"]){
         currentPolicy.identity = [data objectForKey:@"message"];

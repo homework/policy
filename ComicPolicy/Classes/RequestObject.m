@@ -13,13 +13,15 @@
 
 @synthesize  localId;
 @synthesize requestType;
+@synthesize  requestString;
 
--(id) initWithValues:(NSString *) lid type: (RequestType) type{
+-(id) initWithValues:(NSString *) lid type: (RequestType) type request: (NSString *) request{
     
     if (self = [super init])
 	{
         self.localId = lid;
         self.requestType = type;
+        self.requestString = request;
     }
 	
     return self;

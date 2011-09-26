@@ -18,11 +18,13 @@ typedef enum requestType{
 @interface RequestObject : NSObject {
     NSString* localId;
     RequestType requestType;
+    NSString* requestString; 
 }
 
 @property(nonatomic, copy) NSString* localId;
+@property(nonatomic, copy) NSString* requestString;
 @property(nonatomic, assign) RequestType requestType;
 
--(id) initWithValues:(NSString *) localId type: (RequestType) type;
+-(id) initWithValues:(NSString *) localId type: (RequestType) type request: (NSString *) request;
 
 @end

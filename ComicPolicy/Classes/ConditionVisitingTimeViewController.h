@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ConditionTimeViewController.h"
+#import "RootConditionTimeViewController.h"
 #import "PositionManager.h"
 
-@interface ConditionVisitingTimeViewController : ConditionTimeViewController {
+@interface ConditionVisitingTimeViewController : RootConditionTimeViewController {
 }
 
 

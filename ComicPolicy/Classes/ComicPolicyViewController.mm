@@ -120,12 +120,12 @@
 	[self.view addSubview:tmpRefresh];
 	[tmpRefresh release];
     
-    UIImageView *tmpReset = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"reset.png"]];
+    /*UIImageView *tmpReset = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"reset.png"]];
 	tmpReset.frame = CGRectMake(660, 680, 55, 57);
 	resetButton = tmpReset;
     resetButton.alpha = 0.0;
 	[self.view addSubview:tmpReset];
-	[tmpReset release];
+	[tmpReset release];*/
     
     UIImageView *tmpActivate = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"activate.png"]];
 	tmpActivate.frame = CGRectMake(660, 680, 55, 57);
@@ -158,9 +158,9 @@
      //   [self updateFramePositions];
 
     }
-    else if (CGRectContainsPoint( resetButton.frame , touchLocation)){
-        
-        [[PolicyManager sharedPolicyManager] reset];
+    else if (CGRectContainsPoint( activateButton.frame , touchLocation)){
+        [[PolicyManager sharedPolicyManager] enablePolicy];
+     //   [[PolicyManager sharedPolicyManager] reset];
     }
 	else if (CGRectContainsPoint( saveButton.frame , touchLocation)){
        // [[PolicyManager sharedPolicyManager] createPonderTalk];
@@ -197,12 +197,12 @@
 -(void) checkInSync{
     
     if ([[PolicyManager sharedPolicyManager] hasFired]){
-         resetButton.alpha = 1.0;
+       //  resetButton.alpha = 1.0;
         [self.view setBackgroundColor:[UIColor redColor]];
         return;
     }
     
-    resetButton.alpha = 0.0;
+    //resetButton.alpha = 0.0;
    
     if (![[PolicyManager sharedPolicyManager] isInSync])
         [self.view setBackgroundColor:[UIColor lightGrayColor]];

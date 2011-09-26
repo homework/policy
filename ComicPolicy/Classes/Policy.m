@@ -17,6 +17,7 @@
 
 -(NSString *) generatePonderTalkConditionString;
 -(NSString *) generatePonderTalkActionString;
+-(NSString *) generateNotificationMessage;
 
 -(void) generateCondition:(NSString*) event time:(NSString*) time;
 -(void) generateAction:(NSString*) action applyfor:(NSString*) applyfor;
@@ -180,19 +181,13 @@
 
     NSArray* argumentarray = [self getArrayFromPonderString:action];
 
-   // NSLog(@"action is %@ %@", action, applyfor);
-    
     NSString *type = [argumentarray objectAtIndex:0];
    
-    //NSLog(@"type is %@", type);
-    
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
     
     if ([type isEqualToString:@"block"]){
         self.actiontype = @"block";
         self.actionsubject = [argumentarray objectAtIndex:1];
-        
-        //[dict setObject:[argumentarray objectAtIndex:1] forKey:@"options"];
         
         if (applyfor != nil){
             NSArray *actionargumentarray =  [self getArrayFromPonderString:applyfor];
@@ -204,7 +199,7 @@
         
     }else if ([type isEqualToString:@"notify"]){
         self.actiontype = @"notify";
-        NSArray* chunks = [[argumentarray objectAtIndex:1] componentsSeparatedByString:@":"];
+        NSArray* chunks = [[argumentarray objectAtIndex:1] componentsSeparatedByString:@","];
         self.actionsubject = [chunks objectAtIndex:0];
         [dict setObject:[chunks objectAtIndex:1] forKey: @"options"];
         self.actionarguments = dict;
@@ -234,7 +229,6 @@
         if (!NSEqualRanges(rangeOfFirstMatch, NSMakeRange(NSNotFound, 0))){
             ponderString = [ponderString substringWithRange:NSMakeRange(rangeOfFirstMatch.location + 1, rangeOfFirstMatch.length-2)];
         } 
-        
         
         NSString *tmp = [whitespaceregex stringByReplacingMatchesInString:ponderString options:0 range:NSMakeRange(0, [ponderString length]) withTemplate:@";"];
         
@@ -308,7 +302,7 @@
 -(NSString *) toPonderString{
     NSString* conditionstring = [self generatePonderTalkConditionString];
     NSString* actionstring    = [self generatePonderTalkActionString];
-    NSString* policyString = [NSString stringWithFormat:@"pw/hwpe addPolicy:\"%@\" %@ %@", @"an example policy", conditionstring, actionstring];
+    NSString* policyString = [NSString stringWithFormat:@"pe/hwpe addPolicy:\"%@\" %@ %@", @"an example policy", conditionstring, actionstring];
     return policyString;
 }
 
@@ -385,12 +379,8 @@
         
     }else if ([actiontype isEqualToString:@"block"]){
 
-         NSString *block = [NSString stringWithFormat:@"action:#(\"block\" \"%@\")",
-                actionsubject
-                ];
-        
-        
-        
+        NSString *block = [NSString stringWithFormat:@"action:#(\"block\" \"%@\")",actionsubject];
+ 
         NSString* duration =  [actionarguments objectForKey:@"timeframe"];
         
         if (duration == nil || [duration isEqualToString:@"forever"])
@@ -400,17 +390,32 @@
             duration = [NSString stringWithFormat:@"for:#(\"%@\" \"m\")",duration];
         }
                              
-        
         return [NSString stringWithFormat:@"%@ %@",block, duration];
         
         
     }else if ([actiontype isEqualToString:@"notify"]){
         
-        return [NSString stringWithFormat:@"action:#(\"notify\" \"%@:%@\")",actionsubject,[actionarguments objectForKey:@"options"]];
+        return [NSString stringWithFormat:@"action:#(\"notify\" \"%@,%@,%@\")",actionsubject,[actionarguments objectForKey:@"options"],[self generateNotificationMessage]];
         
 
     }
     return @"";
+}
+
+-(NSString *) generateNotificationMessage{
+    
+    NSString* message = [NSString stringWithFormat:@"Hello %@ - device %@ ", self.actionsubject, self.subjectdevice];
+    
+    
+    if ([conditiontype isEqualToString:@"visiting"]){
+        message =  [NSString stringWithFormat:@"%@ visited a site", message];
+    }else if ([conditiontype isEqualToString:@"bandwidth"]){
+        float percent = [[conditionarguments objectForKey:@"percentage"] floatValue];
+        message =  [NSString stringWithFormat:@"has used %@ percent of the bandwidth limit",  [NSString stringWithFormat:@"%.0f", percent]];
+    }else if ([conditiontype isEqualToString:@"timed"]){
+        message =  [NSString stringWithFormat:@"was used between %@ and %@", [conditionarguments objectForKey:@"from"], [conditionarguments objectForKey:@"to"]];
+    }
+    return message;
 }
 
 - (id)initWithDictionary:(NSDictionary *)aDictionary{

@@ -95,16 +95,16 @@ NSString* callbackaddr;
 
 
 -(void) getStoredPolicies{
-     NSString* query = [NSString stringWithFormat:@"SQL:select * from PolicyState\n"];
+     NSString* query = [NSString stringWithFormat:@"SQL:select * from PolicyState WHERE state contains \"BLED\")\n"];
     sprintf(sendquery, [query UTF8String]);
 	querylen = strlen(sendquery) + 1;
     [self send: sendquery qlen:querylen resp: response rsize: sizeof(response) len:length callback:processpolicystateresults];
 }
 
--(BOOL) sendquery:(NSString *)q{
+-(void) sendquery:(NSString *)q{
 	sprintf(sendquery, [q UTF8String]);
 	querylen = strlen(sendquery) + 1;
-	return [self send: sendquery qlen:querylen resp: response rsize: sizeof(response) len:length callback:NULL];
+    [self send: sendquery qlen:querylen resp: response rsize: sizeof(response) len:length callback:NULL];
 }
 
 
@@ -396,7 +396,7 @@ PolicyStateResults *policy_state_convert(Rtab *results) {
 	
 	for (i = 0; i < ans->npolicies; i++) {
 		char **columns;
-		PolicyState *ps = (PolicyState *)malloc(sizeof(PolicyState));
+		PolicyState *ps = (PolicyState *)calloc(1,sizeof(PolicyState));
 		
 		if (!ps) {
             policy_state_results_free(ans);

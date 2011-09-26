@@ -54,7 +54,7 @@
    // [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(connected:) name:@"connected" object:nil];
         
         NSString *gwaddr = [self getGatewayAddress];
-        
+       //NSString *gwaddr  = @"192.168.8.1";
        NSString *myaddr = [self getMyAddress];
         
         //NSString *gwaddr = @"localhost";

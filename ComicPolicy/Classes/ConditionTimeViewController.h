@@ -7,31 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ConditionTimeView.h"
-#import "ConditionViewController.h"
+#import "RootConditionTimeViewController.h"
 
-@interface ConditionTimeViewController : ConditionViewController {
-	ConditionTimeView* conditionTimeView;
-    
-    int fromhour;
-    int fromminute;
-    
-    int tohour;
-    int tominute;
-    
-    CGRect clockFromFrame;
-	CGRect clockToFrame;
-    
-   
+@interface ConditionTimeViewController : RootConditionTimeViewController {
+	NSArray* days;
+    NSArray* dayLabels;
 }
 
--(void) updateCaption;
--(void) updateCatalogue;
--(void) setFromHour:(int) hour;
--(void) setToHour:(int) hour;
--(void) setFromMinute:(int) minute;
--(void) setToMinute:(int) minute;
--(void) setUpConditionView;
--(void) initialiseClocks;
 
 @end

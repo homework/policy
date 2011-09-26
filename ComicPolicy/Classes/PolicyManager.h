@@ -31,7 +31,6 @@
 + (PolicyManager *)sharedPolicyManager;
 
 -(void) loadPolicy:(NSString*) policyid;
--(NSString *) savePolicy;
 -(NSString *) createPonderTalk; 
 -(void) loadFirstPolicy;
 -(void) refresh;
@@ -53,6 +52,6 @@
 @property(nonatomic, retain) Policy* defaultPolicy;
 
 -(NSMutableDictionary *) getConditionArguments:(NSString*) localpolicyid;
--(NSString*) savePolicyToHWDB;
-
+-(void) savePolicyToHWDB;
+-(void) enablePolicy;
 @end
