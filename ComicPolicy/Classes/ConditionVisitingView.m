@@ -45,7 +45,7 @@
         self.sitecaption.textAlignment = UITextAlignmentCenter;
         self.sitecaption.font = [UIFont fontWithName:@"MarkerFelt-Thin" size:15.0];
         self.sitecaption.backgroundColor = [UIColor clearColor];
-        self.sitecaption.text = @"visits any of these sites";
+        
         [self addSubview:sitecaption];
         [sitecaption release];
     

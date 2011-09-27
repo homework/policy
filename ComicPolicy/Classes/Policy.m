@@ -12,7 +12,7 @@
 
 
 -(NSString *) weekdaystring:(NSArray *) daysofweek;
--(NSString *) sitestring:(NSArray *) sites;
+-(NSString *) sitestring:(NSArray *) sites flag:(NSString*)flag;
 -(NSString *) percentagestring:(NSNumber *) percentage;
 
 -(NSString *) generatePonderTalkConditionString;
@@ -168,7 +168,22 @@
             int i;
             
             for (i = 2; i < [argumentarray count] ; i++){
-                [sitearray addObject:[argumentarray objectAtIndex:i]];
+                NSString *site =  [argumentarray objectAtIndex:i];
+                if ([site hasPrefix:@"-"]){
+                    NSMutableString *newsite = [NSMutableString stringWithFormat:@"%@",site];
+                    
+                    NSRange wholeShebang = NSMakeRange(0, [site length]);
+                    
+                    [newsite replaceOccurrencesOfString: @"-"
+                                             withString: @""
+                                                options: 0
+                                                  range: wholeShebang];                     
+                    [dict setObject:@"negative" forKey:@"flag"];
+                     [sitearray addObject:newsite];
+                }else{
+                    [dict setObject:@"positive" forKey:@"flag"];
+                    [sitearray addObject:site];
+                }
             }
             [dict setObject:sitearray forKey:@"sites"];
             self.conditionarguments = dict;
@@ -285,14 +300,25 @@
 }
 
 -(NSString *) weekdaystring:(NSArray *) daysofweek{
-    if ([daysofweek count] <= 0){
+    if (daysofweek == nil || [daysofweek count] <= 0){
         return @"*";
     }
     return [daysofweek componentsJoinedByString:@","];
 }
 
--(NSString *) sitestring:(NSArray *) sites{
+-(NSString *) sitestring:(NSArray *) sites flag: (NSString*) flag{
+    
+    
+    if ([flag isEqualToString:@"negative"]){
+        NSMutableArray *negative = [[NSMutableArray alloc] init];
+        for (NSString *site in sites){
+            [negative addObject:[NSString stringWithFormat:@"-%@", site]];
+        }
+        return [negative componentsJoinedByString:@"\" \""];
+    }
+    
     return [sites componentsJoinedByString:@"\" \""];
+
 }
 
 -(NSString *) percentagestring:(NSNumber *) percentage{
@@ -347,7 +373,7 @@
         
         NSString *eventstring = [NSString stringWithFormat:@"event:#(\"visits\" \"%@\" \"%@\")", 
                                  subjectdevice,
-                                  [self sitestring:[conditionarguments objectForKey:@"sites"]]
+                                 [self sitestring:[conditionarguments objectForKey:@"sites"] flag:[conditionarguments objectForKey:@"flag"]]
                                   ];
         conditionstring = [NSString stringWithFormat:@"%@ %@", timestring, eventstring];
         
@@ -373,7 +399,7 @@
                     [actionarguments objectForKey:@"priority"]
                 ];
         
-        NSString* duration = [conditiontype isEqualToString: @"timed"] ? @"" : @"for (\"30\" \"m\")";
+        NSString* duration = [conditiontype isEqualToString: @"timed"] ? @"" : @"for (\"30\" \"min\")";
         
         return [NSString stringWithFormat:@"%@ %@",priority, duration];
         
@@ -387,7 +413,7 @@
             duration = @"";
         else{
         
-            duration = [NSString stringWithFormat:@"for:#(\"%@\" \"m\")",duration];
+            duration = [NSString stringWithFormat:@"for:#(\"%@\" \"min\")",duration];
         }
                              
         return [NSString stringWithFormat:@"%@ %@",block, duration];

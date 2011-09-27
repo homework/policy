@@ -10,7 +10,9 @@
 
 @interface ConditionVisitingViewController() 
 -(void) relayout;
--(void) updateCatalogue:(NSString*)site;
+-(void) updateCatalogue;
+-(void) readInArguments;
+-(void) addSite:(NSString*)site;
 @end
 
 @implementation ConditionVisitingViewController
@@ -24,6 +26,9 @@
         //NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
         
         
+        [self readInArguments];
+       
+        
         self.sites = [[NSMutableArray alloc] init];
         
         editing = false;
@@ -32,8 +37,10 @@
 		//lookup = [[ConditionImageLookup alloc] init];
 		ConditionVisitingView *aconditionview = [[ConditionVisitingView alloc] initWithFrameAndImage:nframe image: [[Catalogue sharedCatalogue] getConditionImage]];
 		self.view = aconditionview;
+       
         conditionVisitingView = aconditionview;
 		[aconditionview release];
+       
         UITextField *tmpTextField = [[UITextField alloc] initWithFrame:CGRectMake(50, 10, 200,30)];
         [tmpTextField setBackgroundColor:[UIColor whiteColor]];
         [tmpTextField setBorderStyle:UITextBorderStyleLine];
@@ -46,11 +53,52 @@
         [self.view addSubview:tmpTextField];
         self.addSiteTextField = tmpTextField;
         [tmpTextField release];
+        
+        [self updateCatalogue];
+        
         [self relayout];
         
 	}
 	return self;
 }
+
+
+-(void) readInArguments{
+    NSDictionary *dict = [[Catalogue sharedCatalogue] conditionArguments];
+    if ([dict objectForKey:@"flag"] != nil && [[dict objectForKey:@"flag"] isEqualToString:@"negative"])
+        doesvisit = NO;
+    else
+        doesvisit = YES;
+}
+
+
+-(void) updateCatalogue{
+    
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+
+    if (doesvisit){
+        [dict setObject:@"positive" forKey:@"flag"];
+    }else{
+        [dict setObject:@"negative" forKey:@"flag"];
+    }
+    
+    [[Catalogue sharedCatalogue] setConditionArguments:dict];
+    
+     NSLog(@"condition args are %@", [[Catalogue sharedCatalogue] conditionArguments]);
+}
+
+-(void) updateCaption{
+    
+    if (doesvisit){
+        conditionVisitingView.sitecaption.text = @"visits any of these sites";
+    }
+    else{
+        conditionVisitingView.sitecaption.text = @"visits a site that is NOT above";
+    }
+    
+   
+}
+          
 
 -(BOOL) textFieldShouldReturn:(UITextField *)theTextField{
 	[theTextField resignFirstResponder];
@@ -63,7 +111,7 @@
 
 -(void) textFieldDidEndEditing:(UITextField *)textField{
     editing = false;
-    [self updateCatalogue:textField.text];
+    [self addSite:textField.text];
     [self relayout];
     textField.text = @"";
     [UIView beginAnimations:nil context:nil];
@@ -73,20 +121,24 @@
     [UIView commitAnimations];
 }
 
--(void) updateCatalogue:(NSString*) site{
+
+
+-(void) addSite:(NSString*) site{
+    
     
     NSArray *currentsites = [[[Catalogue sharedCatalogue] conditionArguments] objectForKey:@"sites"];
     
     NSMutableArray *newargs = [[NSMutableArray alloc] initWithArray:currentsites];
     
     [newargs addObject:site];
-    
+
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
     [dict setObject:newargs forKey:@"sites"];
     [[Catalogue sharedCatalogue] setConditionArguments:dict];
-    [dict release];
-    
+    [dict release];    
+    [self updateCatalogue];
 }
+
 
 -(void) relayout{
     
@@ -118,6 +170,8 @@
         [self.view addSubview:asitelabel];
         YPOS += 40;
     }
+    
+    [self updateCaption];
 }
 
 -(void) removeSite:(NSString *) site{
@@ -153,6 +207,14 @@
             return;
         }
     }
+    
+    if ( touchLocation.y > 250){
+        doesvisit = !doesvisit;
+        [self updateCaption];
+        [self updateCatalogue];
+        return;
+    }
+      
     
     
     if (! CGRectContainsPoint(conditionVisitingView.addButton.bounds, touchLocation) && !editing){

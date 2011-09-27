@@ -134,7 +134,7 @@ static float PADDING = 15;
         
         [[PolicyManager sharedPolicyManager] newDefaultPolicy];
     }
-	
+	else{
 	for(UIView *view in self.navigationView.subviews){  
        
                
@@ -160,6 +160,7 @@ static float PADDING = 15;
 			}
 		}
 	}
+    }
 }
 
 -(void) policyLoaded:(NSNotification *) notification{

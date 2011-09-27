@@ -198,7 +198,6 @@
 		A3D1761D142CB0AD003753BB /* PolicyStateObject.m in Sources */ = {isa = PBXBuildFile; fileRef = A3D1761C142CB0AC003753BB /* PolicyStateObject.m */; };
 		A3D17620142CD951003753BB /* RequestObject.m in Sources */ = {isa = PBXBuildFile; fileRef = A3D1761F142CD94E003753BB /* RequestObject.m */; };
 		A3D17622142CF61B003753BB /* activate.png in Resources */ = {isa = PBXBuildFile; fileRef = A3D17621142CF61B003753BB /* activate.png */; };
-		A3D176311430C140003753BB /* DayOfWeekView.m in Sources */ = {isa = PBXBuildFile; fileRef = A3D176301430C13E003753BB /* DayOfWeekView.m */; };
 		A3DB62CC1371A6AF00AEBF46 /* policies.json in Resources */ = {isa = PBXBuildFile; fileRef = A3DB62CB1371A6AF00AEBF46 /* policies.json */; };
 		A3DB62CF1371AC5000AEBF46 /* PolicyManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A3DB62CE1371AC5000AEBF46 /* PolicyManager.m */; };
 		A3DCB58C13437F7B00A38D5E /* NavigationViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3DCB58B13437F7B00A38D5E /* NavigationViewController.mm */; };
@@ -266,6 +265,7 @@
 		A3E7FD151373F87C003FFE37 /* b2WheelJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3E7FCE31373F87C003FFE37 /* b2WheelJoint.cpp */; };
 		A3E7FD161373F87C003FFE37 /* b2Rope.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3E7FCE61373F87C003FFE37 /* b2Rope.cpp */; };
 		A3EBBA361430EF7900CFAAC4 /* RootConditionTimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A3EBBA351430EF7900CFAAC4 /* RootConditionTimeViewController.m */; };
+		A3EBBA3814323A6700CFAAC4 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = A3EBBA3714323A6700CFAAC4 /* background.png */; };
 		A3ED1701135F3A6E001C64EA /* FlipFrameView.m in Sources */ = {isa = PBXBuildFile; fileRef = A3ED1700135F3A6E001C64EA /* FlipFrameView.m */; };
 /* End PBXBuildFile section */
 
@@ -537,8 +537,6 @@
 		A3D1761E142CD94C003753BB /* RequestObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestObject.h; sourceTree = "<group>"; };
 		A3D1761F142CD94E003753BB /* RequestObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestObject.m; sourceTree = "<group>"; };
 		A3D17621142CF61B003753BB /* activate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = activate.png; sourceTree = "<group>"; };
-		A3D1762F1430C13B003753BB /* DayOfWeekView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DayOfWeekView.h; sourceTree = "<group>"; };
-		A3D176301430C13E003753BB /* DayOfWeekView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DayOfWeekView.m; sourceTree = "<group>"; };
 		A3DB62CB1371A6AF00AEBF46 /* policies.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = policies.json; sourceTree = "<group>"; };
 		A3DB62CD1371AC5000AEBF46 /* PolicyManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PolicyManager.h; sourceTree = "<group>"; };
 		A3DB62CE1371AC5000AEBF46 /* PolicyManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PolicyManager.m; sourceTree = "<group>"; };
@@ -671,6 +669,7 @@
 		A3E7FCE71373F87C003FFE37 /* b2Rope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = b2Rope.h; sourceTree = "<group>"; };
 		A3EBBA341430EF7900CFAAC4 /* RootConditionTimeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootConditionTimeViewController.h; sourceTree = "<group>"; };
 		A3EBBA351430EF7900CFAAC4 /* RootConditionTimeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootConditionTimeViewController.m; sourceTree = "<group>"; };
+		A3EBBA3714323A6700CFAAC4 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
 		A3ED16FF135F3A6D001C64EA /* FlipFrameView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlipFrameView.h; sourceTree = "<group>"; };
 		A3ED1700135F3A6E001C64EA /* FlipFrameView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlipFrameView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -958,6 +957,7 @@
 		A30ADF48131528F80060D2F1 /* characters */ = {
 			isa = PBXGroup;
 			children = (
+				A3EBBA3714323A6700CFAAC4 /* background.png */,
 				A3448E4B13D8BD0400D30FDE /* morttold.png */,
 				A3448E4C13D8BD0400D30FDE /* mortwaiting.png */,
 				A30AE27C1316B6B80060D2F1 /* dadtold.png */,
@@ -1025,8 +1025,6 @@
 				A352AB22131D10300053867A /* ConditionTimeView.m */,
 				A352AC01131E55290053867A /* HandView.h */,
 				A352AC02131E55290053867A /* HandView.m */,
-				A3D1762F1430C13B003753BB /* DayOfWeekView.h */,
-				A3D176301430C13E003753BB /* DayOfWeekView.m */,
 			);
 			name = Condition;
 			sourceTree = "<group>";
@@ -1622,6 +1620,7 @@
 				A3B6FA591427A51200089153 /* any.png in Resources */,
 				A33CBF09142B456B00ABA195 /* ponderpolicies.txt in Resources */,
 				A3D17622142CF61B003753BB /* activate.png in Resources */,
+				A3EBBA3814323A6700CFAAC4 /* background.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1759,7 +1758,6 @@
 				A33CBF07142B3C4700ABA195 /* FiredEvent.m in Sources */,
 				A3D1761D142CB0AD003753BB /* PolicyStateObject.m in Sources */,
 				A3D17620142CD951003753BB /* RequestObject.m in Sources */,
-				A3D176311430C140003753BB /* DayOfWeekView.m in Sources */,
 				A3EBBA361430EF7900CFAAC4 /* RootConditionTimeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

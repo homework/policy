@@ -5,11 +5,11 @@
     
             "subjects":{
                         "dad":["192.168.8.4"],
-                        "mort":["18:E7:F4:79:52:B2","f8:1e:df:d6:73:23"],
+                        "mort":["192.168.8.2","192.168.8.3"],
                         "katie":["192.168.8.5"],   
-                        "mum":["00:00:00:dd:dd:dd"],
-                        "john":["00:26:08:f8:25:43"],
-                        "everyone":["00:00:00:ff:ff:ff"],
+                        "mum":["192.168.8.6"],
+                        "john":["192.168.8.7"],
+                        "everyone":["192.168.8.8"],
                         "any":["*"]
             },
 
@@ -38,16 +38,16 @@
             "actions":{
 
                     "block":{
-                        "subjects":["18:E7:F4:79:52:B2","192.168.8.4","f8:1e:df:d6:73:23","10.2.0.21","00:00:00:dd:dd:dd","00:26:08:f8:25:43", "00:00:00:ff:ff:ff"],
+                        "subjects":["192.168.8.2","192.168.8.4","192.168.8.3","192.168.8.5","192.168.8.6","192.168.8.7", "192.168.8.8"],
                         "arguments":{
                             "options":{
-                                "18:E7:F4:79:52:B2":["mort"],
+                                "192.168.8.2":["mort"],
                                 "192.168.8.4":["dad"],
-                                "f8:1e:df:d6:73:23":["mort"],
-                                "10.2.0.21":["katie"],   
-                                "00:00:00:dd:dd:dd":["mum"],
-                                "00:26:08:f8:25:43":["john"],
-                                "00:00:00:ff:ff:ff":["everyone"]
+                                "192.168.8.3":["mort"],
+                                "192.168.8.5":["katie"],   
+                                "192.168.8.6":["mum"],
+                                "192.168.8.7":["john"],
+                                "192.168.8.8":["everyone"]
                             },
                             "duration":"forever"
                         }
@@ -67,16 +67,16 @@
                     },
 
                     "prioritise":{
-                        "subjects":["18:E7:F4:79:52:B2","192.168.8.4","f8:1e:df:d6:73:23","10.2.0.21","00:00:00:dd:dd:dd","00:26:08:f8:25:43", "00:00:00:ff:ff:ff"],
+                        "subjects":["192.168.8.2","192.168.8.4","192.168.8.3","192.168.8.5","192.168.8.6","192.168.8.7", "192.168.8.8"],
                         
                         "arguments":{
                             "options":{
-                                "18:E7:F4:79:52:B2":["high", "medium", "low"],
+                                "192.168.8.2":["high", "medium", "low"],
                                 "192.168.8.4":["high", "medium", "low"],
-                                "f8:1e:df:d6:73:23":["high", "medium", "low"],
-                                "10.2.0.21":["high", "medium", "low"],   
-                                "00:00:00:dd:dd:dd":["high", "medium", "low"],
-                                "00:26:08:f8:25:43":["high", "medium", "low"]
+                                "192.168.8.3":["high", "medium", "low"],
+                                "192.168.8.5":["high", "medium", "low"],   
+                                "192.168.8.6":["high", "medium", "low"],
+                                "192.168.8.7":["high", "medium", "low"]
                             }
                         }
                     }
@@ -104,25 +104,25 @@
 
         "metadata":{
             "devices":{
-                "18:E7:F4:79:52:B2":{
+                "192.168.8.2":{
                     "name": "mort's itouch"
                 },
                 "192.168.8.4":{
                     "name": "dad's macair"
                 },
-                "f8:1e:df:d6:73:23":{
+                "192.168.8.3":{
                     "name": "mort's laptop"
                 },
-                "10.2.0.21":{
+                "192.168.8.5":{
                     "name": "katie's desktop"   
                 },
-                    "00:00:00:dd:dd:dd":{
+                    "192.168.8.6":{
                     "name": "mum's computer"
                 },
-                    "00:26:08:f8:25:43":{
+                    "192.168.8.7":{
                     "name": "john's computer"
                 },
-                    "00:00:00:ff:ff:ff":{
+                    "192.168.8.8":{
                     "name": "lounge computer"
                 }
             }
@@ -230,7 +230,7 @@
                             "fired":"everyonetold.png"
                     }
                 },
-            "18:E7:F4:79:52:B2":
+            "192.168.8.2":
                 {
                     "main":"condphone.png",
                     "block":{
@@ -258,7 +258,7 @@
                             "fired":"laptopblocked.png"
                     }
                 },
-            "f8:1e:df:d6:73:23":
+            "192.168.8.3":
                 {
                     "main":"condlaptop",
                     "block":{
@@ -272,7 +272,7 @@
                             "fired":"laptopblocked.png"
                     }
                 },
-            "10.2.0.21":
+            "192.168.8.5":
                 {
                     "main":"conddesktop.png",
                     "block":{
@@ -286,7 +286,7 @@
                             "fired":"desktopblocked.png"
                     }
                 },
-            "00:00:00:dd:dd:dd":
+            "192.168.8.6":
                 {
                     "main":"condcomputer.png",
                     "block":{
@@ -300,7 +300,7 @@
                             "fired":"computerblocked.png"
                     }
                 },
-            "00:26:08:f8:25:43":
+            "192.168.8.7":
                 {
                     "main":"condcomputer.png",
                     "block":{
@@ -314,7 +314,7 @@
                             "fired":"computerblocked.png"
                     }
                 },
-            "00:00:00:ff:ff:ff":
+            "192.168.8.8":
                 {
                     "main":"condcomputer.png",
                     "block":{

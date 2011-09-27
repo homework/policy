@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "ResultView.h"
 #import "MonitorView.h"
+#import "Catalogue.h"
+#import "PolicyManager.h"
 
 @interface ResultViewController : UIViewController {
 	NSString* currentActionScene;

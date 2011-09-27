@@ -191,6 +191,9 @@ static int requestId;
     if (self.policyids != nil && [policyids count] > 0){ 
         [self loadPolicy:[policyids objectAtIndex:0]];
         self.defaultPolicy = [[Policy alloc] initWithPolicy:currentPolicy];
+        
+        NSLog(@"default policy as follows");
+        [defaultPolicy print];
     }else{
         [self readPoliciesFromFile];
     }
@@ -218,6 +221,8 @@ static int requestId;
     
     [policyids addObject:apolicy.localid];
     
+    NSLog(@"---------------> created the new default policy");
+    [apolicy print];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"totalPoliciesChanged" object:nil userInfo:nil];
 }
@@ -244,11 +249,16 @@ static int requestId;
         
         [[Catalogue sharedCatalogue] setCondition:apolicy.conditiontype options:apolicy.conditionarguments];
        
+        NSLog(@"setting action type %@ and subject %@ and args %@", apolicy.actiontype, apolicy.actionsubject, apolicy.actionarguments);
+        
         [[Catalogue sharedCatalogue] setAction:apolicy.actiontype subject:apolicy.actionsubject options:apolicy.actionarguments];
     
         self.currentPolicy = apolicy;
         
     }
+    
+    NSLog(@"now I am loaded, and current type is %@, action is %@", [[Catalogue sharedCatalogue] currentActionType], [[Catalogue sharedCatalogue] currentAction]);
+    
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"policyLoaded" object:nil userInfo:nil];
 }
@@ -358,6 +368,9 @@ static int requestId;
     
     NSString* query = [NSString stringWithFormat:@"SQL:insert into PolicyRequest values ('%d', \"%@\", '%d', \"%@\")\n", requestid, @"ENABLE", identity, policystr];
     
+    NSLog(@"enable query is %@", query);
+
+    
     [[RPCComm sharedRPCComm] sendquery:query];
 
 }
@@ -372,6 +385,8 @@ static int requestId;
         
     NSString *policystr = [p toPonderString];
     
+    
+    NSLog(@"sending policystr %@", policystr);
     int requestid = [self registerRequest:p.localid type:requestCreate request:policystr];
     
     policystr = [self encodePolicyForDatabase:policystr];
@@ -380,13 +395,10 @@ static int requestId;
     int identity = [p.identity isEqualToString:@"-1"] ? 0 :[p.identity intValue];
     
 
-    
-    
-    
     NSString* query = [NSString stringWithFormat:@"SQL:insert into PolicyRequest values ('%d', \"%@\", '%d', \"%@\")\n", requestid, @"CREATE", identity, policystr];
     
   
-    
+     NSLog(@"query is %@", query);
    
     [[RPCComm sharedRPCComm] sendquery:query];
     [p release];

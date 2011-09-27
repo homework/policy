@@ -28,11 +28,6 @@
 @implementation Catalogue
 
 
-#pragma mark *data structure for associating entities with images
-
-static NSDictionary* imageLookup;
-
-
 #pragma mark *data structures for subjects
 
 static NSDictionary* subjectLookup;       //mapping from owner name to array of macaddresses
@@ -87,6 +82,7 @@ NSMutableDictionary *tree;
 
 @synthesize currentConditionArguments;
 @synthesize currentActionArguments;
+@synthesize imageLookup;
 
 + (Catalogue *)sharedCatalogue
 {
@@ -222,7 +218,7 @@ NSMutableDictionary *tree;
 
 -(NSString *) lookupImage:(NSString*)identity type:(NSString*)type state:(NSString*)state{
     
-	NSDictionary *images = (NSDictionary *) [imageLookup objectForKey:identity];
+	NSDictionary *images = (NSDictionary *) [self.imageLookup objectForKey:identity];
     if (state == nil){
         return [images objectForKey:type];
     }
@@ -469,18 +465,18 @@ NSMutableDictionary *tree;
 
 
 -(NSString*) getConditionImage{
-    NSDictionary *dict = (NSDictionary *) [imageLookup objectForKey:[self currentCondition]];
+    NSDictionary *dict = (NSDictionary *) [self.imageLookup objectForKey:[self currentCondition]];
     return [dict objectForKey:@"main"];
 }
 
 -(NSString*) getConditionResultImage{
-    NSDictionary *dict = (NSDictionary *) [imageLookup objectForKey:[self currentCondition]];
+    NSDictionary *dict = (NSDictionary *) [self.imageLookup objectForKey:[self currentCondition]];
     return [dict objectForKey:@"result"];
 }
 
 -(NSString *) currentActionSubjectImage{
 	NSString *subject = [self currentActionSubject];
-	NSDictionary *images = (NSDictionary *) [imageLookup objectForKey:subject];
+	NSDictionary *images = (NSDictionary *) [self.imageLookup objectForKey:subject];
     NSDictionary *action =  (NSDictionary*) [images objectForKey:currentActionType];
     NSString *image = [action objectForKey:@"action"];
     return image;
@@ -488,7 +484,7 @@ NSMutableDictionary *tree;
 
 -(NSString *) nextActionSubjectImage{
 	NSString *subject = [self nextActionSubject];
-	NSDictionary *images = (NSDictionary *) [imageLookup objectForKey:subject];
+	NSDictionary *images = (NSDictionary *) [self.imageLookup objectForKey:subject];
 	NSDictionary *action =  (NSDictionary*) [images objectForKey:currentActionType];
     NSString *image = [action objectForKey:@"action"];
     return image;
@@ -525,8 +521,18 @@ NSMutableDictionary *tree;
 }
 
 -(NSString*) getActionResultImage:(BOOL) isfired{
-    NSDictionary *subj = (NSDictionary *) [imageLookup objectForKey:[self currentActionSubject]];
+    
+    NSLog(@"getting action result image for %@ %@", [self currentActionSubject], [self currentActionType]);
+    
+    NSDictionary *subj = (NSDictionary *) [self.imageLookup objectForKey:[self currentActionSubject]];
+    
+    NSLog(@"image lookup is %@", self.imageLookup);
+    
+    NSLog(@"subject dictionary is %@", subj);
+    
     NSDictionary *dict = (NSDictionary *) [subj objectForKey:[self currentActionType]];
+    
+     NSLog(@"actiontype dictionary is %@", dict);
     
     if (isfired)
         return [dict objectForKey:@"fired"];
@@ -589,11 +595,16 @@ NSMutableDictionary *tree;
  * Option  =   tweet, notify    /   owner (i.e. mum/dad)
  */
 
+//TODO:  sort out what happens when the subject does not exist in the list of subjects we know about in the catalogue...
+
 -(void) setAction:(NSString *) action subject:(NSString*) subject options:(NSMutableDictionary*)arguments{
     
     
-   
+    
+    NSLog(@"----------->> SETTING ACTION - arguments action is %@ subject is %@ args is %@", action, subject, arguments);
+    
     int index = 0;
+    
     [currentActionArguments removeAllObjects];
   
     //first check to see if action exists
@@ -601,7 +612,7 @@ NSMutableDictionary *tree;
     
     if (tmp != nil){
         //set the index for the current action;
-        
+       
         NSArray *subjects = [tmp objectForKey:@"subjects"];
         
        
@@ -618,6 +629,7 @@ NSMutableDictionary *tree;
                     
                     
                     currentActionType = action;
+                    
                     
                     NSString *subject = [actionsubjectarray objectAtIndex:actionsubjectarrayindex];
                     
@@ -710,9 +722,17 @@ NSMutableDictionary *tree;
         NSLog(@"successfully read in the catalogue data");
     }
     
+    /*
+     * The strings /dicts inside image looku are being releases - need to explicitly reatin these??
+     */
+    NSDictionary *main = (NSDictionary *) [[data objectForKey:@"catalogue"] retain];
     
-    NSDictionary *main = (NSDictionary *) [data objectForKey:@"catalogue"];
-    imageLookup = [(NSDictionary *) [main objectForKey:@"images"] retain];
+    NSDictionary *tmpimages = (NSDictionary *) [main objectForKey:@"images"];
+    self.imageLookup = tmpimages;
+    [tmpimages release];
+    
+    NSLog(@"image lookup as follows %@", self.imageLookup);
+    
     
     NSDictionary *navigation =  (NSDictionary *) [main objectForKey:@"navigation"];
     NSDictionary *controllers = (NSDictionary *) [main objectForKey:@"controllers"];

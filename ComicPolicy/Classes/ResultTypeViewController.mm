@@ -29,16 +29,14 @@
 
 - (void)loadView
 {
-    /*
-     * TODOD CALL SuperViewDid
-     */
-    //self.testImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ok.png"]];
+       //self.testImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ok.png"]];
     //[self.view addSubview:testImage];
     //currentMonitorScene = @"resultvisits.png";
     CGRect aframe = CGRectMake(0,0,897,301);
 	UIView *rootView = [[UIView alloc] initWithFrame:aframe];	
 	self.view = rootView;
 	[rootView release];
+    
     MonitorView *mview = [[MonitorView alloc] initWithFrameAndImage: CGRectMake(0,0,497,301) image:@"resulttype.png"];
 	self.monitorView = mview;
     [mview release];

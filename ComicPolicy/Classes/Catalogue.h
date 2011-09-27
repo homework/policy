@@ -12,10 +12,12 @@
 @interface Catalogue : NSObject {
     NSMutableDictionary *currentConditionArguments;
     NSMutableDictionary *currentActionArguments;
+    NSDictionary* imageLookup;
 }
 
 @property(nonatomic, retain) NSMutableDictionary *currentConditionArguments;
 @property(nonatomic, retain) NSMutableDictionary *currentActionArguments;
+@property(nonatomic, retain)  NSDictionary* imageLookup;
 
 + (Catalogue *)sharedCatalogue;
 

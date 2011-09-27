@@ -16,8 +16,9 @@ BOOL toScaled = NO;
 
 // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    if ((self = [super initWithNibNameAndType:nibNameOrNil bundle:nibBundleOrNil type:@"timed"])) {
-        
+    //if ((self = [super initWithNibNameAndType:nibNameOrNil bundle:nibBundleOrNil type:@"timed"])) {
+    if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
+            
         [self setUpConditionView];
         [self initialiseClocks];
         [self updateCaption];
@@ -27,27 +28,6 @@ BOOL toScaled = NO;
     return self;
 }
 
-/*
--(void) addWeekdaySelection{
-    
-    days = [[[NSArray alloc] initWithObjects:@"Mon", @"Tue", @"Wed", @"Thu", @"Fri", @"Sat", @"Sun", nil] retain];
-    int index =0;
-    
-    NSMutableArray *tmp = [[NSMutableArray alloc] init];
-    
-    for (NSString *day in days){
-        
-        int xval = 130  + (index % 3) * 50;
-        int yval = 170 + (index / 3) * 30;
-        index++;
-        UILabel* dow = [[DayOfWeekView alloc] initWithFrameAndText:CGRectMake(xval,yval,50,40) text:day selected:YES];
-        [tmp addObject:dow];
-        [self.view addSubview:dow];
-    }
-    
-    dayLabels = [[NSArray alloc] initWithArray:tmp];
-    
-}*/
 
 -(void) setUpConditionView{
     CGRect aframe = CGRectMake(0,0,294,301);
@@ -110,8 +90,9 @@ BOOL toScaled = NO;
     
     NSString *from = [NSString stringWithFormat:@"%02d:%02d", fromhour, fromminute];
     NSString *to = [NSString stringWithFormat:@"%02d:%02d", tohour, tominute];
-    NSArray *daysofweek = [NSArray arrayWithObjects:@"Mo", @"Tu", @"We", nil];
-    NSMutableDictionary *newargs = [[NSMutableDictionary alloc] initWithObjects:[[NSArray alloc] initWithObjects:from, to, daysofweek, nil] forKeys:[[NSArray alloc] initWithObjects:@"from", @"to", @"daysofweek",nil]];
+   // NSArray *daysofweek = [NSArray arrayWithObjects:@"Mo", @"Tu", @"We", nil];
+   //
+    NSMutableDictionary *newargs = [[NSMutableDictionary alloc] initWithObjects:[[NSArray alloc] initWithObjects:from, to, nil] forKeys:[[NSArray alloc] initWithObjects:@"from", @"to",nil]];
     
     [[Catalogue sharedCatalogue] setConditionArguments:newargs];
     

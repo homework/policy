@@ -69,7 +69,7 @@
 -(void) update{
 
     NSDictionary *dict = [[Catalogue sharedCatalogue] actionArguments];
-    NSLog(@"in update and dict is %@", dict);
+
     NSString* timeframe = [dict objectForKey:@"timeframe"];
         if (timeframe == nil)
         [self setSlider:0];

@@ -20,6 +20,7 @@
     UITextField* addSiteTextField;
     NSMutableArray* sites;
     BOOL editing;
+    BOOL doesvisit;
 }
 
 @property(nonatomic, retain) NSMutableArray* sites;

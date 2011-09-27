@@ -10,46 +10,40 @@
 
 
 @implementation ResultView
-@synthesize monitorWebView;
-@synthesize monitorImage;
+//@synthesize monitorWebView;
+//@synthesize monitorImage;
 @synthesize resultMainImage;
-@synthesize comicframe;
-@synthesize activityIndicatorView;
+//@synthesize comicframe;
+//@synthesize activityIndicatorView;
 
 - (id)initWithFrame:(CGRect)frame {
     if ((self = [super initWithFrame:frame])) {
 		
 		
-        self.backgroundColor = [UIColor yellowColor];
-		/*
-		UIImageView *tmpResultBack = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dadwaiting.png"]];
-		tmpResultBack.autoresizingMask = UIViewContentModeScaleAspectFit;// | UIViewAutoresizingFlexibleHeight;
+       
+		//[self setBackgroundColor:[UIColor redColor]];
+		[self setBackgroundColor: [[UIColor alloc] initWithRed:243.0 / 255 green:242.0 / 255 blue:241.0 / 255 alpha:1.0]];
+        
+        /*UIView *aview = [[UIView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
+        [aview setBackgroundColor:[UIColor redColor]];
+        [self addSubview:aview];
+        [aview release];*/
+        
+        /*UIImageView *tmpResultBack = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dadwaiting.png"]];
+		tmpResultBack.autoresizingMask =  UIViewContentModeScaleAspectFit | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 
-		tmpResultBack.frame = CGRectMake(897-459, 0, 458, 300);
+		tmpResultBack.frame = CGRectMake(0, 0, frame.size.width, frame.size.height);
 		[self addSubview:tmpResultBack];
 		self.resultMainImage = tmpResultBack;
 		[tmpResultBack release];*/
 		
-		/*UIActivityIndicatorView *tmpIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-		tmpIndicatorView.frame = CGRectMake(210,130,40,40);
-		[self addSubview:tmpIndicatorView];
-		self.activityIndicatorView = tmpIndicatorView;
-		[tmpIndicatorView release];*/
 		
-											
-		/*UIImageView *tmpMonitor = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"resulttype.png"]];
-		tmpMonitor.autoresizingMask = UIViewContentModeScaleAspectFit;// UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-		[self addSubview:tmpMonitor];
-		self.monitorImage = tmpMonitor;
-		[tmpMonitor release];		*/
-		
-		
-		UIImageView* tmpframe = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bigframe.png"]];
-		self.comicframe = tmpframe;
-		tmpframe.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+		/*UIImageView* tmpframe = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bigframe.png"]];
+		tmpframe.frame = CGRectMake(0,0, frame.size.width, frame.size.height);
+		tmpframe.autoresizingMask = UIViewContentModeScaleAspectFit | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 
-		//[self addSubview:tmpframe];
-		[tmpframe release]; 
+		[self addSubview:tmpframe];
+		[tmpframe release]; */
 		
 	}
 	return self;

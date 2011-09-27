@@ -28,18 +28,42 @@
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
 	
-	currentActionScene = @"dadwaiting.png";
-	
+    BOOL hasFired = [[PolicyManager sharedPolicyManager] hasFiredForSubject:[[Catalogue sharedCatalogue] currentActionSubject]];
+    
+    
+	currentActionScene =  [[Catalogue sharedCatalogue] getActionResultImage:hasFired];/// @"dadwaiting.png";
+    
+	    
+    /*CGRect aframe = [[PositionManager sharedPositionManager] getPosition:@"resultmonitor"];
+	UIView *rootView = [[UIView alloc] initWithFrame:aframe];		
+    [rootView setAutoresizesSubviews:YES];
+	self.view = rootView;
+    [rootView release];*/
+    
 	//CGRect aframe = CGRectMake(300,0,497,301);
-    CGRect aframe = CGRectMake(0,0,897,301);
+    CGRect aframe = [[PositionManager sharedPositionManager] getPosition:@"result"];
 	UIView *rootView = [[UIView alloc] initWithFrame:aframe];	  	
 	self.view = rootView;
     [rootView release];
 	
-	ResultView *aview = [[ResultView alloc] initWithFrame: [[PositionManager sharedPositionManager] getPosition:@"result"]];
+	ResultView *aview = [[ResultView alloc] initWithFrame: CGRectMake(0,0,aframe.size.width, aframe.size.height)];
 	resultView = aview;
-	
-	
+    [resultView setAutoresizesSubviews:YES];
+    
+    UIImageView *tmpBack = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"background.png"]];
+    tmpBack.autoresizingMask = UIViewContentModeScaleAspectFit | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    tmpBack.frame = CGRectMake(0, 0, resultView.frame.size.width, resultView.frame.size.height);
+	[resultView addSubview:tmpBack];
+    
+    
+    UIImageView *tmpscene = [[UIImageView alloc] initWithImage:[UIImage imageNamed:currentActionScene]];
+    tmpscene.autoresizingMask = UIViewContentModeScaleAspectFit | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+   
+    [resultView addSubview:tmpscene];
+     tmpscene.frame = CGRectMake(0, 0, resultView.frame.size.width, resultView.frame.size.height);
+    resultView.resultMainImage = tmpscene;
+    [tmpscene release];
+    
 	[self.view addSubview: resultView];
 	[aview release];
 }

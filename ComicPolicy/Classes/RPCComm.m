@@ -324,33 +324,6 @@ PolicyRequest *policy_request_convert(Rtab *results){
 }
 
 
-/*
-PolicyState *policy_state_convert(Rtab *results){
-    PolicyState *ans;
-	
-	if (! results || results->mtype != 0){
-        printf("returning null as !results!\n");
-        return NULL;
-        
-    }
-	
-    if (!(ans = (PolicyState *)malloc(sizeof(PolicyState)))){
-		printf("returning null as cannot malloc\n");
-        return NULL;
-    }
-    
-    char **columns;
-    columns = rtab_getrow(results, 0);
-
-    ans->tstamp = string_to_timestamp(columns[0]);
-    ans->pid = atol(columns[1]);
-    strncpy(ans->state, columns[2], 8);
-    strncpy(ans->pondertalk, columns[4], 1024);
-    return ans;
-}*/
-
-
-
 PolicyFired *policy_fired_convert(Rtab *results){
     PolicyFired *ans;
 	
@@ -610,9 +583,7 @@ char *index2action(unsigned int index) {
 	
 	sprintf(qname, query);
 	/* subscribe to query 'qname' */
-	sprintf(question, "SQL:subscribe %s %s %hu %s", 
-            qname, myhost, myport, service);
-    
+	sprintf(question, "SQL:subscribe %s %s %hu %s", qname, myhost, myport, service);
     
     if (!rpc_call(rpc, question, strlen(question)+1, resp, 100, &rlen)) {
         fprintf(stderr, "Error issuing subscribe command\n");
@@ -644,6 +615,7 @@ char *index2action(unsigned int index) {
                 if (callback != NULL)
                     callback(resp, len);
 			}else{
+                NSLog(@"---------------------- RPC DISCONNECTING ---------------------------");
 				rpc_disconnect(rpc);
 				[self performSelectorOnMainThread:@selector(notifydisconnected:) withObject:nil waitUntilDone:NO];
 			}

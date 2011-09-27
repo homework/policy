@@ -62,13 +62,10 @@
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.75];
     [UIView setAnimationDelegate:self];
-    //[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:self.rootMonitorView cache:YES];
     [currentMonitorViewController.view removeFromSuperview];
     [currentMonitorViewController viewDidUnload];
     [self.view addSubview:newController.view];
     self.currentMonitorViewController = newController;
-    
-    //[self.rootMonitorView addSubview:[newController view]];
     [UIView commitAnimations];
     [newController release];
     
@@ -77,22 +74,18 @@
 -(void) updateActionResultScene{
     BOOL hasFired = [[PolicyManager sharedPolicyManager] hasFiredForSubject:[[Catalogue sharedCatalogue] currentActionSubject]];
     
-   // NSLog(@"POLICY HAS FIRED IS %@", (hasFired ? @"YES" : @"NO"));
     
 	NSString *newscene =  [[Catalogue sharedCatalogue] getActionResultImage:hasFired];
-	
-    //NSLog(@"newscene is %@", newscene);
+    NSLog(@"got newscene for %@ as %@", [[Catalogue sharedCatalogue] currentActionSubject], newscene);
     
 	if (newscene != NULL){
-		//if (! [resultController.currentActionScene isEqualToString:newscene]){
-			[UIView beginAnimations:nil context:nil];
-			[UIView setAnimationDuration:0.75];
-			[UIView setAnimationDelegate:self];
-			[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:resultController.resultView.resultMainImage cache:YES];
-			resultController.resultView.resultMainImage.image = [UIImage imageNamed:newscene];
-			[UIView commitAnimations];
-			resultController.currentActionScene = newscene;
-		//}
+        [UIView beginAnimations:nil context:nil];
+        [UIView setAnimationDuration:0.75];
+        [UIView setAnimationDelegate:self];
+        [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:resultController.resultView.resultMainImage cache:YES];
+        resultController.resultView.resultMainImage.image = [UIImage imageNamed:newscene];
+        [UIView commitAnimations];
+        resultController.currentActionScene = newscene;
 	}
 }
 
@@ -110,13 +103,9 @@
 	
    
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(conditionChange:) name:@"conditionChange" object:nil];	
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(policyChanged:) name:@"policyLoaded" object:nil];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(policyChanged:) name:@"saveRequestComplete" object:nil];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionSubjectChange:) name:@"actionSubjectChange" object:nil];
-	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(policyFired:) name:@"policyFired" object:nil];	
     
     
@@ -126,36 +115,19 @@
     [rootView release];
     
 	ResultViewController *tmpResultController = [[[NSClassFromString(@"ResultViewController") alloc] initWithNibName:nil bundle:nil] retain];
-    
     MonitorViewController *tmpMonitorController = [[[NSClassFromString(@"MonitorViewController") alloc] initWithNibName:nil bundle:nil] retain];
 
 
 	[[self view] addSubview:[tmpResultController view]];
     [[self view] addSubview: [tmpMonitorController view ]];
-	resultController = tmpResultController;
-	currentMonitorViewController = tmpMonitorController;
+	
+    resultController = tmpResultController;
+	
+    
+    currentMonitorViewController = tmpMonitorController;
     
     [tmpMonitorController release];
 }
-
-/*
--(void) webViewDidFinishLoad:(UIWebView *)webView{
-	[currentController.resultView.activityIndicatorView stopAnimating];
-	//[resultView.monitorWebView setHidden: NO];
-	[UIView beginAnimations:nil context:nil];
-	[UIView setAnimationDuration:0.75];
-	[UIView setAnimationDelegate:self];
-	currentController.resultView.monitorWebView.alpha = 1.0;
-	[UIView commitAnimations];
-}*/
-
-/*
- // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
- - (void)viewDidLoad {
- [super viewDidLoad];
- }
- */
-
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     // Overriden to allow any orientation.

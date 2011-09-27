@@ -120,12 +120,6 @@
 	[self.view addSubview:tmpRefresh];
 	[tmpRefresh release];
     
-    /*UIImageView *tmpReset = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"reset.png"]];
-	tmpReset.frame = CGRectMake(660, 680, 55, 57);
-	resetButton = tmpReset;
-    resetButton.alpha = 0.0;
-	[self.view addSubview:tmpReset];
-	[tmpReset release];*/
     
     UIImageView *tmpActivate = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"activate.png"]];
 	tmpActivate.frame = CGRectMake(660, 680, 55, 57);
@@ -288,44 +282,34 @@
     if ([[[Catalogue sharedCatalogue] currentActionType] isEqualToString:@"block"]){
 		
         
-       // [self.view addSubview:actionTimeViewController.view];
-		actionViewController.view.frame = [[PositionManager sharedPositionManager] getPosition:@"action"];
-        
-        actionTimeViewController.view.frame = [[PositionManager sharedPositionManager] getPosition:@"actiontime"];
-        [actionTimeViewController update];
-        
-        conditionVisitingTimeViewController.view.frame = [[PositionManager sharedPositionManager] getPosition:@"conditionvisitingtime"];
-        [conditionVisitingTimeViewController initialiseClocks];
-        
-	
-        resultViewController.resultController.resultView.frame = [[PositionManager sharedPositionManager] getPosition:@"result"];        
-        resultViewController.resultController.resultView.resultMainImage.alpha = 1.0;
-				
-        CGRect newframe = [[PositionManager sharedPositionManager] getPosition:@"resultmonitor"];
 
-		resultViewController.currentMonitorViewController.monitorView.superview.frame = newframe;
-        
-        resultViewController.currentMonitorViewController.monitorView.frame = CGRectMake(0,0, newframe.size.width, newframe.size.height);      
 	}else{
 		
 		
 		[UIView setAnimationDidStopSelector:@selector(actionOffScreen:finished:context:)];
-		actionViewController.view.frame = [[PositionManager sharedPositionManager] getPosition:@"action"];
-		actionTimeViewController.view.frame = [[PositionManager sharedPositionManager] getPosition:@"actiontime"];
-        resultViewController.resultController.resultView.frame = [[PositionManager sharedPositionManager] getPosition:@"result"];
-		resultViewController.resultController.resultView.resultMainImage.alpha = 1.0;
-        
-        conditionVisitingTimeViewController.view.frame = [[PositionManager sharedPositionManager] getPosition:@"conditionvisitingtime"];
-        [conditionVisitingTimeViewController initialiseClocks];
-        
-        CGRect newframe = [[PositionManager sharedPositionManager] getPosition:@"resultmonitor"];
-        
-		resultViewController.currentMonitorViewController.monitorView.superview.frame = newframe;
-        
-        resultViewController.currentMonitorViewController.monitorView.frame = CGRectMake(0,0, newframe.size.width, newframe.size.height); 
-        
+		
+                       
+       
        
     }
+    
+    conditionVisitingTimeViewController.view.frame = [[PositionManager sharedPositionManager] getPosition:@"conditionvisitingtime"];
+    [conditionVisitingTimeViewController initialiseClocks];
+    
+    CGRect newframe = [[PositionManager sharedPositionManager] getPosition:@"resultmonitor"];
+    resultViewController.currentMonitorViewController.monitorView.superview.frame = newframe;
+    resultViewController.currentMonitorViewController.monitorView.frame = CGRectMake(0,0, newframe.size.width, newframe.size.height);  
+    
+    actionViewController.view.frame = [[PositionManager sharedPositionManager] getPosition:@"action"];
+    actionTimeViewController.view.frame = [[PositionManager sharedPositionManager] getPosition:@"actiontime"];
+    [actionTimeViewController update];
+    
+    newframe = [[PositionManager sharedPositionManager] getPosition:@"result"];
+    resultViewController.resultController.resultView.superview.frame = newframe;
+    resultViewController.resultController.resultView.frame = CGRectMake(0,0, newframe.size.width, newframe.size.height);  
+        
+    resultViewController.resultController.resultView.resultMainImage.alpha = 1.0;
+
     [UIView commitAnimations];
 
 }

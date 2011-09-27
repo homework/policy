@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "ConditionBandwidthViewController.h"
 @class ConditionVisitingViewController;
-//#import "Lookup.h"
 
 @interface RootConditionViewController : UIViewController {
 	ConditionViewController* currentViewController;
