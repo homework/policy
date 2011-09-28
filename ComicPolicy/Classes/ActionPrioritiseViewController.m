@@ -36,7 +36,7 @@
         [slider setContinuous:NO];
         
         [slider addTarget:self action:@selector(sliderAction:) forControlEvents:UIControlEventValueChanged];
-        [slider setThumbImage:[UIImage imageNamed:@"greenup.png"] forState:UIControlStateNormal];
+       // [slider setThumbImage:[UIImage imageNamed:@"greenup.png"] forState:UIControlStateNormal];
         [prioritiseview addSubview:slider];
         
         NSDictionary *args = [[Catalogue sharedCatalogue] actionArguments];
@@ -112,7 +112,7 @@
         priority = @"low";
         slider.value = 0;
     }
-    prioritiseview.prioritiseamountcaption.text = [NSString stringWithFormat:@"%@ priority", priority];
+    prioritiseview.prioritiseamountcaption.text = [NSString stringWithFormat:@"%@ priority for 30 min", priority];
 }
 
 -(void) sliderAction:(UISlider*)sender{

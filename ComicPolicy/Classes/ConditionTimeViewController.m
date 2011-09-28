@@ -166,7 +166,7 @@ static bool selected[7];
 - (void)dealloc {
     [super dealloc];
     [days release];
-    [dayLabels release];
+ //   [dayLabels release];
 }
 
 

@@ -79,11 +79,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Classes/Catalogue.m"
-         timestampString = "338842850.056893"
+         timestampString = "338928903.427929"
          startingColumnNumber = "2147483647"
          endingColumnNumber = "2147483647"
-         startingLineNumber = "574"
-         endingLineNumber = "574"
+         startingLineNumber = "935"
+         endingLineNumber = "935"
          landmarkName = "-setSubjectDevice:"
          landmarkType = "5">
       </FileBreakpoint>

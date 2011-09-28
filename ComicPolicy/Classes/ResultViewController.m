@@ -30,8 +30,10 @@
 	
     BOOL hasFired = [[PolicyManager sharedPolicyManager] hasFiredForSubject:[[Catalogue sharedCatalogue] currentActionSubject]];
     
+    ///TODO NB:  setting this to the shared catalogue dict will mean that the dict is cleaned up when this is dealloced
+    //and will result in referening a dereferenced pointer....
     
-	currentActionScene =  [[Catalogue sharedCatalogue] getActionResultImage:hasFired];/// @"dadwaiting.png";
+	currentActionScene =  @"";//[[Catalogue sharedCatalogue] getActionResultImage:hasFired];/// @"dadwaiting.png";
     
 	    
     /*CGRect aframe = [[PositionManager sharedPositionManager] getPosition:@"resultmonitor"];

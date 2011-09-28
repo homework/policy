@@ -175,11 +175,8 @@ static void *reader(void *args) {
         sp = inet_ntoa(c_addr.sin_addr);
         pt = ntohs(c_addr.sin_port);
         if (cmd >= CMD_LOW && cmd <= CMD_HIGH) {
-            //printf("%s from %s:%05u:%08lx; seqno = %ld, frag/nfrag = %u/%u\n",
-              //     cmdnames[cmd], sp, pt, sb, seqno, fnum, nfrags);
-           // printf("%s from %s:%05u:%08lx; seqno = %ld, frag/nfrag = %u/%u\n",
-             //      cmdnames[cmd], sp, pt, sb, seqno, fnum, nfrags);
-
+            logf("%s from %s:%05u:%08lx; seqno = %ld, frag/nfrag = %u/%u\n",
+                   cmdnames[cmd], sp, pt, sb, seqno, fnum, nfrags);
         } else {
             errorf("Illegal command received: %d\n", cmd);
             continue;
@@ -189,13 +186,11 @@ static void *reader(void *args) {
         cr = ctable_lookup(&ep);
         switch (cmd) {
             case CONNECT: {
-                printf("lovely....seen an incoming connection request...\n");
-                      RpcEndpoint *nep;
+                RpcEndpoint *nep;
 		ConnectPayload *conp = (ConnectPayload *)dp;
                 ControlPayload *p;
                 int newcr = 0;
 		SRecord *sr;
- 
 		sr = stable_lookup(conp->sname);
 		if (!sr)
 		    break;
@@ -269,10 +264,10 @@ static void *reader(void *args) {
 		    case NEW:
                         cplen = CP_SIZE;
                         cp = (ControlPayload *)mem_alloc(cplen);
-                        cp_complete(cp, ep.subport, QACK, seqno, fnum, nfrags);
+			cp_complete(cp, ep.subport, QACK, seqno, fnum, nfrags);
                         crecord_setPayload(cr, cp, cplen, ATTEMPTS, TICKS);
                         (void)send_payload(cr->ep, cp, cplen);
-                        tsl_append(cr->svc->s_queue, cr->ep, p, dplen);
+			tsl_append(cr->svc->s_queue, cr->ep, p, dplen);
                         crecord_setState(cr, ST_QACK_SENT);
 			break;
 	            case OLD:
@@ -461,8 +456,11 @@ static void *reader(void *args) {
  * if number of retry attempts has been exhausted, purges those connections
  * from the table
  */
+#define TICKS_TIL_PURGE 10
 static void *timer(void *args) {
     CRecord *retry, *timed, *ping, *purge, *cr;
+    CRecord *limbohead = NULL;
+    CRecord *limbotail = NULL;
     int counter = 0;
 
     debugf("timer thread started\n");
@@ -478,11 +476,33 @@ static void *timer(void *args) {
 #endif /* VLOG */
 	}
         ctable_scan(&retry, &timed, &ping, &purge);
-	while (purge != NULL) {
+	while (purge != NULL) {	/* add purged CRecords to limbo */
 	    cr = purge->link;
+	    purge->link = NULL;
+	    purge->ticksLeft = TICKS_TIL_PURGE;
+	    if (limbotail)
+                limbotail->link = purge;
+	    else
+                limbohead = purge;
+	    limbotail = purge;
 	    ctable_remove(purge);
-	    crecord_destroy(purge);
 	    purge = cr;
+	}
+	/*
+	 * scan entire limbo list, decrementing ticksLeft as we go along
+	 * for those at the beginning of the list, if ticksLeft <= 0,
+	 * remove it from the queue and destroy it
+	 */
+	for (cr = limbohead; cr != NULL; ) {
+	    if (--cr->ticksLeft <= 0) {
+                limbohead = cr->link;	/* remove it from head of the queue */
+		crecord_destroy(cr);
+		cr = limbohead;
+		if (! limbohead)
+                   limbotail = NULL;
+	    } else {
+                cr = cr->link;
+	    }
 	}
 	while (timed != NULL) {
 	    cr = timed->link;
@@ -638,26 +658,26 @@ RpcConnection rpc_connect(char *host, unsigned short port,
     ctable_lock();
     subport = ctable_newSubport();
     nep = rpc_socket(host, port, subport);
-    len += strlen(svcName);			/* room for svcName */
-    buf = (ConnectPayload *)mem_alloc(len);
-    cp_complete((ControlPayload *)buf, nep->subport, CONNECT, seqno, 1, 1);
-    strcpy(buf->sname, svcName);
-    cr = crecord_create(nep, seqno);
-    crecord_setPayload(cr, buf, len, ATTEMPTS, TICKS);
+    if (nep != NULL) {
+        len += strlen(svcName);			/* room for svcName */
+        buf = (ConnectPayload *)mem_alloc(len);
+        cp_complete((ControlPayload *)buf, nep->subport, CONNECT, seqno, 1, 1);
+        strcpy(buf->sname, svcName);
+        cr = crecord_create(nep, seqno);
+        crecord_setPayload(cr, buf, len, ATTEMPTS, TICKS);
 #ifdef LOG
-    dumpsockNpacket(&(nep->addr), (DataPayload *)buf, "rpc_connect");
+        dumpsockNpacket(&(nep->addr), (DataPayload *)buf, "rpc_connect");
 #endif /* LOG */
-    (void) send_payload(nep, buf, len);
-    crecord_setState(cr, ST_CONNECT_SENT);
-    ctable_insert(cr);
-    if (crecord_waitForState(cr, states, 2) == ST_TIMEDOUT) {
-		/* edited by alex: delete the new connection from ctable anyway */
-		ctable_remove(cr);
-		/* */
-        mem_free(nep);
-        nep = NULL;
+        (void) send_payload(nep, buf, len);
+        crecord_setState(cr, ST_CONNECT_SENT);
+        ctable_insert(cr);
+        if (crecord_waitForState(cr, states, 2) == ST_TIMEDOUT) {
+	    ctable_remove(cr);
+            mem_free(nep);
+            nep = NULL;
+        }
+        ctable_unlock();
     }
-    ctable_unlock();
     return (RpcConnection)nep;
 }
 
@@ -728,7 +748,11 @@ int rpc_call(RpcConnection rpc, void *query, unsigned qlen,
         crecord_setPayload(cr, buf, size, ATTEMPTS, TICKS);
 	(void)send_payload(ep, buf, size);
 	crecord_setState(cr, ST_QUERY_SENT);
-	(void) crecord_waitForState(cr, qstates, 2);
+	if (crecord_waitForState(cr, qstates, 2) == ST_TIMEDOUT) {
+	    ctable_unlock();
+	    //printf("Send of last fragment resulted in ST_TIMEDOUT\n");
+	    return result;
+	}
         buf = (DataPayload *)cr->resp;
         cr->resp = NULL;
         if (cr->state == ST_IDLE) {
@@ -739,8 +763,9 @@ int rpc_call(RpcConnection rpc, void *query, unsigned qlen,
                 result = 1;
             } else
                 result = 0;
-            free(buf);
+            //mem_free(buf);
 	}
+        mem_free(buf);
     }
     ctable_unlock();
     return result;
@@ -765,7 +790,7 @@ void rpc_disconnect(RpcConnection rpc) {
 	(void) crecord_waitForState(cr, states, 1);
 	/* DACK has been received or timed out */
     } else {
-        fprintf(stderr, "CRecord not found in rpc_disconnect()\n");
+        /*fprintf(stderr, "CRecord not found in rpc_disconnect()\n")*/;
     }
     ctable_unlock();
 }
@@ -846,3 +871,4 @@ int rpc_response(RpcService rps, RpcConnection rpc, void *rb, unsigned len) {
     ctable_unlock();
     return ans;
 }
+

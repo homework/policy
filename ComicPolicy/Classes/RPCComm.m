@@ -156,7 +156,7 @@ static void *policy_fired_handler(void *args) {
 
 static void *policy_response_handler(void *args) {
     
-    printf("in policy response handler\n");
+    
    	char event[SOCK_RECV_BUF_LEN], resp[100];
 	char stsmsg[RTAB_MSG_MAX_LENGTH];
 	RpcConnection sender;
@@ -174,7 +174,6 @@ static void *policy_response_handler(void *args) {
 		event[len] = '\0';
 		results = rtab_unpack(event, len);
 		if (results && ! rtab_status(event, stsmsg)) {
-			printf("got response results\n");
 			/* 
  			 * 
  			 * Do process */

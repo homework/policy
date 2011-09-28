@@ -267,6 +267,7 @@
 		A3EBBA361430EF7900CFAAC4 /* RootConditionTimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A3EBBA351430EF7900CFAAC4 /* RootConditionTimeViewController.m */; };
 		A3EBBA3814323A6700CFAAC4 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = A3EBBA3714323A6700CFAAC4 /* background.png */; };
 		A3ED1701135F3A6E001C64EA /* FlipFrameView.m in Sources */ = {isa = PBXBuildFile; fileRef = A3ED1700135F3A6E001C64EA /* FlipFrameView.m */; };
+		A3EE22E014333F5700DF2EBB /* cataloguev2.json in Resources */ = {isa = PBXBuildFile; fileRef = A3EE22DF14333F5700DF2EBB /* cataloguev2.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -672,6 +673,7 @@
 		A3EBBA3714323A6700CFAAC4 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
 		A3ED16FF135F3A6D001C64EA /* FlipFrameView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlipFrameView.h; sourceTree = "<group>"; };
 		A3ED1700135F3A6E001C64EA /* FlipFrameView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlipFrameView.m; sourceTree = "<group>"; };
+		A3EE22DF14333F5700DF2EBB /* cataloguev2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cataloguev2.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -765,6 +767,7 @@
 			isa = PBXGroup;
 			children = (
 				A30684FC141A655A000A867B /* catalogue.json */,
+				A3EE22DF14333F5700DF2EBB /* cataloguev2.json */,
 				A3DCB7081344EDAD00A38D5E /* data.json */,
 				A3DB62CB1371A6AF00AEBF46 /* policies.json */,
 				A3B6FA56142783EF00089153 /* ponderpoliciesall.txt */,
@@ -1621,6 +1624,7 @@
 				A33CBF09142B456B00ABA195 /* ponderpolicies.txt in Resources */,
 				A3D17622142CF61B003753BB /* activate.png in Resources */,
 				A3EBBA3814323A6700CFAAC4 /* background.png in Resources */,
+				A3EE22E014333F5700DF2EBB /* cataloguev2.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
