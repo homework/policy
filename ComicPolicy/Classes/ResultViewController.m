@@ -28,7 +28,7 @@
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
 	
-    BOOL hasFired = [[PolicyManager sharedPolicyManager] hasFiredForSubject:[[Catalogue sharedCatalogue] currentActionSubject]];
+   // BOOL hasFired = [[PolicyManager sharedPolicyManager] hasFiredForSubject:[[Catalogue sharedCatalogue] currentActionSubject]];
     
     ///TODO NB:  setting this to the shared catalogue dict will mean that the dict is cleaned up when this is dealloced
     //and will result in referening a dereferenced pointer....
@@ -50,7 +50,7 @@
 	
 	ResultView *aview = [[ResultView alloc] initWithFrame: CGRectMake(0,0,aframe.size.width, aframe.size.height)];
 	resultView = aview;
-    [resultView setAutoresizesSubviews:YES];
+    //[resultView setAutoresizesSubviews:YES];
     
     UIImageView *tmpBack = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"background.png"]];
     tmpBack.autoresizingMask = UIViewContentModeScaleAspectFit | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -59,10 +59,13 @@
     
     
     UIImageView *tmpscene = [[UIImageView alloc] initWithImage:[UIImage imageNamed:currentActionScene]];
-    tmpscene.autoresizingMask = UIViewContentModeScaleAspectFit | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-   
+   // tmpscene.autoresizingMask = UIViewContentModeScaleAspectFit | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    float xpos = (resultView.frame.size.width - 178) / 2;
+    tmpscene.frame = CGRectMake(xpos, 0, 178,300);//resultView.frame.size.width, resultView.frame.size.height);
+    
     [resultView addSubview:tmpscene];
-     tmpscene.frame = CGRectMake(0, 0, resultView.frame.size.width, resultView.frame.size.height);
+    
+    
     resultView.resultMainImage = tmpscene;
     [tmpscene release];
     

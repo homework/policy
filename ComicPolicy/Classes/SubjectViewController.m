@@ -65,7 +65,7 @@
 }
 
 -(void) doResize{
-    NSLog(@"doing a resize...");
+   
     if (![[[Catalogue sharedCatalogue] currentSubjectDevice] isEqualToString:@"*"]){
         subjectView.topImage.frame = CGRectMake(0, 0, 295, 180);
     }else{

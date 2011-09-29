@@ -60,6 +60,17 @@
 
 
         "static":{
+
+            "bundlelookup":{
+                "phone":"phone",
+                "tweet":"tweet",
+                "mail":"mail",
+                "growl":"growl",
+                "timed":"timed",
+                "bandwidth":"bandwidth",    
+                "visiting":"visiting"
+            },
+
             "imagebundles":{
 
             
@@ -200,7 +211,63 @@
                             "result":"computerunblocked.png",
                             "fired":"computerblocked.png"
                     }
+                },
+
+                "tweet":
+                {
+                    "notify":{
+                        "action":"notifybytweet.png"
+                    }
+                },
+
+                "phone":
+                {
+                    "notify":{
+                        "action":"notifybyphone.png"
+                    }
+                },
+                
+                "mail":
+                {
+                    "notify":{
+                        "action":"notifybymail.png"
+                    }
+                },
+            
+                "growl":
+                {
+                    "notify":{
+                        "action":"notifybysound.png"
+                    }
+                },
+            
+                "notify":
+                {
+                    "tweet":"notifybytweet.png",
+                    "phone":"notifybyphone.png",
+                    "mail":"notifybymail.png",
+                    "growl":"notifybysound.png"
+                },
+
+            
+                "timed":
+                {
+                    "main":"timed.png",
+                    "result":"resulttime.png"
+                },
+            
+                "bandwidth":
+                {
+                    "main":"bandwidth.png",
+                    "result":"resultbandwidth.png"      
+                },
+            
+                "visiting":
+                {
+                    "main":"visiting.png",
+                    "result":"resultvisits.png"
                 }
+
             },
 
 

@@ -12,6 +12,7 @@
 @implementation ActionNotifyView
 @synthesize personImage;
 @synthesize notifyImage;
+@synthesize notifycaption;
 
 
 - (id)initWithFrameAndImages:(CGRect)frame topImage:(NSString *) topImage bottomImage:(NSString *) bottomImage{
@@ -32,6 +33,19 @@
 		upImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"greenup.png"]];
 		upImage.frame = CGRectMake(135, 4, 27, 26);
 		[self addSubview:upImage];
+        
+        UIImageView* bottomcaptionframe = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"captionframelong.png"]];
+		bottomcaptionframe.frame = CGRectMake(10, 20, bottomcaptionframe.frame.size.width, bottomcaptionframe.frame.size.height);
+        [self addSubview:bottomcaptionframe];
+        [bottomcaptionframe release];
+        
+        self.notifycaption = [[UILabel alloc] initWithFrame:CGRectMake(10,20, 205, 30)];
+        self.notifycaption.textColor = [UIColor blackColor];
+        self.notifycaption.textAlignment = UITextAlignmentCenter;
+        self.notifycaption.font = [UIFont fontWithName:@"MarkerFelt-Thin" size:15.0];
+        self.notifycaption.backgroundColor = [UIColor clearColor];
+        [self addSubview:notifycaption];                                                            
+                                                                        
 				
     }
     return self;

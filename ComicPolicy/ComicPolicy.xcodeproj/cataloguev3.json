@@ -1,0 +1,376 @@
+{
+    "catalogue": {
+    
+        "dynamic":{
+
+            "subjects":{
+                        "arthur":["10.2.0.9"],
+                        "mort":["192.168.8.2","192.168.8.3"],
+                        "katie":["192.168.8.5"],   
+                        "mum":["192.168.8.6"],
+                        "john":["192.168.8.7"],
+                        "everyone":["192.168.8.8"],
+                        "any":["*"]
+            },
+
+             "bundlelookup":{
+
+                        "arthur":"man1bundle",
+                        "mort":"man2bundle",
+                        "katie":"girlbundle",
+                        "mum":"ladybundle",
+                        "john":"boybundle",
+                        "everyone":"everyonebundle",
+                        "any":"anyonebundle",
+                        "192.168.8.2":"laptopbundle",
+                        "192.168.8.3":"phonebundle",
+                        "10.2.0.9":"desktopbundle",
+                        "192.168.8.5":"computerbundle",
+                        "192.168.8.6":"laptopbundle",
+                        "192.168.8.7":"phonebundle",
+                        "192.168.8.8":"computerbundle"
+            },
+
+            "metadata":{
+                "devices":{
+                    "192.168.8.2":{
+                        "name": "mort's itouch"
+                    },
+                    "10.2.0.9":{
+                        "name": "arthur's macair"
+                    },
+                    "192.168.8.3":{
+                        "name": "mort's laptop"
+                    },
+                    "192.168.8.5":{
+                        "name": "katie's desktop"   
+                    },
+                    "192.168.8.6":{
+                        "name": "mum's computer"
+                    },
+                    "192.168.8.7":{
+                        "name": "john's computer"
+                    },
+                    "192.168.8.8":{
+                        "name": "lounge computer"
+                    }
+                }
+            } 
+        },
+
+
+        "static":{
+
+            "bundlelookup":{
+                "phone":"phone",
+                "tweet":"tweet",
+                "mail":"mail",
+                "growl":"growl",
+                "timed":"timed",
+                "bandwidth":"bandwidth",    
+                "visiting":"visiting"
+            },
+
+            "imagebundles":{
+
+            
+                "man1bundle":
+                    {
+                        "main":"dad.png",
+                        "block":{
+                            "action": "blockdad.png"
+                        },
+                        "notify":{
+                            "action":"notifydad.png",
+                            "result":"dadwaiting.png",
+                            "fired":"dadtold.png"
+                        }
+                    },
+                "man2bundle":
+                    {
+                        "main":"mort.png",
+                        "block":{
+                            "action":"blockmort.png"
+                        },
+                        "notify":{
+                            "action":"notifymort.png",
+                            "result":"mortwaiting.png",
+                            "fired":"morttold.png"
+                        }
+                    },
+                "girlbundle":
+                    {
+                        "main":"katie.png",
+                        "block":{
+                            "action":"blockkatie.png"
+                        },
+                        "notify":{
+                            "action":"notifykatie.png",
+                            "result":"katiewaiting.png",
+                            "fired":"katietold.png"
+                        }
+                    },
+                "ladybundle":
+                    {
+                        "main":"mum.png",
+                        "block":{
+                            "action":"blockmum.png"
+                        },
+                        "notify":{
+                            "action":"notifymum.png",
+                            "result":"mumwaiting.png",
+                            "fired":"mumtold.png"
+                        }
+                    },
+                "boybundle":
+                    {
+                        "main":"john.png",
+                        "block":{   
+                            "action":"blockjohn.png"
+                        },
+                        "notify":{
+                            "action":"notifyjohn.png",
+                            "result":"johnwaiting.png",
+                            "fired":"johntold.png"
+                        }
+                    },
+
+                "everyonebundle":
+                    {
+                        "main":"everyone.png",
+                        "block":{
+                            "action":"blockeveryone.png"
+                        },
+                        "notify":{
+                            "action":"notifyeveryone.png",
+                            "result":"everyonewaiting.png",
+                            "fired":"everyonetold.png"
+                        }
+                    },
+
+                "anyonebundle":
+                    {
+                        "main":"any.png"
+                    },
+
+                "phonebundle":
+                    {
+                        "main":"condphone.png",
+                        "block":{
+                            "action":"asphone.png",
+                            "result":"phoneunblocked.png",
+                            "fired":"phoneblocked.png"
+                    },
+                    "prioritise":{
+                            "action":"asphone.png",
+                            "result":"phoneunblocked.png",
+                            "fired":"phoneblocked.png"
+                    }
+                },
+                
+                "laptopbundle":
+                {
+                    "main":"condlaptop",
+                    "block":{
+                            "action":"aslaptop.png",
+                            "result":"laptopunblocked.png",
+                            "fired":"laptopblocked.png"
+                    },
+                    "prioritise":{
+                            "action":"aslaptop.png",
+                            "result":"laptopunblocked.png",
+                            "fired":"laptopblocked.png"
+                    }
+                },
+
+                "desktopbundle":
+                {
+                    "main":"conddesktop.png",
+                    "block":{
+                            "action":"asdesktop.png",
+                            "result":"desktopunblocked.png",
+                            "fired":"desktopblocked.png"
+                    },
+                    "prioritise":{
+                            "action":"asdesktop.png",
+                            "result":"desktopunblocked.png",
+                            "fired":"desktopblocked.png"
+                    }
+                },
+
+                "computerbundle":
+                {
+                    "main":"condcomputer.png",
+                    "block":{
+                            "action":"ascomputer.png",
+                            "result":"computerunblocked.png",
+                            "fired":"computerblocked.png"
+                    },
+                    "prioritise":{
+                            "action":"ascomputer.png",
+                            "result":"computerunblocked.png",
+                            "fired":"computerblocked.png"
+                    }
+                },
+
+                "tweet":
+                {
+                    "notify":{
+                        "action":"notifybytweet.png"
+                    }
+                },
+
+                "phone":
+                {
+                    "notify":{
+                        "action":"notifybyphone.png"
+                    }
+                },
+                
+                "mail":
+                {
+                    "notify":{
+                        "action":"notifybymail.png"
+                    }
+                },
+            
+                "growl":
+                {
+                    "notify":{
+                        "action":"notifybysound.png"
+                    }
+                },
+            
+                "notify":
+                {
+                    "tweet":"notifybytweet.png",
+                    "phone":"notifybyphone.png",
+                    "mail":"notifybymail.png",
+                    "growl":"notifybysound.png"
+                },
+
+            
+                "timed":
+                {
+                    "main":"timed.png",
+                    "result":"resulttime.png"
+                },
+            
+                "bandwidth":
+                {
+                    "main":"bandwidth.png",
+                    "result":"resultbandwidth.png"      
+                },
+            
+                "visiting":
+                {
+                    "main":"visiting.png",
+                    "result":"resultvisits.png"
+                }
+
+            },
+
+
+            "staticimages":{
+
+                "timed":
+                {
+                    "main":"timed.png",
+                    "result":"resulttime.png"
+                },
+            
+                "bandwidth":
+                {
+                    "main":"bandwidth.png",
+                    "result":"resultbandwidth.png"      
+                },
+            
+                "visiting":
+                {
+                    "main":"visiting.png",
+                    "result":"resultvisits.png"
+                }
+            },
+
+            "conditions":{
+                        
+                "timed":{
+                        "arguments":{
+                            "from":"13:00",
+                            "to":"15:00"
+                        }
+                },
+    
+                "bandwidth":{
+                        "arguments":{
+                            "percentage":80.5
+                        }
+                },
+
+                "visiting":{
+                        "arguments":{
+                            "sites":["news.bbc.co.uk", "www.google.co.uk"]
+                        }
+                }
+            },
+
+            "mappings":{
+
+                "conditiontomonitor":{
+                    "timed":"time",
+                    "bandwidth":"bandwidth",
+                    "visiting":"visits"
+                }
+            },
+
+
+            "conditionactiontree":{
+                "visiting":["notify","prioritise", "block"],
+                "timed":["prioritise"],
+                "bandwidth":["notify", "block"]
+            },
+            
+            "actions":{
+
+                    "block":{
+                        "subjects":"devices",
+                        "options":[]
+                    }, 
+                        
+                    "notify":{
+                        "subjects":"people",
+                        "options":["tweet","phone","mail","growl"]
+                    },
+
+                    "prioritise":{
+                        "subjects":"devices",
+                        "options":["high", "medium", "low"]
+                    }
+            },
+
+             "controllers":{
+
+                "conditions":{
+                    "timed":"ConditionTimeViewController",
+                    "bandwidth":"ConditionBandwidthViewController",
+                    "visiting":"ConditionVisitingViewController"
+                },
+
+                "actions":{
+                    "notify":"ActionNotifyViewController",
+                    "block":"ActionBlockViewController",
+                    "prioritise":"ActionPrioritiseViewController"
+                },
+
+                "results":{
+                    "timed":"MonitorTimeViewController",
+                    "bandwidth":"MonitorBandwidthViewController",
+                    "visiting":"MonitorVisitsViewController"
+                }
+            }
+        }
+    }
+}
+                
+            
+        

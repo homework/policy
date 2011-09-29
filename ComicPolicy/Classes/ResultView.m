@@ -22,7 +22,7 @@
 		
        
 		//[self setBackgroundColor:[UIColor redColor]];
-		[self setBackgroundColor: [[UIColor alloc] initWithRed:243.0 / 255 green:242.0 / 255 blue:241.0 / 255 alpha:1.0]];
+		//[self setBackgroundColor: [[UIColor alloc] initWithRed:243.0 / 255 green:242.0 / 255 blue:241.0 / 255 alpha:1.0]];
         
         /*UIView *aview = [[UIView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
         [aview setBackgroundColor:[UIColor redColor]];

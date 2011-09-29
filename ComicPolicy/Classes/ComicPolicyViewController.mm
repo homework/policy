@@ -309,7 +309,8 @@
     resultViewController.resultController.resultView.frame = CGRectMake(0,0, newframe.size.width, newframe.size.height);  
         
     resultViewController.resultController.resultView.resultMainImage.alpha = 1.0;
-
+    float xpos = (resultViewController.resultController.resultView.frame.size.width - 178) / 2;
+    resultViewController.resultController.resultView.resultMainImage.frame =  CGRectMake(xpos, 0, 178,300);
     [UIView commitAnimations];
 
 }

@@ -69,6 +69,9 @@
     [UIView commitAnimations];
     [newController release];
     
+    [resultController.view removeFromSuperview];
+    [self.view addSubview:resultController.view];
+    
 }
 
 -(void) updateActionResultScene{
@@ -87,6 +90,7 @@
         [UIView commitAnimations];
         resultController.currentActionScene = newscene;
 	}
+    
 }
 
 -(void) actionSubjectChange:(NSNotification *) n{
@@ -117,10 +121,10 @@
 	ResultViewController *tmpResultController = [[[NSClassFromString(@"ResultViewController") alloc] initWithNibName:nil bundle:nil] retain];
     MonitorViewController *tmpMonitorController = [[[NSClassFromString(@"MonitorViewController") alloc] initWithNibName:nil bundle:nil] retain];
 
-
-	[[self view] addSubview:[tmpResultController view]];
     [[self view] addSubview: [tmpMonitorController view ]];
 	
+	[[self view] addSubview:[tmpResultController view]];
+   
     resultController = tmpResultController;
 	
     

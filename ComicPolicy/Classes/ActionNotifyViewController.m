@@ -23,12 +23,15 @@
 		actionNotifyView = aview;
 		self.view = aview;
 		[aview release];
-		
+		[self updateCaption];
 			
 	}
     return self;
 }
 
+-(void) updateCaption{
+    actionNotifyView.notifycaption.text = [NSString stringWithFormat:@"let %@ know", [[Catalogue sharedCatalogue] currentActionSubject]];    
+}
 
 -(void) actionChange:(NSNotification *) n{
 	
@@ -39,7 +42,7 @@
     [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight forView:actionNotifyView.notifyImage cache:YES];
     actionNotifyView.notifyImage.image = [UIImage imageNamed:notificationImage];
     [UIView commitAnimations];
-    
+    [self updateCaption];
 
 }
 
