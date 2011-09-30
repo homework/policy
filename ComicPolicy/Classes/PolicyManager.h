@@ -53,5 +53,6 @@
 
 -(NSMutableDictionary *) getConditionArguments:(NSString*) localpolicyid;
 -(void) savePolicyToHWDB;
--(void) enablePolicy;
+-(void) updatePolicyState:(NSString *) state;
+
 @end

@@ -26,7 +26,6 @@
     UIImageView *deleteButton;
 	UIImageView *saveButton;
     UIImageView *refreshButton;
-    //UIImageView *resetButton;
 	UIImageView *activateButton;
     UILabel * statusLabel;
     AVAudioPlayer *tickPlayer;

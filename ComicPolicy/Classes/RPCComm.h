@@ -98,8 +98,8 @@ void policy_fired_free(PolicyFired *p);
 PolicyFired *policy_fired_convert(Rtab *results);
 
 
--(id) init:(NSString*) gwaddr:(NSString *) callbackaddr;
 
+-(id) init:(NSString *) gwaddr callback:(NSString *) cb;
 -(BOOL) connect;
 -(BOOL) send: (void *) query qlen:(unsigned) qlen resp: (void*) resp rsize:(unsigned) rs len:(unsigned *) len;
 //-(BOOL) subscribe:(NSString*)host query:(char*) query;

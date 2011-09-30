@@ -65,11 +65,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Classes/PolicyManager.m"
-         timestampString = "338809343.656271"
+         timestampString = "339091660.044684"
          startingColumnNumber = "2147483647"
          endingColumnNumber = "2147483647"
-         startingLineNumber = "240"
-         endingLineNumber = "240"
+         startingLineNumber = "258"
+         endingLineNumber = "258"
          landmarkName = "-loadPolicy:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -79,11 +79,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Classes/Catalogue.m"
-         timestampString = "339002133.232797"
+         timestampString = "339090879.956474"
          startingColumnNumber = "2147483647"
          endingColumnNumber = "2147483647"
-         startingLineNumber = "1109"
-         endingLineNumber = "1109"
+         startingLineNumber = "908"
+         endingLineNumber = "908"
          landmarkName = "-setSubjectDevice:"
          landmarkType = "5">
       </FileBreakpoint>

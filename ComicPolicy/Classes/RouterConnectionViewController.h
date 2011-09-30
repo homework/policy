@@ -10,7 +10,10 @@
 #import "RouterConnectionView.h"
 
 @interface RouterConnectionViewController : UIViewController {
-    
+    RouterConnectionView* routerConnectionView;
 }
+
+-(void) updateCaption:(NSString *) text;
+
 
 @end

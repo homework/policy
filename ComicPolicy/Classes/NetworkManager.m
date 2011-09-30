@@ -25,6 +25,8 @@
 
 @synthesize networkQueue;
 @synthesize rootURL;
+@synthesize gwaddr;
+@synthesize myaddr;
 
 
 + (NetworkManager *)sharedManager
@@ -53,17 +55,9 @@
         
    // [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(connected:) name:@"connected" object:nil];
         
-        NSString *gwaddr = [self getGatewayAddress];
-       //NSString *gwaddr  = @"192.168.8.1";
-       NSString *myaddr = [self getMyAddress];
-        
-        //NSString *gwaddr = @"localhost";
-      
-        
-        self.rootURL = [NSString stringWithFormat:@"http://%@:%d/policyserver", gwaddr , 8080];
-        
-       // self.rootURL = [NSString stringWithFormat:@"http://10.2.0.1:8080"];
-        
+        self.gwaddr = [self getGatewayAddress];
+        self.myaddr = [self getMyAddress];
+        self.rootURL = [NSString stringWithFormat:@"http://%@:%d", gwaddr , 8080];
         self.networkQueue = [ASINetworkQueue queue];
         [networkQueue setDelegate:self];
         [networkQueue setRequestDidStartSelector:@selector(delegateStarted:)];
@@ -71,12 +65,7 @@
         [networkQueue setRequestDidFailSelector:@selector(delegateFailed:)];
         [networkQueue go];
         
-        
-        NSLog(@"starting to connect to the hwdb directly...");
-        [[RPCComm sharedRPCComm] init:gwaddr callback:myaddr];
-        
-        BOOL success = [[RPCComm sharedRPCComm] connect];
-        NSLog(@"connected %s", success ? "SUCCESSFULLY" : "UNSUCCESSFULLY"); 
+      
 
         
     
@@ -86,13 +75,27 @@
     return self;
 }
 
+-(BOOL) connectToHWDB{
+    
+    NSLog(@"starting to connect to the hwdb directly...");
+    [[RPCComm sharedRPCComm] init:gwaddr callback:myaddr];
+    
+    BOOL success = [[RPCComm sharedRPCComm] connect];
+    NSLog(@"connected %s", success ? "SUCCESSFULLY" : "UNSUCCESSFULLY"); 
+    return success;
+}
+
+-(void) readPoliciesFromHWDB{
+    [[RPCComm sharedRPCComm] getStoredPolicies];
+}
 
 
+/*
 -(void) subscribe:(NSTimer *)t{
    NSString *myaddr = [self getMyAddress];
    [[RPCComm sharedRPCComm] subscribe_to_policy_fired:myaddr];
     [[RPCComm sharedRPCComm] subscribe_to_policy_response:myaddr];
-}
+}*/
 
 -(NSString *)getMyAddress
 {

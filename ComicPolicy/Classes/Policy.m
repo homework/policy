@@ -79,6 +79,9 @@
 
 - (id) initWithPonderString:(NSString *) ponderString{
     
+    
+    NSLog(@"THE PONDER STRING IS %@", ponderString);
+    
     if ([self init]){
         
         NSError *error = NULL;

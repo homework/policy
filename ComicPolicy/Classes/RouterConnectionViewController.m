@@ -41,13 +41,16 @@
 {
     CGRect appFrame = [[UIScreen mainScreen] applicationFrame];
     
-    RouterConnectionView *aview = [[RouterConnectionView alloc] initWithFrame:CGRectMake(0, 0, appFrame.size.height + 20, appFrame.size.width )];
+    routerConnectionView = [[RouterConnectionView alloc] initWithFrame:CGRectMake(0, 0, appFrame.size.height + 20, appFrame.size.width )];
     
-    aview.caption.text = [NSString stringWithFormat:@"Getting catalogue from router \n [%@]", [[NetworkManager sharedManager] rootURL]]; 
+    routerConnectionView.caption.text = [NSString stringWithFormat:@"Getting catalogue from router \n [%@]", [[NetworkManager sharedManager] rootURL]]; 
     
-    self.view = aview;
+    self.view = routerConnectionView;
 }
 
+-(void) updateCaption:(NSString *) text{
+    routerConnectionView.caption.text = text;
+}
 
 /*
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.

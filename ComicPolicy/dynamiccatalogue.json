@@ -4,7 +4,7 @@
         "dynamic":{
 
             "subjects":{
-                        "arthur":["10.2.0.9"],
+                        "arthur":["192.168.8.4"],
                         "mort":["192.168.8.2","192.168.8.3"],
                         "katie":["192.168.8.5"],   
                         "mum":["192.168.8.6"],
@@ -24,7 +24,7 @@
                         "any":"anyonebundle",
                         "192.168.8.2":"laptopbundle",
                         "192.168.8.3":"phonebundle",
-                        "10.2.0.9":"desktopbundle",
+                        "192.168.8.4":"desktopbundle",
                         "192.168.8.5":"computerbundle",
                         "192.168.8.6":"laptopbundle",
                         "192.168.8.7":"phonebundle",
@@ -36,7 +36,7 @@
                     "192.168.8.2":{
                         "name": "mort's itouch"
                     },
-                    "10.2.0.9":{
+                    "192.168.8.4":{
                         "name": "arthur's macair"
                     },
                     "192.168.8.3":{

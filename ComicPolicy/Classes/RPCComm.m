@@ -84,7 +84,7 @@ NSString* callbackaddr;
         connected = TRUE;
         [self subscribe_to_policy_fired];
         [self subscribe_to_policy_response];
-        [self getStoredPolicies];
+       
 		[self performSelectorOnMainThread:@selector(notifyconnected:) withObject:nil waitUntilDone:NO];
 		return TRUE;
 	}

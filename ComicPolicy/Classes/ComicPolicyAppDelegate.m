@@ -31,31 +31,7 @@
     NSLog(@"sorting push...");
    	[[UIApplication sharedApplication] registerForRemoteNotificationTypes: (UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound)];
     
-   // self.externalWindow = [[UIWindow alloc] init];
-    
-    //self.externalWindow.hidden = YES;
-    
-    /*int screencount = [[UIScreen screens] count];
-    
-    if (screencount > 1) {
-        
-        NSString *screens = [NSString stringWithFormat:@"found %d screens", screencount];
-        externalScreen = [[[UIScreen screens] objectAtIndex:1] retain];
-        screenModes = [externalScreen.availableModes retain];
-		NSLog(@"Found an external screen.");
-        UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"External Display Size" 
-														 message:@"Found an external screen,please select size" 
-														delegate:self 
-											   cancelButtonTitle:nil 
-											   otherButtonTitles:nil] autorelease];
-		for (UIScreenMode *mode in screenModes) {
-			CGSize modeScreenSize = mode.size;
-			[alert addButtonWithTitle:[NSString stringWithFormat:@"%.0f x %.0f pixels", modeScreenSize.width, modeScreenSize.height]];
-		}
-		[alert show];
-
-    }*/
-	return YES;
+   	return YES;
 }
 
 - (void) application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo{
@@ -79,43 +55,15 @@
 }
 
 - (void)application:(UIApplication *)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)token { 
-    
-    //  [[KeychainManager sharedManager] deleteAccountDetails];
-    NSLog(@"DEVICE TOKEN REGISTERED>.....");  ///need to do this in the pish one!!
+
 	self.deviceToken = [[[[token description]
                           stringByReplacingOccurrencesOfString: @"<" withString: @""]
                          stringByReplacingOccurrencesOfString: @">" withString: @""]
                         stringByReplacingOccurrencesOfString: @" " withString: @""];
     
-	NSLog(@"device token is %@", deviceToken);
+	NSLog(@"DEVICE TOKEN: %@", deviceToken);
     
 }
-
-/*
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-	UIScreenMode *desiredMode = [screenModes objectAtIndex:buttonIndex];
-	externalScreen.currentMode = desiredMode;
-	externalWindow.screen = externalScreen;
-	
-	[screenModes release];
-	[externalScreen release];
-	
-	CGRect rect = CGRectZero;
-	rect.size = desiredMode.size;
-    [externalWindow makeKeyAndVisible];
-
-    [externalWindow addSubview:[mirroredViewController view]];
-    
-	//externalWindow.frame = rect;
-    externalWindow.frame = [[UIScreen mainScreen] applicationFrame];
-	externalWindow.clipsToBounds = YES;
-	externalWindow.hidden = NO;
-    
-	}
-
-
-*/
 
 
 - (void)applicationWillResignActive:(UIApplication *)application {

@@ -1786,6 +1786,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Tom Lodge (C4DACQ32K3)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Tom Lodge (C4DACQ32K3)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1794,6 +1795,7 @@
 				INFOPLIST_FILE = "ComicPolicy-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.1;
 				PRODUCT_NAME = ComicPolicy;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "0091603E-A2F8-47A0-9E1E-54C1150C75E8";
 			};
 			name = Debug;
 		};

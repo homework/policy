@@ -22,10 +22,11 @@
 @interface PolicyManager()
 -(void) readInPolicies:(NSMutableDictionary *) policydict;
 -(void) newDefaultPolicy;
+-(void) createNewDefaultPolicy;
 -(void) saveCurrentPolicy;
 -(void) readPoliciesFromFile;
 -(void) createSnapshot:(Policy*) p;
-
+-(void) deletePolicyFromUI;
 -(int) registerRequest:(NSString *) lid type:(RequestType) type request:(NSString*) request;
 -(RequestObject *) getRequestObjectFor:(int) requestid;
 
@@ -68,8 +69,7 @@ static int requestId;
         localLookup    = [[[NSMutableDictionary alloc] init] retain];
         requesttable   = [[[NSMutableDictionary alloc] init] retain];
         self.policies  = [[NSMutableDictionary alloc] init];
-        self.policyids = [[NSMutableArray alloc] init];
-        //[self readPoliciesFromFile];
+        self.policyids = [[NSMutableArray alloc] init];//[self readPoliciesFromFile];
     }
     return self;
 }
@@ -87,6 +87,12 @@ static int requestId;
         [localLookup setObject:policygid forKey:policylid];
         localId++;
     }
+}
+
+
+-(void) readDefaultPolicyFromRouter{
+    
+    
 }
 
 -(void) readPoliciesFromFile{
@@ -142,25 +148,29 @@ static int requestId;
 
 -(BOOL) isInSync{
     
+        
     if (currentPolicy.identity == NULL){
         return NO;
     }
     
-    
-    if ( ![currentPolicy.subjectdevice isEqualToString:[[Catalogue sharedCatalogue] currentSubjectDevice]])
+    if ( ![currentPolicy.subjectdevice isEqualToString:[[Catalogue sharedCatalogue] currentSubjectDevice]]){
         return NO;
+    }
     
     
-    if (![currentPolicy.conditiontype isEqualToString: [[Catalogue sharedCatalogue] currentCondition]])
+    if (![currentPolicy.conditiontype isEqualToString: [[Catalogue sharedCatalogue] currentCondition]]){
         return NO;
+    }
     
-    //TODO: condition args...
-   if ( ![currentPolicy.actiontype isEqualToString: [[Catalogue sharedCatalogue] currentActionType]])
+   
+    if ( ![currentPolicy.actiontype isEqualToString: [[Catalogue sharedCatalogue] currentActionType]]){
         return NO;
+    }
     
-   if (![currentPolicy.actionsubject isEqualToString: [[Catalogue sharedCatalogue] currentActionSubject]])
+    if (![currentPolicy.actionsubject isEqualToString: [[Catalogue sharedCatalogue] currentActionSubject]]){
         return NO;
-    
+    }
+    //TODO: conditionargs....
     //TODO: actionargs....
     
     return YES;
@@ -186,19 +196,30 @@ static int requestId;
     }
 }
 
+
 -(void) loadFirstPolicy{
     
     if (self.policyids != nil && [policyids count] > 0){ 
         [self loadPolicy:[policyids objectAtIndex:0]];
         self.defaultPolicy = [[Policy alloc] initWithPolicy:currentPolicy];
-        
-        NSLog(@"default policy as follows");
         [defaultPolicy print];
     }else{
-        [self readPoliciesFromFile];
+        [self createNewDefaultPolicy];
     }
 }
 
+-(void) createNewDefaultPolicy{
+    
+    NSLog(@"LOADING IN A NEW BOOTSTRAP DEFAULT POLICY AS NONE IN DATABASE");
+    Policy *p = [[Policy alloc] init];
+    [self createSnapshot:p];
+    NSString* policyid = [NSString stringWithFormat:@"%d",localId];
+    [p setLocalid:policyid];
+    [policies setObject:p forKey:policyid];
+    [policyids addObject:policyid];
+    localId++;
+    [self loadFirstPolicy];
+}
 
 -(NSMutableDictionary *) getConditionArguments:(NSString*)type{
    
@@ -220,9 +241,6 @@ static int requestId;
     [policies setObject:apolicy forKey:apolicy.localid];
     
     [policyids addObject:apolicy.localid];
-    
-    NSLog(@"---------------> created the new default policy");
-    [apolicy print];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"totalPoliciesChanged" object:nil userInfo:nil];
 }
@@ -249,16 +267,12 @@ static int requestId;
         
         [[Catalogue sharedCatalogue] setCondition:apolicy.conditiontype options:apolicy.conditionarguments];
        
-        NSLog(@"setting action type %@ and subject %@ and args %@", apolicy.actiontype, apolicy.actionsubject, apolicy.actionarguments);
-        
+    
         [[Catalogue sharedCatalogue] setAction:apolicy.actiontype subject:apolicy.actionsubject options:apolicy.actionarguments];
     
         self.currentPolicy = apolicy;
         
     }
-    
-    NSLog(@"now I am loaded, and current type is %@, action is %@", [[Catalogue sharedCatalogue] currentActionType], [[Catalogue sharedCatalogue] currentAction]);
-    
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"policyLoaded" object:nil userInfo:nil];
 }
@@ -268,8 +282,6 @@ static int requestId;
     NSLog(@"POLICY FIRED>>>>>>>>> global policy id %d", event.pid);
    
     NSString *localid = [localLookup objectForKey: [NSString stringWithFormat:@"%d", event.pid]];
-    
-    NSLog(@"localpolicy id is  %@", localid);
     
     [self loadPolicy:localid];
     
@@ -319,8 +331,7 @@ static int requestId;
         RequestObject *robj = [self getRequestObjectFor:pr.requestid];
     
         
-        if (robj.requestType == requestCreate || robj.requestType == requestEnable){
-            
+        if (robj.requestType == requestCreate || robj.requestType == requestEnable  || robj.requestType == requestDisable){
             
             NSString* ponderString = robj.requestString;
             Policy *tosave = [[Policy alloc] initWithPonderString:ponderString];
@@ -338,41 +349,62 @@ static int requestId;
             
             [policies setObject:tosave forKey:tosave.localid];
             [self loadPolicy:tosave.localid];
-        }     
-    
-        [robj release];
+        }   
+        else if (robj.requestType == requestRemove){
+            [self deletePolicyFromUI];
+        }
+        //[rmdir
+        //[robj release];
+        [self removerequest:pr.requestid];
 }
 
 
 -(void) deleteCurrentPolicy{
    
     
-    if ([policyids count] > 1){
+    if (currentPolicy.status == enabled){
+        [self updatePolicyState:@"DISABLE"];
+    }
+    else if (currentPolicy.status == disabled){
+        [self updatePolicyState:@"REMOVE"];
+    }
     
-  
+    
+     //[[NSNotificationCenter defaultCenter] postNotificationName:@"totalPoliciesChanged" object:nil userInfo:nil];
+}
+
+
+
+-(void) deletePolicyFromUI{
+    if ([policyids count] > 1){
         [policies removeObjectForKey:currentPolicy.localid];
         [policyids removeObjectIdenticalTo:currentPolicy.localid];
         [currentPolicy release];
         [self loadPolicy:[policyids objectAtIndex:0]];
     }
-     //[[NSNotificationCenter defaultCenter] postNotificationName:@"totalPoliciesChanged" object:nil userInfo:nil];
 }
 
-
--(void) enablePolicy{
+-(void) updatePolicyState:(NSString *) state{
     NSString *policystr = [currentPolicy toPonderString];
-    int requestid = [self registerRequest:currentPolicy.localid type:requestEnable request:policystr];
+    
+    PolicyStatus type = requestEnable;
+    
+    if ([state isEqualToString:@"DISABLE"]){
+        type = requestDisable;
+    }else if ([state isEqualToString:@"REMOVE"]){
+        type = requestRemove;
+    }
+    
+    int requestid = [self registerRequest:currentPolicy.localid type:type request:policystr];
 
     policystr = [self encodePolicyForDatabase:policystr];
     int identity = [currentPolicy.identity isEqualToString:@"-1"] ? 0 :[currentPolicy.identity intValue];
     
-    NSString* query = [NSString stringWithFormat:@"SQL:insert into PolicyRequest values ('%d', \"%@\", '%d', \"%@\")\n", requestid, @"ENABLE", identity, policystr];
+    NSString* query = [NSString stringWithFormat:@"SQL:insert into PolicyRequest values ('%d', \"%@\", '%d', \"%@\")\n", requestid, state, identity, policystr];
     
-    NSLog(@"enable query is %@", query);
+    NSLog(@"STATE query is %@", query);
 
-    
     [[RPCComm sharedRPCComm] sendquery:query];
-
 }
 
 
@@ -405,17 +437,22 @@ static int requestId;
 
 }
 
+-(void) removerequest:(int) rid{
+     NSString *key = [NSString stringWithFormat:@"%d", rid];
+    [requesttable removeObjectForKey:key];
+}
+
 
 -(RequestObject *) getRequestObjectFor:(int) requestid{
     NSString *key = [NSString stringWithFormat:@"%d", requestid];
     RequestObject *reqobj = [requesttable objectForKey:key];
-    [requesttable removeObjectForKey:key];
+    //[requesttable removeObjectForKey:key];
     return reqobj;
 }
 
 -(int) registerRequest:(NSString *) lid type:(RequestType) type request:(NSString*)requeststr {
     int rid = requestId++;
-    RequestObject *reqobj = [[RequestObject alloc] initWithValues: lid type: type request:requeststr];
+    RequestObject *reqobj = [[[RequestObject alloc] initWithValues: lid type: type request:requeststr] retain];
     [requesttable setObject: reqobj forKey:[NSString stringWithFormat:@"%d",rid]];
     return rid;
 }

@@ -14,13 +14,14 @@
 
 -(void) initActions;
 -(void) initConditions;
--(NSString *) lookupImage:(NSString*)identity type:(NSString*)type state:(NSString*)state;
+-(NSString *) lookupDynamicImage:(NSString*)identity type:(NSString*)type state:(NSString*)state;
 -(NSString *) nextSubjectDevice;
 -(NSString *) nextSubjectOwner;
 -(NSString *) nextActionSubject;
 -(NSString *) nextAction;
 -(void) updateActionOptions:(NSString *)subject;
 -(void) mapDevicesToOwners;
+-(void) initStaticConditions:(NSDictionary *) dict;
 
 //-(void)addedRequestComplete:(ASIHTTPRequest *)request;
 
@@ -190,9 +191,6 @@ NSMutableDictionary *tree;
     tree = [(NSDictionary *) [navigation objectForKey:@"conditionactiontree"] retain];
     actionLookup = [(NSDictionary *) [navigation objectForKey:@"actions"] retain];
     
-    NSLog(@"action lookup is %@", actionLookup);
-    
-    
     
     actionvcs = (NSDictionary *) [[controllers objectForKey:@"actions"] retain];
     [self initActions];
@@ -215,27 +213,44 @@ NSMutableDictionary *tree;
 }
 
 
--(void) parseCatalogue:(NSString*) catalogue{
+-(BOOL) parseCatalogue:(NSString*) catalogue{
+    
+    
+    
     SBJsonParser *jsonParser = [SBJsonParser new];
     
-    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"dynamiccatalogue" ofType:@"json"];
+    /*NSString *filePath = [[NSBundle mainBundle] pathForResource:@"dynamiccatalogue" ofType:@"json"];
     NSString *content = [[NSString alloc] initWithContentsOfFile:filePath];
     NSDictionary *data  = (NSDictionary *) [[jsonParser objectWithString:content error:nil] retain];
     NSDictionary *main = (NSDictionary *) [data objectForKey:@"catalogue"];
-    
-    
     //read in the dynamic data
     [self readInDynamicData:[main objectForKey:@"dynamic"]];
+    */
     
+    if (catalogue == nil)
+        return FALSE;
     
+   
+    NSDictionary* data  = (NSDictionary *) [jsonParser objectWithString:catalogue error:nil];
+        
+    if (data == nil)
+        return FALSE;
     
-    filePath = [[NSBundle mainBundle] pathForResource:@"staticcatalogue" ofType:@"json"];
-    content = [[NSString alloc] initWithContentsOfFile:filePath];
-    data  = (NSDictionary *) [[jsonParser objectWithString:content error:nil] retain];
-    main = (NSDictionary *) [data objectForKey:@"catalogue"];
+    [data retain];
+    NSDictionary *main = (NSDictionary *) [data objectForKey:@"catalogue"];
+    [self readInDynamicData:[main objectForKey:@"dynamic"]];    
+    [data retain];
     
+    NSString * filePath = [[NSBundle mainBundle] pathForResource:@"staticcatalogue" ofType:@"json"];
+    NSString* content = [[NSString alloc] initWithContentsOfFile:filePath];
+     NSDictionary* data2  = (NSDictionary *) [[jsonParser objectWithString:content error:nil] retain];
+    [data2 retain];
+    main = (NSDictionary *) [data2 objectForKey:@"catalogue"];
+   
     //read in the static data
     [self readInStaticData:[main objectForKey:@"static"]];
+    
+    return YES;
 }
 
 
@@ -310,13 +325,11 @@ NSMutableDictionary *tree;
 
     for (NSString *key in allpeople){
         NSArray* devices = [subjectLookup objectForKey:key];
-        NSLog(@"getting devices for key %@", key);
+        
         for (NSString *device in devices){
             [alldevices addObject:device];
         }
     }
-    NSLog(@"all devices is now %@", alldevices);
-    
     //The array of all of the owners and an index to the currently selected owner
     subjectownership = [[subjectLookup allKeys] retain];
     subjectownershipindex = 0;
@@ -374,20 +387,20 @@ NSMutableDictionary *tree;
     
     NSDictionary *actionsminified = (NSDictionary *) [dict objectForKey:@"actions"];
 
-    actionLookup = [[NSMutableDictionary alloc] init];                                
+    actionLookup = [[[NSMutableDictionary alloc] init] retain];                                
     
     
     for (NSString* actiontype in [actionsminified allKeys]){
         
         if ([actiontype isEqualToString:@"block"]){
-            NSMutableDictionary *blockdict = [[NSMutableDictionary alloc] init] ;
-            NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
+            NSMutableDictionary *blockdict = [[[NSMutableDictionary alloc] init] retain];
+            NSMutableDictionary* dict = [[[NSMutableDictionary alloc] init] retain];
             for (NSString *device in alldevices){
                
                 [dict setObject: [[NSArray alloc] initWithObjects:[deviceLookup objectForKey:device],nil] forKey:device];
             }
             
-            NSMutableDictionary *arguments = [[NSMutableDictionary alloc] init];
+            NSMutableDictionary *arguments = [[[NSMutableDictionary alloc] init] retain];
             [arguments setObject:dict forKey:@"options"];
             [blockdict setObject:alldevices forKey:@"subjects"];
             [blockdict setObject:arguments forKey:@"arguments"];
@@ -395,12 +408,12 @@ NSMutableDictionary *tree;
 
         }else if ([actiontype isEqualToString:@"notify"]){
             
-            NSMutableDictionary *notifydict = [[NSMutableDictionary alloc] init];
+            NSMutableDictionary *notifydict = [[[NSMutableDictionary alloc] init] retain];
             
             NSArray *options =  [(NSDictionary *) [actionsminified objectForKey:actiontype] objectForKey:@"options"];
             
-            NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
-            NSMutableArray *peopletonotify = [[NSMutableArray alloc] init];
+            NSMutableDictionary* dict = [[[NSMutableDictionary alloc] init] retain];
+            NSMutableArray *peopletonotify = [[[NSMutableArray alloc] init] retain];
             
             for (NSString *person in allpeople){
                 if (![person isEqualToString:@"everyone"]){
@@ -409,7 +422,7 @@ NSMutableDictionary *tree;
                 }
             }
  
-            NSMutableDictionary *arguments = [[NSMutableDictionary alloc] init];
+            NSMutableDictionary *arguments = [[[NSMutableDictionary alloc] init] retain];
             [arguments setObject:dict forKey:@"options"];
             [notifydict setObject:peopletonotify forKey:@"subjects"];
             [notifydict setObject:arguments forKey:@"arguments"];
@@ -417,16 +430,16 @@ NSMutableDictionary *tree;
         
         }else if ([actiontype isEqualToString:@"prioritise"]){
             
-            NSMutableDictionary *prioritisedict = [[NSMutableDictionary alloc] init];
+            NSMutableDictionary *prioritisedict = [[[NSMutableDictionary alloc] init] retain];
             NSArray *options =  [(NSDictionary *) [actionsminified objectForKey:actiontype] objectForKey:@"options"];
             
-            NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
+            NSMutableDictionary* dict = [[[NSMutableDictionary alloc] init] retain];
             
             for (NSString *device in alldevices){
                 [dict setObject:options forKey:device];
             }
             
-            NSMutableDictionary *arguments = [[NSMutableDictionary alloc] init];
+            NSMutableDictionary *arguments = [[[NSMutableDictionary alloc] init] retain];
             [arguments setObject:dict forKey:@"options"];
             [prioritisedict setObject:alldevices forKey:@"subjects"];
             [prioritisedict setObject:arguments forKey:@"arguments"];
@@ -434,83 +447,12 @@ NSMutableDictionary *tree;
         }
     }
     
-    NSLog(@"actionlookup is as follows %@", actionLookup);
-    
-    //done
-    
     actionvcs = (NSDictionary *) [[controllers objectForKey:@"actions"] retain];
     
     [self initActions];
 }
 
 
-/*
-
--(void) initActionsNEW{
-    
-    //reset the view controller array (i.e the array of action view controllers, which is dependent upon the current condition)
-    if (actionvcsarray != nil){
-        [actionvcsarray release];
-        actionvcsarray = nil;
-    }
-
-    
-    //reset the array of possible option associated with a particular action
-    if (actionoptionsarray != nil){
-        [actionoptionsarray release];
-        actionoptionsarray = nil;        
-    }
-    
-	
-    //Now recreate each of these arrays.
-    
-    //recreate the action vcs array
-	actionvcsarray = [(NSArray *) [tree objectForKey:[self currentCondition]] retain];
-    actionvcsindex = 0;
-    
-
-    // Now set the current action type (block, notify etc).
-	currentActionType = [actionvcsarray objectAtIndex:actionvcsindex];
-    
-    
-    // Now...this needs to change..Get the relevant dictionary for the current action type...
-     
-	NSDictionary *tmp = [actionLookup objectForKey:currentActionType];
-	
-    
-     // Get set the subject array for the current action type, and initialise the index to point to the first one
-     
-    
-    NSString *subj = [tmp objectForKey:@"subjects"];
-    
-	if (subj != NULL){
-        if ([subj isEqualToString:@"people"]){
-            actionsubjectarray = allpeople;
-        }else{
-            actionsubjectarray = alldevices;
-        }
-        actionsubjectarrayindex = 0;
-	}
-    
-    
-    //do we need to retain these arrays?...check this..
-    
- 
-    
-    NSString *subject = [self currentActionSubject];
-    
-    //special case for now, which maps device to owner
-    
-    if ([currentActionType isEqualToString:@"block"]){ 
-        actionoptionsarray  = [[[NSArray alloc] initWithObjects:[deviceLookup objectForKey:subject],nil] retain];
-    }else{
-        actionoptionsarray = [[tmp objectForKey:@"options"] retain];
-    }
-     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"actionTypeChange" object:nil userInfo:nil];
-    
-}
-*/
 
 -(void) initActions{
 
@@ -607,92 +549,6 @@ NSMutableDictionary *tree;
  */
 
 
-/*
--(NSString *) lookupImage:(NSString*)identity type:(NSString*)type state:(NSString*)state{
-    
-	NSDictionary *images = (NSDictionary *) [imageLookup objectForKey:identity];
-    if (state == nil){
-        return [images objectForKey:type];
-    }
-    NSDictionary *dict = (NSDictionary *) [images objectForKey:type];
-	return [dict objectForKey:state];
-}
-
-
-
--(NSString *) nextSubjectOwnerImage{
-    return [self lookupImage: [self nextSubjectOwner] type:@"main" state:nil];
-}
-
--(NSString *) currentSubjectOwnerImage{
-	return [self lookupImage: [self currentSubjectOwner] type:@"main" state:nil];
-}
-
--(NSString *) nextSubjectDeviceImage{
-	return [self lookupImage: [self nextSubjectDevice] type:@"main" state:nil];
-}
-
--(NSString *) currentSubjectDeviceImage{
-  return [self lookupImage: [self currentSubjectDevice] type:@"main" state:nil];
-}
-
-
-//Static images (i.e. local to the app...)
-
-
--(NSString*) getConditionImage{
-    NSDictionary *dict = (NSDictionary *) [imageLookup objectForKey:[self currentCondition]];
-    return [dict objectForKey:@"main"];
-}
-
--(NSString*) getConditionResultImage{
-    NSDictionary *dict = (NSDictionary *) [imageLookup objectForKey:[self currentCondition]];
-    return [dict objectForKey:@"result"];
-}
-
--(NSString *) currentActionSubjectImage{
-	NSString *subject = [self currentActionSubject];
-	NSDictionary *images = (NSDictionary *) [imageLookup objectForKey:subject];
-    NSDictionary *action =  (NSDictionary*) [images objectForKey:currentActionType];
-    NSString *image = [action objectForKey:@"action"];
-    return image;
-}
-
--(NSString *) nextActionSubjectImage{
-	NSString *subject = [self nextActionSubject];
-	NSDictionary *images = (NSDictionary *) [imageLookup objectForKey:subject];
-	NSDictionary *action =  (NSDictionary*) [images objectForKey:currentActionType];
-    NSString *image = [action objectForKey:@"action"];
-    return image;
-}
-
--(NSString *) currentActionImage{
-	NSString *action = [self currentAction];
-    NSString *image = [self lookupImage:action type:currentActionType state:@"action"];
-    return image;
-    
-}
-
--(NSString *) nextActionImage{
-	NSString *action = [self nextAction];
-    NSString *image = [self lookupImage:action type:currentActionType state:@"action"];
-    return image;
-}
-
--(NSString*) getActionResultImage:(BOOL) isfired{
-    
-    NSDictionary *subj = (NSDictionary *) [imageLookup objectForKey:[self currentActionSubject]];
-    
-    NSDictionary *dict = (NSDictionary *) [subj objectForKey:[self currentActionType]];
-    
-    if (isfired){
-        return [NSString stringWithFormat:@"%@",[dict objectForKey:@"fired"]];
-    }
-    
-    return [NSString stringWithFormat:@"%@",[dict objectForKey:@"result"]];
-}
-
-*/
 
 
 -(NSString *) bundleFor:(NSString*) entity{
@@ -711,27 +567,7 @@ NSMutableDictionary *tree;
     }
     NSDictionary *dict = (NSDictionary *) [images objectForKey:type];
 	return [dict objectForKey:state];
-    
-    /*
-	NSDictionary *images = (NSDictionary *) [imageLookup objectForKey:identity];
-    if (state == nil){
-        return [images objectForKey:type];
-    }
-    NSDictionary *dict = (NSDictionary *) [images objectForKey:type];
-	return [dict objectForKey:state];*/
 }
-
-
--(NSString *) lookupImage:(NSString*)identity type:(NSString*)type state:(NSString*)state{
-    
-	NSDictionary *images = (NSDictionary *) [imageLookup objectForKey:identity];
-    if (state == nil){
-        return [images objectForKey:type];
-    }
-    NSDictionary *dict = (NSDictionary *) [images objectForKey:type];
-	return [dict objectForKey:state];
-}
-
 
 
 -(NSString *) nextSubjectOwnerImage{
@@ -769,68 +605,32 @@ NSMutableDictionary *tree;
     NSString *subject = [self currentActionSubject];
     NSString *type = [self currentActionType];
    return [self lookupDynamicImage: subject type:type state:@"action"];
-    
-    /*NSString *subject = [self currentActionSubject];
-	NSDictionary *images = (NSDictionary *) [imageLookup objectForKey:subject];
-    NSDictionary *action =  (NSDictionary*) [images objectForKey:currentActionType];
-    NSString *image = [action objectForKey:@"action"];
-    return image;*/
 }
 
 -(NSString *) nextActionSubjectImage{
     NSString *subject = [self nextActionSubject];
      NSString *type = [self currentActionType];
     return [self lookupDynamicImage: subject type:type state:@"action"];
-    /*
-	NSString *subject = [self nextActionSubject];
-	NSDictionary *images = (NSDictionary *) [imageLookup objectForKey:subject];
-	NSDictionary *action =  (NSDictionary*) [images objectForKey:currentActionType];
-    NSString *image = [action objectForKey:@"action"];
-    return image;*/
 }
 
 
 
 
 -(NSString *) currentActionImage{
-    
-    
-    NSLog(@"looking up current action image %@ type %@ state %@", [self currentAction], currentActionType, @"action");
-          
-	NSString *action = [self currentAction];
-   
+    NSString *action = [self currentAction];
     return [self lookupDynamicImage:action type:currentActionType state:@"action"];
-    
-
-    
 }
 
 -(NSString *) nextActionImage{
 	NSString *action = [self nextAction];
-    NSLog(@"looking up current action image %@ type %@ state %@", action, currentActionType, @"action");
-    
     NSString *image = [self lookupDynamicImage:action type:currentActionType state:@"action"];
     return image;
 }
 
 -(NSString*) getActionResultImage:(BOOL) isfired{
-    
-
-   // NSDictionary *subj = (NSDictionary *) [imageLookup objectForKey:[self currentActionSubject]];
-    
-    //NSDictionary *dict = (NSDictionary *) [subj objectForKey:[self currentActionType]];
-    
     NSString *result;
-    
-    //if (isfired){
-        result = [self lookupDynamicImage:[self currentActionSubject] type:[self currentActionType] state: isfired ? @"fired":@"result"];
-        //return [NSString stringWithFormat:@"%@",[dict objectForKey:@"fired"]];
-    //}else{
-      //  result = [self lookupDynamicImage:[self currentActionSubject] type:[self currentActionType] state:@"result"];
-    //}
-    
+    result = [self lookupDynamicImage:[self currentActionSubject] type:[self currentActionType] state: isfired ? @"fired":@"result"];
     return result;
-    //return [NSString stringWithFormat:@"%@",[dict objectForKey:@"result"]];
 }
 
 
@@ -861,7 +661,6 @@ NSMutableDictionary *tree;
 
 
 -(NSString *) currentDeviceName{
-    NSLog(@"device metadata is %@", devicemetadata);
     NSDictionary *dict = [devicemetadata objectForKey:[self currentSubjectDevice]];
     return [dict objectForKey:@"name"];
 }
@@ -1161,17 +960,12 @@ NSMutableDictionary *tree;
     
     
     
-    NSLog(@"----------->> SETTING ACTION - arguments action is %@ subject is %@ args is %@", action, subject, arguments);
-    
     int index = 0;
     
     [currentActionArguments removeAllObjects];
   
     //first check to see if action exists
     NSDictionary *tmp = [actionLookup objectForKey:action];
-    
-    
-    NSLog(@"action lookup dict is %@", tmp);
     
     if (tmp != nil){
         //set the index for the current action;

@@ -153,7 +153,7 @@
 
     }
     else if (CGRectContainsPoint( activateButton.frame , touchLocation)){
-        [[PolicyManager sharedPolicyManager] enablePolicy];
+        [[PolicyManager sharedPolicyManager] updatePolicyState:@"ENABLE"];
      //   [[PolicyManager sharedPolicyManager] reset];
     }
 	else if (CGRectContainsPoint( saveButton.frame , touchLocation)){
@@ -234,6 +234,7 @@
        
         activateButton.alpha = 0.0;
     }
+    [self checkInSync];
 }
 
 - (void)playTick{
@@ -352,54 +353,60 @@
 
 -(void) readInCatalogue:(NSTimer*) timer{
     
-    [self catalogueRequestFailed:nil];
+    //[self catalogueRequestFailed:nil];
     
     if(timer != nil){
         [timer invalidate];
         timer = nil;
     }
         
-   /*
     NSString *rootURL  = [[NetworkManager sharedManager] rootURL];
-    NSString *strurl = [NSString stringWithFormat:@"%@/public/policies/catalogue.json", rootURL];
-   
+    NSString *strurl = [NSString stringWithFormat:@"%@/dynamiccatalogue.json", rootURL];
+    [routerConnectionViewController updateCaption:[NSString stringWithFormat:@"reading in catalogue from %@", strurl]];
+    
     NSURL *url = [NSURL URLWithString:strurl];
     
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
     [request setDelegate:self];
     [request setDidFinishSelector:@selector(catalogueRequestComplete:)];
     [request setDidFailSelector:@selector(catalogueRequestFailed:)];
-    [[NetworkManager sharedManager] addRequest:request];*/
+    [[NetworkManager sharedManager] addRequest:request];
 }
 
 - (void)catalogueRequestComplete:(ASIHTTPRequest *)request
 {
     
-    
-    
-     NSLog(@"catalogue request success!!");
     NSString *responseString = [request responseString];
- 
-    [[Catalogue sharedCatalogue] parseCatalogue:responseString];
-    [self createControllers];
     
-    [self addNotificationHandlers];
-    //[[PolicyManager sharedPolicyManager] loadFirstPolicy];
-   //[self addNavigationView];
-    
-
+    if ([[Catalogue sharedCatalogue] parseCatalogue:responseString] == YES){ 
+        [routerConnectionViewController updateCaption:@"successfully read in catalogue data, connecting to router"];
+        
+        if ([[NetworkManager sharedManager] connectToHWDB]){
+             [routerConnectionViewController updateCaption:@"loading up policies"];
+            [[NetworkManager sharedManager] readPoliciesFromHWDB];
+            [self addNotificationHandlers];
+            [self createControllers];
+            [self updateFramePositions];
+            [[PolicyManager sharedPolicyManager] loadFirstPolicy];
+        }else{
+            [routerConnectionViewController updateCaption:@"failed to connect to the router database"];
+        }
+    }else{
+         [routerConnectionViewController updateCaption:@"failed to read the catalogue file received from the router"];
+        [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(readInCatalogue:) userInfo:nil repeats:NO]; 
+    }
 }
 
 
 - (void)catalogueRequestFailed:(ASIHTTPRequest *)request
 {
-    //[NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(readInCatalogue:) userInfo:nil repeats:NO]; 
+    [routerConnectionViewController updateCaption:@"unable to read the catalogue from the router will try again in 5 seconds"];
+    [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(readInCatalogue:) userInfo:nil repeats:NO]; 
      
+    /*
     NSLog(@"catalogue request failed!!");
     
     [[Catalogue sharedCatalogue] parseCatalogue:nil];
-    
-    
     
     [self addNotificationHandlers];
     
@@ -408,7 +415,7 @@
     [[PolicyManager sharedPolicyManager] loadFirstPolicy];
     
     [self updateFramePositions];
-    
+    */
     
 }
 
