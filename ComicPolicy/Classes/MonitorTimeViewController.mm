@@ -190,7 +190,7 @@ BOOL inside = NO;
     NSDictionary *data = [notification userInfo];
     NSString *responseString = [data objectForKey:@"data"];    
     
-    SBJsonParser *jsonParser = [SBJsonParser new];
+    SBJsonParser *jsonParser = [[SBJsonParser new] autorelease];
     
     NSArray* results = (NSArray *) [jsonParser objectWithString:responseString error:nil];
     

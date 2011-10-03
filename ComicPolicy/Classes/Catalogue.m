@@ -124,159 +124,47 @@ NSMutableDictionary *tree;
     return self;
 }
 
-
-
-
--(void) parseCatalogueOLD:(NSString*) catalogue{
-    
-    
-    SBJsonParser *jsonParser = [SBJsonParser new];
-    
-    NSDictionary *data = nil;
-    
-    if (catalogue != nil)
-        data  = (NSDictionary *) [jsonParser objectWithString:catalogue error:nil];
-    
-    if (data == nil){
-        NSLog(@"READING IN LOCAL COPY OF CATALOGUE");
-        NSString *filePath = [[NSBundle mainBundle] pathForResource:@"cataloguev3" ofType:@"json"];
-        NSString *content = [[NSString alloc] initWithContentsOfFile:filePath];
-        data  = (NSDictionary *) [jsonParser objectWithString:content error:nil];
-    }else{
-        NSLog(@"successfully read in the catalogue data");
-    }
-    [data retain];
-    
-    
-    NSDictionary *main = (NSDictionary *) [data objectForKey:@"catalogue"];
-    
-    imageLookup = (NSDictionary *) [[main objectForKey:@"images"] retain];
-    
-    NSDictionary *navigation =  (NSDictionary *) [main objectForKey:@"navigation"];
-    NSDictionary *controllers = (NSDictionary *) [main objectForKey:@"controllers"];
-    
-    /*
-     * Generate the arrays to handle navigation thorugh owners and their devices in the
-     * subject pane (i.e first pane in the comic).
-     
-     */
-    
-    subjectLookup = [(NSDictionary *) [navigation objectForKey:@"subjects"] retain];
-    
-    subjectownership = [[subjectLookup allKeys] retain];
-    subjectownershipindex = 0;
-    
-    devices =  [[subjectLookup objectForKey:[self currentSubjectOwner]] retain];
-    devicesindex = 0;
-    
-    
-  
-    /*
-     * Generate the arrays to handle navigation through conditions and associated view controllers
-     */
-    conditionLookup = (NSDictionary *) [navigation objectForKey:@"conditions"];
-    
-    
-    conditions = [[conditionLookup allKeys ]retain];
-    conditionindex = -1;
-    
-    conditionvcs = (NSDictionary *) [[controllers objectForKey:@"conditions"] retain];
-    [self initConditions];
-    
-    
-    /*
-     * Generate the arrays to handle navigation through actions and associated view controllers
-     */
-    
-    tree = [(NSDictionary *) [navigation objectForKey:@"conditionactiontree"] retain];
-    actionLookup = [(NSDictionary *) [navigation objectForKey:@"actions"] retain];
-    
-    
-    actionvcs = (NSDictionary *) [[controllers objectForKey:@"actions"] retain];
-    [self initActions];
-    
-    
-    /*
-     * Generate the arrays to handle navigation through results and associated view controllers
-     */
-    conditionresultvcs = (NSDictionary *) [[controllers objectForKey:@"results"] retain];
-    
-    
-    /*
-     * generate the device metadata dictionary
-     */
-    
-    devicemetadata = [[(NSDictionary *) [main objectForKey:@"metadata"] objectForKey:@"devices"] retain];
-    
-    [self mapDevicesToOwners];
-    
-}
-
-
--(BOOL) parseCatalogue:(NSString*) catalogue{
+-(BOOL) parseCatalogue:(NSString*) dynamiccatalogue  staticcatalogue:(NSString*) staticcatalogue{
     
     
     
-    SBJsonParser *jsonParser = [SBJsonParser new];
+    SBJsonParser *jsonParser = [[SBJsonParser new] autorelease];
     
-    /*NSString *filePath = [[NSBundle mainBundle] pathForResource:@"dynamiccatalogue" ofType:@"json"];
-    NSString *content = [[NSString alloc] initWithContentsOfFile:filePath];
-    NSDictionary *data  = (NSDictionary *) [[jsonParser objectWithString:content error:nil] retain];
-    NSDictionary *main = (NSDictionary *) [data objectForKey:@"catalogue"];
-    //read in the dynamic data
-    [self readInDynamicData:[main objectForKey:@"dynamic"]];
-    */
-    
-    if (catalogue == nil)
+    if (dynamiccatalogue == nil || staticcatalogue == nil){
         return FALSE;
+    }
     
    
-    NSDictionary* data  = (NSDictionary *) [jsonParser objectWithString:catalogue error:nil];
+    //read in dynamic data
+    
+    NSDictionary* dynamicdata  = (NSDictionary *) [jsonParser objectWithString:dynamiccatalogue error:nil];
         
-    if (data == nil)
+    if (dynamicdata == nil)
         return FALSE;
     
-    [data retain];
-    NSDictionary *main = (NSDictionary *) [data objectForKey:@"catalogue"];
-    [self readInDynamicData:[main objectForKey:@"dynamic"]];    
-    [data retain];
+    NSDictionary *root = (NSDictionary *) [dynamicdata objectForKey:@"catalogue"];
     
-    NSString * filePath = [[NSBundle mainBundle] pathForResource:@"staticcatalogue" ofType:@"json"];
-    NSString* content = [[NSString alloc] initWithContentsOfFile:filePath];
-     NSDictionary* data2  = (NSDictionary *) [[jsonParser objectWithString:content error:nil] retain];
-    [data2 retain];
-    main = (NSDictionary *) [data2 objectForKey:@"catalogue"];
+    [self readInDynamicData:[root objectForKey:@"dynamic"]];    
+    
+    
+    //read in static (local) data
+    
+     
+    NSDictionary* staticdata  = (NSDictionary *) [jsonParser objectWithString:staticcatalogue error:nil];
+    
+    root = (NSDictionary *) [staticdata objectForKey:@"catalogue"];
    
     //read in the static data
-    [self readInStaticData:[main objectForKey:@"static"]];
+    [self readInStaticData:[root objectForKey:@"static"]];
     
     return YES;
 }
-
-
-/*
--(void) parseCatalogue:(NSString*) catalogue{
-    SBJsonParser *jsonParser = [SBJsonParser new];
-    
-    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"cataloguev3" ofType:@"json"];
-    NSString *content = [[NSString alloc] initWithContentsOfFile:filePath];
-    NSDictionary *data  = (NSDictionary *) [[jsonParser objectWithString:content error:nil] retain];
-    NSDictionary *main = (NSDictionary *) [data objectForKey:@"catalogue"];
-    
-    
-    //read in the dynamic data
-    [self readInDynamicData:[main objectForKey:@"dynamic"]];
-    
-    //read in the static data
-    [self readInStaticData:[main objectForKey:@"static"]];
-}*/
 
 -(void) readInDynamicData:(NSDictionary *) dict{
     
     //set up the data structures for navigating the subjects
     
     [self initDynamicSubjects:dict];
-   
 
 }
 
@@ -393,14 +281,14 @@ NSMutableDictionary *tree;
     for (NSString* actiontype in [actionsminified allKeys]){
         
         if ([actiontype isEqualToString:@"block"]){
-            NSMutableDictionary *blockdict = [[[NSMutableDictionary alloc] init] retain];
-            NSMutableDictionary* dict = [[[NSMutableDictionary alloc] init] retain];
+            NSMutableDictionary *blockdict = [[[NSMutableDictionary alloc] init] autorelease];
+            NSMutableDictionary* dict = [[[NSMutableDictionary alloc] init] autorelease];
             for (NSString *device in alldevices){
                
-                [dict setObject: [[NSArray alloc] initWithObjects:[deviceLookup objectForKey:device],nil] forKey:device];
+                [dict setObject: [[[NSArray alloc] initWithObjects:[deviceLookup objectForKey:device],nil]autorelease] forKey:device];
             }
             
-            NSMutableDictionary *arguments = [[[NSMutableDictionary alloc] init] retain];
+            NSMutableDictionary *arguments = [[[NSMutableDictionary alloc] init] autorelease];
             [arguments setObject:dict forKey:@"options"];
             [blockdict setObject:alldevices forKey:@"subjects"];
             [blockdict setObject:arguments forKey:@"arguments"];
@@ -408,12 +296,12 @@ NSMutableDictionary *tree;
 
         }else if ([actiontype isEqualToString:@"notify"]){
             
-            NSMutableDictionary *notifydict = [[[NSMutableDictionary alloc] init] retain];
+            NSMutableDictionary *notifydict = [[[NSMutableDictionary alloc] init] autorelease];
             
             NSArray *options =  [(NSDictionary *) [actionsminified objectForKey:actiontype] objectForKey:@"options"];
             
-            NSMutableDictionary* dict = [[[NSMutableDictionary alloc] init] retain];
-            NSMutableArray *peopletonotify = [[[NSMutableArray alloc] init] retain];
+            NSMutableDictionary* dict = [[[NSMutableDictionary alloc] init] autorelease];
+            NSMutableArray *peopletonotify = [[[NSMutableArray alloc] init] autorelease];
             
             for (NSString *person in allpeople){
                 if (![person isEqualToString:@"everyone"]){
@@ -422,7 +310,7 @@ NSMutableDictionary *tree;
                 }
             }
  
-            NSMutableDictionary *arguments = [[[NSMutableDictionary alloc] init] retain];
+            NSMutableDictionary *arguments = [[[NSMutableDictionary alloc] init] autorelease];
             [arguments setObject:dict forKey:@"options"];
             [notifydict setObject:peopletonotify forKey:@"subjects"];
             [notifydict setObject:arguments forKey:@"arguments"];
@@ -430,16 +318,16 @@ NSMutableDictionary *tree;
         
         }else if ([actiontype isEqualToString:@"prioritise"]){
             
-            NSMutableDictionary *prioritisedict = [[[NSMutableDictionary alloc] init] retain];
+            NSMutableDictionary *prioritisedict = [[[NSMutableDictionary alloc] init] autorelease];
             NSArray *options =  [(NSDictionary *) [actionsminified objectForKey:actiontype] objectForKey:@"options"];
             
-            NSMutableDictionary* dict = [[[NSMutableDictionary alloc] init] retain];
+            NSMutableDictionary* dict = [[[NSMutableDictionary alloc] init] autorelease];
             
             for (NSString *device in alldevices){
                 [dict setObject:options forKey:device];
             }
             
-            NSMutableDictionary *arguments = [[[NSMutableDictionary alloc] init] retain];
+            NSMutableDictionary *arguments = [[[NSMutableDictionary alloc] init] autorelease];
             [arguments setObject:dict forKey:@"options"];
             [prioritisedict setObject:alldevices forKey:@"subjects"];
             [prioritisedict setObject:arguments forKey:@"arguments"];
@@ -698,7 +586,7 @@ NSMutableDictionary *tree;
 
 -(NSMutableDictionary *) conditionArguments/*:(NSString*) type*/{
     if ([currentConditionArguments objectForKey:[self currentCondition]] == nil){
-        return [[NSMutableDictionary alloc] init];
+        return [[[NSMutableDictionary alloc] init] autorelease];
     }
   return [currentConditionArguments objectForKey:[self currentCondition]];
 }
@@ -768,7 +656,7 @@ NSMutableDictionary *tree;
 
 -(NSMutableDictionary *) actionArguments/*:(NSString*) type*/{
     if ([currentActionArguments objectForKey:[self currentActionType]] == nil){
-        return [[NSMutableDictionary alloc] init];
+        return [[[NSMutableDictionary alloc] init] autorelease];
     }
     return [currentActionArguments objectForKey:[self currentActionType]];
 }
@@ -797,7 +685,7 @@ NSMutableDictionary *tree;
     
 	NSString* nextAction =  [actionoptionsarray objectAtIndex:++actionoptionsarrayindex % [actionoptionsarray count]];
     
-    NSMutableDictionary *newargs = [[NSMutableDictionary alloc] initWithObjects:[[NSArray alloc] initWithObjects:nextAction, nil] forKeys:[[NSArray alloc] initWithObjects:@"options",nil]];
+    NSMutableDictionary *newargs = [[[NSMutableDictionary alloc] initWithObjects:[[[NSArray alloc] initWithObjects:nextAction, nil] autorelease] forKeys:[[[NSArray alloc] initWithObjects:@"options",nil] autorelease]] autorelease];
     
     [self setActionArguments:newargs];
     return  nextAction;
@@ -825,7 +713,7 @@ NSMutableDictionary *tree;
     
     NSString* currentAction =  [actionoptionsarray objectAtIndex:actionoptionsarrayindex % [actionoptionsarray count]];
     
-    NSMutableDictionary *newargs = [[NSMutableDictionary alloc] initWithObjects:[[NSArray alloc] initWithObjects:currentAction, nil] forKeys:[[NSArray alloc] initWithObjects:@"options",nil]];
+    NSMutableDictionary *newargs = [[[NSMutableDictionary alloc] initWithObjects:[[[NSArray alloc] initWithObjects:currentAction, nil] autorelease ] forKeys:[[[NSArray alloc] initWithObjects:@"options",nil]autorelease]]autorelease];
     
     [self setActionArguments:newargs];
 

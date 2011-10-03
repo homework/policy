@@ -28,7 +28,6 @@
     
     [window makeKeyAndVisible];
     
-    NSLog(@"sorting push...");
    	[[UIApplication sharedApplication] registerForRemoteNotificationTypes: (UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound)];
     
    	return YES;

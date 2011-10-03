@@ -56,7 +56,7 @@
     tmpBack.autoresizingMask = UIViewContentModeScaleAspectFit | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     tmpBack.frame = CGRectMake(0, 0, resultView.frame.size.width, resultView.frame.size.height);
 	[resultView addSubview:tmpBack];
-    
+    [tmpBack release];
     
     UIImageView *tmpscene = [[UIImageView alloc] initWithImage:[UIImage imageNamed:currentActionScene]];
    // tmpscene.autoresizingMask = UIViewContentModeScaleAspectFit | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;

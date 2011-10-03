@@ -45,14 +45,14 @@ static bool selected[7];
     days = [[[NSArray alloc] initWithObjects:@"Mon", @"Tue", @"Wed", @"Thu", @"Fri", @"Sat", @"Sun", nil] retain];
     int index =0;
     
-    NSMutableArray *tmp = [[NSMutableArray alloc] init];
+    NSMutableArray *tmp = [[[NSMutableArray alloc] init] autorelease];
     
     for (NSString *day in days){
         
         int xval = 130  + (index % 3) * 50;
         int yval = 170 + (index / 3) * 30;
         index++;
-        UILabel* dow = [[UILabel alloc] initWithFrame:CGRectMake(xval,yval,50,40)];
+        UILabel* dow = [[[UILabel alloc] initWithFrame:CGRectMake(xval,yval,50,40)] autorelease];
         dow.textColor = [UIColor blackColor];
         dow.textAlignment = UITextAlignmentCenter;
         dow.backgroundColor = [UIColor clearColor];

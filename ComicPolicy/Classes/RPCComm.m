@@ -48,32 +48,36 @@ NSString* callbackaddr;
     return sRPCComm;
 }
 
--(id) init:(NSString *) gwaddr callback:(NSString *) cb{
+-(id) init{
     self = [super init];
     
     if (self != nil) {
-        port = 987;
-        
-        NSLog(@"WIFI IP ADDR IS %@",gwaddr);
-        callbackaddr = cb;
-        
-        sprintf(hwdbaddr, [gwaddr UTF8String]);
-        
-        host = hwdbaddr;
-        //port = HWDB_SERVER_PORT;
-        
-        connected = FALSE;
-        
-        NSLog(@"initing rpc");
-        
-        if (!rpc_init(0)) {
-            fprintf(stderr, "Failure to initialize rpc system\n");
-            exit(1);
-        }
-        
-        NSLog(@"initialised rpc");
+       
     }
     return self;
+}
+
+-(void) setSetUpHWDBConnection:(NSString *) gwaddr callback:(NSString *) cb{
+    port = 987;
+    
+    NSLog(@"WIFI IP ADDR IS %@",gwaddr);
+    callbackaddr = cb;
+    
+    sprintf(hwdbaddr, [gwaddr UTF8String]);
+    
+    host = hwdbaddr;
+    //port = HWDB_SERVER_PORT;
+    
+    connected = FALSE;
+    
+    NSLog(@"initing rpc");
+    
+    if (!rpc_init(0)) {
+        fprintf(stderr, "Failure to initialize rpc system\n");
+        exit(1);
+    }
+    
+    NSLog(@"initialised rpc");
 }
 
 
@@ -421,7 +425,7 @@ tstamp_t processpolicystateresults(char *buf, unsigned int len) {
 			char *s = timestamp_to_string(ps->tstamp);
 			
 			printf("pf readin policy %s and  %s\n", ps->state , ps->pondertalk);
-			PolicyStateObject *psobj = [[PolicyStateObject alloc] initWithPolicyState:ps];
+			PolicyStateObject *psobj = [[[PolicyStateObject alloc] initWithPolicyState:ps] autorelease];
             NSLog(@"ns read in a policy %d %@ %@\n", psobj.pid, psobj.state, psobj.pondertalk);
             [policies addObject:psobj];
 			//[psobj release];

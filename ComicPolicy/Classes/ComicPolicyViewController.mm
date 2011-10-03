@@ -135,30 +135,29 @@
 
 -(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
 	
-     if (!inprogress){
+     if (inprogress)
+         return;
+    
+    Policy *p = [[PolicyManager sharedPolicyManager] currentPolicy];
     UITouch *touch = [touches anyObject]; 
-	CGPoint touchLocation = [touch locationInView:self.view];
+    CGPoint touchLocation = [touch locationInView:self.view];
 	
 	if (CGRectContainsPoint( deleteButton.frame , touchLocation)){
-        NSLog(@"delete pressed");
         [[PolicyManager sharedPolicyManager] deleteCurrentPolicy];
-		//[self updateFramePositions];
-        //[[PolicyManager sharedPolicyManager] policyFired:@"1"];
-        
-        ///[[PolicyManager sharedPolicyManager] deleteAll];
     }
     else if (CGRectContainsPoint( refreshButton.frame , touchLocation)){
        [[PolicyManager sharedPolicyManager] refresh];
-     //   [self updateFramePositions];
-
     }
     else if (CGRectContainsPoint( activateButton.frame , touchLocation)){
-        [[PolicyManager sharedPolicyManager] updatePolicyState:@"ENABLE"];
-     //   [[PolicyManager sharedPolicyManager] reset];
+         if (p.status == disabled){
+             [[PolicyManager sharedPolicyManager] updatePolicyState:@"ENABLE"];
+         }
     }
 	else if (CGRectContainsPoint( saveButton.frame , touchLocation)){
-       // [[PolicyManager sharedPolicyManager] createPonderTalk];
-        [[PolicyManager sharedPolicyManager] savePolicyToHWDB];
+      
+        if (p.status == unsaved){
+            [[PolicyManager sharedPolicyManager] savePolicyToHWDB];
+        }
         /*
         [[PolicyManager sharedPolicyManager] savePolicy];
         
@@ -170,7 +169,6 @@
         [self.view addSubview:progressView];
         inprogress = YES;*/
     }
-   }
 }
 
 -(void) requestComplete:(NSNotification *) notification{
@@ -197,10 +195,11 @@
     }
     
     //resetButton.alpha = 0.0;
-   
-    if (![[PolicyManager sharedPolicyManager] isInSync])
+    Policy *p = [[PolicyManager sharedPolicyManager] currentPolicy];
+    
+    
+    if ((p.status == unsaved) || ![[PolicyManager sharedPolicyManager] isInSync])
         [self.view setBackgroundColor:[UIColor lightGrayColor]];
-     
     else
         [self.view setBackgroundColor:[UIColor whiteColor]];
     
@@ -228,12 +227,17 @@
   
     
     if (p.status == disabled){
-       
-        activateButton.alpha = 1.0;
+        activateButton.alpha = 0.4;
     }else{
-       
         activateButton.alpha = 0.0;
     }
+    
+    if (p.status != unsaved){
+         saveButton.alpha = 0.4;
+    }else{
+        saveButton.alpha = 1.0;
+    }
+    
     [self checkInSync];
 }
 
@@ -376,9 +380,13 @@
 - (void)catalogueRequestComplete:(ASIHTTPRequest *)request
 {
     
-    NSString *responseString = [request responseString];
     
-    if ([[Catalogue sharedCatalogue] parseCatalogue:responseString] == YES){ 
+    NSString *responseString = [request responseString];
+    NSString * filePath = [[NSBundle mainBundle] pathForResource:@"staticcatalogue" ofType:@"json"];
+    NSString* staticcatalogue = [[NSString alloc] initWithContentsOfFile:filePath];
+    
+    if ([[Catalogue sharedCatalogue] parseCatalogue:responseString staticcatalogue:staticcatalogue] == YES){ 
+        
         [routerConnectionViewController updateCaption:@"successfully read in catalogue data, connecting to router"];
         
         if ([[NetworkManager sharedManager] connectToHWDB]){
@@ -402,21 +410,6 @@
 {
     [routerConnectionViewController updateCaption:@"unable to read the catalogue from the router will try again in 5 seconds"];
     [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(readInCatalogue:) userInfo:nil repeats:NO]; 
-     
-    /*
-    NSLog(@"catalogue request failed!!");
-    
-    [[Catalogue sharedCatalogue] parseCatalogue:nil];
-    
-    [self addNotificationHandlers];
-    
-    [self createControllers];
-    
-    [[PolicyManager sharedPolicyManager] loadFirstPolicy];
-    
-    [self updateFramePositions];
-    */
-    
 }
 
 -(void) addNotificationHandlers{

@@ -78,7 +78,8 @@
 -(BOOL) connectToHWDB{
     
     NSLog(@"starting to connect to the hwdb directly...");
-    [[RPCComm sharedRPCComm] init:gwaddr callback:myaddr];
+    [[RPCComm sharedRPCComm] setSetUpHWDBConnection:gwaddr callback:myaddr];
+    //[[RPCComm sharedRPCComm] init:gwaddr callback:myaddr];
     
     BOOL success = [[RPCComm sharedRPCComm] connect];
     NSLog(@"connected %s", success ? "SUCCESSFULLY" : "UNSUCCESSFULLY"); 

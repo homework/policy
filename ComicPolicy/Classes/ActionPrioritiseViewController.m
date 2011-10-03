@@ -89,7 +89,7 @@
     else if (pint==2)
         priority = @"high";
     
-    NSMutableDictionary *newargs = [[NSMutableDictionary alloc] initWithObjects:[[NSArray alloc] initWithObjects:priority, nil] forKeys:[[NSArray alloc] initWithObjects:@"priority",nil]];
+    NSMutableDictionary *newargs = [[[NSMutableDictionary alloc] initWithObjects:[[[NSArray alloc] initWithObjects:priority, nil] autorelease] forKeys:[[[NSArray alloc] initWithObjects:@"priority",nil] autorelease]] autorelease];
     
     [[Catalogue sharedCatalogue] setActionArguments:newargs];
 }

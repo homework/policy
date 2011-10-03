@@ -92,7 +92,7 @@
     
     NSNumber* duration = [NSNumber numberWithFloat: (round([slider value])) * 60];
     
-    NSMutableDictionary *newargs = [[NSMutableDictionary alloc] initWithObjects:[[NSArray alloc] initWithObjects: [duration stringValue], nil] forKeys:[[NSArray alloc] initWithObjects:@"timeframe",nil]];
+    NSMutableDictionary *newargs = [[[NSMutableDictionary alloc] initWithObjects:[[[NSArray alloc] initWithObjects: [duration stringValue], nil] autorelease] forKeys:[[[NSArray alloc] initWithObjects:@"timeframe",nil] autorelease]] autorelease];
     
     //NSMutableDictionary *newargs = [[Catalogue sharedCatalogue] actionArguments];
     

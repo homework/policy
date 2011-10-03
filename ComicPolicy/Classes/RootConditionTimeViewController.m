@@ -92,7 +92,7 @@ BOOL toScaled = NO;
     NSString *to = [NSString stringWithFormat:@"%02d:%02d", tohour, tominute];
    // NSArray *daysofweek = [NSArray arrayWithObjects:@"Mo", @"Tu", @"We", nil];
    //
-    NSMutableDictionary *newargs = [[NSMutableDictionary alloc] initWithObjects:[[NSArray alloc] initWithObjects:from, to, nil] forKeys:[[NSArray alloc] initWithObjects:@"from", @"to",nil]];
+    NSMutableDictionary *newargs = [[[NSMutableDictionary alloc] initWithObjects:[[[NSArray alloc] initWithObjects:from, to, nil] autorelease] forKeys:[[[NSArray alloc] initWithObjects:@"from", @"to",nil] autorelease]] autorelease];
     
     [[Catalogue sharedCatalogue] setConditionArguments:newargs];
     
@@ -116,7 +116,7 @@ BOOL toScaled = NO;
 		
 		CGPoint touchLocation = [touch locationInView: container];  
 		
-		float x, y;
+		float x = 0, y =0;
 		
 		if (touchLocation.y > centery){
 			y = -(touchLocation.y-centery);

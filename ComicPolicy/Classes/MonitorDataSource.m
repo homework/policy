@@ -41,7 +41,7 @@
     NSURL *url = [NSURL URLWithString:strurl];
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
     [request setDelegate:self];
-    request.userInfo = [[NSMutableDictionary alloc] initWithObjectsAndKeys:callback,@"callback", nil];
+    request.userInfo = [[[NSMutableDictionary alloc] initWithObjectsAndKeys:callback,@"callback", nil] autorelease];
     [request setDidFinishSelector:@selector(addedRequestComplete:)];
     [[NetworkManager sharedManager] addRequest:request];    
 }

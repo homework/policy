@@ -46,6 +46,14 @@
 @synthesize fired;
 
 
+/*
+-(void) dealloc{
+    NSLog(@"DEALLOCING A POLICY>>>");
+   // [self.actionarguments release];
+    //[self.conditionarguments release];
+    [super dealloc];
+}*/
+
 -(id) init{
     if (self = [super init]){
         identity = @"-1"; 
@@ -140,7 +148,7 @@
     
     NSString *type = [argumentarray objectAtIndex:0];
     
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *dict = [[[NSMutableDictionary alloc] init] autorelease];
     
     if ([type isEqualToString:@"used"]){
         self.conditiontype =  @"timed";
@@ -166,7 +174,7 @@
        
         if ([argumentarray count] > 2){
             
-            NSMutableArray *sitearray = [[NSMutableArray alloc] initWithCapacity:([argumentarray count] - 2)];
+            NSMutableArray *sitearray = [[[NSMutableArray alloc] initWithCapacity:([argumentarray count] - 2)] autorelease];
             
             int i;
             
@@ -201,7 +209,7 @@
 
     NSString *type = [argumentarray objectAtIndex:0];
    
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *dict = [[[NSMutableDictionary alloc] init] autorelease];
     
     if ([type isEqualToString:@"block"]){
         self.actiontype = @"block";
@@ -266,7 +274,7 @@
         
         if (conditionargs != nil && [conditionargs count] > 0){
                 
-            NSMutableDictionary *dict =  [[NSMutableDictionary alloc] initWithDictionary:conditionarguments];
+            NSMutableDictionary *dict =  [[[NSMutableDictionary alloc] initWithDictionary:conditionarguments] autorelease];
             
                 if ([conditionargs count] != 3)
                     return;
@@ -313,7 +321,7 @@
     
     
     if ([flag isEqualToString:@"negative"]){
-        NSMutableArray *negative = [[NSMutableArray alloc] init];
+        NSMutableArray *negative = [[[NSMutableArray alloc] init] autorelease];
         for (NSString *site in sites){
             [negative addObject:[NSString stringWithFormat:@"-%@", site]];
         }

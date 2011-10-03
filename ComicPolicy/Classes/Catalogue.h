@@ -74,6 +74,5 @@
 
 -(void) setAction:(NSString *) action subject:(NSString*) subject options:(NSMutableDictionary*)options;
 -(void) setActionArguments:(NSMutableDictionary *) args;
--(BOOL) parseCatalogue:(NSString*) catalogue;
-
+-(BOOL) parseCatalogue:(NSString*) dynamiccatalogue  staticcatalogue:(NSString*) staticcatalogue;
 @end

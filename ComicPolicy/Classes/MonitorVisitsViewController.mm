@@ -161,7 +161,7 @@ static NSArray *labelArray = [[NSArray alloc] initWithObjects:@"news.bbc.co.uk",
     NSDictionary *data = [notification userInfo];
     NSString *responseString = [data objectForKey:@"data"];    
     
-    SBJsonParser *jsonParser = [SBJsonParser new];
+    SBJsonParser *jsonParser = [[SBJsonParser new] autorelease];
     
     
     NSArray *sites  = (NSArray *) [jsonParser objectWithString:responseString error:nil];

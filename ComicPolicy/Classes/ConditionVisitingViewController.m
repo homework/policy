@@ -74,7 +74,7 @@
 
 -(void) updateCatalogue{
     
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *dict = [[[NSMutableDictionary alloc] init] autorelease];
 
     if (doesvisit){
         [dict setObject:@"positive" forKey:@"flag"];
@@ -128,7 +128,7 @@
     
     NSArray *currentsites = [[[Catalogue sharedCatalogue] conditionArguments] objectForKey:@"sites"];
     
-    NSMutableArray *newargs = [[NSMutableArray alloc] initWithArray:currentsites];
+    NSMutableArray *newargs = [[[NSMutableArray alloc] initWithArray:currentsites] autorelease];
     
     [newargs addObject:site];
 
@@ -160,7 +160,7 @@
     int tag = 100;
     
     for (NSString *site in currentsites){
-        UILabel *asitelabel = [[UILabel alloc] initWithFrame:CGRectMake(20,YPOS,250,35)];
+        UILabel *asitelabel = [[[UILabel alloc] initWithFrame:CGRectMake(20,YPOS,250,35)] autorelease];
         asitelabel.textColor = [UIColor whiteColor];
         asitelabel.backgroundColor = [UIColor clearColor];
         asitelabel.text = site;
@@ -179,7 +179,7 @@
         if ([aLabel.text isEqualToString:site]){
             
             NSMutableArray *currentsites = [[[Catalogue sharedCatalogue] conditionArguments] objectForKey:@"sites"];
-            NSMutableArray *todiscard = [[NSMutableArray alloc] init];
+            NSMutableArray *todiscard = [[[NSMutableArray alloc] init] autorelease];
             
             if (currentsites != nil){
                 for (NSString *site in currentsites){

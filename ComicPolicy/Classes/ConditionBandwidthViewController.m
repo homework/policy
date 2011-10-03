@@ -89,7 +89,7 @@
     NSNumber* bwidth = [NSNumber numberWithInt:bandwidth];
     NSString* captype = @"*";
     
-    NSMutableDictionary *newargs = [[NSMutableDictionary alloc] initWithObjects:[[NSArray alloc] initWithObjects:bwidth,captype,nil] forKeys:[[NSArray alloc] initWithObjects:@"percentage",@"captype",nil]];
+    NSMutableDictionary *newargs = [[[NSMutableDictionary alloc] initWithObjects:[[[NSArray alloc] initWithObjects:bwidth,captype,nil] autorelease] forKeys:[[[NSArray alloc] initWithObjects:@"percentage",@"captype",nil] autorelease]] autorelease];
     
     [[Catalogue sharedCatalogue] setConditionArguments:newargs];
 }

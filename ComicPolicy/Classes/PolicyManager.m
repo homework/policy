@@ -76,7 +76,7 @@ static int requestId;
 
 -(void) setUpWithPolicies:(NSMutableArray *) policystateobjects{
     for (PolicyStateObject* pso in policystateobjects){
-        Policy *p = [[Policy alloc] initWithPonderString:[self decodePolicyFromDatabase:pso.pondertalk]];
+        Policy *p = [[[Policy alloc] initWithPonderString:[self decodePolicyFromDatabase:pso.pondertalk]] autorelease];
         NSString* policylid = [NSString stringWithFormat:@"%d",localId];
         NSString* policygid = [NSString stringWithFormat:@"%d",pso.pid];
         [p updateStatus:pso.state];
@@ -90,17 +90,12 @@ static int requestId;
 }
 
 
--(void) readDefaultPolicyFromRouter{
-    
-    
-}
-
 -(void) readPoliciesFromFile{
     
     
     NSString *filePath = [[NSBundle mainBundle] pathForResource:@"ponderpolicies" ofType:@"txt"];
     
-    NSString *content = [[NSString alloc] initWithContentsOfFile:filePath];
+    NSString *content = [[[NSString alloc] initWithContentsOfFile:filePath] autorelease];
     
     NSScanner *scanner = [NSScanner scannerWithString:content];
     
@@ -109,7 +104,7 @@ static int requestId;
         NSLog(@"READING IN POLICY FROM FILE");
         NSString *pstring;
         [scanner scanUpToString:@"\n\n" intoString:&pstring];
-        Policy *p = [[Policy alloc] initWithPonderString:pstring];
+        Policy *p = [[[Policy alloc] initWithPonderString:pstring] autorelease];
         NSString* policyid = [NSString stringWithFormat:@"%d",localId];
         [p setLocalid:policyid];
         [policies setObject:p forKey:policyid];
@@ -201,7 +196,7 @@ static int requestId;
     
     if (self.policyids != nil && [policyids count] > 0){ 
         [self loadPolicy:[policyids objectAtIndex:0]];
-        self.defaultPolicy = [[Policy alloc] initWithPolicy:currentPolicy];
+        self.defaultPolicy = [[[Policy alloc] initWithPolicy:currentPolicy] autorelease];
         [defaultPolicy print];
     }else{
         [self createNewDefaultPolicy];
@@ -211,7 +206,7 @@ static int requestId;
 -(void) createNewDefaultPolicy{
     
     NSLog(@"LOADING IN A NEW BOOTSTRAP DEFAULT POLICY AS NONE IN DATABASE");
-    Policy *p = [[Policy alloc] init];
+    Policy *p = [[[Policy alloc] init] autorelease];
     [self createSnapshot:p];
     NSString* policyid = [NSString stringWithFormat:@"%d",localId];
     [p setLocalid:policyid];
@@ -232,7 +227,7 @@ static int requestId;
 
 -(void) newDefaultPolicy{
    
-    Policy *apolicy  = [[Policy alloc] initWithPolicy:defaultPolicy];
+    Policy *apolicy  = [[[Policy alloc] initWithPolicy:defaultPolicy] autorelease];
 
     apolicy.status = unsaved;
     
@@ -334,7 +329,7 @@ static int requestId;
         if (robj.requestType == requestCreate || robj.requestType == requestEnable  || robj.requestType == requestDisable){
             
             NSString* ponderString = robj.requestString;
-            Policy *tosave = [[Policy alloc] initWithPonderString:ponderString];
+            Policy *tosave = [[[Policy alloc] initWithPonderString:ponderString] autorelease];
             tosave.localid  = robj.localId;
             tosave.identity = [NSString stringWithFormat:@"%d",pr.pid];
             tosave.status = disabled;
@@ -367,9 +362,9 @@ static int requestId;
     }
     else if (currentPolicy.status == disabled){
         [self updatePolicyState:@"REMOVE"];
+    }else if (currentPolicy.status == unsaved){
+        [self deletePolicyFromUI];
     }
-    
-    
      //[[NSNotificationCenter defaultCenter] postNotificationName:@"totalPoliciesChanged" object:nil userInfo:nil];
 }
 
@@ -379,7 +374,7 @@ static int requestId;
     if ([policyids count] > 1){
         [policies removeObjectForKey:currentPolicy.localid];
         [policyids removeObjectIdenticalTo:currentPolicy.localid];
-        [currentPolicy release];
+        //[currentPolicy release]; //this will be released when it is removed from polcies.
         [self loadPolicy:[policyids objectAtIndex:0]];
     }
 }
@@ -446,13 +441,12 @@ static int requestId;
 -(RequestObject *) getRequestObjectFor:(int) requestid{
     NSString *key = [NSString stringWithFormat:@"%d", requestid];
     RequestObject *reqobj = [requesttable objectForKey:key];
-    //[requesttable removeObjectForKey:key];
     return reqobj;
 }
 
 -(int) registerRequest:(NSString *) lid type:(RequestType) type request:(NSString*)requeststr {
     int rid = requestId++;
-    RequestObject *reqobj = [[[RequestObject alloc] initWithValues: lid type: type request:requeststr] retain];
+    RequestObject *reqobj = [[[RequestObject alloc] initWithValues: lid type: type request:requeststr] autorelease];
     [requesttable setObject: reqobj forKey:[NSString stringWithFormat:@"%d",rid]];
     return rid;
 }
@@ -485,7 +479,7 @@ static int requestId;
 {
 	NSString *responseString = [request responseString];
     
-    SBJsonParser *jsonParser = [SBJsonParser new];
+    SBJsonParser *jsonParser = [[SBJsonParser new] autorelease];
     NSDictionary *data  = (NSDictionary *) [jsonParser objectWithString:responseString error:nil];
   
     
@@ -525,6 +519,11 @@ static int requestId;
     p.actiontype         = [[Catalogue sharedCatalogue] currentActionType];
 }
 
+-(void) dealloc{
+    [policyids release];
+    [policies release];
+    [super dealloc];
+}
 
 
 @end
