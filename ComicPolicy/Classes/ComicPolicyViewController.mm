@@ -225,11 +225,16 @@
                  
     self.statusLabel.text = [NSString stringWithFormat:@"This comic is currently %@", [p statusAsString]];
   
+    if ([[[PolicyManager sharedPolicyManager] policies] count] == 1 && p.status == unsaved){
+        deleteButton.alpha = 0.4;
+    }else{
+        deleteButton.alpha = 1.0;
+    }
     
     if (p.status == disabled){
-        activateButton.alpha = 0.4;
+        activateButton.alpha = 1.0;
     }else{
-        activateButton.alpha = 0.0;
+        activateButton.alpha = 0.4;
     }
     
     if (p.status != unsaved){
@@ -303,7 +308,9 @@
     
     CGRect newframe = [[PositionManager sharedPositionManager] getPosition:@"resultmonitor"];
     resultViewController.currentMonitorViewController.monitorView.superview.frame = newframe;
-    resultViewController.currentMonitorViewController.monitorView.frame = CGRectMake(0,0, newframe.size.width, newframe.size.height);  
+    resultViewController.currentMonitorViewController.monitorView.frame = CGRectMake(0,0, newframe.size.width, newframe.size.height); 
+    
+    [resultViewController.currentMonitorViewController resize];
     
     actionViewController.view.frame = [[PositionManager sharedPositionManager] getPosition:@"action"];
     actionTimeViewController.view.frame = [[PositionManager sharedPositionManager] getPosition:@"actiontime"];

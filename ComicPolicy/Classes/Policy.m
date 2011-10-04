@@ -46,13 +46,12 @@
 @synthesize fired;
 
 
-/*
+
 -(void) dealloc{
-    NSLog(@"DEALLOCING A POLICY>>>");
-   // [self.actionarguments release];
-    //[self.conditionarguments release];
+    [self.actionarguments release];
+    [self.conditionarguments release];
     [super dealloc];
-}*/
+}
 
 -(id) init{
     if (self = [super init]){
@@ -89,6 +88,9 @@
     
     
     NSLog(@"THE PONDER STRING IS %@", ponderString);
+    if (ponderString == NULL){
+        return NULL;
+    }
     
     if ([self init]){
         

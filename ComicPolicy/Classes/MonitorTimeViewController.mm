@@ -110,8 +110,10 @@ BOOL inside = NO;
     //start = M_PI / 
     NSString * subject = [[Catalogue sharedCatalogue] currentSubjectDevice];
     NSString *rootURL  = [[NetworkManager sharedManager] rootURL];
-    NSString *strurl = [NSString stringWithFormat:@"%@/monitor/activity/%@", rootURL, subject];
-    [[MonitorDataSource sharedDatasource] requestURL: strurl callback:@"newActivityData"];
+    [[RPCComm sharedRPCComm] getIsUsedFor:subject];
+    
+    //NSString *strurl = [NSString stringWithFormat:@"%@/monitor/activity/%@", rootURL, subject];
+    //[[MonitorDataSource sharedDatasource] requestURL: strurl callback:@"newActivityData"];
 }
 
 -(void) advancePointer:(int) timeLeft timeInside:(int) timeInside isInside:(BOOL) inside{

@@ -93,13 +93,27 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Classes/RPCComm.m"
-         timestampString = "339341731.105571"
+         timestampString = "339436567.926228"
          startingColumnNumber = "2147483647"
          endingColumnNumber = "2147483647"
-         startingLineNumber = "152"
-         endingLineNumber = "152"
+         startingLineNumber = "209"
+         endingLineNumber = "209"
          landmarkName = "policy_fired_handler()"
          landmarkType = "7">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "1"
+         filePath = "Classes/MonitorVisitsViewController.mm"
+         timestampString = "339435966.915513"
+         startingColumnNumber = "2147483647"
+         endingColumnNumber = "2147483647"
+         startingLineNumber = "322"
+         endingLineNumber = "322"
+         landmarkName = "@implementation MonitorVisitsViewController"
+         landmarkType = "3">
       </FileBreakpoint>
    </FileBreakpoints>
 </Bucket>

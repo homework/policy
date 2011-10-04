@@ -11,6 +11,7 @@
 #import "FiredEvent.h"
 #import "PolicyStateObject.h"
 #import "PolicyManager.h"
+#import "URLObject.h"
 
 #include "config.h"
 #include "srpc.h"
@@ -59,13 +60,16 @@ typedef struct policy_request{
     tstamp_t tstamp;
 }PolicyRequest;
 
-
-
-
 typedef struct policy_state_results {
     unsigned long npolicies;
     PolicyState **data;
 } PolicyStateResults;
+
+
+typedef struct url_results{
+    unsigned long nurls;
+    Url **data;
+} UrlResults;
 
 @interface RPCComm : NSObject {
 	
@@ -90,14 +94,22 @@ PolicyRequest *policy_request_convert(Rtab *results);
 
 PolicyStateResults *policy_state_convert(Rtab *results);
 void policy_state_free(PolicyState *p);
-void policy_state_results_free(PolicyStateResults *p); 
+void policy_state_results_free(PolicyStateResults *p);
 tstamp_t processpolicystateresults(char *buf, unsigned int len);
-//PolicyState *policy_state_convert(Rtab *results);
+
 
 void policy_fired_free(PolicyFired *p);
 PolicyFired *policy_fired_convert(Rtab *results);
 
+void url_results_free(UrlResults *ur);
+UrlResults *url_convert(Rtab* results);
+tstamp_t processurlesults(char *buf, unsigned int len);
 
+long usage_convert(Rtab* results);
+tstamp_t processusageresults(char *buf, unsigned int len);
+
+long flow_convert(Rtab* results);
+tstamp_t processflowresults(char *buf, unsigned int len);
 
 -(void) setSetUpHWDBConnection:(NSString *) gwaddr callback:(NSString *) cb;
 -(BOOL) connect;
@@ -106,8 +118,13 @@ PolicyFired *policy_fired_convert(Rtab *results);
 
 -(void) subscribe_to_policy_response;
 -(void) subscribe_to_policy_fired;
+
 -(void) getStoredPolicies;
--(BOOL) sendquery:(NSString *)q;
+-(void) getURLsBrowsedBy:(NSString*) ipaddr;
+-(void) getCumulativeBandwidthFor:(NSString *) ipaddr;
+-(void) getIsUsedFor:(NSString *) ipaddr;
+
+-(BOOL) query:(NSString *)q;
 -(void) notifydisconnected:(NSObject*)o;
 -(void) notifyconnected:(NSObject*)o;
 

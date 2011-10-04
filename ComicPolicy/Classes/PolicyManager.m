@@ -325,6 +325,8 @@ static int requestId;
     
         RequestObject *robj = [self getRequestObjectFor:pr.requestid];
     
+        if (robj == NULL || robj.requestString ==NULL)
+            return;
         
         if (robj.requestType == requestCreate || robj.requestType == requestEnable  || robj.requestType == requestDisable){
             
@@ -346,7 +348,12 @@ static int requestId;
             [self loadPolicy:tosave.localid];
         }   
         else if (robj.requestType == requestRemove){
-            [self deletePolicyFromUI];
+            if ([policies count] > 1)
+                [self deletePolicyFromUI];
+            else{
+                currentPolicy.status = unsaved;
+                [self loadPolicy:currentPolicy.localid];
+            }
         }
         //[rmdir
         //[robj release];
@@ -362,8 +369,12 @@ static int requestId;
     }
     else if (currentPolicy.status == disabled){
         [self updatePolicyState:@"REMOVE"];
-    }else if (currentPolicy.status == unsaved){
-        [self deletePolicyFromUI];
+    }
+    else if (currentPolicy.status == unsaved){
+        if ([policies count] > 1){
+            [self deletePolicyFromUI];
+        }
+        
     }
      //[[NSNotificationCenter defaultCenter] postNotificationName:@"totalPoliciesChanged" object:nil userInfo:nil];
 }
@@ -399,13 +410,13 @@ static int requestId;
     
     NSLog(@"STATE query is %@", query);
 
-    [[RPCComm sharedRPCComm] sendquery:query];
+    [[RPCComm sharedRPCComm] query:query];
 }
 
 
 -(void) savePolicyToHWDB{
    
-    Policy *p = [[Policy alloc] init];
+    Policy *p = [[[Policy alloc] init] autorelease];
     
     [self createSnapshot:p];
     
@@ -427,9 +438,7 @@ static int requestId;
   
      NSLog(@"query is %@", query);
    
-    [[RPCComm sharedRPCComm] sendquery:query];
-    [p release];
-
+    [[RPCComm sharedRPCComm] query:query];
 }
 
 -(void) removerequest:(int) rid{

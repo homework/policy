@@ -53,11 +53,11 @@
 #define SQL_COLATTRIB_AVG 	&sql_colattrib_types[4]
 #define SQL_COLATTRIB_SUM 	&sql_colattrib_types[5]
 
-#if !(TARGET_IPHONE_SIMULATOR)
- const char *colattrib_name[];
-#else
+//#if !(TARGET_IPHONE_SIMULATOR)
+ //const char *colattrib_name[];
+//#else
  extern const char *colattrib_name[];
-#endif
+//#endif
 
 union filterval {
 	int intv;

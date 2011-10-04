@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "MonitorViewController.h"
 #import "ASIHTTPRequest.h"
+#import "RPCComm.h"
+#import "URLObject.h"
 #import "NetworkManager.h"
 #import <Box2D/Box2D.h>
 
@@ -21,6 +23,7 @@
     UILabel *currentLabel;
     UIImageView* cloud;
     int labelindex;
+   // b2Body* groundBody; //the barriers
 }
 
 @property(nonatomic, retain) UIImageView* cloud;

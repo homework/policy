@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "MonitorViewController.h"
 #import "MonitorTimeView.h"
+#import "RPCComm.h"
 
 typedef enum {
     NOREADING = 0, 

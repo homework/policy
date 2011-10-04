@@ -11,6 +11,8 @@
 #import "ASIHTTPRequest.h"
 #import "NetworkManager.h"
 #import <Box2D/Box2D.h>
+#import "RPCComm.h"
+
 #define PTM_RATIO 16
 
 @interface MonitorBandwidthViewController : MonitorViewController{

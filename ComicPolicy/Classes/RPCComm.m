@@ -105,7 +105,69 @@ NSString* callbackaddr;
     [self send: sendquery qlen:querylen resp: response rsize: sizeof(response) len:length callback:processpolicystateresults];
 }
 
--(void) sendquery:(NSString *)q{
+-(void) getIsUsedFor:(NSString *) ipaddr{
+    NSString* query = [NSString stringWithFormat:@"SQL:select sum(nbytes) from KFlows [range 5 seconds] WHERE saddr = \"%@\" or daddr = \"%@\"\n", ipaddr, ipaddr];
+   
+    //NSString* query = [NSString stringWithFormat:@"SQL:select nbytes from KFlows"];
+    
+    NSLog(@"query is %@", query);
+    
+     sprintf(sendquery, [query UTF8String]);
+	 querylen = strlen(sendquery) + 1;
+     [self send: sendquery qlen:querylen resp: response rsize: sizeof(response) len:length callback:processflowresults];
+}
+
+-(void) getCumulativeBandwidthFor:(NSString *) ipaddr{
+    /*
+    NSDateFormatter *df = [[[NSDateFormatter alloc] init] autorelease];
+    [df setDateFormat:@"yyyy-M-d HH:mm:ss"];
+    [df setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"GMT"]];
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:[NSDate date]];
+    
+    NSString* newdate = [NSString stringWithFormat:@"%d-%d-1 00:00:00", [components year], [components month]];
+    
+    NSLog(@"new date is %@", newdate);
+    
+    NSDate* since = [df dateFromString:newdate];
+    
+    NSLog(@"created date %@", since);
+    
+    NSTimeInterval ti = [since timeIntervalSince1970];
+    
+    NSLog(@"unix ts is %f", ti); 
+    */
+    
+    NSString* query = [NSString stringWithFormat:@"select bytes from BWUsage where ip = \"%@\"", ipaddr]; 
+    
+    
+    NSLog(@"query is %@", query);
+    
+    
+    /*NSString* subnet = @"10.2.1";
+    
+    NSString* query = [NSString stringWithFormat:@"SQL:select sum(nbytes) from Flows [since %@] where daddr contains \"%@\" and saddr notcontains \"%@\"",ti, ipaddr, subnet];*/
+   
+     
+    sprintf(sendquery, [query UTF8String]);
+	
+    querylen = strlen(sendquery) + 1;
+    
+    [self send: sendquery qlen:querylen resp: response rsize: sizeof(response) len:length callback:processusageresults];
+}
+
+
+
+-(void) getURLsBrowsedBy:(NSString*) ipaddr{
+    NSString* query = [NSString stringWithFormat:@"SQL:select * from Urls [range 5 seconds] where saddr contains \"%@\" order by hst asc\n", ipaddr];
+    
+    NSLog(@"sending query %@", query);
+    
+    sprintf(sendquery, [query UTF8String]);
+	querylen = strlen(sendquery) + 1;
+    [self send: sendquery qlen:querylen resp: response rsize: sizeof(response) len:length callback:processurlesults];    
+}
+
+-(void) query:(NSString *)q{
 	sprintf(sendquery, [q UTF8String]);
 	querylen = strlen(sendquery) + 1;
     [self send: sendquery qlen:querylen resp: response rsize: sizeof(response) len:length callback:NULL];
@@ -401,6 +463,71 @@ void policy_state_results_free(PolicyStateResults *p) {
 }
 
 
+long usage_convert(Rtab *results){
+    if (! results || results->mtype != 0)
+		return 0;
+    unsigned long bytes;
+    
+    char **columns;
+    columns = rtab_getrow(results, 0);
+    bytes = atol(columns[1]);
+    
+    return bytes;
+}
+
+
+tstamp_t processusageresults(char *buf, unsigned int len) {
+    
+    Rtab *results;
+    char stsmsg[RTAB_MSG_MAX_LENGTH];
+    unsigned long bytes;
+
+	tstamp_t last = timestamp_now();
+    results = rtab_unpack(buf, len);
+    
+	if (results && ! rtab_status(buf, stsmsg)) {
+		bytes = usage_convert(results);
+    }
+    rtab_free(results);
+	
+    return (last);
+}
+
+ long flow_convert(Rtab *results){
+     long bytes = 0;
+    if (! results || results->mtype != 0)
+		return bytes;
+    
+    
+    NSLog(@"got %d rows %d cols", results->nrows, results->ncols);
+    if (results->nrows >= 1){
+       
+        char **columns;
+        columns = rtab_getrow(results, 0);
+        bytes = atol(columns[0]);
+        return bytes;
+    }
+    return bytes;
+}
+
+
+tstamp_t processflowresults(char *buf, unsigned int len) {
+    
+    Rtab *results;
+    char stsmsg[RTAB_MSG_MAX_LENGTH];
+     long bytes;
+    
+	tstamp_t last = timestamp_now();
+    results = rtab_unpack(buf, len);
+    
+	if (results && ! rtab_status(buf, stsmsg)) {
+		bytes = flow_convert(results);
+        NSLog(@"got %lu bytes\n", bytes);
+    }
+    rtab_free(results);
+	
+    return (last);
+}
 
 tstamp_t processpolicystateresults(char *buf, unsigned int len) {
 	
@@ -527,6 +654,97 @@ char *index2action(unsigned int index) {
 }
 
 
+void url_results_free(UrlResults *ur){
+    unsigned int i;
+	
+    if (ur) {
+        for (i = 0; i < ur->nurls && ur->data[i]; i++)
+            free(ur->data[i]);
+		free(ur->data);	
+        free(ur);
+    }
+}
+
+UrlResults *url_convert(Rtab* results){
+    UrlResults *ans;
+	unsigned int i;
+	
+	if (! results || results->mtype != 0)
+		return NULL;
+	if (!(ans = (UrlResults *)malloc(sizeof(UrlResults))))
+		return NULL;
+	
+	ans->nurls= results->nrows;
+	ans->data    = (Url **)calloc(ans->nurls, sizeof(Url *));
+	
+	if (!ans->data){
+		free(ans);
+		return NULL;
+	}
+	
+	for (i = 0; i < ans->nurls; i++) {
+		char **columns;
+		Url *u = (Url *)calloc(1,sizeof(Url));
+		
+		if (!u) {
+            url_results_free(ans);
+			return NULL;
+		}
+		ans->data[i] = u;
+		columns = rtab_getrow(results, i);
+        
+		/* populate record */
+		u->tstamp = string_to_timestamp(columns[0]);
+        u->proto = atoi(columns[1]) & 0xff;
+		inet_aton(columns[2], (struct in_addr *)&u->saddr);
+		u->sport = atoi(columns[3]) & 0xffff;
+		inet_aton(columns[4], (struct in_addr *)&u->daddr);
+		u->dport = atoi(columns[5]) & 0xffff;
+        strncpy(u->hst, columns[6], 128);
+        strncpy(u->uri, columns[7], 128);
+        strncpy(u->cnt, columns[8], 128);
+	}
+	return ans;
+
+}
+
+tstamp_t processurlesults(char *buf, unsigned int len){
+    Rtab *results;
+    char stsmsg[RTAB_MSG_MAX_LENGTH];
+    UrlResults *p;
+    unsigned long i;
+    tstamp_t last = 0LL;	
+    results = rtab_unpack(buf, len);
+    
+	if (results && ! rtab_status(buf, stsmsg)) {
+        p = url_convert(results);
+		// do something with the data pointed to by p 
+		NSLog(@"Retrieved %ld url records from database", p->nurls);
+		
+		for (i = 0; i < p->nurls; i++) {
+			Url *u = p->data[i];
+			char *s = timestamp_to_string(u->tstamp);
+			NSAutoreleasePool *autoreleasepool = [[NSAutoreleasePool alloc] init];
+			URLObject *urlobj = [[URLObject alloc] initWithUrl:u];
+			[[RPCComm sharedRPCComm] performSelectorOnMainThread:@selector(postUrlData:) withObject:urlobj waitUntilDone:YES];
+			[urlobj release];
+			[autoreleasepool release];		
+			
+			free(s);
+		}
+		if (i > 0) {
+			i--;
+			last = p->data[i]->tstamp;
+		}
+		url_results_free(p);
+    }
+    rtab_free(results);
+    return (last);
+}
+
+-(void) postUrlData:(URLObject *) u{
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"newVisitsData" object:u];
+}
 
 -(void) subscribe_to_policy_response{
   

@@ -147,15 +147,49 @@ static NSArray *labelArray = [[NSArray alloc] initWithObjects:@"news.bbc.co.uk",
     
 }
 
+-(void) resize{
+    NSLog(@"SEEN A RESIZE");
+    NSLog(@"the screen size is now x %f, y %f, width %f, height %f", self.monitorView.frame.origin.x, self.monitorView.frame.origin.y, self.monitorView.frame.size.width, self.monitorView.frame.size.height);
+    
+    if (self.monitorView.frame.size.width <= 310)
+        YSTART = 100;
+    else
+        YSTART = 280;
+    
+    [self reset];
+}
+
 
 -(void) requestData:(NSTimer *) timer{
     NSString * subject = [[Catalogue sharedCatalogue] currentSubjectDevice];
-    NSString *rootURL  = [[NetworkManager sharedManager] rootURL];
-    int limit = 3;
-    NSString *strurl = [NSString stringWithFormat:@"%@/monitor/web/%@?limit=%d", rootURL, subject, limit];
-    [[MonitorDataSource sharedDatasource] requestURL: strurl callback:@"newVisitsData"];
+    [[RPCComm sharedRPCComm] getURLsBrowsedBy:subject];
+    //NSString *rootURL  = [[NetworkManager sharedManager] rootURL];
+    //int limit = 3;
+    //NSString *strurl = [NSString stringWithFormat:@"%@/monitor/web/%@?limit=%d", rootURL, subject, limit];
+    //[[MonitorDataSource sharedDatasource] requestURL: strurl callback:@"newVisitsData"];
 }
 
+
+-(void) newVisitsData:(NSNotification *) notification{
+    URLObject *urlobj  = ( URLObject *) [notification object];
+       
+    [cloud removeFromSuperview];
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(self.monitorView.frame.size.width/2,self.monitorView.frame.size.height/2,300,35)];
+    label.tag = labelindex++;
+    label.textColor = [UIColor whiteColor];
+    label.backgroundColor = [UIColor clearColor];
+    label.text = urlobj.hst;
+    label.font = [UIFont fontWithName:@"MarkerFelt-Thin" size:35.0];
+    [self.view addSubview:label];
+    [self addPhysicalBodyForView:label];
+    [label release];
+    
+    [self.view addSubview:cloud];
+    [self removeOldSites];
+}
+
+/*
 -(void) newVisitsData:(NSNotification *) notification{
    
     NSDictionary *data = [notification userInfo];
@@ -179,7 +213,7 @@ static NSArray *labelArray = [[NSArray alloc] initWithObjects:@"news.bbc.co.uk",
     }
     [self.view addSubview:cloud];
     [self removeOldSites];
-}
+}*/
 
 
 -(void) addSite:(NSTimer *) timer{
@@ -188,13 +222,15 @@ static NSArray *labelArray = [[NSArray alloc] initWithObjects:@"news.bbc.co.uk",
     [cloud removeFromSuperview];
    // CGPoint start = self.view.center;
 
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(XSTART,YSTART,350,35)];
+   // UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0,0,300,35)];//initWithFrame:CGRectMake(XSTART,YSTART,350,35)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(self.monitorView.frame.size.width/2,self.monitorView.frame.size.height/2,300,35)];//initWithFrame:CGRectMake(XSTART,YSTART,350,35)];
+    
     label.tag = labelindex++;
     label.textColor = [UIColor whiteColor];
     label.backgroundColor = [UIColor clearColor];
     
     label.text = [labelArray objectAtIndex: (siteindex % [labelArray count])];
-    label.font = [UIFont fontWithName:@"MarkerFelt-Thin" size:45.0];
+    label.font = [UIFont fontWithName:@"MarkerFelt-Thin" size:35.0];
    
     [self.view addSubview:label];
     [self addPhysicalBodyForView:label];
@@ -243,8 +279,12 @@ static NSArray *labelArray = [[NSArray alloc] initWithObjects:@"news.bbc.co.uk",
     [self createBoundaries];
 }
 
+
+
 -(void) createBoundaries{
-    CGSize screenSize = self.monitorView.bounds.size;
+    
+    NSLog(@"CREATING NEW BOUNDARIES>...........");
+    CGSize screenSize = self.monitorView.frame.size;
     
     b2BodyDef groundBodyDef;
     groundBodyDef.position.Set(0, 0);
@@ -317,8 +357,8 @@ static NSArray *labelArray = [[NSArray alloc] initWithObjects:@"news.bbc.co.uk",
 -(void) addPhysicalBodyForView:(UIView *) physicalView
 {
     //CGPoint start = CGPointMake(self.view.center.x-250, self.view.center.y+300);
-    CGPoint start = CGPointMake(XSTART, YSTART);
-    
+    //CGPoint start = CGPointMake(XSTART, YSTART);
+    CGPoint start = CGPointMake(self.monitorView.frame.size.width/2, self.monitorView.frame.size.height/2);
     b2BodyDef bodyDef;
     bodyDef.type = b2_dynamicBody;
     //CGPoint p = physicalView.center;

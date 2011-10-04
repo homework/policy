@@ -271,6 +271,7 @@
 		A3EBBA3814323A6700CFAAC4 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = A3EBBA3714323A6700CFAAC4 /* background.png */; };
 		A3ED1701135F3A6E001C64EA /* FlipFrameView.m in Sources */ = {isa = PBXBuildFile; fileRef = A3ED1700135F3A6E001C64EA /* FlipFrameView.m */; };
 		A3EE22E014333F5700DF2EBB /* cataloguev2.json in Resources */ = {isa = PBXBuildFile; fileRef = A3EE22DF14333F5700DF2EBB /* cataloguev2.json */; };
+		A3F0CEE9143B0B4400C69749 /* URLObject.m in Sources */ = {isa = PBXBuildFile; fileRef = A3F0CEE8143B0B4400C69749 /* URLObject.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -680,6 +681,8 @@
 		A3ED16FF135F3A6D001C64EA /* FlipFrameView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlipFrameView.h; sourceTree = "<group>"; };
 		A3ED1700135F3A6E001C64EA /* FlipFrameView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlipFrameView.m; sourceTree = "<group>"; };
 		A3EE22DF14333F5700DF2EBB /* cataloguev2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cataloguev2.json; sourceTree = "<group>"; };
+		A3F0CEE7143B0B4400C69749 /* URLObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URLObject.h; sourceTree = "<group>"; };
+		A3F0CEE8143B0B4400C69749 /* URLObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URLObject.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1107,8 +1110,8 @@
 				A3DCB5FD1344C90900A38D5E /* Catalogue.m */,
 				A3C5C26F1383D6D700FF413F /* NetworkManager.h */,
 				A3C5C2701383D6D700FF413F /* NetworkManager.m */,
-				A377335B14066A6500D71E26 /* RPCComm.h */,
 				A377335C14066A6500D71E26 /* RPCComm.m */,
+				A377335B14066A6500D71E26 /* RPCComm.h */,
 				A346B121141F5D8E009C3F3A /* PositionManager.h */,
 				A346B122141F5D8E009C3F3A /* PositionManager.m */,
 			);
@@ -1188,6 +1191,8 @@
 				A33CBF06142B3C4700ABA195 /* FiredEvent.m */,
 				A3D1761E142CD94C003753BB /* RequestObject.h */,
 				A3D1761F142CD94E003753BB /* RequestObject.m */,
+				A3F0CEE7143B0B4400C69749 /* URLObject.h */,
+				A3F0CEE8143B0B4400C69749 /* URLObject.m */,
 			);
 			name = Data;
 			sourceTree = "<group>";
@@ -1775,6 +1780,7 @@
 				A3D1761D142CB0AD003753BB /* PolicyStateObject.m in Sources */,
 				A3D17620142CD951003753BB /* RequestObject.m in Sources */,
 				A3EBBA361430EF7900CFAAC4 /* RootConditionTimeViewController.m in Sources */,
+				A3F0CEE9143B0B4400C69749 /* URLObject.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

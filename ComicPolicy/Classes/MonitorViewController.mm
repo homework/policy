@@ -86,6 +86,10 @@
 }
 */
 
+-(void) resize{
+    
+}
+
 - (void)viewDidUnload
 {
     

@@ -19,4 +19,6 @@
 //@property(nonatomic, retain) NSString* currentMonitorScene;
 @property(nonatomic, retain) UIImageView* testImage;
 
+-(void) resize;
+
 @end
