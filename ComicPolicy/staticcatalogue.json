@@ -178,7 +178,7 @@
                 "growl":
                 {
                     "notify":{
-                        "action":"notifybysound.png"
+                        "action":"notifybygrowl.png"
                     }
                 },
             
@@ -187,7 +187,7 @@
                     "tweet":"notifybytweet.png",
                     "phone":"notifybyphone.png",
                     "mail":"notifybymail.png",
-                    "growl":"notifybysound.png"
+                    "growl":"notifybygrowl.png"
                 },
 
             

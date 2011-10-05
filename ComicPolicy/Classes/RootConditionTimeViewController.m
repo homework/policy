@@ -134,7 +134,13 @@ BOOL toScaled = NO;
 		
 		float ang = atan(y/x);
         
-        int sign = (x >= 0) ? 1 : -1;
+        NSLog(@"x is %f y is %f", x, y);
+        
+        if (x == 0)
+            return;
+        
+        int  sign = (x > 0) ? 1 : -1;
+        
         int multiplier = (x > 0) ? 0 : 1;
         int PM = 0;
         
@@ -221,6 +227,7 @@ BOOL toScaled = NO;
 	if ([touch view] == conditionTimeView.fhh || [touch view] == conditionTimeView.fmh || [touch view] == conditionTimeView.thh || [touch view] == conditionTimeView.tmh){
 		return;
 	}
+    
 	if (CGRectContainsPoint(conditionTimeView.fromClockFace.frame, touchLocation)){
 		
 		[conditionTimeView.fromClockFace removeFromSuperview];
@@ -245,10 +252,22 @@ BOOL toScaled = NO;
 			conditionTimeView.toClockFace.frame = frame;
 			toScaled = NO;
 		}
+        
+        if (fromScaled){
+            conditionTimeView.toClockFace.userInteractionEnabled = NO;
+			[conditionTimeView.fromClockFace setTransform:CGAffineTransformMakeScale(1.0, 1.0)];
+			CGRect frame = conditionTimeView.fromClockFace.frame;
+			frame.origin.x = 5.0;
+			conditionTimeView.fromClockFace.frame = frame;
+			fromScaled = NO;
+        
+        }else{
+            fromScaled = YES;
+        }
 		
-		[UIView commitAnimations];
+        [UIView commitAnimations];
 		conditionTimeView.toClockFace.userInteractionEnabled = NO;
-		fromScaled = YES;
+		
 	}
 	else if (CGRectContainsPoint(conditionTimeView.toClockFace.frame, touchLocation)){
 		[conditionTimeView.toClockFace removeFromSuperview];
@@ -273,10 +292,20 @@ BOOL toScaled = NO;
 			conditionTimeView.fromClockFace.frame = frame;
 			fromScaled = NO;
 		}
+        if (toScaled){
+			conditionTimeView.fromClockFace.userInteractionEnabled = NO;
+			[conditionTimeView.toClockFace setTransform:CGAffineTransformMakeScale(1.0, 1.0)];
+			CGRect frame = conditionTimeView.toClockFace.frame;
+			frame.origin.x = 164.0;
+			frame.origin.y = 10.0;
+			conditionTimeView.toClockFace.frame = frame;
+			toScaled =NO;
+		}else{
+            toScaled = YES;
+        }
 		[UIView commitAnimations];
 		
-		toScaled = YES;
-	}
+    }
 	else if (fromScaled || toScaled){
 		[UIView beginAnimations:nil context:nil];
 		[UIView setAnimationDelegate:self];

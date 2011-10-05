@@ -28,12 +28,54 @@ static bool selected[7];
             selected[i] = false;
         }
         
+        days = [[[NSArray alloc] initWithObjects:@"Mon", @"Tue", @"Wed", @"Thu", @"Fri", @"Sat", @"Sun", nil] retain];
+        
         [self addWeekdaySelection];
+        UIImageView* topcaptionframe = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"captionframe.png"]];
+		topcaptionframe.frame = CGRectMake(10, 10, topcaptionframe.frame.size.width, topcaptionframe.frame.size.height);
+        [self.view addSubview:topcaptionframe];
+        
+        UILabel* caption = [[[UILabel alloc] initWithFrame:CGRectMake(10,10,topcaptionframe.frame.size.width,topcaptionframe.frame.size.height)] autorelease];
+        caption.textColor = [UIColor blackColor];
+        caption.textAlignment = UITextAlignmentCenter;
+        caption.backgroundColor = [UIColor clearColor];
+        caption.font = [UIFont fontWithName:@"MarkerFelt-Thin" size:18.0];
+        caption.text = @"is used between";
+        [self.view addSubview:caption];
+
         
 	}
     return self;
 }
 
+-(void) updateCaption{
+    conditionTimeView.caption.text = [NSString stringWithFormat:@"%02d:%02d and %02d:%02d %@",  fromhour, fromminute, tohour, tominute, [self weekdaycaption]];
+    
+}
+
+-(NSString *) weekdaycaption{
+    int fromindex, toindex;
+    int i =0;
+    NSMutableString *selecteddays = [NSMutableString stringWithFormat:@""];
+    
+    while(i < 7){
+        if (selected[i]){
+            fromindex = i;
+            toindex = fromindex;
+            
+            while(selected[++toindex]);
+            
+            if (toindex-1 == fromindex){
+                selecteddays = [NSMutableString stringWithFormat:@"%@%@%@",selecteddays, [selecteddays isEqualToString:@""] ? @"": @",", [days objectAtIndex:fromindex]];
+            }else{
+                 selecteddays = [NSMutableString stringWithFormat:@"%@%@%@-%@",selecteddays, [selecteddays isEqualToString:@""] ? @"": @",", [days objectAtIndex:fromindex], [days objectAtIndex:toindex-1]];
+            }
+            i = toindex;
+        }
+        i++;
+    }
+    return selecteddays;
+}
 
 -(void) addWeekdaySelection{
     
@@ -42,7 +84,7 @@ static bool selected[7];
     
     
     
-    days = [[[NSArray alloc] initWithObjects:@"Mon", @"Tue", @"Wed", @"Thu", @"Fri", @"Sat", @"Sun", nil] retain];
+   
     int index =0;
     
     NSMutableArray *tmp = [[[NSMutableArray alloc] init] autorelease];
@@ -71,6 +113,9 @@ static bool selected[7];
         }
         [self updateLabelColors];
     }
+    
+    [self updateCaption];
+    
 }
 
 
@@ -116,7 +161,7 @@ static bool selected[7];
     }
     
     [self updateLabelColors];
-    
+    [self updateCaption];
     if (!labeltouched)
         [super touchesBegan:touches withEvent:event];
 }

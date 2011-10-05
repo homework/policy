@@ -273,6 +273,7 @@
 		A3EE22E014333F5700DF2EBB /* cataloguev2.json in Resources */ = {isa = PBXBuildFile; fileRef = A3EE22DF14333F5700DF2EBB /* cataloguev2.json */; };
 		A3F0CEE9143B0B4400C69749 /* URLObject.m in Sources */ = {isa = PBXBuildFile; fileRef = A3F0CEE8143B0B4400C69749 /* URLObject.m */; };
 		A3F3F45A143C69920092ADF3 /* UsageData.m in Sources */ = {isa = PBXBuildFile; fileRef = A3F3F459143C69920092ADF3 /* UsageData.m */; };
+		A3F3F45C143CA5730092ADF3 /* notifybygrowl.png in Resources */ = {isa = PBXBuildFile; fileRef = A3F3F45B143CA5730092ADF3 /* notifybygrowl.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -686,6 +687,7 @@
 		A3F0CEE8143B0B4400C69749 /* URLObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URLObject.m; sourceTree = "<group>"; };
 		A3F3F458143C69920092ADF3 /* UsageData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsageData.h; sourceTree = "<group>"; };
 		A3F3F459143C69920092ADF3 /* UsageData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UsageData.m; sourceTree = "<group>"; };
+		A3F3F45B143CA5730092ADF3 /* notifybygrowl.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = notifybygrowl.png; path = notify/notifybygrowl.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -818,6 +820,7 @@
 		A30ADEF9131528F70060D2F1 /* action */ = {
 			isa = PBXGroup;
 			children = (
+				A3F3F45B143CA5730092ADF3 /* notifybygrowl.png */,
 				A3B6FA5214235CB500089153 /* selecthoursdark.png */,
 				A3B6FA5314235CB500089153 /* selecthourslight.png */,
 				A3B6FA501423525400089153 /* clockfacesmall.png */,
@@ -1647,6 +1650,7 @@
 				A3B4EB7214347F46005D3656 /* cataloguev3.json in Resources */,
 				A3B4EB741434C0FC005D3656 /* staticcatalogue.json in Resources */,
 				A3B4EB761434C117005D3656 /* dynamiccatalogue.json in Resources */,
+				A3F3F45C143CA5730092ADF3 /* notifybygrowl.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

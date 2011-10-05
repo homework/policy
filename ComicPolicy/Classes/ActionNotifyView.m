@@ -26,14 +26,7 @@
 		personImage.frame = CGRectMake(0, 14, 295, 160);
 		[self addSubview:personImage];		
 		
-		UIImageView* tmpframe = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"frame2.png"]];
-		[self addSubview:tmpframe];
-		[tmpframe release]; 
-		
-		upImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"greenup.png"]];
-		upImage.frame = CGRectMake(135, 4, 27, 26);
-		[self addSubview:upImage];
-        
+		        
         UIImageView* bottomcaptionframe = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"captionframelong.png"]];
 		bottomcaptionframe.frame = CGRectMake(10, 20, bottomcaptionframe.frame.size.width, bottomcaptionframe.frame.size.height);
         [self addSubview:bottomcaptionframe];
@@ -44,7 +37,16 @@
         self.notifycaption.textAlignment = UITextAlignmentCenter;
         self.notifycaption.font = [UIFont fontWithName:@"MarkerFelt-Thin" size:15.0];
         self.notifycaption.backgroundColor = [UIColor clearColor];
-        [self addSubview:notifycaption];                                                            
+        [self addSubview:notifycaption];   
+        
+        UIImageView* tmpframe = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"frame2.png"]];
+		[self addSubview:tmpframe];
+		[tmpframe release]; 
+		
+		upImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"greenup.png"]];
+		upImage.frame = CGRectMake(135, 4, 27, 26);
+		[self addSubview:upImage];
+
                                                                         
 				
     }

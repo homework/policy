@@ -111,14 +111,21 @@
 
 -(void) textFieldDidEndEditing:(UITextField *)textField{
     editing = false;
-    [self addSite:textField.text];
-    [self relayout];
-    textField.text = @"";
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:0.75];
-    [UIView setAnimationDelegate:self];
-    addSiteTextField.alpha = 0.0;
-    [UIView commitAnimations];
+    
+    NSURL* candidateURL = [NSURL URLWithString:textField.text];
+    NSURL* candidateURLv2 = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@", textField.text]];
+    
+    if ( (candidateURL && candidateURL.host) || (candidateURLv2 && candidateURLv2.host)){
+        [self addSite:textField.text];
+        [self relayout];
+        textField.text = @"";
+    }
+        [UIView beginAnimations:nil context:nil];
+        [UIView setAnimationDuration:0.75];
+        [UIView setAnimationDelegate:self];
+        addSiteTextField.alpha = 0.0;
+        [UIView commitAnimations];
+    
 }
 
 
@@ -150,31 +157,39 @@
     [self.sites removeAllObjects];
     
     
+    
      // regenerate labels from the catalogue...
      
     
+   
     int YPOS = 40;
-    
     
     NSMutableArray *currentsites = [[[Catalogue sharedCatalogue] conditionArguments] objectForKey:@"sites"];
     int tag = 100;
+    float size = [currentsites count] >= 5 ? 20.0 : 35.0;
+    int lineheight = [currentsites count] >= 5 ? 20: 40;
     
     for (NSString *site in currentsites){
-        UILabel *asitelabel = [[[UILabel alloc] initWithFrame:CGRectMake(20,YPOS,250,35)] autorelease];
+        UILabel *asitelabel = [[[UILabel alloc] initWithFrame:CGRectMake(20,YPOS,250,size)] autorelease];
         asitelabel.textColor = [UIColor whiteColor];
         asitelabel.backgroundColor = [UIColor clearColor];
         asitelabel.text = site;
-        asitelabel.font = [UIFont fontWithName:@"MarkerFelt-Thin" size:35.0];
+        asitelabel.font = [UIFont fontWithName:@"MarkerFelt-Thin" size:size];
         asitelabel.tag = tag++;
         [sites addObject:asitelabel];
         [self.view addSubview:asitelabel];
-        YPOS += 40;
+        YPOS += lineheight;
     }
     
     [self updateCaption];
 }
 
 -(void) removeSite:(NSString *) site{
+    
+    //can't remove the last site...
+    if ([sites count] == 1)
+        return;
+    
     for (UILabel* aLabel in sites){
         if ([aLabel.text isEqualToString:site]){
             
@@ -216,19 +231,23 @@
     }
       
     
+   
     
-    if (! CGRectContainsPoint(conditionVisitingView.addButton.bounds, touchLocation) && !editing){
+    if ((touchLocation.y > 40 && !editing)){
         [super touchesBegan:touches withEvent:event];
         return;
     }
     
          
     if (!editing){//plus button was touched
-        [UIView beginAnimations:nil context:nil];
-        [UIView setAnimationDuration:0.75];
-        [UIView setAnimationDelegate:self];
-        addSiteTextField.alpha = 1.0;
-        [UIView commitAnimations];
+         NSArray *currentsites = [[[Catalogue sharedCatalogue] conditionArguments] objectForKey:@"sites"];
+        if ([currentsites count] < 10){
+            [UIView beginAnimations:nil context:nil];
+            [UIView setAnimationDuration:0.75];
+            [UIView setAnimationDelegate:self];
+            addSiteTextField.alpha = 1.0;
+            [UIView commitAnimations];
+        }
     }
     
     

@@ -26,13 +26,7 @@
 		personImage.frame = CGRectMake(0, 14, 295, 160);
 		[self addSubview:personImage];		
 		
-		UIImageView* tmpframe = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"frame2.png"]];
-		[self addSubview:tmpframe];
-		[tmpframe release]; 
 		
-		upImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"greenup.png"]];
-		upImage.frame = CGRectMake(135, 4, 27, 26);
-		[self addSubview:upImage];
         
         UIImageView* topcaptionframe = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"smallcaptionframe.png"]];
 		topcaptionframe.frame = CGRectMake(6, 19, topcaptionframe.frame.size.width, topcaptionframe.frame.size.height);
@@ -52,6 +46,14 @@
         self.devicecaption.backgroundColor = [UIColor clearColor];
         [self addSubview:devicecaption];
         [devicecaption release];
+        
+        UIImageView* tmpframe = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"frame2.png"]];
+		[self addSubview:tmpframe];
+		[tmpframe release]; 
+		
+		upImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"greenup.png"]];
+		upImage.frame = CGRectMake(135, 4, 27, 26);
+		[self addSubview:upImage];
 		
     }
     return self;

@@ -131,8 +131,9 @@ static float PADDING = 15;
 	CGPoint touchLocation = [touch locationInView:self.navigationView];
 	
     if (CGRectContainsPoint(self.navigationView.addNew.frame, touchLocation)){
-        
-        [[PolicyManager sharedPolicyManager] newDefaultPolicy];
+        if ([[[PolicyManager sharedPolicyManager] policyids] count] < 15){
+            [[PolicyManager sharedPolicyManager] newDefaultPolicy];
+        }
     }
 	else{
 	for(UIView *view in self.navigationView.subviews){  
