@@ -49,7 +49,7 @@
         [self addSubview:redcog];
         [redcog release];
         
-        UIImageView *cface = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"monitorclockface.png"]];
+        /*UIImageView *cface = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"monitorclockface.png"]];
         cface.center = CGPointMake(324,135);
         [self addSubview:cface];
         [cface release];
@@ -62,29 +62,29 @@
         UIImageView *tmphbranch = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"hbranch.png"]];
         tmphbranch.center = CGPointMake(250,154);
         [self addSubview:tmphbranch];
-        [tmphbranch release];
+        [tmphbranch release];*/
         
-        self.pointer = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"pointer.png"]];
+        /*self.pointer = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"pointer.png"]];
         self.pointer.center = CGPointMake(322,135);
         [self.pointer.layer setAnchorPoint:CGPointMake(0.5, 0.64)]; 
         [self addSubview:pointer];
-        [pointer release];
+        [pointer release];*/
         
         UIImageView *tmpdash = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dash.png"]];
-        tmpdash.center = CGPointMake(227,257);
+        tmpdash.center = CGPointMake(207,217);
         [self addSubview:tmpdash];
         [tmpdash release];
         
-        self.smallpointer = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"smallpointer.png"]];
-        self.smallpointer.center = CGPointMake(228,290);
-        [self.smallpointer.layer setAnchorPoint:CGPointMake(0.5, 0.9)]; 
+        self.smallpointer = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"pointer.png"]];
+        self.smallpointer.center = CGPointMake(208,305);
+        [self.smallpointer.layer setAnchorPoint:CGPointMake(0.5, 0.7)]; 
         [self addSubview:smallpointer];
         [smallpointer release];
         
-        UIImageView *semicog = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"semicog.png"]];
+        /*UIImageView *semicog = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"semicog.png"]];
         semicog.center = CGPointMake(228,289);
         [self addSubview:semicog];
-        [semicog release];
+        [semicog release];*/
         
         UIImageView *leaf1 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"leaf.png"]];
         leaf1.center = CGPointMake(101,274);

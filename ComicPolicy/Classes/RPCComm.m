@@ -106,7 +106,7 @@ NSString* callbackaddr;
 }
 
 -(void) getIsUsedFor:(NSString *) ipaddr{
-    NSString* query = [NSString stringWithFormat:@"SQL:select sum(nbytes) from KFlows [range 5 seconds] WHERE saddr = \"%@\" or daddr = \"%@\"\n", ipaddr, ipaddr];
+    NSString* query = [NSString stringWithFormat:@"SQL:select t, sum(nbytes) from KFlows [range 5 seconds] WHERE saddr = \"%@\" or daddr = \"%@\"\n", ipaddr, ipaddr];
    
     //NSString* query = [NSString stringWithFormat:@"SQL:select nbytes from KFlows"];
     
@@ -466,12 +466,13 @@ void policy_state_results_free(PolicyStateResults *p) {
 long usage_convert(Rtab *results){
     if (! results || results->mtype != 0)
 		return 0;
-    unsigned long bytes;
+     long bytes = 0;
     
-    char **columns;
-    columns = rtab_getrow(results, 0);
-    bytes = atol(columns[1]);
-    
+     if (results->nrows >= 1){
+         char **columns;
+         columns = rtab_getrow(results, 0);
+         bytes = atol(columns[0]);
+     }
     return bytes;
 }
 
@@ -493,21 +494,27 @@ tstamp_t processusageresults(char *buf, unsigned int len) {
     return (last);
 }
 
- long flow_convert(Rtab *results){
-     long bytes = 0;
+ UsageData* flow_convert(Rtab *results){
+     
+     UsageData *ud = [[[UsageData alloc] init] autorelease];
+     ud.ts      =0L;
+     ud.bytes   =0L;
+     
     if (! results || results->mtype != 0)
-		return bytes;
-    
-    
-    NSLog(@"got %d rows %d cols", results->nrows, results->ncols);
+		return nil;
+   
+     
     if (results->nrows >= 1){
-       
+        
         char **columns;
         columns = rtab_getrow(results, 0);
-        bytes = atol(columns[0]);
-        return bytes;
+        tstamp_t ts = string_to_timestamp(columns[0]);
+        long bytes  = atol(columns[1]);
+        ud.ts = ts;
+        ud.bytes = bytes;
+        return ud;
     }
-    return bytes;
+    return ud;
 }
 
 
@@ -521,12 +528,20 @@ tstamp_t processflowresults(char *buf, unsigned int len) {
     results = rtab_unpack(buf, len);
     
 	if (results && ! rtab_status(buf, stsmsg)) {
-		bytes = flow_convert(results);
-        NSLog(@"got %lu bytes\n", bytes);
+		UsageData* ud = flow_convert(results);
+        NSLog(@"got %lu bytes\n", ud.bytes);
+        NSAutoreleasePool *autoreleasepool = [[NSAutoreleasePool alloc] init];
+        [[RPCComm sharedRPCComm] performSelectorOnMainThread:@selector(notifyActivity:) withObject:ud waitUntilDone:YES];
+        [autoreleasepool release];
     }
+    
     rtab_free(results);
 	
     return (last);
+}
+
+-(void) notifyActivity:(NSNumber *)bytes{
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"newActivityData" object:bytes];
 }
 
 tstamp_t processpolicystateresults(char *buf, unsigned int len) {

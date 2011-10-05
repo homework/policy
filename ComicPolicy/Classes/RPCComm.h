@@ -12,6 +12,7 @@
 #import "PolicyStateObject.h"
 #import "PolicyManager.h"
 #import "URLObject.h"
+#import "UsageData.h"
 
 #include "config.h"
 #include "srpc.h"
@@ -108,7 +109,7 @@ tstamp_t processurlesults(char *buf, unsigned int len);
 long usage_convert(Rtab* results);
 tstamp_t processusageresults(char *buf, unsigned int len);
 
-long flow_convert(Rtab* results);
+UsageData* flow_convert(Rtab* results);
 tstamp_t processflowresults(char *buf, unsigned int len);
 
 -(void) setSetUpHWDBConnection:(NSString *) gwaddr callback:(NSString *) cb;

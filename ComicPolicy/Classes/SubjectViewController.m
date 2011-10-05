@@ -94,8 +94,13 @@
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(subjectOwnerChange:) name:@"subjectOwnerChange" object:nil];	
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(subjectOwnerLoaded:) name:@"subjectOwnerLoaded" object:nil];
+    
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(conditionChange:) name:@"conditionChange" object:nil];
 }
 
+-(void) conditionChange:(NSNotification *) n{
+    [self loadCaptions];
+}
 
 -(void) subjectOwnerLoaded:(NSNotification *) n{
     //[UIView beginAnimations:nil context:nil];
@@ -163,14 +168,21 @@
     subjectView.devicecaption.alpha = 1.0;
     subjectView.ownercaption.alpha = 1.0;
     if ([[[Catalogue sharedCatalogue] currentSubjectOwner] isEqualToString:@"any"]){
-        subjectView.ownercaption.text = @"When any device";
-        subjectView.devicecaption.text = @"";
+        subjectView.ownercaption.text = @"";
+
+        if ([[[Catalogue sharedCatalogue] currentCondition] isEqualToString:@"bandwidth"]){
+            subjectView.devicecaption.text = @"When ALL devices";
+        }else{
+            subjectView.devicecaption.text = @"When any device";
+        }
     }else{
         subjectView.ownercaption.text = [NSString stringWithFormat:@"When %@'s",[[Catalogue sharedCatalogue] currentSubjectOwner]];
         subjectView.devicecaption.text = [NSString stringWithFormat:@"device (%@)",[[Catalogue sharedCatalogue] currentDeviceName]];
     }
 
 }
+
+
 
 /*
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.

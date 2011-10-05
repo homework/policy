@@ -10,6 +10,7 @@
 #import "MonitorTimeView.h"
 #import "NetworkManager.h"
 #import "MonitorDataSource.h"
+#import "UsageData.h"
 
 @interface MonitorTimeViewController()
 -(void) rotateCogs;//:(NSString *) animationID finished:(NSNumber*)finished context:(void*)context;
@@ -55,7 +56,7 @@ BOOL inside = NO;
 {
     
   
-    
+    lastreading= -1;
     rotateflag = YES;
     currentActivity = NOREADING;
     CGRect aframe = [[PositionManager sharedPositionManager] getPosition:@"resultmonitor"];
@@ -106,7 +107,7 @@ BOOL inside = NO;
 -(void) requestData:(NSTimer *) timer{
     
     //[self advancePointer];
-    [self rotateCogs];
+    //[self rotateCogs];
     //start = M_PI / 
     NSString * subject = [[Catalogue sharedCatalogue] currentSubjectDevice];
     NSString *rootURL  = [[NetworkManager sharedManager] rootURL];
@@ -117,11 +118,13 @@ BOOL inside = NO;
 }
 
 -(void) advancePointer:(int) timeLeft timeInside:(int) timeInside isInside:(BOOL) inside{
+    
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:2.0];
     [UIView setAnimationDelegate:self];
     //float startInDegrees = ((3 * M_PI)/4) * ((float)180/M_PI);
     
+   // [self rotateCogs];
     
     if (inside){
         [self advanceInside:timeLeft timeInside: timeInside];
@@ -189,29 +192,41 @@ BOOL inside = NO;
 }
 
 -(void) newActivityData:(NSNotification *) notification{
-    NSDictionary *data = [notification userInfo];
-    NSString *responseString = [data objectForKey:@"data"];    
     
-    SBJsonParser *jsonParser = [[SBJsonParser new] autorelease];
+    UsageData *data = [notification object];
     
-    NSArray* results = (NSArray *) [jsonParser objectWithString:responseString error:nil];
+    //SBJsonParser *jsonParser = [[SBJsonParser new] autorelease];
     
-    NSNumber *activity = (NSNumber*) [results objectAtIndex:1];
+    //NSArray* results = (NSArray *) [jsonParser objectWithString:responseString error:nil];
     
-    NSNumber *ts = (NSNumber*) [results objectAtIndex:0];
+    //NSNumber *activity = (NSNumber*) [results objectAtIndex:1];
     
-    if ([activity longValue] == 0){
+    //NSNumber *ts = (NSNumber*) [results objectAtIndex:0];
+    
+    if (currentActivity == NOREADING || (lastreading <= 0 && data.bytes > 0) ||  (lastreading > 0 && data.bytes <= 0)){
+        [self rotateCogs];
+    }
+    lastreading = data.bytes;;
+    
+    if (data.bytes == 0){
         [self rotateActivityMonitor:INACTIVE];
     }else{
         [self rotateActivityMonitor:ACTIVE];
     }
     
+    if (data.ts > 0){
+        long ts = data.ts / 1000000000LL;
+        [self secondsFromMidnight:ts];
+    }else{
+        ((MonitorTimeView*)monitorView).routercaption.text = @"";
+    }
+    /*
     NSMutableDictionary *args =  [(NSMutableDictionary *) [[Catalogue sharedCatalogue] conditionArguments] objectForKey:@"timed"];
     
     NSString *from = [args objectForKey:@"from"];
     NSString *to   = [args objectForKey:@"to"];
     
-    int routersecondsfrommidnight = [self secondsFromMidnight:[ts longLongValue]/1000];
+   
     
     BOOL isInside = [self isInsideRange:routersecondsfrommidnight from:from to:to];
     
@@ -226,7 +241,7 @@ BOOL inside = NO;
         [self advancePointer:secondstoto timeInside:timeinside isInside: isInside];
     }else{
         [self advancePointer:secondstofrom timeInside:timeoutside isInside: isInside];
-    }
+    }*/
 }
 
 -(BOOL) isInsideRange:(long) ts from: (NSString*) f to: (NSString*) t{
@@ -319,8 +334,8 @@ BOOL inside = NO;
 -(void) rotateCogs{
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:2.9];
-    [UIView setAnimationDelegate:self];
-    // [UIView setAnimationDidStopSelector:@selector(rotateCogs:finished:context:)];
+    //[UIView setAnimationDelegate:self];
+  //   [UIView setAnimationDidStopSelector:@selector(rotateCogs:finished:context:)];
     
     
     if (rotateflag){

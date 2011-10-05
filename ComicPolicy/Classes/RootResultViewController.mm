@@ -35,6 +35,7 @@
 
 -(void) conditionChange:(NSNotification *) n{
     [self updateConditionResult];
+    [self updateActionResultScene];
 }
 
 -(void) policyFired:(NSNotification *) n{

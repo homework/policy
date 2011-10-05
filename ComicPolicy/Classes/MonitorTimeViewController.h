@@ -23,6 +23,7 @@ typedef enum {
     //NSTimer *cogTimer;
     BOOL rotateflag;
     activity currentActivity;
+    long lastreading;
 }
 
 //@property(nonatomic, retain) MonitorTimeView* monitorTimeView;

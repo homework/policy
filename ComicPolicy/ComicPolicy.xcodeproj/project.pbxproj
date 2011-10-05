@@ -272,6 +272,7 @@
 		A3ED1701135F3A6E001C64EA /* FlipFrameView.m in Sources */ = {isa = PBXBuildFile; fileRef = A3ED1700135F3A6E001C64EA /* FlipFrameView.m */; };
 		A3EE22E014333F5700DF2EBB /* cataloguev2.json in Resources */ = {isa = PBXBuildFile; fileRef = A3EE22DF14333F5700DF2EBB /* cataloguev2.json */; };
 		A3F0CEE9143B0B4400C69749 /* URLObject.m in Sources */ = {isa = PBXBuildFile; fileRef = A3F0CEE8143B0B4400C69749 /* URLObject.m */; };
+		A3F3F45A143C69920092ADF3 /* UsageData.m in Sources */ = {isa = PBXBuildFile; fileRef = A3F3F459143C69920092ADF3 /* UsageData.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -683,6 +684,8 @@
 		A3EE22DF14333F5700DF2EBB /* cataloguev2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cataloguev2.json; sourceTree = "<group>"; };
 		A3F0CEE7143B0B4400C69749 /* URLObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URLObject.h; sourceTree = "<group>"; };
 		A3F0CEE8143B0B4400C69749 /* URLObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URLObject.m; sourceTree = "<group>"; };
+		A3F3F458143C69920092ADF3 /* UsageData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsageData.h; sourceTree = "<group>"; };
+		A3F3F459143C69920092ADF3 /* UsageData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UsageData.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1193,6 +1196,8 @@
 				A3D1761F142CD94E003753BB /* RequestObject.m */,
 				A3F0CEE7143B0B4400C69749 /* URLObject.h */,
 				A3F0CEE8143B0B4400C69749 /* URLObject.m */,
+				A3F3F458143C69920092ADF3 /* UsageData.h */,
+				A3F3F459143C69920092ADF3 /* UsageData.m */,
 			);
 			name = Data;
 			sourceTree = "<group>";
@@ -1781,6 +1786,7 @@
 				A3D17620142CD951003753BB /* RequestObject.m in Sources */,
 				A3EBBA361430EF7900CFAAC4 /* RootConditionTimeViewController.m in Sources */,
 				A3F0CEE9143B0B4400C69749 /* URLObject.m in Sources */,
+				A3F3F45A143C69920092ADF3 /* UsageData.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
