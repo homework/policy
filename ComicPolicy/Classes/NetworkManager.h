@@ -29,6 +29,7 @@
 -(void) addRequest:(ASIHTTPRequest *) request;
 -(void) removeAllRequests;
 -(BOOL) connectToHWDB;
+-(void) disconnect;
 -(void) readPoliciesFromHWDB;
 
 @end

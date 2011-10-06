@@ -12,6 +12,7 @@
 @implementation FiredEvent
 
 @synthesize  pid;
+@synthesize state;
 @synthesize event;
 @synthesize tstamp;
 
@@ -19,6 +20,7 @@
 	if (self = [super init])
 	{
         self.pid = pe->pid;
+        self.state   = [[NSString alloc] initWithString: [NSString stringWithFormat:@"%s", pe->state]];
 		self.event   = [[NSString alloc] initWithString: [NSString stringWithFormat:@"%s", pe->event]];
 		self.tstamp = pe->tstamp;
     }

@@ -72,6 +72,13 @@ typedef struct url_results{
     Url **data;
 } UrlResults;
 
+
+typedef struct fired_results{
+    unsigned long nfired;
+    PolicyFired **data;
+} FiredResults;
+
+
 @interface RPCComm : NSObject {
 	
 }
@@ -101,6 +108,7 @@ tstamp_t processpolicystateresults(char *buf, unsigned int len);
 
 void policy_fired_free(PolicyFired *p);
 PolicyFired *policy_fired_convert(Rtab *results);
+tstamp_t processfiredresults(char *buf, unsigned int len);
 
 void url_results_free(UrlResults *ur);
 UrlResults *url_convert(Rtab* results);
@@ -119,6 +127,9 @@ tstamp_t processflowresults(char *buf, unsigned int len);
 
 -(void) subscribe_to_policy_response;
 -(void) subscribe_to_policy_fired;
+-(void) unsubscribe_from_policy_fired;
+-(void) unsubscribe_from_policy_response;
+-(void) closeHWDBConnection;
 
 -(void) getStoredPolicies;
 -(void) getURLsBrowsedBy:(NSString*) ipaddr;

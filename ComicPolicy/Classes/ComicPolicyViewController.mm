@@ -24,6 +24,8 @@
 -(void) readInCatalogue:(NSTimer *) timer;
 -(void) addNotificationHandlers;
 -(void) updateFramePositions;
+-(void) showSplashScreen;
+-(void) hideSplashScreen;
 @end
 
 @implementation ComicPolicyViewController
@@ -58,7 +60,8 @@
     
     
     routerConnectionViewController = [[RouterConnectionViewController alloc] init];
-    [self.view addSubview:[routerConnectionViewController view]];
+    splashscreenshowing = NO;
+    [self showSplashScreen];
     
     [self readInCatalogue:nil];
     
@@ -143,40 +146,75 @@
     CGPoint touchLocation = [touch locationInView:self.view];
 	
 	if (CGRectContainsPoint( deleteButton.frame , touchLocation)){
+        [self requestStarted];
         [[PolicyManager sharedPolicyManager] deleteCurrentPolicy];
     }
     else if (CGRectContainsPoint( refreshButton.frame , touchLocation)){
-       [[PolicyManager sharedPolicyManager] refresh];
+       
+        [[PolicyManager sharedPolicyManager] refresh];
     }
     else if (CGRectContainsPoint( activateButton.frame , touchLocation)){
          if (p.status == disabled){
+             [self requestStarted];
              [[PolicyManager sharedPolicyManager] updatePolicyState:@"ENABLE"];
+            
          }
     }
 	else if (CGRectContainsPoint( saveButton.frame , touchLocation)){
       
         if (p.status == unsaved){
+            [self requestStarted];
             [[PolicyManager sharedPolicyManager] savePolicyToHWDB];
         }
         /*
         [[PolicyManager sharedPolicyManager] savePolicy];
         
-        CGRect frame = CGRectMake(0,0, [[UIScreen mainScreen] applicationFrame].size.height, [[UIScreen mainScreen] applicationFrame].size.width);
-        
-        progressView = [[UIView alloc] initWithFrame:frame];
-        progressView.backgroundColor = [UIColor blackColor];
-        progressView.alpha = 0.5;
-        [self.view addSubview:progressView];
-        inprogress = YES;*/
+       */
     }
 }
 
--(void) requestComplete:(NSNotification *) notification{
+
+-(void) requestStarted{
+    CGRect frame = CGRectMake(0,0, [[UIScreen mainScreen] applicationFrame].size.height, [[UIScreen mainScreen] applicationFrame].size.width);
+    
+    progressView = [[UIView alloc] initWithFrame:frame];
+    progressView.backgroundColor = [UIColor blackColor];
+    progressView.alpha = 0.5;
+    [self.view addSubview:progressView];
+    inprogress = YES;
+    
+    requestTimer = [NSTimer scheduledTimerWithTimeInterval:4.0 
+                                     target:self 
+                                   selector:@selector(requestTimeOut:) //addSite:
+                                   userInfo:nil 
+                                    repeats:NO];
+}
+
+-(void) requestTimeOut:(NSTimer *) timer{
+    if (requestTimer != nil){
+        [requestTimer invalidate];
+        requestTimer = nil;
+    }
+    [self requestComplete];
+}
+
+-(void) requestComplete{
+    
+    if (requestTimer != nil){
+        [requestTimer invalidate];
+        requestTimer = nil;
+    }
+    
     if (inprogress){
         inprogress = NO;
         [progressView removeFromSuperview];
     }
     [self checkInSync];
+}
+
+
+-(void) hwdbRequestComplete:(NSNotification *) notification{
+    [self requestComplete];
 }
 
 
@@ -437,15 +475,45 @@
    
      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(policyFired:) name:@"policyFired" object:nil];
      
-     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(requestComplete:) name:@"saveRequestComplete" object:nil];
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hwdbRequestComplete:) name:@"HWDBRequestComplete" object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(conditionChange:) name:@"totalPoliciesChanged" object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hwdbConnected:) name:@"connected" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hwdbDisconnected:) name:@"disconnected" object:nil];
+    
 }
 
+
+-(void) hwdbConnected:(NSNotification *) n{
+   //  [routerConnectionViewController.view removeFromSuperview];
+    NSLog(@"-------------> reconnected --- hiding splash screen ---------------");
+    [self hideSplashScreen];
+}
+
+-(void) hwdbDisconnected:(NSNotification *) n{
+    [self showSplashScreen];
+    [routerConnectionViewController updateCaption:@"Disconnected from the router database..if this message doesn't disappear, please restart"];
+}
+
+
+-(void) hideSplashScreen{
+    if (splashscreenshowing == YES){
+        [routerConnectionViewController.view removeFromSuperview];
+        splashscreenshowing = NO;
+    }
+}
+
+-(void) showSplashScreen{
+    if (splashscreenshowing == NO){
+         [self.view addSubview:[routerConnectionViewController view]];
+        splashscreenshowing = YES;
+    }
+}
 -(void) createControllers{
    
-    [routerConnectionViewController.view removeFromSuperview];
+    [self showSplashScreen];
     
 	subjectViewController = [[SubjectViewController alloc] init];
 	[self.view addSubview:subjectViewController.view];

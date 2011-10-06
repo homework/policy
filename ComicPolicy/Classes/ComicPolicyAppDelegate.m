@@ -8,6 +8,7 @@
 
 #import "ComicPolicyAppDelegate.h"
 #import "ComicPolicyViewController.h"
+#import "NetworkManager.h"
 
 @implementation ComicPolicyAppDelegate
 
@@ -81,6 +82,7 @@
 
 
 - (void)applicationWillTerminate:(UIApplication *)application {
+    [[NetworkManager sharedManager] disconnect];
     /*
      Called when the application is about to terminate.
      See also applicationDidEnterBackground:.

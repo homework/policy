@@ -43,6 +43,9 @@
     UIView *progressView;
     
     BOOL inprogress;
+    BOOL splashscreenshowing;
+    
+    NSTimer* requestTimer;
 	
 }
 -(void) playTock:(NSTimer *)timer;

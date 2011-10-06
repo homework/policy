@@ -12,6 +12,8 @@
 @interface RPCComm (PrivateMethods)
 +(NSString *)getGatewayAddress;
 -(void) subscribe: (NSString*) listeninghost service:(char*) service query:(char*) query handler: (void * (void *args)) handler;
+-(void) unsubscribe:(NSString *) listeninghost service:(char*) s  query:(char*) query;
+
 @end
 
 @implementation RPCComm
@@ -92,6 +94,7 @@ NSString* callbackaddr;
 		[self performSelectorOnMainThread:@selector(notifyconnected:) withObject:nil waitUntilDone:NO];
 		return TRUE;
 	}
+    NSLog(@"failed to connect........");
 	[self performSelectorOnMainThread:@selector(notifydisconnected:) withObject:nil waitUntilDone:NO];
 
     return FALSE;
@@ -99,11 +102,22 @@ NSString* callbackaddr;
 
 
 -(void) getStoredPolicies{
-     NSString* query = [NSString stringWithFormat:@"SQL:select * from PolicyState WHERE state contains \"BLED\")\n"];
-    sprintf(sendquery, [query UTF8String]);
+     NSString* statequery = [NSString stringWithFormat:@"SQL:select * from PolicyState WHERE state contains \"BLED\")\n"];
+    sprintf(sendquery, [statequery UTF8String]);
 	querylen = strlen(sendquery) + 1;
     [self send: sendquery qlen:querylen resp: response rsize: sizeof(response) len:length callback:processpolicystateresults];
+    
+    
+    NSString* firedquery = [NSString stringWithFormat:@"SQL:select * from PolicyFired WHERE state contains \"FIRED\")\n"];
+    sprintf(sendquery, [firedquery UTF8String]);
+	querylen = strlen(sendquery) + 1;
+    [self send: sendquery qlen:querylen resp: response rsize: sizeof(response) len:length callback:processfiredresults];
+    
+    
+    
 }
+
+
 
 -(void) getIsUsedFor:(NSString *) ipaddr{
     NSString* query = [NSString stringWithFormat:@"SQL:select t, sum(nbytes) from KFlows [range 5 seconds] WHERE saddr = \"%@\" or daddr = \"%@\"\n", ipaddr, ipaddr];
@@ -299,6 +313,16 @@ void policy_fired_free(PolicyFired *p){
     }   
 }
 
+void policy_fired_results_free(FiredResults *p){
+    unsigned int i;
+	
+    if (p) {
+        for (i = 0; i < p->nfired && p->data[i]; i++)
+            free(p->data[i]);
+		free(p->data);	
+        free(p);
+    }
+}
 
 
 PolicyData *policy_convert(Rtab *results){
@@ -409,10 +433,48 @@ PolicyFired *policy_fired_convert(Rtab *results){
     /* populate record */
     ans->tstamp = string_to_timestamp(columns[0]);
     ans->pid = atol(columns[1]);
-    strncpy(ans->event, columns[2], 512);
+    strncpy(ans->state, columns[2], 10);
+    strncpy(ans->event, columns[3], 512);
     return ans;
 }
 
+FiredResults *policy_fired_results_convert(Rtab *results){
+
+    
+    FiredResults *ans;
+	unsigned int i;
+	
+	if (! results || results->mtype != 0)
+		return NULL;
+	if (!(ans = (FiredResults *)malloc(sizeof(FiredResults))))
+		return NULL;
+	
+	ans->nfired = results->nrows;
+	ans->data    = (PolicyFired **)calloc(ans->nfired, sizeof(PolicyFired *));
+	
+	if (!ans->data){
+		free(ans);
+		return NULL;
+	}
+	
+	for (i = 0; i < ans->nfired; i++) {
+		char **columns;
+		PolicyFired *pf = (PolicyFired *)calloc(1,sizeof(PolicyFired));
+		
+		if (!pf) {
+            policy_fired_results_free(ans);
+			return NULL;
+		}
+		ans->data[i] = pf;
+		columns = rtab_getrow(results, i);
+		/* populate record */
+		pf->tstamp = string_to_timestamp(columns[0]);
+        pf->pid = atol(columns[1]);
+        strncpy(pf->state, columns[2], 10);
+        strncpy(pf->event, columns[3], 512);
+	}
+	return ans;
+}
 
 
 PolicyStateResults *policy_state_convert(Rtab *results) {
@@ -515,6 +577,40 @@ tstamp_t processusageresults(char *buf, unsigned int len) {
         return ud;
     }
     return ud;
+}
+
+tstamp_t processfiredresults(char *buf, unsigned int len){
+   	Rtab *results;
+    char stsmsg[RTAB_MSG_MAX_LENGTH];
+    FiredResults *fr;
+    unsigned long i;
+	tstamp_t last = timestamp_now();
+    results = rtab_unpack(buf, len);
+    
+	if (results && ! rtab_status(buf, stsmsg)) {
+		// rtab_print(results);
+		fr = policy_fired_results_convert(results);
+		// do something with the data pointed to by p 
+        
+		NSLog(@"Retrieved %ld policy fired records from database\n", fr->nfired);
+        
+		for (i = 0; i < fr->nfired; i++) {
+			PolicyFired *pf = fr->data[i];
+            char *s = timestamp_to_string(pf->tstamp);
+            printf( "%s %u %s\n", s, pf->pid, pf->event);
+            
+            NSAutoreleasePool *autoreleasepool = [[NSAutoreleasePool alloc] init];
+            FiredEvent *fe = [[FiredEvent alloc] initWithPolicyFiredEvent:pf];
+            [[PolicyManager sharedPolicyManager] performSelectorOnMainThread:@selector(policyFired:) withObject:fe waitUntilDone:YES];
+            [fe release];
+            [autoreleasepool release];
+            free(s); 
+        }
+		policy_fired_results_free(fr);
+    }
+    rtab_free(results);
+	
+    return (last);
 }
 
 
@@ -788,6 +884,52 @@ tstamp_t processurlesults(char *buf, unsigned int len){
 }
 
 
+-(void) unsubscribe_from_policy_fired{
+    char* query = "PolicyResponseLast";
+    firedservicename= "PolicyFiredService";
+    [self unsubscribe:callbackaddr service:firedservicename query:query];
+}
+
+-(void) unsubscribe_from_policy_response{
+    char* query = "PolicyFiredLast";
+    firedservicename= "PolicyResponseService";
+    [self unsubscribe:callbackaddr service:firedservicename query:query];
+}
+
+
+
+-(void) unsubscribe:(NSString *) listeninghost service:(char*) s  query:(char*) query{
+    unsigned rlen;
+	char question[1000], resp[100], myhost[100], qname[64], service[100];
+	unsigned short myport;
+	
+	unsigned short port;
+	char *target;
+	port = HWDB_SERVER_PORT;
+    sprintf(service, s);
+	
+    rpc_details(myhost, &myport);
+    
+    sprintf(myhost, [listeninghost UTF8String]);
+    
+    if (rpc == NULL) {
+		fprintf(stderr, "Error connecting to HWDB at %s:%05u\n", target, port);
+        //		exit(1);
+	}
+	
+	sprintf(qname, query);
+	/* subscribe to query 'qname' */
+	sprintf(question, "SQL:unsubscribe %s %s %hu %s", qname, myhost, myport, service);
+    
+    if (!rpc_call(rpc, question, strlen(question)+1, resp, 100, &rlen)) {
+        fprintf(stderr, "Error issuing subscribe command\n");
+        //exit(1);
+    }
+    resp[rlen] = '\0';
+    printf("Response to unsubscribe command: %s", resp);
+
+}
+
 
 
 -(void) subscribe: (NSString*) listeninghost service:(char*) s query:(char*) query handler: (void * (void *args)) handler{
@@ -851,9 +993,10 @@ tstamp_t processurlesults(char *buf, unsigned int len){
                 if (callback != NULL)
                     callback(resp, len);
 			}else{
-                NSLog(@"---------------------- RPC DISCONNECTING ---------------------------");
-				rpc_disconnect(rpc);
+				[self closeHWDBConnection];
+                connected = FALSE;
 				[self performSelectorOnMainThread:@selector(notifydisconnected:) withObject:nil waitUntilDone:NO];
+               
 			}
 		}
 	}
@@ -878,6 +1021,14 @@ uint64_t string_to_mac(char *s) {
         ans = ans << 8 | (b[i] & 0xff);
     return ans;
 }
+
+
+-(void) closeHWDBConnection{
+    [self unsubscribe_from_policy_fired];
+    [self unsubscribe_from_policy_response];
+    rpc_disconnect(rpc);
+}
+
 
 
 

@@ -25,9 +25,9 @@ bool timerangeselected = false;
     
     self.view.frame = [[PositionManager sharedPositionManager] getPosition:@"conditionvisitingtime"];
    
-    [self updateSelected];
-    [self updateCaption];
-    return self;
+    //[self updateSelected];
+    //[self updateCaption];
+       return self;
 }
 
 - (void)dealloc
@@ -60,16 +60,38 @@ bool timerangeselected = false;
 
 -(void) updateCaption{
     
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:0.75];
+    [UIView setAnimationDelegate:self];
     if (!timerangeselected){
         conditionTimeView.caption.text = @"at any time";
+        conditionTimeView.fromClockFace.alpha = 0.0;
+        conditionTimeView.toClockFace.alpha = 0.0;
+        conditionTimeView.fmh.alpha = 0.0;
+        conditionTimeView.tmh.alpha = 0.0;
+        conditionTimeView.fhh.alpha = 0.0;
+        conditionTimeView.thh.alpha = 0.0;
+        conditionTimeView.fromAMPM.alpha = 0.0;
+        conditionTimeView.toAMPM.alpha = 0.0;
     }
     else{
         conditionTimeView.caption.text = [NSString stringWithFormat:@"between %02d:%02d and %02d:%02d",  fromhour, fromminute, tohour, tominute];
+        conditionTimeView.fromClockFace.alpha = 1.0;
+        conditionTimeView.toClockFace.alpha = 1.0;
+        conditionTimeView.fmh.alpha = 1.0;
+        conditionTimeView.tmh.alpha = 1.0;
+        conditionTimeView.fhh.alpha = 1.0;
+        conditionTimeView.thh.alpha = 1.0;
+        conditionTimeView.fromAMPM.alpha = 1.0;
+        conditionTimeView.toAMPM.alpha = 1.0;
+
    }
+    [UIView commitAnimations];
 }
 
 -(void) initialiseClocks{
     [super initialiseClocks];
+    [self updateCatalogue];
     [self updateSelected];
     [self updateCaption];
 }
@@ -79,7 +101,16 @@ bool timerangeselected = false;
   
     NSString *from = [NSString stringWithFormat:@"%02d:%02d", fromhour, fromminute];
     NSString *to = [NSString stringWithFormat:@"%02d:%02d", tohour, tominute];
-    
+   
+    if (fromhour == tohour && fromminute == tominute){
+        if (fromminute == 59){
+            fromminute = 58;
+            [self setFromMinute:fromminute];
+        }else{
+            tominute = tominute + 1;
+            [self setToMinute:tominute];
+        }
+    }
     
     NSMutableDictionary *newargs = [[Catalogue sharedCatalogue] conditionArguments];
     

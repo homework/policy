@@ -90,6 +90,16 @@ BOOL toScaled = NO;
     
     NSString *from = [NSString stringWithFormat:@"%02d:%02d", fromhour, fromminute];
     NSString *to = [NSString stringWithFormat:@"%02d:%02d", tohour, tominute];
+    
+    if (fromhour == tohour && fromminute == tominute){
+        if (fromminute == 59){
+            fromminute = 58;
+            [self setFromMinute:fromminute];
+        }else{
+            tominute = tominute + 1;
+            [self setToMinute:tominute];
+        }
+    }
    // NSArray *daysofweek = [NSArray arrayWithObjects:@"Mo", @"Tu", @"We", nil];
    //
     NSMutableDictionary *newargs = [[[NSMutableDictionary alloc] initWithObjects:[[[NSArray alloc] initWithObjects:from, to, nil] autorelease] forKeys:[[[NSArray alloc] initWithObjects:@"from", @"to",nil] autorelease]] autorelease];

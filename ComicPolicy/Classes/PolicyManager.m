@@ -111,7 +111,7 @@ static int requestId;
         [policyids addObject:policyid];
         localId++;
     }
-
+    
     [self loadFirstPolicy];
 }
 
@@ -143,7 +143,7 @@ static int requestId;
 
 -(BOOL) isInSync{
     
-        
+    
     if (currentPolicy.identity == NULL){
         return NO;
     }
@@ -157,7 +157,7 @@ static int requestId;
         return NO;
     }
     
-   
+    
     if ( ![currentPolicy.actiontype isEqualToString: [[Catalogue sharedCatalogue] currentActionType]]){
         return NO;
     }
@@ -174,7 +174,7 @@ static int requestId;
 -(void) readInPolicies:(NSMutableDictionary *)policydict{
     
     for (NSString *identity in [policydict allKeys]){
-            
+        
         Policy *apolicy = [[Policy alloc] initWithDictionary:[policydict objectForKey:identity]];
         
         NSString* localid = [NSString stringWithFormat:@"%d", localId];
@@ -204,8 +204,6 @@ static int requestId;
 }
 
 -(void) createNewDefaultPolicy{
-    
-    NSLog(@"LOADING IN A NEW BOOTSTRAP DEFAULT POLICY AS NONE IN DATABASE");
     Policy *p = [[[Policy alloc] init] autorelease];
     [self createSnapshot:p];
     NSString* policyid = [NSString stringWithFormat:@"%d",localId];
@@ -217,7 +215,7 @@ static int requestId;
 }
 
 -(NSMutableDictionary *) getConditionArguments:(NSString*)type{
-   
+    
     if ([currentPolicy.conditiontype isEqualToString:type]){
         return currentPolicy.conditionarguments;
     }
@@ -226,13 +224,13 @@ static int requestId;
 
 
 -(void) newDefaultPolicy{
-   
+    
     Policy *apolicy  = [[[Policy alloc] initWithPolicy:defaultPolicy] autorelease];
-
+    
     apolicy.status = unsaved;
     
     [apolicy setLocalid:[NSString stringWithFormat:@"%d",localId++]];
-
+    
     [policies setObject:apolicy forKey:apolicy.localid];
     
     [policyids addObject:apolicy.localid];
@@ -251,7 +249,7 @@ static int requestId;
 }
 
 -(void) loadPolicy:(NSString*) localpolicyid{
-
+    
     Policy *apolicy = [policies objectForKey:localpolicyid];
     
     if (apolicy != nil){
@@ -261,10 +259,10 @@ static int requestId;
         [[Catalogue sharedCatalogue]  setSubjectDevice:apolicy.subjectdevice];
         
         [[Catalogue sharedCatalogue] setCondition:apolicy.conditiontype options:apolicy.conditionarguments];
-       
-    
+        
+        
         [[Catalogue sharedCatalogue] setAction:apolicy.actiontype subject:apolicy.actionsubject options:apolicy.actionarguments];
-    
+        
         self.currentPolicy = apolicy;
         
     }
@@ -275,18 +273,24 @@ static int requestId;
 
 -(void) policyFired:(FiredEvent *) event{
     NSLog(@"POLICY FIRED>>>>>>>>> global policy id %d", event.pid);
-   
-    NSString *localid = [localLookup objectForKey: [NSString stringWithFormat:@"%d", event.pid]];
+    if (event != nil){
+        NSString *localid = [localLookup objectForKey: [NSString stringWithFormat:@"%d", event.pid]];
+        
+        if (localid != nil){
+            [self loadPolicy:localid];
+            
+            if ([event.state isEqualToString:@"FIRED"]){
+                currentPolicy.fired = YES;
+            }else{
+                currentPolicy.fired = NO;
+            }
+            
+            NSDictionary *dict = [NSDictionary dictionaryWithObject:localid forKey:@"identity"];
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"policyFired" object:nil userInfo:dict];
+        }
+    }
     
-    [self loadPolicy:localid];
-    
-    currentPolicy.fired = YES;
-    
-    NSDictionary *dict = [NSDictionary dictionaryWithObject:localid forKey:@"identity"];
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"policyFired" object:nil userInfo:dict];
-    
-    //dict release??
 }
 
 
@@ -313,18 +317,20 @@ static int requestId;
 
 -(NSString *) createPonderTalk{
     [self saveCurrentPolicy];
-      return @"";
+    return @"";
 }
 
 -(void) handlePolicyResponse:(Response *) pr{
     
-        
-        /*
-         * Reconstruct the policy from the message and then save representation. 
-         */
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"HWDBRequestComplete" object:nil userInfo:nil];
+
+    /*
+     * Reconstruct the policy from the message and then save representation. 
+     */
     
+    if (pr.success == 1){
         RequestObject *robj = [self getRequestObjectFor:pr.requestid];
-    
+        
         if (robj == NULL || robj.requestString ==NULL)
             return;
         
@@ -355,14 +361,15 @@ static int requestId;
                 [self loadPolicy:currentPolicy.localid];
             }
         }
-        //[rmdir
-        //[robj release];
-        [self removerequest:pr.requestid];
+    }
+    //[rmdir
+    //[robj release];
+    [self removerequest:pr.requestid];
 }
 
 
 -(void) deleteCurrentPolicy{
-   
+    
     
     if (currentPolicy.status == enabled){
         [self updatePolicyState:@"DISABLE"];
@@ -376,15 +383,20 @@ static int requestId;
         }
         
     }
-     //[[NSNotificationCenter defaultCenter] postNotificationName:@"totalPoliciesChanged" object:nil userInfo:nil];
+    //[[NSNotificationCenter defaultCenter] postNotificationName:@"totalPoliciesChanged" object:nil userInfo:nil];
 }
 
 
-
 -(void) deletePolicyFromUI{
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"HWDBRequestComplete" object:nil userInfo:nil];
+
     if ([policyids count] > 1){
+        NSString *globalid = currentPolicy.identity;
         [policies removeObjectForKey:currentPolicy.localid];
         [policyids removeObjectIdenticalTo:currentPolicy.localid];
+        if (globalid != nil)
+            [localLookup removeObjectForKey:globalid];
+            
         //[currentPolicy release]; //this will be released when it is removed from polcies.
         [self loadPolicy:[policyids objectAtIndex:0]];
     }
@@ -402,25 +414,25 @@ static int requestId;
     }
     
     int requestid = [self registerRequest:currentPolicy.localid type:type request:policystr];
-
+    
     policystr = [self encodePolicyForDatabase:policystr];
     int identity = [currentPolicy.identity isEqualToString:@"-1"] ? 0 :[currentPolicy.identity intValue];
     
     NSString* query = [NSString stringWithFormat:@"SQL:insert into PolicyRequest values ('%d', \"%@\", '%d', \"%@\")\n", requestid, state, identity, policystr];
     
     NSLog(@"STATE query is %@", query);
-
+    
     [[RPCComm sharedRPCComm] query:query];
 }
 
 
 -(void) savePolicyToHWDB{
-   
+    
     Policy *p = [[[Policy alloc] init] autorelease];
     
     [self createSnapshot:p];
     
-        
+    
     NSString *policystr = [p toPonderString];
     
     
@@ -428,21 +440,21 @@ static int requestId;
     int requestid = [self registerRequest:p.localid type:requestCreate request:policystr];
     
     policystr = [self encodePolicyForDatabase:policystr];
-
+    
     
     int identity = [p.identity isEqualToString:@"-1"] ? 0 :[p.identity intValue];
     
-
+    
     NSString* query = [NSString stringWithFormat:@"SQL:insert into PolicyRequest values ('%d', \"%@\", '%d', \"%@\")\n", requestid, @"CREATE", identity, policystr];
     
-  
-     NSLog(@"query is %@", query);
-   
+    
+    NSLog(@"query is %@", query);
+    
     [[RPCComm sharedRPCComm] query:query];
 }
 
 -(void) removerequest:(int) rid{
-     NSString *key = [NSString stringWithFormat:@"%d", rid];
+    NSString *key = [NSString stringWithFormat:@"%d", rid];
     [requesttable removeObjectForKey:key];
 }
 
@@ -460,7 +472,6 @@ static int requestId;
     return rid;
 }
 
-
 -(void) deleteAll{
     NSString *rootURL  = [[NetworkManager sharedManager] rootURL];
     NSString *strurl = [NSString stringWithFormat:@"%@/policy/delete", rootURL];
@@ -475,7 +486,7 @@ static int requestId;
 }
 
 - (void)policyDeleteComplete:(ASIHTTPRequest *)request{
-  
+    
     [policies removeAllObjects];
     [policyids removeAllObjects];
     [localLookup release];
@@ -490,7 +501,7 @@ static int requestId;
     
     SBJsonParser *jsonParser = [[SBJsonParser new] autorelease];
     NSDictionary *data  = (NSDictionary *) [jsonParser objectWithString:responseString error:nil];
-  
+    
     
     if ([[data objectForKey:@"result"] isEqualToString:@"success"]){
         currentPolicy.identity = [data objectForKey:@"message"];

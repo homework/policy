@@ -64,15 +64,14 @@
         [networkQueue setRequestDidFinishSelector:@selector(delegateFinished:)];
         [networkQueue setRequestDidFailSelector:@selector(delegateFailed:)];
         [networkQueue go];
-        
-      
-
-        
-    
-         
-        
+   
     }
     return self;
+}
+
+
+-(void) disconnect{
+    [[RPCComm sharedRPCComm] closeHWDBConnection];
 }
 
 -(BOOL) connectToHWDB{
