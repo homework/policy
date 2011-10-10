@@ -30,6 +30,8 @@
 
 @implementation Catalogue
 
+@synthesize allowance;
+
 #pragma mark *data structures for image lookups
 
 NSDictionary *imageLookup;
@@ -117,6 +119,7 @@ NSMutableDictionary *tree;
     if (self != nil) {
         self.currentConditionArguments = [[NSMutableDictionary alloc] init];
         self.currentActionArguments = [[NSMutableDictionary alloc] init];
+        self.allowance = [NSNumber numberWithLong:0];
         // [self readInCatalogue];
         
         
@@ -593,6 +596,8 @@ NSMutableDictionary *tree;
 
 -(void) setConditionArguments:(NSMutableDictionary *) args{
     
+    NSLog(@"my current args are: %@", args);
+    
     NSMutableDictionary* currentArgs = [self conditionArguments];
     
  
@@ -602,6 +607,8 @@ NSMutableDictionary *tree;
     
     
     [currentConditionArguments setObject:currentArgs forKey:[self currentCondition]];
+    
+    NSLog(@"set condition args for %@ to %@", [self currentCondition], currentArgs);
    
 }
 

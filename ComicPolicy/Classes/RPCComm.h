@@ -11,6 +11,7 @@
 #import "FiredEvent.h"
 #import "PolicyStateObject.h"
 #import "PolicyManager.h"
+#import "Catalogue.h"
 #import "URLObject.h"
 #import "UsageData.h"
 
@@ -119,6 +120,9 @@ tstamp_t processusageresults(char *buf, unsigned int len);
 
 UsageData* flow_convert(Rtab* results);
 tstamp_t processflowresults(char *buf, unsigned int len);
+
+long allowance_convert(Rtab* results);
+tstamp_t processallowanceresults(char *buf, unsigned int len);
 
 -(void) setSetUpHWDBConnection:(NSString *) gwaddr callback:(NSString *) cb;
 -(BOOL) connect;

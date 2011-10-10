@@ -82,9 +82,10 @@ static int requestId;
         [p updateStatus:pso.state];
         p.localid  = policylid;
         p.identity = policygid;
+        NSLog(@"POLICY GLOBAL ID IS %@ and LOCAL ID IS %@", policygid, policylid);
         [policies setObject:p forKey:policylid];
         [policyids addObject:policylid];
-        [localLookup setObject:policygid forKey:policylid];
+        [localLookup setObject:policylid forKey:policygid];
         localId++;
     }
 }
@@ -275,8 +276,11 @@ static int requestId;
     NSLog(@"POLICY FIRED>>>>>>>>> global policy id %d", event.pid);
     if (event != nil){
         NSString *localid = [localLookup objectForKey: [NSString stringWithFormat:@"%d", event.pid]];
-        
+    
         if (localid != nil){
+            
+            NSLog(@"loading up policy %@",localid);
+            
             [self loadPolicy:localid];
             
             if ([event.state isEqualToString:@"FIRED"]){
@@ -288,6 +292,8 @@ static int requestId;
             NSDictionary *dict = [NSDictionary dictionaryWithObject:localid forKey:@"identity"];
             
             [[NSNotificationCenter defaultCenter] postNotificationName:@"policyFired" object:nil userInfo:dict];
+        }else{
+            NSLog(@"LOCAL ID IS NULL...................");
         }
     }
     

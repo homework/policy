@@ -91,6 +91,8 @@ BOOL toScaled = NO;
     NSString *from = [NSString stringWithFormat:@"%02d:%02d", fromhour, fromminute];
     NSString *to = [NSString stringWithFormat:@"%02d:%02d", tohour, tominute];
     
+    NSLog(@"IN UPDATE CATALOGUE SETTING FROM TO %@ and TO TO %@", from, to);
+    
     if (fromhour == tohour && fromminute == tominute){
         if (fromminute == 59){
             fromminute = 58;
@@ -104,7 +106,9 @@ BOOL toScaled = NO;
    //
     NSMutableDictionary *newargs = [[[NSMutableDictionary alloc] initWithObjects:[[[NSArray alloc] initWithObjects:from, to, nil] autorelease] forKeys:[[[NSArray alloc] initWithObjects:@"from", @"to",nil] autorelease]] autorelease];
     
+    NSLog(@"newargs are %@", newargs);
     [[Catalogue sharedCatalogue] setConditionArguments:newargs];
+    NSLog(@"CURRENT CATALOGUE POLICIES ARE %@", [[Catalogue sharedCatalogue] conditionArguments]);
     
 }
 

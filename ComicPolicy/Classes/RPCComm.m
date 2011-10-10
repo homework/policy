@@ -112,9 +112,6 @@ NSString* callbackaddr;
     sprintf(sendquery, [firedquery UTF8String]);
 	querylen = strlen(sendquery) + 1;
     [self send: sendquery qlen:querylen resp: response rsize: sizeof(response) len:length callback:processfiredresults];
-    
-    
-    
 }
 
 
@@ -150,9 +147,13 @@ NSString* callbackaddr;
     
     NSLog(@"unix ts is %f", ti); 
     */
+    NSString* query;
     
-    NSString* query = [NSString stringWithFormat:@"select bytes from BWUsage where ip = \"%@\"", ipaddr]; 
-    
+    if ([ ipaddr isEqualToString: @"*"]){
+        query = [NSString stringWithFormat:@"SQL:select sum(bytes) from BWUsage\n"];
+    }else{
+        query = [NSString stringWithFormat:@"SQL:select bytes from BWUsage where ip = \"%@\"\n", ipaddr]; 
+    }
     
     NSLog(@"query is %@", query);
     
@@ -170,6 +171,15 @@ NSString* callbackaddr;
 }
 
 
+-(void) getHouseholdAllowance{
+    NSString* query = [NSString stringWithFormat:@"SQL:select allowance from Allowances\n"]; 
+    sprintf(sendquery, [query UTF8String]);
+	
+    querylen = strlen(sendquery) + 1;
+    
+    [self send: sendquery qlen:querylen resp: response rsize: sizeof(response) len:length callback:processallowanceresults];
+
+}
 
 -(void) getURLsBrowsedBy:(NSString*) ipaddr{
     NSString* query = [NSString stringWithFormat:@"SQL:select * from Urls [range 5 seconds] where saddr contains \"%@\" order by hst asc\n", ipaddr];
@@ -550,11 +560,55 @@ tstamp_t processusageresults(char *buf, unsigned int len) {
     
 	if (results && ! rtab_status(buf, stsmsg)) {
 		bytes = usage_convert(results);
+        NSAutoreleasePool *autoreleasepool = [[NSAutoreleasePool alloc] init];
+        [[RPCComm sharedRPCComm] performSelectorOnMainThread:@selector(notifyUsage:) withObject:[NSNumber numberWithLong:bytes] waitUntilDone:YES];
+        [autoreleasepool release];
+
     }
     rtab_free(results);
 	
     return (last);
 }
+
+-(void) notifyUsage:(NSNumber *)bytes{
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"newUsageData" object:bytes];
+}
+
+
+long allowance_convert(Rtab *results){
+    if (! results || results->mtype != 0)
+		return 0;
+    long bytes = 0;
+    
+    if (results->nrows >= 1){
+        char **columns;
+        columns = rtab_getrow(results, 0);
+        bytes = atol(columns[0]);
+    }
+    return bytes;
+}
+
+
+tstamp_t processallowanceresults(char *buf, unsigned int len) {
+    
+    Rtab *results;
+    char stsmsg[RTAB_MSG_MAX_LENGTH];
+    unsigned long bytes;
+    
+	tstamp_t last = timestamp_now();
+    results = rtab_unpack(buf, len);
+    
+	if (results && ! rtab_status(buf, stsmsg)) {
+		bytes = allowance_convert(results);
+        NSAutoreleasePool *autoreleasepool = [[NSAutoreleasePool alloc] init];
+        [[Catalogue sharedCatalogue] performSelectorOnMainThread:@selector(setAllowance:) withObject:[NSNumber numberWithLong:bytes] waitUntilDone:YES];
+        [autoreleasepool release];
+    }
+    rtab_free(results);
+	
+    return (last);
+}
+
 
  UsageData* flow_convert(Rtab *results){
      
@@ -618,8 +672,7 @@ tstamp_t processflowresults(char *buf, unsigned int len) {
     
     Rtab *results;
     char stsmsg[RTAB_MSG_MAX_LENGTH];
-     long bytes;
-    
+     
 	tstamp_t last = timestamp_now();
     results = rtab_unpack(buf, len);
     

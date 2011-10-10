@@ -12,11 +12,13 @@
 @interface Catalogue : NSObject {
     NSMutableDictionary *currentConditionArguments;
     NSMutableDictionary *currentActionArguments;
+    NSNumber* allowance;
    
 }
 
-@property(nonatomic, retain) NSMutableDictionary *currentConditionArguments;
-@property(nonatomic, retain) NSMutableDictionary *currentActionArguments;
+@property(nonatomic, retain) NSMutableDictionary *currentConditionArguments;//check
+@property(nonatomic, retain) NSMutableDictionary *currentActionArguments;//check
+@property(nonatomic, retain) NSNumber *allowance;
 
 + (Catalogue *)sharedCatalogue;
 
@@ -66,6 +68,7 @@
 -(NSString *) currentActionSubject;
 -(NSString *) currentActionSubjectName;
 -(NSString *) currentActionType;
+
 
 
 -(void) setSubjectDevice:(NSString*) device;

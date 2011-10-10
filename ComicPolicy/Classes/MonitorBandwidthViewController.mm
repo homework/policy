@@ -12,8 +12,12 @@
 @interface MonitorBandwidthViewController()
 -(void) createPhysicsWorld;
 -(void)addPhysicalBodyForView:(UIView *)aview;
--(void) addReading:(long) currentByteCount rangeByteCount:(long) rangeByteCount limitByteCount:(long) limitByteCount;
+/*-(void) addReading:(long) currentByteCount rangeByteCount:(long) rangeByteCount limitByteCount:(long) limitByteCount;*/
+-(void) addReading:(long) bytes;
 -(void)removeOldBags;
+-(void) updateDisplay:(long) bytes limit:(long) limit;
+-(void) updateCaption:(long) bytes limit:(long) limit;
+
 @end
 
 @implementation MonitorBandwidthViewController
@@ -76,6 +80,8 @@ static float KBDIVISOR = 1024;
 - (void)loadView
 {
     bagindex = 0;
+    lastbytes = 0;
+    
     CGRect aframe = [[PositionManager sharedPositionManager] getPosition:@"resultmonitor"];
     UIView *rootView = [[UIView alloc] initWithFrame:aframe];
   	self.view = rootView;
@@ -114,13 +120,15 @@ static float KBDIVISOR = 1024;
     [self.view addSubview:caption];
     [caption release];
     
-    fakeDataTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
+    fakeDataTimer = [NSTimer scheduledTimerWithTimeInterval:4.0
                                                      target:self 
                                                    selector:@selector(requestData:)//addReading:) //addSite:
                                                    userInfo:nil 
                                                     repeats:YES];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newBandwidthData:) name:@"newBandwidthData" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newBandwidthData:) name:@"newUsageData" object:nil];
+    
+    
 
 }
 
@@ -128,28 +136,53 @@ static float KBDIVISOR = 1024;
     
     
     NSString * subject = [[Catalogue sharedCatalogue] currentSubjectDevice];
-    NSString *rootURL  = [[NetworkManager sharedManager] rootURL];
-    [[RPCComm sharedRPCComm] getCumulativeBandwidthFor:subject];
     
-    //NSString *strurl = [NSString stringWithFormat:@"%@/monitor/bandwidth/%@", rootURL, subject];
-    //[[MonitorDataSource sharedDatasource] requestURL: strurl callback:@"newBandwidthData"];
+    /*
+     * Commented out for now...until new version to test against.
+     */
+   
+    //[[RPCComm sharedRPCComm] getCumulativeBandwidthFor:subject];
+    
+ 
 }
 
 -(void) newBandwidthData:(NSNotification *) notification{
-    SBJsonParser *jsonParser = [SBJsonParser new];
+   
+    NSNumber* bytes = [notification object];
+    [self addReading:[bytes longValue]];
     
+    /*SBJsonParser *jsonParser = [SBJsonParser new];
     NSDictionary *data = [notification userInfo];
     NSString *responseString = [data objectForKey:@"data"];
     NSArray* results = (NSArray *) [jsonParser objectWithString:responseString error:nil];
-    [self addReading: [[results objectAtIndex:0] longLongValue] rangeByteCount:[[results objectAtIndex:1] longLongValue] limitByteCount:[[results objectAtIndex:2] longLongValue]];
+    [self addReading: [[results objectAtIndex:0] longLongValue] rangeByteCount:[[results objectAtIndex:1] longLongValue] limitByteCount:[[results objectAtIndex:2] longLongValue]];*/
+    
 }
 
--(void) addReading:(long) currentByteCount rangeByteCount:(long) rangeByteCount limitByteCount:(long) limitByteCount{
+-(void) addReading:(long) bytes{
     
-    if (currentByteCount <= 0) 
+    if (lastbytes == bytes)
         return;
     
-    float scalefactor = ((float)currentByteCount/limitByteCount) + 0.4;
+    if (bytes == 0)
+        return;
+    
+    long limitbytecount = [[[Catalogue sharedCatalogue] allowance] longValue];
+    
+    if (lastbytes == 0){
+        lastbytes = bytes;
+        [self updateCaption:bytes limit:limitbytecount];
+    }else{
+       
+        [self updateDisplay:(bytes - lastbytes) limit:limitbytecount];
+        [self updateCaption:(bytes - lastbytes) limit:limitbytecount];
+        lastbytes = bytes;
+    }
+}
+
+-(void) updateDisplay:(long) bytes limit:(long) limit{
+    
+    float scalefactor = ((float)bytes/limit) + 0.4;
     [topMask removeFromSuperview];
     [caption removeFromSuperview];
     UIImageView *moneyBag = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"moneybag.png"]];
@@ -161,12 +194,21 @@ static float KBDIVISOR = 1024;
     [self.view addSubview:topMask];
     [self.view addSubview:caption];
     [self removeOldBags];
-    
-    float rangeKB = rangeByteCount / KBDIVISOR;
-    float limitKB = limitByteCount / KBDIVISOR;
-    
+}
+
+-(void) updateCaption:(long) bytes limit:(long) limit{
+    float rangeKB = bytes / KBDIVISOR;
+    float limitKB = limit / KBDIVISOR;
     caption.text = [NSString stringWithFormat:@"%d KB of %d KB", (int)rangeKB, (int)limitKB];
 }
+
+
+/*
+-(void) addReading:(long) currentByteCount rangeByteCount:(long) rangeByteCount limitByteCount:(long) limitByteCount{
+    
+    if (currentByteCount <= 0) 
+        return;
+}*/
 
 -(void) removeOldBags{
     
