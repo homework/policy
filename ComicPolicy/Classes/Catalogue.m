@@ -14,6 +14,10 @@
 
 -(void) initActions;
 -(void) initConditions;
+-(void) initDynamicSubjects:(NSDictionary *) dict;
+-(void) readInDynamicData:(NSDictionary *) dict;
+-(void) readInStaticData:(NSDictionary *) dict;
+
 -(NSString *) lookupDynamicImage:(NSString*)identity type:(NSString*)type state:(NSString*)state;
 -(NSString *) nextSubjectDevice;
 -(NSString *) nextSubjectOwner;
@@ -160,6 +164,8 @@ NSMutableDictionary *tree;
     //read in the static data
     [self readInStaticData:[root objectForKey:@"static"]];
     
+    
+    NSLog(@"------------------------------------FINISHED READING IN CATALOGUE FILE");
     return YES;
 }
 
@@ -262,7 +268,7 @@ NSMutableDictionary *tree;
     for (NSString *condition in [conditionLookup allKeys]){
         NSDictionary *dictionary = [conditionLookup objectForKey:condition];
         NSDictionary *arguments = [dictionary objectForKey:@"arguments"];
-        [currentConditionArguments  setObject:arguments forKey:condition];  
+        [currentConditionArguments  setObject:arguments forKey:condition];
     }
 }
 
@@ -369,10 +375,6 @@ NSMutableDictionary *tree;
     //Now recreate each of these arrays.
     
 	actionvcsarray = [(NSArray *) [tree objectForKey:[self currentCondition]] retain];
-    
-    if (actionvcsarray == nil){
-        NSLog(@"action vcs is nil!!!");
-    }
     
     actionvcsindex = 0;
     
@@ -529,8 +531,6 @@ NSMutableDictionary *tree;
 
 -(void) initConditions{
     
-    
-   
     conditionvcsarray = (NSArray*) [[conditionvcs allValues] retain];
     conditionvcsindex = 0;
     
@@ -542,6 +542,7 @@ NSMutableDictionary *tree;
         NSDictionary *arguments = [dictionary objectForKey:@"arguments"];
         [currentConditionArguments  setObject:arguments forKey:condition];  
     }
+    
 }
 
 
@@ -588,15 +589,17 @@ NSMutableDictionary *tree;
 #pragma mark * Condition frames (public)
 
 -(NSMutableDictionary *) conditionArguments/*:(NSString*) type*/{
-    if ([currentConditionArguments objectForKey:[self currentCondition]] == nil){
+    
+   
+    if ([self.currentConditionArguments objectForKey:[self currentCondition]] == nil){
         return [[[NSMutableDictionary alloc] init] autorelease];
     }
-  return [currentConditionArguments objectForKey:[self currentCondition]];
+    
+    return [self.currentConditionArguments objectForKey:[self currentCondition]];
 }
 
 -(void) setConditionArguments:(NSMutableDictionary *) args{
     
-    NSLog(@"my current args are: %@", args);
     
     NSMutableDictionary* currentArgs = [self conditionArguments];
     
@@ -606,10 +609,11 @@ NSMutableDictionary *tree;
     }
     
     
-    [currentConditionArguments setObject:currentArgs forKey:[self currentCondition]];
+    [self.currentConditionArguments setObject:currentArgs forKey:[self currentCondition]];
     
-    NSLog(@"set condition args for %@ to %@", [self currentCondition], currentArgs);
-   
+    if ([[self currentCondition] isEqualToString:@"timed"]){
+        NSLog(@"set condition args for timed to %@", [self conditionArguments]);
+    }
 }
 
 -(NSString*) currentCondition{
@@ -782,8 +786,6 @@ NSMutableDictionary *tree;
 }
 
 -(NSString*) getConditionMonitorController{
-    NSLog(@"conditionresultvcs is %@, current condition is %@", conditionresultvcs, [self currentCondition]);
-    
     return [conditionresultvcs objectForKey:[self currentCondition]];
 }
 
@@ -827,11 +829,29 @@ NSMutableDictionary *tree;
     }    
 }
 
+-(void) setConditionArgumentsForCondition:(NSMutableDictionary *) args condition:(NSString*) condition{
+    
+    
+    NSMutableDictionary* currentArgs = [self.currentConditionArguments objectForKey:condition];
+    
+    if (currentArgs == nil)
+        currentArgs = [[[NSMutableDictionary alloc] init] autorelease];
+    
+    for (NSObject *key in [args allKeys]){
+        [currentArgs setObject:[args objectForKey:key] forKey:key];
+    }
+    
+    
+    [self.currentConditionArguments setObject:currentArgs forKey:condition];
+}
+
+
 -(void) setCondition:(NSString *)condition options:(NSMutableDictionary *)options{
     
     int index = 0;
-    //[currentConditionArguments removeAllObjects];
-    [self setConditionArguments:options];
+    
+    [self setConditionArgumentsForCondition:options condition:condition];
+    
     
     for (NSString* acondition in conditions){
         if ([acondition isEqualToString:condition]){

@@ -22,7 +22,7 @@ BOOL toScaled = NO;
         [self setUpConditionView];
         [self initialiseClocks];
         [self updateCaption];
-        [self updateCatalogue];
+        //[self updateCatalogue];
         //[self addWeekdaySelection];
 	}
     return self;
@@ -45,6 +45,9 @@ BOOL toScaled = NO;
     NSString *from = [[[Catalogue sharedCatalogue] conditionArguments] objectForKey:@"from"];
     NSString *to = [[[Catalogue sharedCatalogue] conditionArguments] objectForKey:@"to"];
     
+    NSLog(@"for condition %@ the args are %@", [[Catalogue sharedCatalogue] currentCondition], [[Catalogue sharedCatalogue] conditionArguments]);
+    
+    NSLog(@"initialising clocks setting from %@ and to %@", from, to);
     NSArray *fchunks = [from componentsSeparatedByString:@":"];
     NSArray *tchunks = [to componentsSeparatedByString:@":"];                  
     
@@ -81,7 +84,7 @@ BOOL toScaled = NO;
         }
     }
     [self updateCaption];
-    [self updateCatalogue];
+   // [self updateCatalogue];
     [sender setSelected:![sender isSelected]];
     
 }

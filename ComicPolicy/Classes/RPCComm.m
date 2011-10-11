@@ -121,7 +121,7 @@ NSString* callbackaddr;
    
     //NSString* query = [NSString stringWithFormat:@"SQL:select nbytes from KFlows"];
     
-    NSLog(@"query is %@", query);
+   // NSLog(@"query is %@", query);
     
      sprintf(sendquery, [query UTF8String]);
 	 querylen = strlen(sendquery) + 1;
@@ -155,8 +155,7 @@ NSString* callbackaddr;
         query = [NSString stringWithFormat:@"SQL:select bytes from BWUsage where ip = \"%@\"\n", ipaddr]; 
     }
     
-    NSLog(@"query is %@", query);
-    
+   
     
     /*NSString* subnet = @"10.2.1";
     
@@ -184,7 +183,6 @@ NSString* callbackaddr;
 -(void) getURLsBrowsedBy:(NSString*) ipaddr{
     NSString* query = [NSString stringWithFormat:@"SQL:select * from Urls [range 5 seconds] where saddr contains \"%@\" order by hst asc\n", ipaddr];
     
-    NSLog(@"sending query %@", query);
     
     sprintf(sendquery, [query UTF8String]);
 	querylen = strlen(sendquery) + 1;
@@ -678,7 +676,7 @@ tstamp_t processflowresults(char *buf, unsigned int len) {
     
 	if (results && ! rtab_status(buf, stsmsg)) {
 		UsageData* ud = flow_convert(results);
-        NSLog(@"got %lu bytes\n", ud.bytes);
+       // NSLog(@"got %lu bytes\n", ud.bytes);
         NSAutoreleasePool *autoreleasepool = [[NSAutoreleasePool alloc] init];
         [[RPCComm sharedRPCComm] performSelectorOnMainThread:@selector(notifyActivity:) withObject:ud waitUntilDone:YES];
         [autoreleasepool release];
@@ -1046,8 +1044,8 @@ tstamp_t processurlesults(char *buf, unsigned int len){
                 if (callback != NULL)
                     callback(resp, len);
 			}else{
-				[self closeHWDBConnection];
-                connected = FALSE;
+				//[self closeHWDBConnection];
+                //connected = FALSE;
 				[self performSelectorOnMainThread:@selector(notifydisconnected:) withObject:nil waitUntilDone:NO];
                
 			}

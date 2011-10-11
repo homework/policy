@@ -20,7 +20,6 @@ bool timerangeselected = false;
 {
     
     [self setUpConditionView];
-    
     [self initialiseClocks];
     
     self.view.frame = [[PositionManager sharedPositionManager] getPosition:@"conditionvisitingtime"];
@@ -90,6 +89,14 @@ bool timerangeselected = false;
 }
 
 -(void) initialiseClocks{
+    /*
+     * this can be called from the root controller (ComicPolicyViewController) so only
+     * do the init if the current condition is visiting.
+     */
+    if (![[[Catalogue sharedCatalogue] currentCondition] isEqualToString:@"visiting"])
+        return;
+    
+    
     [super initialiseClocks];
     [self updateCatalogue];
     [self updateSelected];
@@ -98,7 +105,7 @@ bool timerangeselected = false;
 
 -(void) updateCatalogue{
     
-  
+
     NSString *from = [NSString stringWithFormat:@"%02d:%02d", fromhour, fromminute];
     NSString *to = [NSString stringWithFormat:@"%02d:%02d", tohour, tominute];
    

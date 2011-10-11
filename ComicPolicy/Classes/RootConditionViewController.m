@@ -74,8 +74,12 @@
 
 -(void) conditionLoaded:(NSNotification *) n{
     
+    NSLog (@"+++++++++++++ condition loaded %@ cc = %@", [[Catalogue sharedCatalogue] getConditionViewController], [[Catalogue sharedCatalogue] currentCondition]);
+    
     NSString *controller = [[Catalogue sharedCatalogue] getConditionViewController];
 	
+     NSLog (@"+++++++++++++ condition loaded %@ cc = %@ vc = %@", [[Catalogue sharedCatalogue] getConditionViewController], [[Catalogue sharedCatalogue] currentCondition], controller); 
+    
     ConditionViewController *newController = [[[NSClassFromString(controller) alloc] initWithNibName:nil bundle:nil] retain];
     [currentViewController.view removeFromSuperview];
     [[self view] addSubview:[newController view]];

@@ -260,7 +260,10 @@
 -(void) pageLoaded:(NSString*)animationID finished:(BOOL)finished context:(void*)context{
    
     Policy *p = [[PolicyManager sharedPolicyManager] currentPolicy];
-                 
+                
+    NSLog(@"successfully loaded policy...");
+    [p print];
+    
     self.statusLabel.text = [NSString stringWithFormat:@"This comic is currently %@", [p statusAsString]];
   
     if ([[[PolicyManager sharedPolicyManager] policies] count] == 1 && p.status == unsaved){
@@ -342,6 +345,7 @@
     }
     
     conditionVisitingTimeViewController.view.frame = [[PositionManager sharedPositionManager] getPosition:@"conditionvisitingtime"];
+    
     [conditionVisitingTimeViewController initialiseClocks];
     
     CGRect newframe = [[PositionManager sharedPositionManager] getPosition:@"resultmonitor"];
@@ -411,7 +415,8 @@
     }
         
     NSString *rootURL  = [[NetworkManager sharedManager] rootURL];
-    NSString *strurl = [NSString stringWithFormat:@"%@/dynamiccatalogue.json", rootURL];
+    //NSString *strurl = [NSString stringWithFormat:@"%@/dynamiccatalogue.json", rootURL];
+   NSString *strurl = [NSString stringWithFormat:@"%@/catalogue", rootURL];
     [routerConnectionViewController updateCaption:[NSString stringWithFormat:@"reading in catalogue from %@", strurl]];
     
     NSURL *url = [NSURL URLWithString:strurl];
@@ -432,7 +437,7 @@
     NSString* staticcatalogue = [[NSString alloc] initWithContentsOfFile:filePath];
     
     if ([[Catalogue sharedCatalogue] parseCatalogue:responseString staticcatalogue:staticcatalogue] == YES){ 
-        
+        NSLog(@"successfully parsed static and dynamic catalogue, so setting up the router connection");
         [routerConnectionViewController updateCaption:@"successfully read in catalogue data, connecting to router"];
         
         if ([[NetworkManager sharedManager] connectToHWDB]){
@@ -441,6 +446,7 @@
             [self addNotificationHandlers];
             [self createControllers];
             [self updateFramePositions];
+           
             [[PolicyManager sharedPolicyManager] loadFirstPolicy];
         }else{
             [routerConnectionViewController updateCaption:@"failed to connect to the router database"];

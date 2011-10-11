@@ -57,7 +57,8 @@
         
         self.gwaddr = [self getGatewayAddress];
         self.myaddr = [self getMyAddress];
-        self.rootURL = [NSString stringWithFormat:@"http://%@:%d", gwaddr , 8080];
+        //self.rootURL = [NSString stringWithFormat:@"http://%@:%d", gwaddr , 8080];
+        self.rootURL =  [NSString stringWithFormat:@"http://%@:%d/control/device/", gwaddr , 8080];
         self.networkQueue = [ASINetworkQueue queue];
         [networkQueue setDelegate:self];
         [networkQueue setRequestDidStartSelector:@selector(delegateStarted:)];

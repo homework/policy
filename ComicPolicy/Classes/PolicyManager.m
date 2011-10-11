@@ -184,6 +184,9 @@ static int requestId;
         
         [self.policies setValue:apolicy forKey:[NSString stringWithFormat:@"%d", localId]];
         
+        NSLog(@"adding following policy for identity %@",localid);
+        [apolicy print];
+        
         [localLookup setValue:localid forKey:identity];
         
         [apolicy release];
@@ -198,7 +201,7 @@ static int requestId;
     if (self.policyids != nil && [policyids count] > 0){ 
         [self loadPolicy:[policyids objectAtIndex:0]];
         self.defaultPolicy = [[[Policy alloc] initWithPolicy:currentPolicy] autorelease];
-        [defaultPolicy print];
+        //[defaultPolicy print];
     }else{
         [self createNewDefaultPolicy];
     }
@@ -229,6 +232,7 @@ static int requestId;
     Policy *apolicy  = [[[Policy alloc] initWithPolicy:defaultPolicy] autorelease];
     
     apolicy.status = unsaved;
+    apolicy.identity = @"";
     
     [apolicy setLocalid:[NSString stringWithFormat:@"%d",localId++]];
     
@@ -253,6 +257,8 @@ static int requestId;
     
     Policy *apolicy = [policies objectForKey:localpolicyid];
     
+    NSLog(@"LOADING UP POLICY %@", localpolicyid);
+    
     if (apolicy != nil){
         NSLog(@"LOADED:");
         [apolicy print];
@@ -261,11 +267,14 @@ static int requestId;
         
         [[Catalogue sharedCatalogue] setCondition:apolicy.conditiontype options:apolicy.conditionarguments];
         
+        NSLog(@"for condition type %@, the args are %@", apolicy.conditiontype, apolicy.conditionarguments);
         
         [[Catalogue sharedCatalogue] setAction:apolicy.actiontype subject:apolicy.actionsubject options:apolicy.actionarguments];
         
         self.currentPolicy = apolicy;
         
+    }else{
+        NSLog(@"Failed to load up policy %@", localpolicyid);
     }
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"policyLoaded" object:nil userInfo:nil];
@@ -292,11 +301,8 @@ static int requestId;
             NSDictionary *dict = [NSDictionary dictionaryWithObject:localid forKey:@"identity"];
             
             [[NSNotificationCenter defaultCenter] postNotificationName:@"policyFired" object:nil userInfo:dict];
-        }else{
-            NSLog(@"LOCAL ID IS NULL...................");
         }
     }
-    
 }
 
 

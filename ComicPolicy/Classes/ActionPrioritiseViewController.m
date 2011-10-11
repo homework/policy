@@ -41,8 +41,6 @@
         
         NSDictionary *args = [[Catalogue sharedCatalogue] actionArguments];
         
-        NSLog(@"------- READING IN ACTION ARGUMENTS -------- @%@", args);
-        
         [self updateSlider:[args objectForKey:@"priority"]];
         [self updateCatalogue:slider.value];
         prioritiseview.prioritisedevicecaption.text = [NSString stringWithFormat:@"give %@", [[Catalogue sharedCatalogue ]currentActionSubjectName]];

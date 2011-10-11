@@ -43,7 +43,10 @@ static bool selected[7];
         caption.text = @"is used between";
         [self.view addSubview:caption];
 
+    
         [self updateCatalogue];
+        //[self updateCaption];
+        //[self updateCatalogue];
 	}
     return self;
 }
@@ -83,8 +86,6 @@ static bool selected[7];
     NSArray *daysselected = [[[Catalogue sharedCatalogue] conditionArguments] objectForKey:@"daysofweek"];
     
     
-    
-   
     int index =0;
     
     NSMutableArray *tmp = [[[NSMutableArray alloc] init] autorelease];
@@ -140,7 +141,6 @@ static bool selected[7];
     }
     if ([daysofweek count] > 0){
         NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-        NSLog(@"AM NOW SETTING DAYS OF WEEK....");
         [dict setValue:daysofweek forKey:@"daysofweek"];
         [[Catalogue sharedCatalogue] setConditionArguments:dict];
     }    

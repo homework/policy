@@ -148,8 +148,6 @@ static NSArray *labelArray = [[NSArray alloc] initWithObjects:@"news.bbc.co.uk",
 }
 
 -(void) resize{
-    NSLog(@"SEEN A RESIZE");
-    NSLog(@"the screen size is now x %f, y %f, width %f, height %f", self.monitorView.frame.origin.x, self.monitorView.frame.origin.y, self.monitorView.frame.size.width, self.monitorView.frame.size.height);
     
     if (self.monitorView.frame.size.width <= 310)
         YSTART = 100;
@@ -283,7 +281,7 @@ static NSArray *labelArray = [[NSArray alloc] initWithObjects:@"news.bbc.co.uk",
 
 -(void) createBoundaries{
     
-    NSLog(@"CREATING NEW BOUNDARIES>...........");
+   
     CGSize screenSize = self.monitorView.frame.size;
     
     b2BodyDef groundBodyDef;
