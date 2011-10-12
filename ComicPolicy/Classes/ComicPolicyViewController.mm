@@ -325,7 +325,9 @@
     
 	AVAudioPlayer *currentPlayer = tickPlayer;
 	[currentPlayer play];
-	
+
+    [conditionVisitingTimeViewController initialiseClocks];
+
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.75];
     [UIView setAnimationDelegate:self];
@@ -346,8 +348,7 @@
     
     conditionVisitingTimeViewController.view.frame = [[PositionManager sharedPositionManager] getPosition:@"conditionvisitingtime"];
     
-    [conditionVisitingTimeViewController initialiseClocks];
-    
+       
     CGRect newframe = [[PositionManager sharedPositionManager] getPosition:@"resultmonitor"];
     resultViewController.currentMonitorViewController.monitorView.superview.frame = newframe;
     resultViewController.currentMonitorViewController.monitorView.frame = CGRectMake(0,0, newframe.size.width, newframe.size.height); 

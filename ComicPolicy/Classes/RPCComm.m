@@ -881,7 +881,7 @@ tstamp_t processurlesults(char *buf, unsigned int len){
 	if (results && ! rtab_status(buf, stsmsg)) {
         p = url_convert(results);
 		// do something with the data pointed to by p 
-		NSLog(@"Retrieved %ld url records from database", p->nurls);
+		//NSLog(@"Retrieved %ld url records from database", p->nurls);
 		
 		for (i = 0; i < p->nurls; i++) {
 			Url *u = p->data[i];

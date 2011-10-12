@@ -832,7 +832,7 @@ NSMutableDictionary *tree;
 -(void) setConditionArgumentsForCondition:(NSMutableDictionary *) args condition:(NSString*) condition{
     
     
-    NSMutableDictionary* currentArgs = [self.currentConditionArguments objectForKey:condition];
+    NSMutableDictionary* currentArgs = nil;//[self.currentConditionArguments objectForKey:condition];
     
     if (currentArgs == nil)
         currentArgs = [[[NSMutableDictionary alloc] init] autorelease];
