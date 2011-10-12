@@ -17,13 +17,14 @@
 
 @implementation ConditionTimeViewController
 
-static bool selected[7];
+
 
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     //if ((self = [super initWithNibNameAndType:nibNameOrNil bundle:nibBundleOrNil type:@"timed"])){ 
     if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])){ 
        
+        NSLog(@"INITING DAYS OF WEEK CONDITION TIME VIEW...");
         for (int i = 0; i < 7; i++){
             selected[i] = false;
         }
@@ -77,7 +78,12 @@ static bool selected[7];
         }
         i++;
     }
-    return selecteddays;
+    
+    if ([selecteddays isEqualToString:@""]){
+        return @"on any day";
+    }
+    
+    return selecteddays ;
 }
 
 -(void) addWeekdaySelection{
@@ -134,16 +140,33 @@ static bool selected[7];
     
     selected[index] = !selected[index];
     
-    NSMutableArray *daysofweek = [[NSMutableArray alloc] init];
+    NSMutableArray *daysofweek = [[[NSMutableArray alloc] init] autorelease];
+    int selecteddayscount = 0;
+    
     for (int i =0; i < 7; i++){
-        if (selected[i])
+        if (selected[i] == true){
             [daysofweek addObject:[days objectAtIndex:i]];
+            selecteddayscount += 1;
+        }
     }
+    
+    if (selecteddayscount == 7){ //same as none selected to deselect everything
+        [daysofweek removeAllObjects];
+        for (int i = 0 ; i < 7; i++)
+            selected[i] = false;
+        [self updateLabelColors];
+        [self updateCaption];
+    }
+    
+    NSMutableDictionary *dict = [[[NSMutableDictionary alloc] init] autorelease];
+    
     if ([daysofweek count] > 0){
-        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
         [dict setValue:daysofweek forKey:@"daysofweek"];
         [[Catalogue sharedCatalogue] setConditionArguments:dict];
-    }    
+    } else{
+        [[[Catalogue sharedCatalogue] conditionArguments] removeObjectForKey:@"daysofweek"];
+    }
+   
 }
 
 -(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{

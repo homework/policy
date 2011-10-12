@@ -58,7 +58,7 @@
         self.gwaddr = [self getGatewayAddress];
         self.myaddr = [self getMyAddress];
         //self.rootURL = [NSString stringWithFormat:@"http://%@:%d", gwaddr , 8080];
-        self.rootURL =  [NSString stringWithFormat:@"http://%@:%d/control/device/", gwaddr , 8080];
+        self.rootURL =  [NSString stringWithFormat:@"http://%@:%d/control/device", gwaddr , 8080];
         self.networkQueue = [ASINetworkQueue queue];
         [networkQueue setDelegate:self];
         [networkQueue setRequestDidStartSelector:@selector(delegateStarted:)];
@@ -90,6 +90,9 @@
     [[RPCComm sharedRPCComm] getStoredPolicies];
 }
 
+-(void) readInAllowance{
+    [[RPCComm sharedRPCComm] getHouseholdAllowance];
+}
 
 /*
 -(void) subscribe:(NSTimer *)t{
@@ -129,12 +132,7 @@
     
     // Free memory
     freeifaddrs(interfaces);
-    
     return address;
-    
-   
-
-
 }
 
 -(NSString *)getGatewayAddress

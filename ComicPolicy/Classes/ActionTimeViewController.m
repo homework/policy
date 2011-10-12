@@ -92,6 +92,12 @@
     
     NSNumber* duration = [NSNumber numberWithFloat: (round([slider value])) * 60];
     
+    if ([duration intValue] == 0){
+        NSLog(@"removing key timeframe");
+        [[[Catalogue sharedCatalogue] actionArguments] removeObjectForKey:@"timeframe"];
+        return;
+    }
+    
     NSMutableDictionary *newargs = [[[NSMutableDictionary alloc] initWithObjects:[[[NSArray alloc] initWithObjects: [duration stringValue], nil] autorelease] forKeys:[[[NSArray alloc] initWithObjects:@"timeframe",nil] autorelease]] autorelease];
     
     //NSMutableDictionary *newargs = [[Catalogue sharedCatalogue] actionArguments];

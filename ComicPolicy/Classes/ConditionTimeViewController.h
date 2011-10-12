@@ -12,6 +12,7 @@
 @interface ConditionTimeViewController : RootConditionTimeViewController {
 	NSArray* days;
     NSArray* dayLabels;
+     bool selected[7];
 }
 
 

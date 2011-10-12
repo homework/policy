@@ -115,13 +115,13 @@ void url_results_free(UrlResults *ur);
 UrlResults *url_convert(Rtab* results);
 tstamp_t processurlesults(char *buf, unsigned int len);
 
-long usage_convert(Rtab* results);
+long long usage_convert(Rtab* results);
 tstamp_t processusageresults(char *buf, unsigned int len);
 
 UsageData* flow_convert(Rtab* results);
 tstamp_t processflowresults(char *buf, unsigned int len);
 
-long allowance_convert(Rtab* results);
+long long allowance_convert(Rtab* results);
 tstamp_t processallowanceresults(char *buf, unsigned int len);
 
 -(void) setSetUpHWDBConnection:(NSString *) gwaddr callback:(NSString *) cb;
@@ -136,6 +136,7 @@ tstamp_t processallowanceresults(char *buf, unsigned int len);
 -(void) closeHWDBConnection;
 
 -(void) getStoredPolicies;
+-(void) getHouseholdAllowance;
 -(void) getURLsBrowsedBy:(NSString*) ipaddr;
 -(void) getCumulativeBandwidthFor:(NSString *) ipaddr;
 -(void) getIsUsedFor:(NSString *) ipaddr;

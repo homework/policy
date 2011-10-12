@@ -54,7 +54,7 @@
         self.prioritiseamountcaption = [[UILabel alloc] initWithFrame:CGRectMake(143,(300-18), bottomcaptionframe.frame.size.width, bottomcaptionframe.frame.size.height)];
         self.prioritiseamountcaption.textColor = [UIColor blackColor];
         self.prioritiseamountcaption.textAlignment = UITextAlignmentCenter;
-        self.prioritiseamountcaption.font = [UIFont fontWithName:@"MarkerFelt-Thin" size:15.0];
+        self.prioritiseamountcaption.font = [UIFont fontWithName:@"MarkerFelt-Thin" size:13.0];
         self.prioritiseamountcaption.backgroundColor = [UIColor clearColor];
         
         

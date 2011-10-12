@@ -13,10 +13,10 @@
 -(void) createPhysicsWorld;
 -(void)addPhysicalBodyForView:(UIView *)aview;
 /*-(void) addReading:(long) currentByteCount rangeByteCount:(long) rangeByteCount limitByteCount:(long) limitByteCount;*/
--(void) addReading:(long) bytes;
+-(void) addReading:(long long) bytes;
 -(void)removeOldBags;
--(void) updateDisplay:(long) bytes limit:(long) limit;
--(void) updateCaption:(long) bytes limit:(long) limit;
+-(void) updateDisplay:(long long) bytes limit:(long long) limit;
+-(void) updateCaption:(long long) bytes limit:(long long) limit;
 
 @end
 
@@ -31,6 +31,8 @@
 static float XSTART = 100;
 static float YSTART = 140;
 static float KBDIVISOR = 1024;
+static float MBDIVISOR = 1048576;
+static float GBDIVISOR = 1073741824;
 
 //static long MAXBYTES = 1 * 1024 * 1024;
 
@@ -40,6 +42,10 @@ static float KBDIVISOR = 1024;
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(subjectDeviceChange:) name:@"subjectDeviceChange" object:nil];
+        
+
+        
     }
     return self;
 }
@@ -116,7 +122,7 @@ static float KBDIVISOR = 1024;
     self.caption.textColor = [UIColor blackColor];
     self.caption.font = [UIFont fontWithName:@"MarkerFelt-Thin" size:15.0];
     self.caption.backgroundColor = [UIColor clearColor];
-    self.caption.text = @"- KB of - KB";
+    self.caption.text = @"- KB of - GB";
     [self.view addSubview:caption];
     [caption release];
     
@@ -132,6 +138,15 @@ static float KBDIVISOR = 1024;
 
 }
 
+
+
+-(void) subjectDeviceChange:(NSNotification*)notification{
+   
+    self.caption.text = @"- KB of - GB";
+    lastbytes = 0;
+}
+
+
 -(void) requestData:(NSTimer *) timer{
     
     
@@ -141,7 +156,7 @@ static float KBDIVISOR = 1024;
      * Commented out for now...until new version to test against.
      */
    
-    //[[RPCComm sharedRPCComm] getCumulativeBandwidthFor:subject];
+    [[RPCComm sharedRPCComm] getCumulativeBandwidthFor:subject];
     
  
 }
@@ -149,7 +164,7 @@ static float KBDIVISOR = 1024;
 -(void) newBandwidthData:(NSNotification *) notification{
    
     NSNumber* bytes = [notification object];
-    [self addReading:[bytes longValue]];
+    [self addReading:[bytes longLongValue]];
     
     /*SBJsonParser *jsonParser = [SBJsonParser new];
     NSDictionary *data = [notification userInfo];
@@ -159,7 +174,7 @@ static float KBDIVISOR = 1024;
     
 }
 
--(void) addReading:(long) bytes{
+-(void) addReading:(long long) bytes{
     
     if (lastbytes == bytes)
         return;
@@ -167,7 +182,7 @@ static float KBDIVISOR = 1024;
     if (bytes == 0)
         return;
     
-    long limitbytecount = [[[Catalogue sharedCatalogue] allowance] longValue];
+    long long limitbytecount = [[[Catalogue sharedCatalogue] allowance] longLongValue];
     
     if (lastbytes == 0){
         lastbytes = bytes;
@@ -175,12 +190,12 @@ static float KBDIVISOR = 1024;
     }else{
        
         [self updateDisplay:(bytes - lastbytes) limit:limitbytecount];
-        [self updateCaption:(bytes - lastbytes) limit:limitbytecount];
+        [self updateCaption:bytes limit:limitbytecount];
         lastbytes = bytes;
     }
 }
 
--(void) updateDisplay:(long) bytes limit:(long) limit{
+-(void) updateDisplay:(long long) bytes limit:(long long) limit{
     
     float scalefactor = ((float)bytes/limit) + 0.4;
     [topMask removeFromSuperview];
@@ -196,10 +211,25 @@ static float KBDIVISOR = 1024;
     [self removeOldBags];
 }
 
--(void) updateCaption:(long) bytes limit:(long) limit{
+-(void) updateCaption:(long long) bytes limit:(long long) limit{
     float rangeKB = bytes / KBDIVISOR;
-    float limitKB = limit / KBDIVISOR;
-    caption.text = [NSString stringWithFormat:@"%d KB of %d KB", (int)rangeKB, (int)limitKB];
+    float limitGB = limit / GBDIVISOR;
+    
+    float convertedRange;
+    NSString* units;
+    
+    if (bytes <= MBDIVISOR){
+        units = @"KB";
+        convertedRange = bytes / KBDIVISOR;
+    }
+    else if (bytes <= GBDIVISOR){
+        units = @"MB";
+        convertedRange = bytes / MBDIVISOR;
+    }else{
+        units = @"GB";
+        convertedRange = bytes / GBDIVISOR;
+    }
+    caption.text = [NSString stringWithFormat:@"%.2f %@ of %.2f GB", convertedRange, units, limitGB];
 }
 
 

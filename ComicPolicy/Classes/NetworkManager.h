@@ -31,5 +31,5 @@
 -(BOOL) connectToHWDB;
 -(void) disconnect;
 -(void) readPoliciesFromHWDB;
-
+-(void) readInAllowance;
 @end

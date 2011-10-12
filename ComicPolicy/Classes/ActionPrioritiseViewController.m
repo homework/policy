@@ -31,7 +31,7 @@
 		
         slider = [[UISlider alloc] initWithFrame:CGRectMake(40.0f, 220.0f, 200.0f, 20.f)];
         
-        [slider setMaximumValue:2.0f];
+        [slider setMaximumValue:1.0f];
         [slider setMinimumValue:0.0f];
         [slider setContinuous:NO];
         
@@ -81,11 +81,9 @@
     
     NSString* priority = @"low";
     
-   
-    if (pint== 1)
-        priority = @"medium";
-    else if (pint==2)
+   if (pint== 1)
         priority = @"high";
+  
     
     NSMutableDictionary *newargs = [[[NSMutableDictionary alloc] initWithObjects:[[[NSArray alloc] initWithObjects:priority, nil] autorelease] forKeys:[[[NSArray alloc] initWithObjects:@"priority",nil] autorelease]] autorelease];
     
@@ -101,11 +99,8 @@
 
 -(void) updateSlider:(NSString *) priority{
    
-    if ([priority isEqualToString:@"medium"]){
-        slider.value =  1;
-    }
-    else if ([priority isEqualToString:@"high"]){
-        slider.value = 2;
+    if ([priority isEqualToString:@"high"]){
+        slider.value = 1;
     }else{
         priority = @"low";
         slider.value = 0;
@@ -118,9 +113,7 @@
     slider.value =  round([sender value]);
     
     if (slider.value == 1){
-        [self updateSlider:@"medium"];
-    }else if (slider.value == 2){
-         [self updateSlider:@"high"];
+        [self updateSlider:@"high"];
     }else{
         [self updateSlider:@"low"];
     }

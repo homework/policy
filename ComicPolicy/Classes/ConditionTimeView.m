@@ -108,7 +108,7 @@
         self.caption = [[UILabel alloc] initWithFrame:CGRectMake(45, self.frame.size.height - 30, 250, 30)];
         self.caption.textColor = [UIColor blackColor];
         self.caption.textAlignment = UITextAlignmentCenter;
-        self.caption.font = [UIFont fontWithName:@"MarkerFelt-Thin" size:16.0];
+        self.caption.font = [UIFont fontWithName:@"MarkerFelt-Thin" size:13.0];
         self.caption.backgroundColor = [UIColor clearColor];
         [self addSubview:caption];
     }

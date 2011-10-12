@@ -412,7 +412,7 @@
                     [actionarguments objectForKey:@"priority"]
                 ];
         
-        NSString* duration = [conditiontype isEqualToString: @"timed"] ? @"" : @"for (\"30\" \"min\")";
+        NSString* duration = [conditiontype isEqualToString: @"timed"] ? @"" : @"for:#(\"30\" \"min\")";
         
         return [NSString stringWithFormat:@"%@ %@",priority, duration];
         

@@ -21,7 +21,7 @@
 
 #define MAXSITES 5
 
-static float XSTART = 200;
+//static float XSTART = 200;
 static float YSTART = 280;
 
 

@@ -417,7 +417,7 @@
         
     NSString *rootURL  = [[NetworkManager sharedManager] rootURL];
     //NSString *strurl = [NSString stringWithFormat:@"%@/dynamiccatalogue.json", rootURL];
-   NSString *strurl = [NSString stringWithFormat:@"%@/catalogue", rootURL];
+    NSString *strurl = [NSString stringWithFormat:@"%@/catalogue", rootURL];
     [routerConnectionViewController updateCaption:[NSString stringWithFormat:@"reading in catalogue from %@", strurl]];
     
     NSURL *url = [NSURL URLWithString:strurl];
@@ -444,6 +444,8 @@
         if ([[NetworkManager sharedManager] connectToHWDB]){
              [routerConnectionViewController updateCaption:@"loading up policies"];
             [[NetworkManager sharedManager] readPoliciesFromHWDB];
+            [routerConnectionViewController updateCaption:@"reading in allowance"];
+            [[NetworkManager sharedManager] readInAllowance];
             [self addNotificationHandlers];
             [self createControllers];
             [self updateFramePositions];

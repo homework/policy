@@ -117,13 +117,17 @@ NSString* callbackaddr;
 
 
 -(void) getIsUsedFor:(NSString *) ipaddr{
-    NSString* query = [NSString stringWithFormat:@"SQL:select t, sum(nbytes) from KFlows [range 5 seconds] WHERE saddr = \"%@\" or daddr = \"%@\"\n", ipaddr, ipaddr];
-   
-    //NSString* query = [NSString stringWithFormat:@"SQL:select nbytes from KFlows"];
     
-   // NSLog(@"query is %@", query);
+    NSString* query;
     
-     sprintf(sendquery, [query UTF8String]);
+    if ([ipaddr isEqualToString:@"*"]){
+         query = [NSString stringWithFormat:@"SQL:select t, sum(nbytes) from KFlows [range 5 seconds]\n"];
+    }
+    else{
+        query = [NSString stringWithFormat:@"SQL:select t, sum(nbytes) from KFlows [range 5 seconds] WHERE saddr = \"%@\" or daddr = \"%@\"\n", ipaddr, ipaddr];
+    }
+    
+    sprintf(sendquery, [query UTF8String]);
 	 querylen = strlen(sendquery) + 1;
      [self send: sendquery qlen:querylen resp: response rsize: sizeof(response) len:length callback:processflowresults];
 }
@@ -150,12 +154,12 @@ NSString* callbackaddr;
     NSString* query;
     
     if ([ ipaddr isEqualToString: @"*"]){
-        query = [NSString stringWithFormat:@"SQL:select sum(bytes) from BWUsage\n"];
+        query = [NSString stringWithFormat:@"SQL:select sum(nbytes) from BWUsage\n"];
     }else{
-        query = [NSString stringWithFormat:@"SQL:select bytes from BWUsage where ip = \"%@\"\n", ipaddr]; 
+        query = [NSString stringWithFormat:@"SQL:select nbytes from BWUsage where ip = \"%@\"\n", ipaddr]; 
     }
     
-   
+    NSLog(@"sending query: %@", query);
     
     /*NSString* subnet = @"10.2.1";
     
@@ -533,15 +537,17 @@ void policy_state_results_free(PolicyStateResults *p) {
 }
 
 
-long usage_convert(Rtab *results){
+long long usage_convert(Rtab *results){
     if (! results || results->mtype != 0)
 		return 0;
-     long bytes = 0;
+     long long bytes = 0;
     
      if (results->nrows >= 1){
          char **columns;
          columns = rtab_getrow(results, 0);
-         bytes = atol(columns[0]);
+        
+         bytes = atoll(columns[0]);
+         NSLog(@"got back %llu bytes", bytes); 
      }
     return bytes;
 }
@@ -551,7 +557,7 @@ tstamp_t processusageresults(char *buf, unsigned int len) {
     
     Rtab *results;
     char stsmsg[RTAB_MSG_MAX_LENGTH];
-    unsigned long bytes;
+    unsigned long long bytes;
 
 	tstamp_t last = timestamp_now();
     results = rtab_unpack(buf, len);
@@ -559,7 +565,7 @@ tstamp_t processusageresults(char *buf, unsigned int len) {
 	if (results && ! rtab_status(buf, stsmsg)) {
 		bytes = usage_convert(results);
         NSAutoreleasePool *autoreleasepool = [[NSAutoreleasePool alloc] init];
-        [[RPCComm sharedRPCComm] performSelectorOnMainThread:@selector(notifyUsage:) withObject:[NSNumber numberWithLong:bytes] waitUntilDone:YES];
+        [[RPCComm sharedRPCComm] performSelectorOnMainThread:@selector(notifyUsage:) withObject:[NSNumber numberWithLongLong:bytes] waitUntilDone:YES];
         [autoreleasepool release];
 
     }
@@ -573,15 +579,16 @@ tstamp_t processusageresults(char *buf, unsigned int len) {
 }
 
 
-long allowance_convert(Rtab *results){
+long long allowance_convert(Rtab *results){
     if (! results || results->mtype != 0)
 		return 0;
-    long bytes = 0;
+    long long bytes = 0;
     
     if (results->nrows >= 1){
         char **columns;
         columns = rtab_getrow(results, 0);
-        bytes = atol(columns[0]);
+        NSLog(@"ALLOWANCES got %s", columns[0]);
+        bytes = atoll(columns[0]);
     }
     return bytes;
 }
@@ -591,7 +598,7 @@ tstamp_t processallowanceresults(char *buf, unsigned int len) {
     
     Rtab *results;
     char stsmsg[RTAB_MSG_MAX_LENGTH];
-    unsigned long bytes;
+    long long bytes;
     
 	tstamp_t last = timestamp_now();
     results = rtab_unpack(buf, len);
@@ -599,7 +606,8 @@ tstamp_t processallowanceresults(char *buf, unsigned int len) {
 	if (results && ! rtab_status(buf, stsmsg)) {
 		bytes = allowance_convert(results);
         NSAutoreleasePool *autoreleasepool = [[NSAutoreleasePool alloc] init];
-        [[Catalogue sharedCatalogue] performSelectorOnMainThread:@selector(setAllowance:) withObject:[NSNumber numberWithLong:bytes] waitUntilDone:YES];
+        NSLog(@"******* setting allowance to %llu", bytes);
+        [[Catalogue sharedCatalogue] performSelectorOnMainThread:@selector(setAllowance:) withObject:[NSNumber numberWithLongLong:bytes] waitUntilDone:YES];
         [autoreleasepool release];
     }
     rtab_free(results);
