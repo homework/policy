@@ -185,7 +185,12 @@ NSString* callbackaddr;
 }
 
 -(void) getURLsBrowsedBy:(NSString*) ipaddr{
-    NSString* query = [NSString stringWithFormat:@"SQL:select * from Urls [range 5 seconds] where saddr contains \"%@\" order by hst asc\n", ipaddr];
+    NSString* query;
+    
+    if (![ipaddr isEqualToString:@"*"])
+        query = [NSString stringWithFormat:@"SQL:select * from Urls [range 5 seconds] where saddr contains \"%@\" order by hst asc\n", ipaddr];
+    else
+        query = [NSString stringWithFormat:@"SQL:select * from Urls [range 5 seconds]"];
     
     
     sprintf(sendquery, [query UTF8String]);

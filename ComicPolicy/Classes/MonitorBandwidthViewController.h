@@ -23,6 +23,7 @@
     UILabel *caption;
     int bagindex;
     long lastbytes;
+    int percentage;
 }
 
 @property(nonatomic, assign) UIView* topMask;

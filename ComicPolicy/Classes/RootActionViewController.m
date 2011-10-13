@@ -38,7 +38,9 @@
 }
 
 -(void) conditionChange:(NSNotification *) n{
+    
     NSString *controller = [[Catalogue sharedCatalogue] currentActionViewController];
+    
     UIViewController *newController = [[[NSClassFromString(controller) alloc] initWithNibName:nil bundle:nil] retain];
    
     [UIView beginAnimations:nil context:nil];

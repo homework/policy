@@ -92,6 +92,7 @@
     NSMutableDictionary *newargs = [[[NSMutableDictionary alloc] initWithObjects:[[[NSArray alloc] initWithObjects:bwidth,captype,nil] autorelease] forKeys:[[[NSArray alloc] initWithObjects:@"percentage",@"captype",nil] autorelease]] autorelease];
     
     [[Catalogue sharedCatalogue] setConditionArguments:newargs];
+     [[NSNotificationCenter defaultCenter] postNotificationName:@"bandwidthPercentageChange" object:nil userInfo:nil];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {

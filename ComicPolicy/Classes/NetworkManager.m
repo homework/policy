@@ -94,13 +94,6 @@
     [[RPCComm sharedRPCComm] getHouseholdAllowance];
 }
 
-/*
--(void) subscribe:(NSTimer *)t{
-   NSString *myaddr = [self getMyAddress];
-   [[RPCComm sharedRPCComm] subscribe_to_policy_fired:myaddr];
-    [[RPCComm sharedRPCComm] subscribe_to_policy_response:myaddr];
-}*/
-
 -(NSString *)getMyAddress
 {
     NSString *address = @"error";
@@ -141,6 +134,11 @@
     
     NSString *address = [self getMyAddress]; 
     NSArray *addrs = [address componentsSeparatedByString:@"."];
+    
+    if  (addrs == NULL || [addrs count] < 4){
+        return nil;
+    }
+    
     int gwbit =  [((NSString *) [addrs objectAtIndex:3]) intValue];
     return [NSString stringWithFormat:@"%@.%@.%@.%d",[addrs objectAtIndex:0], [addrs objectAtIndex:1], [addrs objectAtIndex:2], gwbit+1];
 }

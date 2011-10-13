@@ -20,7 +20,9 @@ BOOL toScaled = NO;
     if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
             
         [self setUpConditionView];
+        [self addAMPMListeners];
         [self initialiseClocks];
+        
         [self updateCaption];
         //[self updateCatalogue];
         //[self addWeekdaySelection];
@@ -36,11 +38,13 @@ BOOL toScaled = NO;
     self.view = aconditionview;
 }
 
--(void) initialiseClocks{
-    
-    
+-(void) addAMPMListeners{
     [conditionTimeView.toAMPM addTarget:self action:@selector(AMPMClicked:) forControlEvents:UIControlEventTouchUpInside];
     [conditionTimeView.fromAMPM addTarget:self action:@selector(AMPMClicked:) forControlEvents:UIControlEventTouchUpInside];
+}
+
+-(void) initialiseClocks{
+    
     
     NSString *from = [[[Catalogue sharedCatalogue] conditionArguments] objectForKey:@"from"];
     NSString *to = [[[Catalogue sharedCatalogue] conditionArguments] objectForKey:@"to"];
@@ -66,6 +70,8 @@ BOOL toScaled = NO;
 }
 
 -(void) AMPMClicked:(id) sender{
+    
+    NSLog(@"AM PM CLICKED>>>>>>>>>>>");
     if (sender == conditionTimeView.toAMPM){
         if ([sender isSelected]){
             tohour -= 12;
@@ -235,11 +241,12 @@ BOOL toScaled = NO;
 
     
 	if ([touch view] == conditionTimeView.fhh || [touch view] == conditionTimeView.fmh || [touch view] == conditionTimeView.thh || [touch view] == conditionTimeView.tmh){
+        NSLog(@"returning....");
 		return;
 	}
     
 	if (CGRectContainsPoint(conditionTimeView.fromClockFace.frame, touchLocation)){
-		
+		NSLog(@"in from clock face");
 		[conditionTimeView.fromClockFace removeFromSuperview];
 		[self.view addSubview:conditionTimeView.fromClockFace];
         [conditionTimeView.caption removeFromSuperview];
@@ -280,6 +287,9 @@ BOOL toScaled = NO;
 		
 	}
 	else if (CGRectContainsPoint(conditionTimeView.toClockFace.frame, touchLocation)){
+        
+        NSLog(@"in TO clock face");
+        
 		[conditionTimeView.toClockFace removeFromSuperview];
 		[self.view addSubview:conditionTimeView.toClockFace];
         [conditionTimeView.caption removeFromSuperview];

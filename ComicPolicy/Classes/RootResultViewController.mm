@@ -80,7 +80,6 @@
     
     
 	NSString *newscene =  [[Catalogue sharedCatalogue] getActionResultImage:hasFired];
-    NSLog(@"got newscene for %@ as %@", [[Catalogue sharedCatalogue] currentActionSubject], newscene);
     
 	if (newscene != NULL){
         [UIView beginAnimations:nil context:nil];

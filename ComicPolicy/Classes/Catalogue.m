@@ -376,6 +376,7 @@ NSMutableDictionary *tree;
     
 	actionvcsarray = [(NSArray *) [tree objectForKey:[self currentCondition]] retain];
     
+    NSLog(@"=============SET THE ACTION VCS ARRAY TO %@ FOR condition %@", actionvcsarray, [self currentCondition]);
     actionvcsindex = 0;
     
     /*
@@ -611,9 +612,6 @@ NSMutableDictionary *tree;
     
     [self.currentConditionArguments setObject:currentArgs forKey:[self currentCondition]];
     
-    if ([[self currentCondition] isEqualToString:@"timed"]){
-        NSLog(@"set condition args for timed to %@", [self conditionArguments]);
-    }
 }
 
 -(NSString*) currentCondition{
@@ -860,6 +858,7 @@ NSMutableDictionary *tree;
         }
         index+=1;
     }
+    [self initActions];
 }
 
 

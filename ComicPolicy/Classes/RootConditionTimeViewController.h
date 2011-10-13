@@ -32,4 +32,6 @@
 -(void) setToMinute:(int) minute;
 -(void) setUpConditionView;
 -(void) initialiseClocks;
+-(void) addAMPMListeners;
+
 @end

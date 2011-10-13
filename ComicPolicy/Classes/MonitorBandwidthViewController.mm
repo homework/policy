@@ -15,8 +15,8 @@
 /*-(void) addReading:(long) currentByteCount rangeByteCount:(long) rangeByteCount limitByteCount:(long) limitByteCount;*/
 -(void) addReading:(long long) bytes;
 -(void)removeOldBags;
--(void) updateDisplay:(long long) bytes limit:(long long) limit;
--(void) updateCaption:(long long) bytes limit:(long long) limit;
+-(void) updateDisplay:(long long) bytes;
+-(void) updateCaption:(long long) bytes;
 
 @end
 
@@ -132,13 +132,33 @@ static float GBDIVISOR = 1073741824;
                                                    userInfo:nil 
                                                     repeats:YES];
 
+    [self updatePercentage];
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newBandwidthData:) name:@"newUsageData" object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(bandwidthPercentageChange:) name:@"bandwidthPercentageChange" object:nil];
     
 
 }
 
 
+-(void) bandwidthPercentageChange:(NSNotification *) notification{
+    NSLog(@"bandwitdh percentage is %@", [[[Catalogue sharedCatalogue] conditionArguments] objectForKey:@"percentage"]);
+    [self updatePercentage];
+    
+}
+
+-(void) updatePercentage{
+    NSNumber* percent = [[[Catalogue sharedCatalogue] conditionArguments] objectForKey:@"percentage"];
+    
+    if (percent != nil){
+        percentage = [percent intValue];
+    }else{
+        percentage = 100;
+    }
+    
+    [self updateCaption:lastbytes];
+}
 
 -(void) subjectDeviceChange:(NSNotification*)notification{
    
@@ -174,6 +194,14 @@ static float GBDIVISOR = 1073741824;
     
 }
 
+-(long long) currentLimit{
+    long long limitbytecount = [[[Catalogue sharedCatalogue] allowance] longLongValue];
+    
+    float ratio = (float)percentage / 100.0;
+
+    return (long long) (limitbytecount * ratio);
+}
+
 -(void) addReading:(long long) bytes{
     
     if (lastbytes == bytes)
@@ -182,20 +210,21 @@ static float GBDIVISOR = 1073741824;
     if (bytes == 0)
         return;
     
-    long long limitbytecount = [[[Catalogue sharedCatalogue] allowance] longLongValue];
     
     if (lastbytes == 0){
         lastbytes = bytes;
-        [self updateCaption:bytes limit:limitbytecount];
+        [self updateCaption:bytes];
     }else{
        
-        [self updateDisplay:(bytes - lastbytes) limit:limitbytecount];
-        [self updateCaption:bytes limit:limitbytecount];
+        [self updateDisplay:(bytes - lastbytes)];
+        [self updateCaption:bytes];
         lastbytes = bytes;
     }
 }
 
--(void) updateDisplay:(long long) bytes limit:(long long) limit{
+-(void) updateDisplay:(long long) bytes{
+    
+    long long limit = [self currentLimit];
     
     float scalefactor = ((float)bytes/limit) + 0.4;
     [topMask removeFromSuperview];
@@ -211,12 +240,10 @@ static float GBDIVISOR = 1073741824;
     [self removeOldBags];
 }
 
--(void) updateCaption:(long long) bytes limit:(long long) limit{
-    float rangeKB = bytes / KBDIVISOR;
-    float limitGB = limit / GBDIVISOR;
-    
-    float convertedRange;
+
+-(NSString *) createUnitsString :(long long) bytes{
     NSString* units;
+    float convertedRange;
     
     if (bytes <= MBDIVISOR){
         units = @"KB";
@@ -229,7 +256,19 @@ static float GBDIVISOR = 1073741824;
         units = @"GB";
         convertedRange = bytes / GBDIVISOR;
     }
-    caption.text = [NSString stringWithFormat:@"%.2f %@ of %.2f GB", convertedRange, units, limitGB];
+    
+    return [NSString stringWithFormat:@"%.2f %@", convertedRange, units];
+}
+
+-(void) updateCaption:(long long) bytes{
+    
+    long long limit = [self currentLimit];
+    
+    
+    NSString* currentBytes = [self createUnitsString: bytes];
+    NSString* currentLimit = [self createUnitsString: limit];
+    
+    caption.text = [NSString stringWithFormat:@"%@ of %@", currentBytes, currentLimit];
 }
 
 

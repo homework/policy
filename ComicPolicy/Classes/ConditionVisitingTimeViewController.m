@@ -20,6 +20,7 @@ bool timerangeselected = false;
 {
     
     [self setUpConditionView];
+     [self addAMPMListeners];
     [self initialiseClocks];
     
     self.view.frame = [[PositionManager sharedPositionManager] getPosition:@"conditionvisitingtime"];
@@ -35,7 +36,7 @@ bool timerangeselected = false;
 }
 
 -(void) updateSelected{
-    NSLog(@"in update selected condition args are %@", [[Catalogue sharedCatalogue] conditionArguments]);
+   
     if ([[[Catalogue sharedCatalogue] conditionArguments] objectForKey:@"from"] == nil){
         timerangeselected = false;
     }else{
@@ -53,7 +54,7 @@ bool timerangeselected = false;
     }
     //if (timerangeselected)
         [self updateCatalogue];
-    
+   
     [super touchesBegan:touches withEvent:event];
 }
 
@@ -97,7 +98,6 @@ bool timerangeselected = false;
     if (![[[Catalogue sharedCatalogue] currentCondition] isEqualToString:@"visiting"])
         return;
     
-    NSLog(@"UPDATING VISTING TIME CAPTION");
     [self updateSelected];
     if (timerangeselected){
         [super initialiseClocks];
