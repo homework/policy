@@ -14,6 +14,7 @@
 @synthesize addButton;
 @synthesize addTextField;
 @synthesize sitecaption;
+@synthesize  bottomcaptionframe;
 
 - (id)initWithFrameAndImage:(CGRect)frame image:(NSString *) image{
 	if ((self = [super initWithFrame:frame])) {
@@ -35,7 +36,7 @@
 		[tmpframe release];
         
         
-        UIImageView* bottomcaptionframe = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"captionframelong.png"]];
+        bottomcaptionframe = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"captionframelong.png"]];
 		bottomcaptionframe.frame = CGRectMake(87, (300-33), bottomcaptionframe.frame.size.width, bottomcaptionframe.frame.size.height);
         [self addSubview:bottomcaptionframe];
         [bottomcaptionframe release];

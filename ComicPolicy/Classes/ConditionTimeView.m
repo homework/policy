@@ -20,6 +20,7 @@
 @synthesize tmh;
 @synthesize fromAMPM;
 @synthesize toAMPM;
+@synthesize bottomcaptionframe;
 /*
  * NB: ImageView subviews are NOT passed touch events i.e. TouchesBegan etc will not be called!
  */
@@ -105,7 +106,11 @@
         
 		[self addSubview:toClockFace];
         
-        self.caption = [[UILabel alloc] initWithFrame:CGRectMake(45, self.frame.size.height - 30, 250, 30)];
+        bottomcaptionframe = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"captionframelong.png"]];
+		bottomcaptionframe.frame = CGRectMake(75, self.frame.size.height - 30, bottomcaptionframe.frame.size.width, bottomcaptionframe.frame.size.height);
+        [self addSubview:bottomcaptionframe];
+        
+        self.caption = [[UILabel alloc] initWithFrame:CGRectMake(75, self.frame.size.height - 30, bottomcaptionframe.frame.size.width, bottomcaptionframe.frame.size.height)];
         self.caption.textColor = [UIColor blackColor];
         self.caption.textAlignment = UITextAlignmentCenter;
         self.caption.font = [UIFont fontWithName:@"MarkerFelt-Thin" size:13.0];

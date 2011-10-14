@@ -27,7 +27,14 @@ bool timerangeselected = false;
    
     [self updateSelected];
     [self updateCaption];
-       return self;
+         
+    NSTimer* pulseTimer = [NSTimer scheduledTimerWithTimeInterval:5.0 
+                                                 target:self 
+                                               selector:@selector(pulseCaption:) 
+                                               userInfo:nil 
+                                                repeats:YES];
+    return self;
+
 }
 
 - (void)dealloc
@@ -58,6 +65,32 @@ bool timerangeselected = false;
     [super touchesBegan:touches withEvent:event];
 }
 
+
+-(void) pulseCaption:(NSTimer*) timer{
+
+    
+#define GROW_ANIMATION_DURATION_SECONDS 0.15
+#define SHRINK_ANIMATION_DURATION_SECONDS 0.15
+
+/*
+ Create two separate animations, the first for the grow, which uses a delegate method as before to start an animation for the shrink operation. The second animation here lasts for the total duration of the grow and shrink animations and is responsible for performing the move.
+ */
+[UIView beginAnimations:nil context:NULL];
+[UIView setAnimationDuration:GROW_ANIMATION_DURATION_SECONDS];
+[UIView setAnimationDelegate:self];
+[UIView setAnimationDidStopSelector:@selector(growAnimationDidStop:finished:context:)];
+CGAffineTransform transform = CGAffineTransformMakeScale(1.2, 1.2);
+conditionTimeView.bottomcaptionframe.transform = transform;
+[UIView commitAnimations];
+}
+
+
+- (void)growAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context {
+	[UIView beginAnimations:nil context:NULL];
+	[UIView setAnimationDuration:SHRINK_ANIMATION_DURATION_SECONDS];
+	conditionTimeView.bottomcaptionframe.transform = CGAffineTransformMakeScale(1.0, 1.0);	
+	[UIView commitAnimations];
+}
 
 -(void) updateCaption{
     

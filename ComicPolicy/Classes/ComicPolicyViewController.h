@@ -25,7 +25,7 @@
 	
     UIImageView *deleteButton;
 	UIImageView *saveButton;
-    UIImageView *refreshButton;
+    //UIImageView *refreshButton;
 	UIImageView *activateButton;
     UILabel * statusLabel;
     AVAudioPlayer *tickPlayer;
@@ -41,6 +41,7 @@
     ConditionVisitingTimeViewController *conditionVisitingTimeViewController;
     
     UIView *progressView;
+    UIView *disableInteractionView;
     
     BOOL inprogress;
     BOOL splashscreenshowing;

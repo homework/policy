@@ -159,11 +159,7 @@ NSString* callbackaddr;
         query = [NSString stringWithFormat:@"SQL:select nbytes from BWUsage where ip = \"%@\"\n", ipaddr]; 
     }
     
-    NSLog(@"sending query: %@", query);
-    
-    /*NSString* subnet = @"10.2.1";
-    
-    NSString* query = [NSString stringWithFormat:@"SQL:select sum(nbytes) from Flows [since %@] where daddr contains \"%@\" and saddr notcontains \"%@\"",ti, ipaddr, subnet];*/
+   
    
      
     sprintf(sendquery, [query UTF8String]);
@@ -552,7 +548,7 @@ long long usage_convert(Rtab *results){
          columns = rtab_getrow(results, 0);
         
          bytes = atoll(columns[0]);
-         NSLog(@"got back %llu bytes", bytes); 
+         
      }
     return bytes;
 }

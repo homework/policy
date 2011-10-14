@@ -376,7 +376,7 @@ NSMutableDictionary *tree;
     
 	actionvcsarray = [(NSArray *) [tree objectForKey:[self currentCondition]] retain];
     
-    NSLog(@"=============SET THE ACTION VCS ARRAY TO %@ FOR condition %@", actionvcsarray, [self currentCondition]);
+    
     actionvcsindex = 0;
     
     /*

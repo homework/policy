@@ -177,6 +177,7 @@
 		A3B6FA591427A51200089153 /* any.png in Resources */ = {isa = PBXBuildFile; fileRef = A3B6FA581427A51200089153 /* any.png */; };
 		A3BBD42B13817EF200FA75AF /* MonitorBandwidthViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3BBD42A13817EF200FA75AF /* MonitorBandwidthViewController.mm */; };
 		A3BBD4311382845400FA75AF /* MonitorVisitsView.m in Sources */ = {isa = PBXBuildFile; fileRef = A3BBD4301382845300FA75AF /* MonitorVisitsView.m */; };
+		A3C4E34B1448A3A100DFCE7F /* deactivate.png in Resources */ = {isa = PBXBuildFile; fileRef = A3C4E34A1448A3A100DFCE7F /* deactivate.png */; };
 		A3C5C25D1383D33400FF413F /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = A3C5C2471383D33400FF413F /* Reachability.m */; };
 		A3C5C25E1383D33400FF413F /* ASIAuthenticationDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = A3C5C2491383D33400FF413F /* ASIAuthenticationDialog.m */; };
 		A3C5C25F1383D33400FF413F /* ASIDataCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = A3C5C24C1383D33400FF413F /* ASIDataCompressor.m */; };
@@ -515,6 +516,7 @@
 		A3BBD42C13827DBC00FA75AF /* MonitorViewController.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = MonitorViewController.h; sourceTree = "<group>"; };
 		A3BBD42F1382845200FA75AF /* MonitorVisitsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonitorVisitsView.h; sourceTree = "<group>"; };
 		A3BBD4301382845300FA75AF /* MonitorVisitsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonitorVisitsView.m; sourceTree = "<group>"; };
+		A3C4E34A1448A3A100DFCE7F /* deactivate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = deactivate.png; sourceTree = "<group>"; };
 		A3C5C2461383D33400FF413F /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		A3C5C2471383D33400FF413F /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		A3C5C2481383D33400FF413F /* ASIAuthenticationDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIAuthenticationDialog.h; sourceTree = "<group>"; };
@@ -958,6 +960,7 @@
 		A30ADF28131528F80060D2F1 /* misc */ = {
 			isa = PBXGroup;
 			children = (
+				A3C4E34A1448A3A100DFCE7F /* deactivate.png */,
 				A3D17621142CF61B003753BB /* activate.png */,
 				A3B6FA4E1422786500089153 /* captionframelong.png */,
 				A3B6FA4C1421234800089153 /* smallcaptionframe.png */,
@@ -1687,6 +1690,7 @@
 				A3FF77FD1444A6170045C8D0 /* tabletunblocked.png in Resources */,
 				A3FF77FF1444A62F0045C8D0 /* condtablet.png in Resources */,
 				A3FF78011444A6540045C8D0 /* astablet.png in Resources */,
+				A3C4E34B1448A3A100DFCE7F /* deactivate.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1838,8 +1842,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Tom Lodge (C4DACQ32K3)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Tom Lodge (C4DACQ32K3)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Tom Lodge";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Tom Lodge";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1848,8 +1852,8 @@
 				INFOPLIST_FILE = "ComicPolicy-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = ComicPolicy;
-				PROVISIONING_PROFILE = "26DFCA30-05F5-4CE9-B689-251845788699";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "26DFCA30-05F5-4CE9-B689-251845788699";
+				PROVISIONING_PROFILE = "5E4188ED-8626-4808-9671-4891B41DB224";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "5E4188ED-8626-4808-9671-4891B41DB224";
 				SDKROOT = iphoneos4.3;
 			};
 			name = Debug;
@@ -1859,16 +1863,16 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Tom Lodge (C4DACQ32K3)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Tom Lodge (C4DACQ32K3)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Tom Lodge";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Tom Lodge";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ComicPolicy_Prefix.pch;
 				INFOPLIST_FILE = "ComicPolicy-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = ComicPolicy;
-				PROVISIONING_PROFILE = "26DFCA30-05F5-4CE9-B689-251845788699";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "26DFCA30-05F5-4CE9-B689-251845788699";
+				PROVISIONING_PROFILE = "5E4188ED-8626-4808-9671-4891B41DB224";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "5E4188ED-8626-4808-9671-4891B41DB224";
 				SDKROOT = iphoneos4.3;
 				TARGETED_DEVICE_FAMILY = 2;
 				VALIDATE_PRODUCT = YES;

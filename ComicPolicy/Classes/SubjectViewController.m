@@ -111,8 +111,6 @@
 	//[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:subjectView.bottomImage cache:NO];
     
   
-    NSLog(@"current subject owner is %@", [[Catalogue sharedCatalogue] currentSubjectOwner]);
-    
     if (![[[Catalogue sharedCatalogue] currentSubjectOwner] isEqualToString:@"any"]){
        
         subjectView.bottomImage.image = [UIImage imageNamed:[[Catalogue sharedCatalogue] currentSubjectDeviceImage]];

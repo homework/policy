@@ -143,7 +143,7 @@ static float GBDIVISOR = 1073741824;
 
 
 -(void) bandwidthPercentageChange:(NSNotification *) notification{
-    NSLog(@"bandwitdh percentage is %@", [[[Catalogue sharedCatalogue] conditionArguments] objectForKey:@"percentage"]);
+    
     [self updatePercentage];
     
 }

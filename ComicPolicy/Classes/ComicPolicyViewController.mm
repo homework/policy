@@ -52,7 +52,7 @@
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
-    NSLog(@"in load view...");
+   
     UIView *newView = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
     newView.backgroundColor = [UIColor whiteColor];
     self.view = newView;
@@ -85,7 +85,27 @@
 		NSLog(@"no tockPlayer: %@", [error localizedDescription]);	
 	}
 	[tockPlayer prepareToPlay];
+    disableInteractionView = nil;
     
+    
+    
+}
+
+-(void) disableInteraction{
+    if (disableInteractionView == nil){
+        CGRect frame = CGRectMake(60,50, [[UIScreen mainScreen] applicationFrame].size.height - 100, [[UIScreen mainScreen] applicationFrame].size.width-120);
+    
+        disableInteractionView = [[[UIView alloc] initWithFrame:frame] autorelease];
+        disableInteractionView.backgroundColor = [UIColor clearColor];
+        [self.view addSubview:disableInteractionView];
+    }
+}
+
+-(void) enableInteraction{
+    if (disableInteractionView != nil){
+        [disableInteractionView removeFromSuperview];
+        disableInteractionView = nil;
+    }
 }
 
 -(void) addNavigationView{
@@ -117,21 +137,46 @@
 	[self.view addSubview:tmpSave];
 	[tmpSave release];
 	
-    UIImageView *tmpRefresh = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"refresh.png"]];
+   /* UIImageView *tmpRefresh = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"refresh.png"]];
 	tmpRefresh.frame = CGRectMake(740, 680, 55, 57);
 	refreshButton = tmpRefresh;
 	[self.view addSubview:tmpRefresh];
-	[tmpRefresh release];
+	[tmpRefresh release];*/
     
     
     UIImageView *tmpActivate = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"activate.png"]];
-	tmpActivate.frame = CGRectMake(660, 680, 55, 57);
+	tmpActivate.frame = CGRectMake(740, 680, 55, 57);
 	activateButton = tmpActivate;
     activateButton.alpha = 0.0;
 	[self.view addSubview:tmpActivate];
 	[tmpActivate release];
 
     
+}
+
+
+
+-(void) setDeleteButton:(BOOL) activated{
+    if (activated){
+        if (deleteButton != nil){
+            [deleteButton removeFromSuperview];
+            UIImageView *tmpCancel = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"deactivate.png"]];
+            tmpCancel.frame = CGRectMake(900, 680, 55, 57);
+            deleteButton = tmpCancel;
+            [self.view addSubview:tmpCancel];
+            [tmpCancel release];
+        }
+    }else{
+        if (deleteButton != nil){
+            [deleteButton removeFromSuperview];
+            [deleteButton removeFromSuperview];
+            UIImageView *tmpCancel = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cancel.png"]];
+            tmpCancel.frame = CGRectMake(900, 680, 55, 57);
+            deleteButton = tmpCancel;
+            [self.view addSubview:tmpCancel];
+            [tmpCancel release];
+        }
+    }
 }
 
 
@@ -149,10 +194,10 @@
         [self requestStarted];
         [[PolicyManager sharedPolicyManager] deleteCurrentPolicy];
     }
-    else if (CGRectContainsPoint( refreshButton.frame , touchLocation)){
+    /*else if (CGRectContainsPoint( refreshButton.frame , touchLocation)){
        
         [[PolicyManager sharedPolicyManager] refresh];
-    }
+    }*/
     else if (CGRectContainsPoint( activateButton.frame , touchLocation)){
          if (p.status == disabled){
              [self requestStarted];
@@ -177,13 +222,13 @@
 -(void) requestStarted{
     CGRect frame = CGRectMake(0,0, [[UIScreen mainScreen] applicationFrame].size.height, [[UIScreen mainScreen] applicationFrame].size.width);
     
-    progressView = [[UIView alloc] initWithFrame:frame];
+    progressView = [[[UIView alloc] initWithFrame:frame] autorelease];
     progressView.backgroundColor = [UIColor blackColor];
     progressView.alpha = 0.5;
     [self.view addSubview:progressView];
     inprogress = YES;
     
-    requestTimer = [NSTimer scheduledTimerWithTimeInterval:4.0 
+    requestTimer = [NSTimer scheduledTimerWithTimeInterval:8.0 
                                      target:self 
                                    selector:@selector(requestTimeOut:) //addSite:
                                    userInfo:nil 
@@ -236,11 +281,19 @@
     Policy *p = [[PolicyManager sharedPolicyManager] currentPolicy];
     
     
-    if ((p.status == unsaved) || ![[PolicyManager sharedPolicyManager] isInSync])
-        [self.view setBackgroundColor:[UIColor lightGrayColor]];
-    else
+    if ((p.status == unsaved) || ![[PolicyManager sharedPolicyManager] isInSync]){
+        //[self.view setBackgroundColor:[UIColor lightGrayColor]];
+        [self enableInteraction];
+    }else{
         [self.view setBackgroundColor:[UIColor whiteColor]];
+        [self disableInteraction];
+    }
     
+    if (p.status == enabled){
+        [self setDeleteButton:YES];
+    }else if (p.status == disabled){
+         [self setDeleteButton:NO];
+    }
 }
 
 -(void) policyFired:(NSNotification *) notification{
@@ -332,18 +385,8 @@
     [UIView setAnimationDuration:0.75];
     [UIView setAnimationDelegate:self];
     
-    if ([[[Catalogue sharedCatalogue] currentActionType] isEqualToString:@"block"]){
-		
-        
-
-	}else{
-		
-		
+    if (![[[Catalogue sharedCatalogue] currentActionType] isEqualToString:@"block"]){
 		[UIView setAnimationDidStopSelector:@selector(actionOffScreen:finished:context:)];
-		
-                       
-       
-       
     }
     
     conditionVisitingTimeViewController.view.frame = [[PositionManager sharedPositionManager] getPosition:@"conditionvisitingtime"];
@@ -451,6 +494,8 @@
             [self updateFramePositions];
            
             [[PolicyManager sharedPolicyManager] loadFirstPolicy];
+            
+            [self disableInteraction];
         }else{
             [routerConnectionViewController updateCaption:@"failed to connect to the router database"];
         }

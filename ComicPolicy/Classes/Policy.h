@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Catalogue.h"
 
 typedef enum {
     unsaved,

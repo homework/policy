@@ -29,6 +29,7 @@
     UIButton* fromAMPM;
     UIButton* toAMPM;
 
+    UIImageView* bottomcaptionframe;
 }
 
 @property(nonatomic, retain) UIView *fromClockFace;
@@ -39,5 +40,6 @@
 @property(nonatomic, retain) HandView *tmh;
 @property(nonatomic, retain) UIButton* fromAMPM;
 @property(nonatomic, retain) UIButton* toAMPM;
+@property(nonatomic, assign) UIImageView* bottomcaptionframe;
 
 @end

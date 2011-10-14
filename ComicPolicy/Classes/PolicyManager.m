@@ -82,7 +82,6 @@ static int requestId;
         [p updateStatus:pso.state];
         p.localid  = policylid;
         p.identity = policygid;
-        NSLog(@"POLICY GLOBAL ID IS %@ and LOCAL ID IS %@", policygid, policylid);
         [policies setObject:p forKey:policylid];
         [policyids addObject:policylid];
         [localLookup setObject:policylid forKey:policygid];
@@ -102,7 +101,6 @@ static int requestId;
     
     
     while ([scanner isAtEnd] == NO){
-        NSLog(@"READING IN POLICY FROM FILE");
         NSString *pstring;
         [scanner scanUpToString:@"\n\n" intoString:&pstring];
         Policy *p = [[[Policy alloc] initWithPonderString:pstring] autorelease];
@@ -366,12 +364,12 @@ static int requestId;
             [self loadPolicy:tosave.localid];
         }   
         else if (robj.requestType == requestRemove){
-            if ([policies count] > 1)
-                [self deletePolicyFromUI];
-            else{
+            //if ([policies count] > 1)
+              //  [self deletePolicyFromUI];
+            //else{
                 currentPolicy.status = unsaved;
                 [self loadPolicy:currentPolicy.localid];
-            }
+            //}
         }
     }
     //[rmdir

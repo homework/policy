@@ -24,7 +24,7 @@
     //if ((self = [super initWithNibNameAndType:nibNameOrNil bundle:nibBundleOrNil type:@"timed"])){ 
     if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])){ 
        
-        NSLog(@"INITING DAYS OF WEEK CONDITION TIME VIEW...");
+       
         for (int i = 0; i < 7; i++){
             selected[i] = false;
         }
