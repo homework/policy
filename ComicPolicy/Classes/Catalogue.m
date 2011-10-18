@@ -14,9 +14,9 @@
 
 -(void) initActions;
 -(void) initConditions;
--(void) initDynamicSubjects:(NSDictionary *) dict;
--(void) readInDynamicData:(NSDictionary *) dict;
--(void) readInStaticData:(NSDictionary *) dict;
+-(BOOL) initDynamicSubjects:(NSDictionary *) dict;
+-(BOOL) readInDynamicData:(NSDictionary *) dict;
+-(BOOL) readInStaticData:(NSDictionary *) dict;
 
 -(NSString *) lookupDynamicImage:(NSString*)identity type:(NSString*)type state:(NSString*)state;
 -(NSString *) nextSubjectDevice;
@@ -25,7 +25,8 @@
 -(NSString *) nextAction;
 -(void) updateActionOptions:(NSString *)subject;
 -(void) mapDevicesToOwners;
--(void) initStaticConditions:(NSDictionary *) dict;
+-(BOOL) initStaticConditions:(NSDictionary *) dict;
+-(BOOL) initStaticActions:(NSDictionary *) dict;
 
 //-(void)addedRequestComplete:(ASIHTTPRequest *)request;
 
@@ -133,6 +134,7 @@ NSMutableDictionary *tree;
 
 -(BOOL) parseCatalogue:(NSString*) dynamiccatalogue  staticcatalogue:(NSString*) staticcatalogue{
     
+    BOOL success = YES;
     
     
     SBJsonParser *jsonParser = [[SBJsonParser new] autorelease];
@@ -151,33 +153,37 @@ NSMutableDictionary *tree;
     
     NSDictionary *root = (NSDictionary *) [dynamicdata objectForKey:@"catalogue"];
     
-    [self readInDynamicData:[root objectForKey:@"dynamic"]];    
+    success = [self readInDynamicData:[root objectForKey:@"dynamic"]];    
     
+    if (success == NO)
+        return success;
     
     //read in static (local) data
     
      
     NSDictionary* staticdata  = (NSDictionary *) [jsonParser objectWithString:staticcatalogue error:nil];
     
+    if (staticdata == nil)
+        return NO;
+    
     root = (NSDictionary *) [staticdata objectForKey:@"catalogue"];
    
     //read in the static data
-    [self readInStaticData:[root objectForKey:@"static"]];
     
+    success = [self readInStaticData:[root objectForKey:@"static"]];
     
-    NSLog(@"------------------------------------FINISHED READING IN CATALOGUE FILE");
-    return YES;
+    return success;
 }
 
--(void) readInDynamicData:(NSDictionary *) dict{
+-(BOOL) readInDynamicData:(NSDictionary *) dict{
     
     //set up the data structures for navigating the subjects
     
-    [self initDynamicSubjects:dict];
+    return [self initDynamicSubjects:dict];
 
 }
 
--(void) readInStaticData:(NSDictionary *) dict{
+-(BOOL) readInStaticData:(NSDictionary *) dict{
     
     NSDictionary *staticBundleLookup =  (NSDictionary *) [dict objectForKey:@"bundlelookup"];
     
@@ -185,27 +191,44 @@ NSMutableDictionary *tree;
         for (NSString *key in [staticBundleLookup allKeys]){
             [subjectToBundleLookup setValue:[staticBundleLookup objectForKey:key] forKey:key];
         }
+    }else{
+        return NO;
     }
     
     //The image bundles dictionary (maps image bundle name to a set of images)
     imageBundles =  [(NSDictionary *) [dict objectForKey:@"imagebundles"] retain];
     
+    if (imageBundles == nil)
+        return NO;
+    
     // Set up the array of condition view controllers
+    
     imageLookup  =  [(NSDictionary *) [dict objectForKey:@"staticimages"] retain];
     
-    [self initStaticConditions:dict];
+    if (imageLookup == nil)
+        return NO;
     
-    [self initStaticActions:dict];
+    BOOL success = [self initStaticConditions:dict];
+    
+    if (success == NO)
+        return NO;
+    
+    return [self initStaticActions:dict];
 }
 
--(void) initDynamicSubjects:(NSDictionary *) dict{
+-(BOOL) initDynamicSubjects:(NSDictionary *) dict{
     
     // The mapping of subjects (devices and owners) to image bundles.
     subjectToBundleLookup = [(NSDictionary *) [dict objectForKey:@"bundlelookup"] retain];
     
+    if (subjectToBundleLookup == nil)
+        return NO;
     
     //The mapping of owners (i.e people) to arrays of devices that they own.
     subjectLookup         = [(NSDictionary *) [dict objectForKey:@"subjects"] retain];
+    
+    if (subjectLookup == nil)
+        return NO;
     
     //Generate the list of all currently supported people
    
@@ -240,50 +263,81 @@ NSMutableDictionary *tree;
 
     //set up the data structure to provide the reverse mapping of device to owner
     [self mapDevicesToOwners];
+    
+    return YES;
 }
 
 
 
--(void) initStaticConditions:(NSDictionary *) dict{
+-(BOOL) initStaticConditions:(NSDictionary *) dict{
     
     NSDictionary *controllers = (NSDictionary *) [dict objectForKey:@"controllers"];
     
+    if (controllers == nil)
+        return NO;
+    
     //setup the array of view controllers
     conditionvcs = (NSDictionary *) [[controllers objectForKey:@"conditions"] retain];
+    
+    if (conditionvcs == nil)
+        return NO;
+    
     conditionresultvcs = (NSDictionary *) [[controllers objectForKey:@"results"] retain];
     
+    if (conditionresultvcs == nil)
+        return NO;
     
     //the array that contains the names of the condition view controllers (for dynamic view controller creation)
     conditionvcsarray = (NSArray*) [[conditionvcs allValues] retain];
+    
     conditionvcsindex = 0;
+    
     
     //conditionLookup provides the mapping between condition names and associated arguments
     conditionLookup = (NSDictionary *) [dict objectForKey:@"conditions"];
     
+    if (conditionLookup == nil)
+        return NO;  
     //the array that holds the set of condtions that can be traversed (visiting, timed, bandwidth etc) and its current index
     conditions = [[conditionLookup allKeys ]retain];
     conditionindex = -1;
     
     //create the default condition arguments for each condition type.
     for (NSString *condition in [conditionLookup allKeys]){
+        
+        if (condition == nil)
+            return NO;
+        
         NSDictionary *dictionary = [conditionLookup objectForKey:condition];
         NSDictionary *arguments = [dictionary objectForKey:@"arguments"];
         [currentConditionArguments  setObject:arguments forKey:condition];
     }
+    
+    return YES;
 }
 
--(void) initStaticActions:(NSDictionary *) dict{
+-(BOOL) initStaticActions:(NSDictionary *) dict{
     
     NSDictionary *controllers = (NSDictionary *) [dict objectForKey:@"controllers"];
     
+    
+    if (controllers == nil)
+        return NO;
+    
     //the tree that represents the actions allowed for each condition type 
     tree = [(NSDictionary *) [dict objectForKey:@"conditionactiontree"] retain];
+    
+    if (tree == nil)
+        return NO;
     
     //the dictionary of the actions that are supported by this UI
     //actionLookup = [(NSDictionary *) [dict objectForKey:@"actions"] retain];
     
     NSDictionary *actionsminified = (NSDictionary *) [dict objectForKey:@"actions"];
 
+    if (actionsminified == nil)
+        return NO;
+    
     actionLookup = [[[NSMutableDictionary alloc] init] retain];                                
     
     
@@ -344,9 +398,20 @@ NSMutableDictionary *tree;
         }
     }
     
+    
+    
+    NSLog(@"action lookup as follows:");
+    
+    NSLog(@"%@", actionLookup);
+    
     actionvcs = (NSDictionary *) [[controllers objectForKey:@"actions"] retain];
     
+    if (actionvcs == nil)
+        return NO;
+    
     [self initActions];
+    
+    return YES;
 }
 
 
@@ -398,6 +463,8 @@ NSMutableDictionary *tree;
 	}
     actionsubjectarrayindex = 0;
     
+    
+    
     /*
      * For the currently selected subject, set the options array and point to the first option  
      */
@@ -413,8 +480,6 @@ NSMutableDictionary *tree;
     /*
      * Post a notification to tell UI that the action has changed.
      */
-    //NSString* controller = [self currentActionViewController];
-    //NSDictionary* dict = [NSDictionary dictionaryWithObject:controller forKey:@"controller"];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"actionTypeChange" object:nil userInfo:nil];
 }
 
@@ -640,7 +705,9 @@ NSMutableDictionary *tree;
     
     if (actionsubjectarray == NULL)
 		return NULL;
-	
+	if ([actionsubjectarray count] <= 0)
+        return @"";
+    
 	NSString *subject = [actionsubjectarray objectAtIndex:++actionsubjectarrayindex % [actionsubjectarray count]];
 	[self updateActionOptions:subject];
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"actionChange" object:nil userInfo:nil];
@@ -705,6 +772,8 @@ NSMutableDictionary *tree;
 }
 
 -(NSString *) currentActionSubject{
+    if ([actionsubjectarray count] <= 0)
+        return @"";
     NSString *subject = [actionsubjectarray objectAtIndex:actionsubjectarrayindex % [actionsubjectarray count]];
     return subject;
 }
@@ -719,6 +788,8 @@ NSMutableDictionary *tree;
     if (actionoptionsarray == NULL)
 		return NULL;
 	
+    if ([actionoptionsarray count] <= 0)
+        return @"";
     
     NSString* currentAction =  [actionoptionsarray objectAtIndex:actionoptionsarrayindex % [actionoptionsarray count]];
     

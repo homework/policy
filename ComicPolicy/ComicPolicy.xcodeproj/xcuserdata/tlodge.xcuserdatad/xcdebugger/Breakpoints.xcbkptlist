@@ -37,11 +37,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Classes/ComicPolicyViewController.mm"
-         timestampString = "340306350.87439"
+         timestampString = "340641471.229713"
          startingColumnNumber = "2147483647"
          endingColumnNumber = "2147483647"
-         startingLineNumber = "185"
-         endingLineNumber = "185"
+         startingLineNumber = "177"
+         endingLineNumber = "177"
          landmarkName = "-touchesBegan:withEvent:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -79,11 +79,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Classes/Catalogue.m"
-         timestampString = "340218815.513803"
+         timestampString = "340648862.774845"
          startingColumnNumber = "2147483647"
          endingColumnNumber = "2147483647"
-         startingLineNumber = "934"
-         endingLineNumber = "934"
+         startingLineNumber = "1005"
+         endingLineNumber = "1005"
          landmarkName = "-setSubjectDevice:"
          landmarkType = "5">
       </FileBreakpoint>

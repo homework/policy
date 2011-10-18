@@ -137,13 +137,6 @@
 	[self.view addSubview:tmpSave];
 	[tmpSave release];
 	
-   /* UIImageView *tmpRefresh = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"refresh.png"]];
-	tmpRefresh.frame = CGRectMake(740, 680, 55, 57);
-	refreshButton = tmpRefresh;
-	[self.view addSubview:tmpRefresh];
-	[tmpRefresh release];*/
-    
-    
     UIImageView *tmpActivate = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"activate.png"]];
 	tmpActivate.frame = CGRectMake(740, 680, 55, 57);
 	activateButton = tmpActivate;
@@ -169,7 +162,6 @@
     }else{
         if (deleteButton != nil){
             [deleteButton removeFromSuperview];
-            [deleteButton removeFromSuperview];
             UIImageView *tmpCancel = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cancel.png"]];
             tmpCancel.frame = CGRectMake(900, 680, 55, 57);
             deleteButton = tmpCancel;
@@ -191,13 +183,15 @@
     CGPoint touchLocation = [touch locationInView:self.view];
 	
 	if (CGRectContainsPoint( deleteButton.frame , touchLocation)){
+        /*
+         * Don't do anything if this is the only policy left and it is unsaved.
+         */
+        if (p.status == unsaved && [[[PolicyManager sharedPolicyManager] policies] count] <= 1)
+            return;
+        
         [self requestStarted];
         [[PolicyManager sharedPolicyManager] deleteCurrentPolicy];
     }
-    /*else if (CGRectContainsPoint( refreshButton.frame , touchLocation)){
-       
-        [[PolicyManager sharedPolicyManager] refresh];
-    }*/
     else if (CGRectContainsPoint( activateButton.frame , touchLocation)){
          if (p.status == disabled){
              [self requestStarted];
@@ -211,10 +205,6 @@
             [self requestStarted];
             [[PolicyManager sharedPolicyManager] savePolicyToHWDB];
         }
-        /*
-        [[PolicyManager sharedPolicyManager] savePolicy];
-        
-       */
     }
 }
 
@@ -314,7 +304,6 @@
    
     Policy *p = [[PolicyManager sharedPolicyManager] currentPolicy];
                 
-    NSLog(@"successfully loaded policy...");
     [p print];
     
     self.statusLabel.text = [NSString stringWithFormat:@"This comic is currently %@", [p statusAsString]];
@@ -352,7 +341,6 @@
 
 -(void) subjectOwnerChange:(NSNotification *) n{
 	[self playTick];
-    // [self.view setBackgroundColor:[UIColor redColor]];
 	[NSTimer scheduledTimerWithTimeInterval:0.7 target:self selector:@selector(playTock:) userInfo:nil repeats:NO]; 
 }
 
@@ -408,7 +396,6 @@
         
     resultViewController.resultController.resultView.resultMainImage.alpha = 1.0;
     float xpos = (resultViewController.resultController.resultView.frame.size.width - 178) / 2;
-   // float ypos = (resultViewController.resultController.resultView.frame.size.height - 300) / 2;
     resultViewController.resultController.resultView.resultMainImage.frame =  CGRectMake(xpos, 0, 178,300);
     [UIView commitAnimations];
 
@@ -459,8 +446,8 @@
     }
         
     NSString *rootURL  = [[NetworkManager sharedManager] rootURL];
-    //NSString *strurl = [NSString stringWithFormat:@"%@/dynamiccatalogue.json", rootURL];
-    NSString *strurl = [NSString stringWithFormat:@"%@/catalogue", rootURL];
+    NSString *strurl = [NSString stringWithFormat:@"%@/dynamiccatalogue.json", rootURL];
+    //NSString *strurl = [NSString stringWithFormat:@"%@/catalogue", rootURL];
     [routerConnectionViewController updateCaption:[NSString stringWithFormat:@"reading in catalogue from %@", strurl]];
     
     NSURL *url = [NSURL URLWithString:strurl];
@@ -542,7 +529,6 @@
 
 -(void) hwdbConnected:(NSNotification *) n{
    //  [routerConnectionViewController.view removeFromSuperview];
-    NSLog(@"-------------> reconnected --- hiding splash screen ---------------");
     [self hideSplashScreen];
 }
 

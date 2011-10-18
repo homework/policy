@@ -4,8 +4,8 @@
 
             "bundlelookup":{
                 "phone":"phone",
-                "tweet":"tweet",
-                "mail":"mail",
+                "twitter":"twitter",
+                "email":"email",
                 "growl":"growl",
                 "timed":"timed",
                 "bandwidth":"bandwidth",    
@@ -199,9 +199,9 @@
             
                 "notify":
                 {
-                    "tweet":"notifybytweet.png",
+                    "twitter":"notifybytweet.png",
                     "phone":"notifybyphone.png",
-                    "mail":"notifybymail.png",
+                    "email":"notifybymail.png",
                     "growl":"notifybygrowl.png"
                 },
 
@@ -295,7 +295,7 @@
                         
                     "notify":{
                         "subjects":"people",
-                        "options":["tweet","phone","mail","growl"]
+                        "options":["twitter","phone","email","growl"]
                     },
 
                     "prioritise":{

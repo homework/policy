@@ -30,7 +30,11 @@
 }
 
 -(void) updateCaption{
-    actionNotifyView.notifycaption.text = [NSString stringWithFormat:@"let %@ know", [[Catalogue sharedCatalogue] currentActionSubject]];    
+    NSString* subject = [[Catalogue sharedCatalogue] currentActionSubject];
+    if ([subject isEqualToString:@""])
+        subject = @"nobody";
+    
+    actionNotifyView.notifycaption.text = [NSString stringWithFormat:@"let %@ know", subject];    
 }
 
 -(void) actionChange:(NSNotification *) n{

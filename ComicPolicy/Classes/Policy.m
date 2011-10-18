@@ -443,16 +443,24 @@
 
 -(NSString *) generateNotificationMessage{
     
-   
+    NSString* message;
     
-    NSString* message = [NSString stringWithFormat:@"Hello %@ - %@", self.actionsubject, [[Catalogue sharedCatalogue] currentDeviceName]];
+    if ([subjectdevice isEqualToString:@"*"]){
+        if ([conditiontype isEqualToString:@"bandwidth"])
+            message = [NSString stringWithFormat:@"Hello %@ - all devices in the house have", self.actionsubject];
+        else
+             message = [NSString stringWithFormat:@"Hello %@ - a household device", self.actionsubject];
+    }
+    else{
+          message = [NSString stringWithFormat:@"Hello %@ - %@", self.actionsubject, [[Catalogue sharedCatalogue] currentDeviceName]];
+    }
     
     if ([conditiontype isEqualToString:@"visiting"]){
         
         message =  [NSString stringWithFormat:@"%@ visited a site", message];
     }else if ([conditiontype isEqualToString:@"bandwidth"]){
         float percent = [[conditionarguments objectForKey:@"percentage"] floatValue];
-        message =  [NSString stringWithFormat:@"%@ has used %@ percent of the bandwidth limit", message, [NSString stringWithFormat:@"%.0f", percent]];
+        message =  [NSString stringWithFormat:@"%@ used %@ percent of the bandwidth limit", message, [NSString stringWithFormat:@"%.0f", percent]];
     }else if ([conditiontype isEqualToString:@"timed"]){
         message =  [NSString stringWithFormat:@"%@ was used between %@ and %@", [conditionarguments objectForKey:@"from"], message, [conditionarguments objectForKey:@"to"]];
     }
