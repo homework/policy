@@ -29,7 +29,7 @@
 -(void) deletePolicyFromUI;
 -(int) registerRequest:(NSString *) lid type:(RequestType) type request:(NSString*) request;
 -(RequestObject *) getRequestObjectFor:(int) requestid;
-
+-(void) removerequest:(int) rid;
 -(NSString *) encodePolicyForDatabase:(NSString *)policy;
 -(NSString *) decodePolicyFromDatabase:(NSString *)policy;
 
@@ -247,9 +247,10 @@ static int requestId;
     }
 }
 
+/*
 -(void) reset{
     [self savePolicy];
-}
+}*/
 
 -(void) loadPolicy:(NSString*) localpolicyid{
     
@@ -264,9 +265,7 @@ static int requestId;
         [[Catalogue sharedCatalogue]  setSubjectDevice:apolicy.subjectdevice];
         
         [[Catalogue sharedCatalogue] setCondition:apolicy.conditiontype options:apolicy.conditionarguments];
-        
-        NSLog(@"for condition type %@, the args are %@", apolicy.conditiontype, apolicy.conditionarguments);
-        
+    
         [[Catalogue sharedCatalogue] setAction:apolicy.actiontype subject:apolicy.actionsubject options:apolicy.actionarguments];
         
         self.currentPolicy = apolicy;

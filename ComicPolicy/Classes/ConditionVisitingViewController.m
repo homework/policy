@@ -58,7 +58,9 @@
         
         [self relayout];
         
-        NSTimer* pulseTimer = [NSTimer scheduledTimerWithTimeInterval:5.0 
+        /*NSTimer* pulseTimer =*/
+        
+        [NSTimer scheduledTimerWithTimeInterval:5.0 
                                                                target:self 
                                                              selector:@selector(pulseCaption:) 
                                                              userInfo:nil 

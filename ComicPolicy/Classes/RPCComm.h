@@ -126,7 +126,7 @@ tstamp_t processallowanceresults(char *buf, unsigned int len);
 
 -(void) setSetUpHWDBConnection:(NSString *) gwaddr callback:(NSString *) cb;
 -(BOOL) connect;
--(BOOL) send: (void *) query qlen:(unsigned) qlen resp: (void*) resp rsize:(unsigned) rs len:(unsigned *) len;
+//-(BOOL) send: (void *) query qlen:(unsigned) qlen resp: (void*) resp rsize:(unsigned) rs len:(unsigned *) len;
 //-(BOOL) subscribe:(NSString*)host query:(char*) query;
 
 -(void) subscribe_to_policy_response;
@@ -141,7 +141,7 @@ tstamp_t processallowanceresults(char *buf, unsigned int len);
 -(void) getCumulativeBandwidthFor:(NSString *) ipaddr;
 -(void) getIsUsedFor:(NSString *) ipaddr;
 
--(BOOL) query:(NSString *)q;
+-(void) query:(NSString *)q;
 -(void) notifydisconnected:(NSObject*)o;
 -(void) notifyconnected:(NSObject*)o;
 

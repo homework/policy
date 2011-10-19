@@ -17,7 +17,7 @@
 -(void)removeOldBags;
 -(void) updateDisplay:(long long) bytes;
 -(void) updateCaption:(long long) bytes;
-
+-(void) updatePercentage;
 @end
 
 @implementation MonitorBandwidthViewController

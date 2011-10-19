@@ -9,6 +9,10 @@
 #import "ActionNotifyViewController.h"
 #import "Catalogue.h"
 
+@interface ActionNotifyViewController()
+-(void) updateCaption;
+@end
+
 @implementation ActionNotifyViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {

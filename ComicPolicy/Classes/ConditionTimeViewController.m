@@ -13,6 +13,7 @@
 -(void) addWeekdaySelection;
 -(void) updateLabelColors;
 -(int) indexForDay:(NSString* ) day;
+-(NSString *) weekdaycaption;
 @end
 
 @implementation ConditionTimeViewController

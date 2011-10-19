@@ -26,6 +26,9 @@
 -(void) updateFramePositions;
 -(void) showSplashScreen;
 -(void) hideSplashScreen;
+-(void) requestStarted;
+-(void) requestComplete;
+
 @end
 
 @implementation ComicPolicyViewController
@@ -446,8 +449,8 @@
     }
         
     NSString *rootURL  = [[NetworkManager sharedManager] rootURL];
-    NSString *strurl = [NSString stringWithFormat:@"%@/dynamiccatalogue.json", rootURL];
-    //NSString *strurl = [NSString stringWithFormat:@"%@/catalogue", rootURL];
+    //NSString *strurl = [NSString stringWithFormat:@"%@/dynamiccatalogue.json", rootURL];
+    NSString *strurl = [NSString stringWithFormat:@"%@/catalogue", rootURL];
     [routerConnectionViewController updateCaption:[NSString stringWithFormat:@"reading in catalogue from %@", strurl]];
     
     NSURL *url = [NSURL URLWithString:strurl];
@@ -529,6 +532,7 @@
 
 -(void) hwdbConnected:(NSNotification *) n{
    //  [routerConnectionViewController.view removeFromSuperview];
+    NSLog(@"HIDING SPLASH SCREEN!!!");
     [self hideSplashScreen];
 }
 

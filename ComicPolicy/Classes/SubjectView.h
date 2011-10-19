@@ -12,8 +12,8 @@
 @interface SubjectView : SplitFrameView {
 }
 
-- (id)initWithFrameAndImages:(CGRect)frame topImage:(NSString*) ti: (NSString*) bi;
+//- (id)initWithFrameAndImages:(CGRect)frame topImage:(NSString*) ti: (NSString*) bi;
+- (id)initWithFrameAndImages:(CGRect)frame topImage:(NSString*) ti bottomImage: (NSString*) bi ;
 
-
--(void) setImage:(NSString *) device owner: (NSString *) owner;
+//-(void) setImage:(NSString *) device owner: (NSString *) owner;
 @end

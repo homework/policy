@@ -8,6 +8,7 @@
 
 #import "SubjectView.h"
 
+
 @implementation SubjectView
 
 - (id)initWithFrameAndImages:(CGRect)frame topImage:(NSString*) ti bottomImage: (NSString*) bi {

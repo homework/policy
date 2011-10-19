@@ -34,7 +34,7 @@
 -(NSString *) createPonderTalk; 
 -(void) loadFirstPolicy;
 -(void) refresh;
--(void) reset;
+//-(void) reset;
 -(void) deleteAll;
 -(void) deleteCurrentPolicy;
 -(void) newDefaultPolicy;

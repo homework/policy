@@ -169,7 +169,7 @@
                     }
                 },
 
-                "tweet":
+                "twitter":
                 {
                     "notify":{
                         "action":"notifybytweet.png"
@@ -183,7 +183,7 @@
                     }
                 },
                 
-                "mail":
+                "email":
                 {
                     "notify":{
                         "action":"notifybymail.png"

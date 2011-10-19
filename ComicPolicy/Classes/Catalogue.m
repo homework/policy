@@ -78,7 +78,7 @@ static NSDictionary* actionvcs;         //mapping of action type to associated v
 
 static NSString* currentActionType;     //the currently selectd action type (block, notify, prioritise etc).
 
-static NSArray* actionvcsarray;         //array of action view controllers 
+static NSMutableArray* actionvcsarray;         //array of action view controllers 
 static int actionvcsindex;              //currently selected action view controller
 
 static NSArray* actionsubjectarray;     //array of possible subjects (i.e macaddrs) for current action
@@ -436,11 +436,30 @@ NSMutableDictionary *tree;
         actionoptionsarray = nil;        
     }
     
-	
+	/*
+     * TODO: modify the vcs array for the case where there is just a subject 'anyone' or 'any'
+     * for the 'notify' case, as we don't want to present this option to the user.
+     */
+    
     //Now recreate each of these arrays.
     
-	actionvcsarray = [(NSArray *) [tree objectForKey:[self currentCondition]] retain];
+	actionvcsarray = [(NSMutableArray *) [tree objectForKey:[self currentCondition]] retain];
     
+    
+    /*
+     * handle special case where actionvcsarray contains notify and the list of subjects is empty
+     */
+    
+
+    if ([actionvcsarray containsObject:@"notify"]){
+        NSDictionary *tmp = [actionLookup objectForKey:@"notify"];
+        if ([tmp objectForKey:@"subjects"] != NULL){
+            NSArray *subjects = [[tmp objectForKey:@"subjects"] retain];
+            if (subjects == NULL || [subjects count] == 0){
+                [actionvcsarray removeObject:@"notify"];
+            }
+        }
+    }
     
     actionvcsindex = 0;
     
@@ -571,8 +590,6 @@ NSMutableDictionary *tree;
      NSString *type = [self currentActionType];
     return [self lookupDynamicImage: subject type:type state:@"action"];
 }
-
-
 
 
 -(NSString *) currentActionImage{
@@ -804,22 +821,32 @@ NSMutableDictionary *tree;
 
 -(NSString *) nextActionViewController{
 	
+    
 	currentActionType = [actionvcsarray objectAtIndex:++actionvcsindex % [actionvcsarray count]];
 	
-    NSDictionary *tmp = [actionLookup objectForKey:currentActionType];
-	
-	
-	if (actionsubjectarray != NULL)
-		[actionsubjectarray release];
     
-	if (actionoptionsarray != NULL)
-		[actionoptionsarray release];
+    NSDictionary *tmp = [actionLookup objectForKey:currentActionType];
 	
 	if ([tmp objectForKey:@"subjects"] != NULL){
 		actionsubjectarray = [[tmp objectForKey:@"subjects"] retain];
         actionsubjectarrayindex = 0;
 	}
 	
+/*
+    NSLog(@"subject array is %@", actionsubjectarray);
+
+    if ([currentActionType isEqualToString:@"notify"] && [actionsubjectarray count] <= 0){
+        return [self nextActionViewController];
+    }*/
+    
+    if (actionsubjectarray != NULL)
+		[actionsubjectarray release];
+    
+	if (actionoptionsarray != NULL)
+		[actionoptionsarray release];
+    
+    
+        
 	if ([tmp objectForKey:@"arguments"] != NULL){
         NSString* subject = [self currentActionSubject];
         NSDictionary* tmpoptdict = [(NSDictionary *)[tmp objectForKey:@"arguments"] objectForKey:@"options"];
@@ -975,8 +1002,9 @@ NSMutableDictionary *tree;
                     
                     NSString *subject = [actionsubjectarray objectAtIndex:actionsubjectarrayindex];
                     
-                    
+                                       
                     [self updateActionOptions:subject];
+                    
                     [self setActionArguments:arguments];
                     //set the view controller index...
                     

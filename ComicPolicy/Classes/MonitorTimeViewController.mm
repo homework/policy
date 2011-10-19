@@ -110,7 +110,7 @@ BOOL inside = NO;
     //[self rotateCogs];
     //start = M_PI / 
     NSString * subject = [[Catalogue sharedCatalogue] currentSubjectDevice];
-    NSString *rootURL  = [[NetworkManager sharedManager] rootURL];
+   // NSString *rootURL  = [[NetworkManager sharedManager] rootURL];
     [[RPCComm sharedRPCComm] getIsUsedFor:subject];
     
     //NSString *strurl = [NSString stringWithFormat:@"%@/monitor/activity/%@", rootURL, subject];

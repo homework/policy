@@ -37,11 +37,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Classes/ComicPolicyViewController.mm"
-         timestampString = "340641471.229713"
+         timestampString = "340728105.374495"
          startingColumnNumber = "2147483647"
          endingColumnNumber = "2147483647"
-         startingLineNumber = "177"
-         endingLineNumber = "177"
+         startingLineNumber = "180"
+         endingLineNumber = "180"
          landmarkName = "-touchesBegan:withEvent:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -65,11 +65,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Classes/PolicyManager.m"
-         timestampString = "340301984.220536"
+         timestampString = "340728105.374495"
          startingColumnNumber = "2147483647"
          endingColumnNumber = "2147483647"
-         startingLineNumber = "254"
-         endingLineNumber = "254"
+         startingLineNumber = "255"
+         endingLineNumber = "255"
          landmarkName = "-loadPolicy:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -79,11 +79,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Classes/Catalogue.m"
-         timestampString = "340648862.774845"
+         timestampString = "340733231.320579"
          startingColumnNumber = "2147483647"
          endingColumnNumber = "2147483647"
-         startingLineNumber = "1005"
-         endingLineNumber = "1005"
+         startingLineNumber = "1033"
+         endingLineNumber = "1033"
          landmarkName = "-setSubjectDevice:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -93,11 +93,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Classes/RPCComm.m"
-         timestampString = "340308043.335831"
+         timestampString = "340726021.903402"
          startingColumnNumber = "2147483647"
          endingColumnNumber = "2147483647"
-         startingLineNumber = "236"
-         endingLineNumber = "236"
+         startingLineNumber = "213"
+         endingLineNumber = "213"
          landmarkName = "policy_fired_handler()"
          landmarkType = "7">
       </FileBreakpoint>

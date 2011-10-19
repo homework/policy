@@ -28,7 +28,8 @@ bool timerangeselected = false;
     [self updateSelected];
     [self updateCaption];
          
-    NSTimer* pulseTimer = [NSTimer scheduledTimerWithTimeInterval:5.0 
+    /*NSTimer* pulseTimer = */
+    [NSTimer scheduledTimerWithTimeInterval:5.0 
                                                  target:self 
                                                selector:@selector(pulseCaption:) 
                                                userInfo:nil 
