@@ -120,7 +120,7 @@ static float GBDIVISOR = 1073741824;
     
     self.caption = [[UILabel alloc] initWithFrame:CGRectMake(monitorView.frame.size.width - 140, monitorView.frame.size.height - 33, 250, 30)];
     self.caption.textColor = [UIColor blackColor];
-    self.caption.font = [UIFont fontWithName:@"MarkerFelt-Thin" size:15.0];
+    self.caption.font = [UIFont fontWithName:@"MarkerFelt-Thin" size:13.0];
     self.caption.backgroundColor = [UIColor clearColor];
     self.caption.text = @"- KB of - GB";
     [self.view addSubview:caption];
@@ -257,7 +257,7 @@ static float GBDIVISOR = 1073741824;
         convertedRange = bytes / GBDIVISOR;
     }
     
-    return [NSString stringWithFormat:@"%.2f %@", convertedRange, units];
+    return [NSString stringWithFormat:@"%.1f %@", convertedRange, units];
 }
 
 -(void) updateCaption:(long long) bytes{

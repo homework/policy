@@ -78,9 +78,8 @@ static int matchedState(unsigned long st, unsigned long *states, int n) {
 
 unsigned long crecord_waitForState(CRecord *cr, unsigned long *states, int n) {
     int i;
-
     while ((i = matchedState(cr->state, states, n)) == n)
-	pthread_cond_wait(&cr->stateChanged, cr->mutex);
+		pthread_cond_wait(&cr->stateChanged, cr->mutex);
     return states[i];
 }
 

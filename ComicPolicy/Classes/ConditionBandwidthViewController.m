@@ -46,7 +46,7 @@
 	UIView *view = conditionBandwidthView.moneyImage;
 	
 	
-	if (view.frame.size.width > 165){
+	if (view.frame.size.width > 185){
 		
 		[UIView beginAnimations:nil context:nil];
 		[UIView setAnimationDuration:0.3];
@@ -60,7 +60,7 @@
 	
 	if (pinchGesture.velocity > 10)
 		return;
-	if (view.frame.size.width >= 165 &&  pinchGesture.scale > 1)
+	if (view.frame.size.width >= 185 &&  pinchGesture.scale > 1)
 		return;
 	if (view.frame.size.width <= 30 &&  pinchGesture.scale < 1)
 		return;
@@ -72,7 +72,8 @@
 		pinchGesture.scale = 1;		
 	}
 	
-	bandwidth = ((float) view.frame.size.width / 150) * 100;
+   // NSLog(@"%.2f", view.frame.size.width);
+	bandwidth = MAX (1, ((float) (view.frame.size.width - 26 ) / 137) * 100);
 	[self updateCaption];
     [self updateCatalogue];
 	

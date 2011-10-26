@@ -127,6 +127,10 @@ static int requestId;
     return currentPolicy.fired;
 }
 
+-(BOOL) hasMisfired{
+    return currentPolicy.misfired;
+}
+
 -(BOOL) hasFiredForSubject:(NSString *)subject{
     if (currentPolicy.fired){
         if ([currentPolicy.actionsubject isEqualToString:subject]){
@@ -291,8 +295,15 @@ static int requestId;
             
             if ([event.state isEqualToString:@"FIRED"]){
                 currentPolicy.fired = YES;
-            }else{
+                currentPolicy.misfired = NO;
+            }
+            else if ([event.state isEqualToString:@"MISFIRED"]){
                 currentPolicy.fired = NO;
+                currentPolicy.misfired = YES;
+            }
+            else{
+                currentPolicy.fired = NO;
+                currentPolicy.misfired = NO;
             }
             
             NSDictionary *dict = [NSDictionary dictionaryWithObject:localid forKey:@"identity"];
@@ -535,6 +546,7 @@ static int requestId;
     currentPolicy.actionsubject     = [[Catalogue sharedCatalogue] currentActionSubject];
     currentPolicy.actiontype        = [[Catalogue sharedCatalogue] currentActionType];
     currentPolicy.fired = NO;
+    currentPolicy.misfired = NO;
 }
 
 -(void)createSnapshot: (Policy*) p{

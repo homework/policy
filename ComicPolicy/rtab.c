@@ -10,11 +10,14 @@
  * (c) 2009. All rights reserved.
  */
 #include "rtab.h"
+#include "mem.h"
+#include "logdefs.h"
 #include "util.h"
 #include "typetable.h"
 #include "sqlstmts.h"
-#include "mem.h"
-#include "logdefs.h"
+#include "list.h"
+#include "hashtable.h"
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -22,17 +25,16 @@
 #define RTAB_EMPTY "[Empty]"
 #define RTAB_EMPTY_LEN 8
 
-
-
-
-
 static const char *separator = "<|>"; /* separator between packed fields */
 static const char *error_msgs[] = {"Success", "Error", "Create_failed",
                                    "Insert_failed", "Save_select_failed",
 				   "Subscribe_failed", "Unsubscribe_failed",
 				   "Parsing failed", "Select_failed",
 				   "Exec_saved_select_failed", "Close_flag",
-				   "Delete_query_failed", "No_tables_defined"};
+				   "Delete_query_failed", "No_tables_defined",
+                                   "Update_failed", "Register_failed",
+                                   "Unregister_failed"};
+
 Rtab *rtab_new() {
 	Rtab *results;
 	
@@ -48,10 +50,13 @@ Rtab *rtab_new() {
 	return results;
 }
 
-Rtab *rtab_new_msg(char mtype) {
+Rtab *rtab_new_msg(char mtype, char *message) {
 	Rtab *results = rtab_new();
 	results->mtype = mtype;
-	results->msg = (char *)error_msgs[(int)mtype];
+	if (! message)
+	    results->msg = (char *)error_msgs[(int)mtype];
+	else
+	    results->msg = message;
 	return results;
 }
 
@@ -125,6 +130,29 @@ void  rtab_print(Rtab *results) {
 	printf("==============\n");
 }
 
+/*
+ * determine the first row such that packed data from that row to the end
+ * fits in a character buffer of "size" bytes
+ */
+static int start_row(Rtab *results, int size) {
+    int buflen, c, r, N;
+    char **row;
+    int ncols = results->ncols;
+    char buf[4096];
+
+    N = 0;
+    for (r = results->nrows - 1; r >= 0; r--) {
+	row = rtab_getrow(results, r);
+	buflen = 0;
+	for (c=0; c<ncols; c++) {
+	    buflen += sprintf(buf+buflen, "%s%s", row[c], separator);
+	}
+	N += (buflen + 1);
+	if (N >= size)
+	    break;
+    }
+    return (r+1);		/* went one too far */
+}
 
 int rtab_pack(Rtab *results, char *packed, int size, int *len) {
 	int sofar, buflen;
@@ -150,7 +178,7 @@ int rtab_pack(Rtab *results, char *packed, int size, int *len) {
 		sofar += sprintf(packed+sofar, "%s:%s%s", primtype_name[*results->coltypes[c]], results->colnames[c], separator);
 	}
 	sofar += sprintf(packed+sofar, "\n");
-	for (r=0; r<results->nrows; r++) {
+	for (r=start_row(results, size - sofar); r<results->nrows; r++) {
 		row = rtab_getrow(results, r);
 		buflen = 0;
 		for (c=0; c<results->ncols; c++) {
@@ -169,10 +197,10 @@ int rtab_pack(Rtab *results, char *packed, int size, int *len) {
 }
 
 /*
- * static routines used by rtab_unpack to obtain integers and strings from
+ * routines used by rtab_unpack to obtain integers and strings from
  * the packed buffers received over the network
  */
-static char *fetch_int(char *p, int *value) {
+char *rtab_fetch_int(char *p, int *value) {
     char *q, c;
     
     if ((q = strstr(p, separator)) != NULL) {
@@ -186,7 +214,7 @@ static char *fetch_int(char *p, int *value) {
     return q;
 }
 
-static char *fetch_str(char *p, char *str, int *len) {
+char *rtab_fetch_str(char *p, char *str, int *len) {
     char *q, c;
 
     if ((q = strstr(p, separator)) != NULL) {
@@ -206,8 +234,8 @@ int rtab_status(char *packed, char *stsmsg) {
 	int mtype, size;
 
 	buf = packed;
-	buf = fetch_int(buf, &mtype);
-	buf = fetch_str(buf, stsmsg, &size);
+	buf = rtab_fetch_int(buf, &mtype);
+	buf = rtab_fetch_str(buf, stsmsg, &size);
 	return mtype;
 }
 
@@ -223,10 +251,10 @@ Rtab *rtab_unpack(char *packed, int len) {
 	buf = packed;
 	p = strchr(buf, '\n');
 	*p++ = '\0';
-	buf = fetch_int(buf, &mtype);
-	buf = fetch_str(buf, tmpbuf, &size);
-	buf = fetch_int(buf, &ncols);
-	buf = fetch_int(buf, &nrows);
+	buf = rtab_fetch_int(buf, &mtype);
+	buf = rtab_fetch_str(buf, tmpbuf, &size);
+	buf = rtab_fetch_int(buf, &ncols);
+	buf = rtab_fetch_int(buf, &nrows);
 	results->mtype = mtype;
 	results->msg = (char *)error_msgs[mtype];
 	results->nrows = nrows;
@@ -244,7 +272,7 @@ Rtab *rtab_unpack(char *packed, int len) {
 		for (i = 0; i < ncols; i++) {
 			char *cname, *ctype;
 			int index;
-			buf = fetch_str(buf, tmpbuf, &size);
+			buf = rtab_fetch_str(buf, tmpbuf, &size);
 			ctype = tmpbuf;
 			cname = strchr(tmpbuf, ':');
 			*cname++ = '\0';
@@ -262,7 +290,7 @@ Rtab *rtab_unpack(char *packed, int len) {
 			results->rows[j] = row;
 			row->cols = (char **)mem_alloc(ncols * sizeof(char *));
 			for (i = 0; i < ncols; i++) {
-				buf = fetch_str(buf, tmpbuf, &size);
+				buf = rtab_fetch_str(buf, tmpbuf, &size);
 				row->cols[i] = str_dupl(tmpbuf);
 			}
 			if ((p-packed) >= len) {
@@ -277,7 +305,7 @@ Rtab *rtab_unpack(char *packed, int len) {
 
 
 int rtab_send(Rtab *results, RpcConnection outgoing) {
-	char packed[SOCK_RECV_BUF_LEN];
+	Q_Decl(packed,SOCK_RECV_BUF_LEN);
 	char resp[100];
 	int len;
         unsigned rlen;
@@ -292,40 +320,90 @@ int rtab_send(Rtab *results, RpcConnection outgoing) {
 	} else
 		(void )rtab_pack(results, packed, SOCK_RECV_BUF_LEN, &len);
 	
-	return rpc_call(outgoing, packed, len, resp, sizeof(resp), &rlen);	
+	return rpc_call(outgoing, Q_Arg(packed), len, resp, sizeof(resp), &rlen);	
 }
 
 /* ----------------[ Manipulator methods ] ---------------- */
 
-static int rtab_global_col;
-
-int cmp_rrow_by_col(const void *a, const void *b) {
+int cmp_rrow_by_col(const Rrow *ra, const Rrow *rb, int col, int *ct) {
 	
-	Rrow *ra;
-	Rrow *rb;
-	int col_in_a;
-	int col_in_b;
 	char **cols_a;
 	char **cols_b;
 	
-	ra = (Rrow *) a;
-	rb = (Rrow *) b;
+	cols_a = ra->cols;
+	cols_b = rb->cols;
 	
-	cols_a = (*ra).cols;
-	cols_b = (*rb).cols;
+	debugvf("cols_a: %p, cols_a[%d]: %s\n", cols_a, col, cols_a[col]);
+	debugvf("cols_b: %p, cols_b[%d]: %s\n", cols_b, col, cols_b[col]);
 	
-	col_in_a = atoi(cols_a[rtab_global_col]);
-	col_in_b = atoi(cols_b[rtab_global_col]);
-
-	debugvf("cols_a: %p, cols_a[0]: %s\n", cols_a, cols_a[0]);
-	
-	return (col_in_a - col_in_b);
+	if (ct == PRIMTYPE_INTEGER) {
+		long long i1, i2;
+		int ans = 0;
+		i1 = strtoll(cols_a[col], NULL, 10);
+		i2 = strtoll(cols_b[col], NULL, 10);
+		if (i1 < i2)
+			ans = -1;
+		else if (i1 > i2)
+			ans = 1;
+		return ans;
+	}
+	if (ct == PRIMTYPE_TINYINT || ct == PRIMTYPE_SMALLINT) {
+		int i1, i2;
+		i1 = atoi(cols_a[col]);
+		i2 = atoi(cols_b[col]);
+		return (i1 - i2);
+	}
+	if (ct == PRIMTYPE_REAL) {
+		double d1, d2;
+		int ans = 0;
+		d1 = strtod(cols_a[col], NULL);
+		d2 = strtod(cols_b[col], NULL);
+		if (d1 < d2)
+			ans = -1;
+		else if (d1 > d2)
+			ans = 1;
+		return ans;
+	}
+	return strcmp(cols_a[col], cols_b[col]);
 }
+
+/*  quickSort
+ *
+ *  Variant of public-domain C implementation by Darel Rex Finley.
+ *
+ *  * This function assumes it is called with valid parameters.
+ */
+
+static void quickSort(Rrow **arr, int elements, int col, int *ct) {
+
+  #define  MAX_LEVELS  300
+
+  Rrow *piv;
+  int  beg[MAX_LEVELS], end[MAX_LEVELS], i=0, L, R, swap ;
+
+  beg[0]=0; end[0]=elements;
+  while (i>=0) {
+    L=beg[i]; R=end[i]-1;
+    if (L<R) {
+      piv=arr[L];
+      while (L<R) {
+        while ((cmp_rrow_by_col(arr[R], piv, col, ct) >= 0) && L<R) R--;
+	if (L<R) arr[L++]=arr[R];
+        while ((cmp_rrow_by_col(arr[L], piv, col, ct) <= 0) && L<R) L++;
+	if (L<R) arr[R--]=arr[L];
+      }
+      arr[L]=piv; beg[i+1]=L+1; end[i+1]=end[i]; end[i++]=L;
+      if (end[i]-beg[i]>end[i-1]-beg[i-1]) {
+        swap=beg[i]; beg[i]=beg[i-1]; beg[i-1]=swap;
+        swap=end[i]; end[i]=end[i-1]; end[i-1]=swap; }}
+    else {
+      i--; }}}
 
 void rtab_orderby(Rtab *results, char *colname) {
 	
 	int i;
 	int valid;
+	int *ct;
 	
 	if (colname == NULL) {
 		debugvf("Rtab: No orderby in select. returning.\n");
@@ -348,17 +426,14 @@ void rtab_orderby(Rtab *results, char *colname) {
 		return;
 	}
 	
-	/* Set global used by qsort */
-	rtab_global_col = valid;
-	
 	/* DEBUG */
 	for (i=0; i < results->nrows; i++) {
-		debugvf("ptr results->rows[%d]->cols: %p, results->rows[%d]->cols[0]: %d\n",
+		debugvf("ptr results->rows[%d]->cols: %p, results->rows[%d]->cols[%d]: %s\n",
 		i, results->rows[i]->cols, 
-		i, atoi(results->rows[i]->cols[0]));
+		i, valid, results->rows[i]->cols[valid]);
 	}
-		
-	qsort(results->rows, results->nrows, sizeof(Rrow), cmp_rrow_by_col);
+	ct = results->coltypes[valid];
+	quickSort(results->rows, results->nrows, valid, ct);
 }
 
 void rtab_countstar(Rtab *results) {
@@ -406,7 +481,7 @@ void rtab_countstar(Rtab *results) {
 char *rtab_process_min(Rtab *results, int col) {
 	
     int r;
-    int min, ti;
+    long long min, ti;
     char **row;
     char tb[100];
     double rmin, tr;
@@ -424,14 +499,14 @@ char *rtab_process_min(Rtab *results, int col) {
     else {
 	return str_dupl("undefined");
     }
-    min = 0;
+    min = 0LL;
     rmin = 0.0;
     if (results->nrows > 0) {
 	
 	/* Init value */
 	row = rtab_getrow(results, 0);
 	if (isint)
-	    min = atoi(row[col]);
+	    min = strtoll(row[col], NULL, 10);
 	else
 	    rmin = atof(row[col]);
 	
@@ -439,7 +514,7 @@ char *rtab_process_min(Rtab *results, int col) {
 	for (r=1; r<results->nrows; r++) {
 	    row = rtab_getrow(results, r);
 	    if (isint) {
-	        ti = atoi(row[col]);
+	        ti = strtoll(row[col], NULL, 10);
 	        if (min > ti)
 	    	    min = ti;
 	    } else {
@@ -450,7 +525,7 @@ char *rtab_process_min(Rtab *results, int col) {
 	}
     }
     if (isint)
-        sprintf(tb, "%d", min);
+        sprintf(tb, "%lld", min);
     else
 	sprintf(tb, "%f", rmin);
     return str_dupl(tb);
@@ -459,7 +534,7 @@ char *rtab_process_min(Rtab *results, int col) {
 char *rtab_process_max(Rtab *results, int col) {
 
     int r;
-    int max, ti;
+    long long max, ti;
     char **row;
     char tb[100];
     double rmax, tr;
@@ -477,14 +552,14 @@ char *rtab_process_max(Rtab *results, int col) {
     else {
 	return str_dupl("undefined");
     }
-    max = 0;
+    max = 0LL;
     rmax = 0.0;
     if (results->nrows > 0) {
 	
 	/* Init value */
 	row = rtab_getrow(results, 0);
 	if (isint)
-	    max = atoi(row[col]);
+	    max = strtoll(row[col], NULL, 10);
 	else
 	    rmax = atof(row[col]);
 	
@@ -492,7 +567,7 @@ char *rtab_process_max(Rtab *results, int col) {
 	for (r=1; r<results->nrows; r++) {
 	    row = rtab_getrow(results, r);
 	    if (isint) {
-		ti = atoi(row[col]);
+		ti = strtoll(row[col], NULL, 10);
 	        if (max < ti)
 	    	    max = ti;
 	    } else {
@@ -503,7 +578,7 @@ char *rtab_process_max(Rtab *results, int col) {
 	}
     }
     if (isint)
-        sprintf(tb, "%d", max);
+        sprintf(tb, "%lld", max);
     else
 	sprintf(tb, "%f", rmax);
     return str_dupl(tb);
@@ -536,7 +611,7 @@ char *rtab_process_avg(Rtab *results, int col) {
 	row = rtab_getrow(results, 0);
 	count = 1;
 	if (isint)
-	    average = (double)atoi(row[col]);
+	    average = (double)strtoll(row[col], NULL, 10);
 	else
 	    average = atof(row[col]);
 	
@@ -544,14 +619,14 @@ char *rtab_process_avg(Rtab *results, int col) {
 	for (r=1; r<results->nrows; r++) {
 	    row = rtab_getrow(results, r);
 	    if (isint)
-		x = (double)atoi(row[col]);
+		x = (double)strtoll(row[col], NULL, 10);
 	    else
 		x = atof(row[col]);
 	    average = (x + (double)count * average)/(double)(++count);
 	}
     }
     if (isint)
-        sprintf(tb, "%d", (int)average);
+        sprintf(tb, "%lld", (long long)average);
     else
 	sprintf(tb, "%f", average);
     return str_dupl(tb);
@@ -560,7 +635,7 @@ char *rtab_process_avg(Rtab *results, int col) {
 char *rtab_process_sum(Rtab *results, int col) {
 
     int r;
-    int sum;
+    long long sum;
     char **row;
     char tb[100];
     double rsum;
@@ -577,7 +652,7 @@ char *rtab_process_sum(Rtab *results, int col) {
     else {
 	return str_dupl("undefined");
     }
-    sum = 0;
+    sum = 0LL;
     rsum = 0.0;
     if (results->nrows > 0) {
 	
@@ -585,13 +660,13 @@ char *rtab_process_sum(Rtab *results, int col) {
 	for (r=0; r<results->nrows; r++) {
 	    row = rtab_getrow(results, r);
 	    if (isint)
-		sum += atoi(row[col]);
+		sum += strtoll(row[col], NULL, 10);
 	    else
 		rsum += atof(row[col]);
 	}
     }
     if (isint)
-        sprintf(tb, "%d", sum);
+        sprintf(tb, "%lld", sum);
     else
 	sprintf(tb, "%f", rsum);
     return str_dupl(tb);
@@ -632,28 +707,28 @@ void rtab_processMinMaxAvgSum(Rtab *results, int** colattrib) {
 	for (c = 0; c < results->ncols; c++) {
 		if (*colattrib[c] == *SQL_COLATTRIB_MIN) {
 			ret = rtab_process_min(results, c);
-			printf("Min col %d: %s\n", c, ret);
+			debugf("Min col %d: %s\n", c, ret);
 			rtab_replace_col_val(results, c, ret);
 			rtab_update_colname(results, c, "min");
 		}
 		
 		else if (*colattrib[c] == *SQL_COLATTRIB_MAX) {
 			ret = rtab_process_max(results, c);
-			printf("Max col %d: %s\n", c, ret);
+			debugf("Max col %d: %s\n", c, ret);
 			rtab_replace_col_val(results, c, ret);
 			rtab_update_colname(results, c, "max");
 		}
 		
 		else if (*colattrib[c] == *SQL_COLATTRIB_AVG) {
 			ret = rtab_process_avg(results, c);
-			printf("Avg col %d: %s\n", c, ret);
+			debugf("Avg col %d: %s\n", c, ret);
 			rtab_replace_col_val(results, c, ret);
 			rtab_update_colname(results, c, "avg");
 		}
 		
 		else if (*colattrib[c] == *SQL_COLATTRIB_SUM) {
 			ret = rtab_process_sum(results, c);
-			printf("Sum col %d: %s\n", c, ret);
+			debugf("Sum col %d: %s\n", c, ret);
 			rtab_replace_col_val(results, c, ret);
 			rtab_update_colname(results, c, "sum");
 		}
@@ -731,5 +806,226 @@ Rtab *rtab_fake_results() {
 	}
 	
 	return results;
+}
+
+static void rtab_update_colnames(Rtab *results, Rtab* newresults) {
+	int c;
+	for (c = 0; c < results->ncols; c++) {
+		mem_free(results->colnames[c]);
+		results->colnames[c] = str_dupl(newresults->colnames[c]);
+	}
+	return;
+}
+
+/* The group-by operator */
+
+typedef struct group_t *groupP;
+typedef struct group_t {
+	groupP next;
+	Rtab *t; /* */
+	List *rowlist;
+	char *key;
+} group_t;
+#define NKEYS 100
+#define MULT 31
+static groupP bin[NKEYS];
+static int groupsize = 0;
+static int gverbose = 0;
+
+static void groupby_free() {
+	unsigned int i;
+	groupP p, q;
+	for (i = 0; i < NKEYS; i++) {
+		for (p = bin[i]; p != NULL; p = q) { 
+			q = p->next;
+			free(p->key);
+			rtab_free(p->t);
+			list_free(p->rowlist);
+			free(p);
+		}
+	}
+}
+
+static void groupby_dump() {
+	unsigned int i;
+	groupP p;
+	debugf("Dump table of size %d\n", groupsize);
+	for (i = 0; i < NKEYS; i++) {
+		for (p = bin[i]; p != NULL; p = p->next) {
+			debugf("%s ->\n", p->key);
+			rtab_print(p->t);
+		}
+	}
+}
+
+static void groupby_init() {
+	unsigned int i;
+	for (i = 0; i < NKEYS; i++) 
+		bin[i] = NULL;
+	groupsize = 0;
+}
+
+static unsigned int groupby_hash(char *key) {
+	unsigned int h = 0;
+	for (; *key; key++)
+		h = MULT * h + *key;
+	return h % NKEYS;
+}
+
+static groupP groupby_get(char *key) {
+	groupP p;
+	unsigned int h = groupby_hash(key);
+	for (p = bin[h]; p != NULL; p = p->next) {
+		if (strcmp(key, p->key) == 0) {
+			return p;
+		}
+	}
+	return NULL;
+}
+
+static groupP groupby_set(char *key, Rtab* results) {
+	int i;
+	groupP p;
+	unsigned int h = groupby_hash(key);
+	p = malloc(sizeof(group_t));
+	p->key = strdup(key);
+	p->t = rtab_new();
+	/* create new rtab with the same columns as `results` */
+	p->t->ncols = results->ncols;
+	p->t->colnames = (char **)mem_alloc(results->ncols * sizeof(char *));
+	p->t->coltypes = mem_alloc(results->ncols * sizeof(int*));
+	p->t->ncols = results->ncols;
+	for (i = 0; i < results->ncols; i++) {
+		p->t->colnames[i] = str_dupl(results->colnames[i]);
+		p->t->coltypes[i] = results->coltypes[i];
+	}
+	p->t->nrows = 0;
+	/* create a row list that holds the relevant rows */
+	p->rowlist = list_new();
+	/* add to hashtable */
+	groupsize++;
+	p->next = bin[h];
+	bin[h] = p;
+	return p;
+}
+
+static void groupby_addrow(groupP p, Rrow *row) {
+	int i;	
+	Rrow *r;
+	r = mem_alloc(sizeof(Rrow));
+	r->cols = mem_alloc(p->t->ncols * sizeof(char*));
+	for (i = 0; i < p->t->ncols; i++) {
+		r->cols[i] = str_dupl(row->cols[i]);
+		debugf("copied value is %s\n", r->cols[i]);
+	}
+	list_append(p->rowlist, r);
+	return;
+}
+
+static void groupby_explode() {
+	int i;
+	groupP p;
+	for (i = 0; i < NKEYS; i++) {
+		for (p = bin[i]; p != NULL; p = p->next) {
+			/* Build array from rowlist */
+			p->t->nrows = list_len(p->rowlist);
+			p->t->rows = (Rrow**) list_to_array(p->rowlist);
+		}
+	}
+	return;
+}
+
+static void groupby_implode(Rtab *results, int isCountStar, 
+	int containsMinMaxAvg, int **colattrib) {
+	int i, j;
+	groupP p;
+	List* newrowlist;
+	/* clear results */
+	for (i = 0; i < results->nrows; i++) {
+		for (j = 0; j < results->ncols; j++) {
+			mem_free(results->rows[i]->cols[j]);
+		}
+		mem_free(results->rows[i]->cols);
+		mem_free(results->rows[i]);
+	}
+	/* repopulate results */
+	newrowlist = list_new();
+	for (i = 0; i < NKEYS; i++) {
+		for (p = bin[i]; p != NULL; p = p->next) {
+			if (isCountStar) {
+				debugf("not yet implemented");
+			} else if (containsMinMaxAvg) {
+				rtab_processMinMaxAvgSum(p->t, colattrib);
+				rtab_update_colnames(results, p->t);
+			}
+			/* only the last row is of interest for the results */
+			Rrow *row = p->t->rows[p->t->nrows-1];
+			Rrow *r;
+			r = mem_alloc(sizeof(Rrow));
+			r->cols = mem_alloc(p->t->ncols * sizeof(char*));
+			for (j = 0; j < p->t->ncols; j++) {
+				r->cols[j] = str_dupl(row->cols[j]);
+				debugf("copied value is %s\n", r->cols[j]);
+			}
+			list_append(newrowlist, r);
+		}
+	}
+	/* rowlist contains all the relevant rows; append to results */
+	results->nrows = list_len(newrowlist);
+	results->rows = (Rrow**) list_to_array(newrowlist);
+	list_free(newrowlist);
+	return;
+}
+
+void rtab_groupby(Rtab *results, int ncols, char** cols,
+	int isCountStar, int containsMinMaxAvg, int** colattrib) {
+	int i, j, r;
+	char **row;
+	char key[1024];
+	groupP p;
+	int *index = (int *) malloc(ncols * sizeof(int));
+	groupby_init();
+	debugf("Rtab: grouping by\n");
+	for (i = 0; i < ncols; i++) {
+		debugf("%s\n", cols[i]);
+		for (j = 0; j < results->ncols; j++) {
+			if (strcmp(results->colnames[j], cols[i]) == 0) {
+				debugf("index is %d\n", j);
+				*(index + i) = j;
+			}
+		}
+	}
+	if (gverbose > 0) {
+		debugf("dumping indices\n");
+		for (i = 0; i < ncols; i++) {
+			debugf("%d = %i\n", i, *(index + i));
+		}
+	}
+	/* iterate through results */
+	for (r = 0; r < results->nrows; r++) {
+		row = rtab_getrow(results, r);
+		/* memset key to 0 */
+		memset(key, 0, 1024);
+		/* construct key */
+		j = 0;
+		for (i = 0; i < ncols; i++) {
+			j += sprintf(key+j, "%s%s", row[*(index+i)], separator);
+		}
+		debugf("row %d's key is %s\n", r, key);
+		/* lookup in hashtable */
+		if ((p = groupby_get(key)) == NULL) {
+			debugf("Key does not exist. Insert.\n");
+			p = groupby_set(key, results);
+		} else {
+			debugf("Key exists.\n");
+		}
+		groupby_addrow(p, results->rows[r]);
+	}
+	groupby_explode();
+	groupby_implode(results, isCountStar, containsMinMaxAvg, colattrib);
+	if (gverbose > 0) groupby_dump();
+	free(index);
+	groupby_free();
+	return;
 }
 

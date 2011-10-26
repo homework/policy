@@ -101,3 +101,28 @@ void tsl_remove(TSList tsl, void **a, void **b, int *size) {
 	*size = e->size;
 	mem_free(e);
 }
+
+/* remove first element of the list if there, do not block, return 1/0 */
+int tsl_remove_nb(TSList tsl, void **a, void **b, int *size) {
+	ListHead *lh = (ListHead *)tsl;
+	Element *e;
+
+	pthread_mutex_lock(&(lh->mutex));
+	if (!lh->count) {
+		pthread_mutex_unlock(&(lh->mutex));
+		return 0;
+	}
+	/*
+	 * at this point there is at least one element in the queue
+	 */
+	e = lh->head;
+	lh->head = e->next;
+	if (! --lh->count)
+		lh->tail = NULL;
+	pthread_mutex_unlock(&(lh->mutex));
+	*a = e->addr;
+	*b = e->data;
+	*size = e->size;
+	mem_free(e);
+	return 1;
+}

@@ -31,6 +31,7 @@
 -(NSString *) nextSubjectDeviceImage;
 -(NSString *) currentDeviceName;
 -(NSString*) getDeviceOwner:(NSString *) device;
+-(BOOL) subjectHasMultipleDevices;
 
 #pragma mark *action getters for UI
 -(NSString *) currentActionViewController;

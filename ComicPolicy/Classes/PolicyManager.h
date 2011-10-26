@@ -44,6 +44,7 @@
 
 -(BOOL) hasFiredForSubject:(NSString *)subject;
 -(BOOL) hasFired;
+-(BOOL) hasMisfired;
 -(BOOL) isInSync;
 
 @property(nonatomic, retain) NSMutableArray* policyids;

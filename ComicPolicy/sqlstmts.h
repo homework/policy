@@ -20,10 +20,15 @@
 #define SQL_TYPE_PUBLISH 8
 #define SQL_TYPE_UNSUBSCRIBE 9
 #define SQL_TYPE_DELETE_QUERY 10
+#define SQL_TYPE_UPDATE 11
+#define SQL_TYPE_REGISTER 12
+#define SQL_TYPE_UNREGISTER 13
 
 #define SQL_WINTYPE_NONE 0
 #define SQL_WINTYPE_TIME 1
 #define SQL_WINTYPE_TPL 2
+#define SQL_WINTYPE_SINCE 3
+#define SQL_WINTYPE_INTERVAL 4
 
 #define SQL_WINTYPE_TIME_SECONDS 1
 #define SQL_WINTYPE_TIME_MINUTES 2
@@ -36,15 +41,17 @@
 #define SQL_FILTER_LESS 3
 #define SQL_FILTER_LESSEQ 4
 #define SQL_FILTER_GREATEREQ 5
+#define SQL_FILTER_CONTAINS 6
+#define SQL_FILTER_NOTCONTAINS 7
+
+#define SQL_PAIR_EQUAL 1
+#define SQL_PAIR_ADDEQ 2
+#define SQL_PAIR_SUBEQ 3
 
 #define SQL_FILTER_TYPE_AND 0
 #define SQL_FILTER_TYPE_OR 1
 
-#if !(TARGET_IPHONE_SIMULATOR)
-    extern const int sql_colattrib_types[];
-#else
-    const int sql_colattrib_types[];
-#endif
+extern const int sql_colattrib_types[];
 
 #define SQL_COLATTRIB_NONE 	&sql_colattrib_types[0]
 #define SQL_COLATTRIB_COUNT &sql_colattrib_types[1]
@@ -53,32 +60,38 @@
 #define SQL_COLATTRIB_AVG 	&sql_colattrib_types[4]
 #define SQL_COLATTRIB_SUM 	&sql_colattrib_types[5]
 
-//#if !(TARGET_IPHONE_SIMULATOR)
- //const char *colattrib_name[];
-//#else
- extern const char *colattrib_name[];
-//#endif
+extern const char *colattrib_name[];
 
 union filterval {
-	int intv;
+	long long intv;
 	double realv;
 	char charv;
 	char tinyv;
+	char *stringv;
 	short int smallv;
 	unsigned long long tstampv;
 };
+
+typedef struct sqlinterval {
+	int leftOp;
+	int rightOp;
+	unsigned long long leftTs;
+	unsigned long long rightTs;
+} sqlinterval;
 										
 typedef struct sqlwindow {
 	int type;
-	int num;
+	int num;			/* used when RANGE */
 	int unit;
+	unsigned long long tstampv;	/* used when SINCE */
+	sqlinterval intv;		/* used when INTERVAL */
 } sqlwindow;
 
 typedef struct sqlfilter {
 	char *varname;
 	int sign; /* =, >, <, <=, >= */
-	//int value;
 	union filterval value;
+	unsigned char IS_STR;
 } sqlfilter;
 
 typedef struct sqlselect {
@@ -93,14 +106,34 @@ typedef struct sqlselect {
 	int filtertype; 	/* Temp only. Remove when brackets implemented */
 	char *orderby;
 	int isCountStar;
+	int groupby_ncols;
+	char **groupby_cols;
 	int containsMinMaxAvgSum;
 } sqlselect;
+
+typedef struct sqlpair {
+	char *varname;
+	int sign; /* =, +=, -= */
+	union filterval value;
+	unsigned char IS_STR;
+} sqlpair;
+
+typedef struct sqlupdate {
+	char *tablename;
+	int npairs;
+	sqlpair **pairs; /* Array of name/operator/value pairs */
+	int nfilters;
+	sqlfilter **filters; /* Array of where filters */
+	int filtertype;
+} sqlupdate;
 
 typedef struct sqlcreate {
 	char *tablename;
 	int ncols;
 	char **colname;
 	int **coltype;
+	short tabletype;
+	short primary_column;
 } sqlcreate;
 
 typedef struct sqlinsert {
@@ -108,6 +141,7 @@ typedef struct sqlinsert {
 	int ncols;
 	char **colval;
 	int **coltype;
+	short transform;
 } sqlinsert;
 
 typedef struct sqlsubscribe {
@@ -116,6 +150,17 @@ typedef struct sqlsubscribe {
 	char *port;
 	char *service;
 } sqlsubscribe;
+
+typedef struct sqlregister {
+	char *automaton;
+	char *ipaddr;
+	char *port;
+	char *service;
+} sqlregister;
+
+typedef struct sqlunregister {
+	char *id;
+} sqlunregister;
 	
 typedef struct sqlstmt {
 	int type;
@@ -125,6 +170,9 @@ typedef struct sqlstmt {
 		sqlcreate create;
 		sqlinsert insert;
 		sqlsubscribe subscribe;
+		sqlupdate update;
+                sqlregister regist;
+		sqlunregister unregist;
 	} sql;
 } sqlstmt;
 
@@ -133,6 +181,8 @@ typedef struct sqlstmt {
 sqlwindow *sqlstmt_new_stubwindow();
 sqlwindow *sqlstmt_new_timewindow(int num, int unit);
 sqlwindow *sqlstmt_new_timewindow_now();
+sqlwindow *sqlstmt_new_timewindow_since(char *value);
+sqlwindow *sqlstmt_new_timewindow_interval(sqlinterval *val);
 sqlwindow *sqlstmt_new_tuplewindow(int num);
 
 sqlfilter *sqlstmt_new_filter(int ctype, char *name, int dtype, char *value);
@@ -142,6 +192,10 @@ sqlfilter *sqlstmt_new_filter_less(char *name, int value);
 sqlfilter *sqlstmt_new_filter_greatereq(char *name, int value);
 sqlfilter *sqlstmt_new_filter_lesseq(char *name, int value);
 
+sqlpair *sqlstmt_new_pair(int ctype, char *name, int dtype, char *value);
+
 int sqlstmt_calc_len(sqlinsert *insert);
+
+int sqlstmt_valid_groupby(sqlselect *select);
 
 #endif

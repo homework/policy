@@ -15,12 +15,11 @@ static SRecord *stable[STABLE_SIZE];	/* bucket listheads */
 static pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 
 #define SHIFT 7
-static int hash(char *s) {
-    int ans = 0;
-
-    while (*s != '\0')
-	ans = (SHIFT * ans) + *s++;
-    return ans % STABLE_SIZE;
+static unsigned int hash(char *key) {
+	unsigned int h = 0;
+	for (; *key; key++)
+		h = (SHIFT * h + *key) % STABLE_SIZE;
+	return h;
 }
 
 void stable_init() {
@@ -32,7 +31,7 @@ void stable_init() {
 
 SRecord *stable_create(char *serviceName) {
     SRecord *r;
-    int hv;
+    unsigned int hv;
 
     if (stable_lookup(serviceName))
 	r = NULL;
@@ -59,16 +58,12 @@ SRecord *stable_create(char *serviceName) {
 }
 
 SRecord *stable_lookup(char *name) {
-    
-    /*
-     * modified by tlodge to check for r->s_name = NULL condition
-     */
-    int hv = hash(name);
+    unsigned int hv = hash(name);
     SRecord *r, *ans = NULL;
-
+    
     pthread_mutex_lock(&mutex);
     for (r = stable[hv]; r != NULL; r = r->s_next)
-        if (r->s_name != NULL && strcmp(r->s_name, name) == 0) {
+        if (strcmp(r->s_name, name) == 0) {
             ans = r;
             break;
         }
@@ -78,7 +73,7 @@ SRecord *stable_lookup(char *name) {
 
 void stable_remove(SRecord *sr) {
     SRecord *pr, *cu;
-    int hv = hash(sr->s_name);
+    unsigned int hv = hash(sr->s_name);
 
     pthread_mutex_lock(&mutex);
     for (pr = NULL, cu = stable[hv]; cu != NULL; pr = cu, cu = pr->s_next) {

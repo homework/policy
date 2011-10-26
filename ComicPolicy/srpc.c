@@ -683,7 +683,7 @@ RpcConnection rpc_connect(char *host, unsigned short port,
 
 #define SEQNO_LIMIT 1000000000
 #define SEQNO_START 0
-int rpc_call(RpcConnection rpc, void *query, unsigned qlen,
+int rpc_call(RpcConnection rpc, const struct qdecl *q, unsigned qlen,
              void *resp, unsigned rsize, unsigned *rlen) {
     DataPayload *buf;
     RpcEndpoint *ep = (RpcEndpoint *)rpc;
@@ -696,8 +696,12 @@ int rpc_call(RpcConnection rpc, void *query, unsigned qlen,
     unsigned char fnum;
     unsigned char nfrags;
     unsigned blen;
-    unsigned char *cp = (unsigned char *)query;
+    unsigned char *cp = (unsigned char *)q->buf;
 
+    if (q->size < (int)qlen) {
+        fprintf(stderr, "rpc_call() - buffer overrun by caller\n");
+	return result;
+    }
     ctable_lock();
     if (! (cr = ctable_lookup(ep))) {
 	ctable_unlock();

@@ -264,18 +264,13 @@
 
 -(void) checkInSync{
     
-    if ([[PolicyManager sharedPolicyManager] hasFired]){
-       //  resetButton.alpha = 1.0;
-        [self.view setBackgroundColor:[UIColor redColor]];
-        return;
-    }
     
     //resetButton.alpha = 0.0;
     Policy *p = [[PolicyManager sharedPolicyManager] currentPolicy];
     
     
     if ((p.status == unsaved) || ![[PolicyManager sharedPolicyManager] isInSync]){
-        //[self.view setBackgroundColor:[UIColor lightGrayColor]];
+        [self.view setBackgroundColor:[UIColor lightGrayColor]];
         [self enableInteraction];
     }else{
         [self.view setBackgroundColor:[UIColor whiteColor]];
@@ -287,6 +282,16 @@
     }else if (p.status == disabled){
          [self setDeleteButton:NO];
     }
+    if ([[PolicyManager sharedPolicyManager] hasFired]){
+        //  resetButton.alpha = 1.0;
+        [self.view setBackgroundColor:[UIColor redColor]];
+      
+    }
+    if ([[PolicyManager sharedPolicyManager] hasMisfired]){
+        [self.view setBackgroundColor:[UIColor orangeColor]];
+        self.statusLabel.text = [NSString stringWithFormat:@"The policy fired BUT the actions failed to occur"];
+    }
+
 }
 
 -(void) policyFired:(NSNotification *) notification{
@@ -441,6 +446,13 @@
 
 -(void) readInCatalogue:(NSTimer*) timer{
     
+    
+   // if ([[NetworkManager sharedManager] connectToHWDB]){
+        //[routerConnectionViewController updateCaption:@"loading up policies"];
+       // [[NetworkManager sharedManager] readPoliciesFromHWDB];
+        //[routerConnectionViewController updateCaption:@"reading in allowance"];
+       // [[NetworkManager sharedManager] readInAllowance];
+   // }
     //[self catalogueRequestFailed:nil];
     
     if(timer != nil){
@@ -460,6 +472,7 @@
     [request setDidFinishSelector:@selector(catalogueRequestComplete:)];
     [request setDidFailSelector:@selector(catalogueRequestFailed:)];
     [[NetworkManager sharedManager] addRequest:request];
+    
 }
 
 - (void)catalogueRequestComplete:(ASIHTTPRequest *)request
@@ -532,7 +545,7 @@
 
 -(void) hwdbConnected:(NSNotification *) n{
    //  [routerConnectionViewController.view removeFromSuperview];
-    NSLog(@"HIDING SPLASH SCREEN!!!");
+   
     [self hideSplashScreen];
 }
 

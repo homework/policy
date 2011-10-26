@@ -11,6 +11,7 @@
 @interface SubjectViewController()
 -(void) doResize;
 -(void) loadCaptions;
+-(void) addMoreButton;
 @end
 
 @implementation SubjectViewController
@@ -90,7 +91,9 @@
 	self.view = subjectView;
      [self doResize];
     [self loadCaptions];
-	[aview release];
+	[self addMoreButton];
+    [aview release];
+    
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(subjectOwnerChange:) name:@"subjectOwnerChange" object:nil];	
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(subjectOwnerLoaded:) name:@"subjectOwnerLoaded" object:nil];
@@ -103,14 +106,7 @@
 }
 
 -(void) subjectOwnerLoaded:(NSNotification *) n{
-    //[UIView beginAnimations:nil context:nil];
-	//[UIView setAnimationDuration:0.75];
-	//[UIView setAnimationDelay:0.70];
-	//[UIView setAnimationDelegate:self];
-	
-	//[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:subjectView.bottomImage cache:NO];
-    
-  
+     
     if (![[[Catalogue sharedCatalogue] currentSubjectOwner] isEqualToString:@"any"]){
        
         subjectView.bottomImage.image = [UIImage imageNamed:[[Catalogue sharedCatalogue] currentSubjectDeviceImage]];
@@ -127,8 +123,6 @@
     subjectView.topImage.image = [UIImage imageNamed:[[Catalogue sharedCatalogue] currentSubjectOwnerImage]];
     [self doResize];
 
-
-    //[UIView commitAnimations];
 }
 
 -(void) subjectOwnerChange:(NSNotification *) n{
@@ -139,6 +133,7 @@
 	if ([[[Catalogue sharedCatalogue] currentSubjectOwner] isEqualToString:@"any"]){
      	subjectView.bottomImage.image = nil;
         subjectView.devicecaption.text = @"";
+        [self addMoreButton];
         return;
     }
     
@@ -151,12 +146,31 @@
 	[UIView setAnimationDelegate:self];
     [UIView setAnimationDidStopSelector:@selector(addCaptions:finished:context:)];
 	[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:subjectView.bottomImage cache:NO];
-	
 	subjectView.bottomImage.image = [UIImage imageNamed:[[Catalogue sharedCatalogue] currentSubjectDeviceImage]];
+    [UIView commitAnimations];
+    [self addMoreButton];
     
-	[UIView commitAnimations];
-   
+      
 }
+
+-(void) addMoreButton{
+    
+    if (moreButton != nil){
+        [moreButton removeFromSuperview];
+        moreButton = nil;
+    }
+    
+    if ([[Catalogue sharedCatalogue] subjectHasMultipleDevices]){
+        NSLog(@"The subject has multiple devices....");
+        moreButton = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sgreenbuttonup.png"]] autorelease];
+        moreButton.frame = CGRectMake(270,210, moreButton.frame.size.width , moreButton.frame.size.height);
+        [subjectView addSubview:moreButton];
+    }else{
+        NSLog(@"the subject doesn't have multiple devices");
+    }
+
+}
+
 
 - (void)addCaptions:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context {
     [self loadCaptions];

@@ -12,9 +12,11 @@
 
 
 /* Server */
-#define HWDB_SERVER_ADDR "192.168.9.1"
+#define HWDB_SERVER_ADDR "localhost"
 #define HWDB_SERVER_PORT 987
 #define HWDB_SNAPSHOT_PORT 988
+
+#define HWDB_PERSISTSERVER_PORT 990
 
 #define SOCK_RECV_BUF_LEN 65535
 
@@ -28,7 +30,7 @@
 
 /* Multi-threading */
 #define HWDB_PUBLISH_IN_BACKGROUND
-#define NUM_THREADS 2
+#define NUM_THREADS 1
 
 
 /* Debug settings */

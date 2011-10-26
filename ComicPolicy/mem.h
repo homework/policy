@@ -9,8 +9,8 @@
  *
  * Based on chapter 5 in book "C Interfaces and Implementations by David R. Hanson"
  */
-#ifndef _MEM_H_INCLUDED_
-#define _MEM_H_INCLUDED_
+#ifndef _MEM_H_
+#define _MEM_H_
 
 #include <stdlib.h>
 
@@ -27,9 +27,9 @@ void mem_heap_end_address(char *leadString);
 	mem_alloc_location((nbytes), __FILE__, __LINE__)
 
 #define mem_free(ptr) \
-	((void)(mem_free_location((ptr), __FILE__, __LINE__), (ptr) = 0))
+	((void)(mem_free_location((ptr), __FILE__, __LINE__)))
 
 #define str_dupl(s) \
 	str_dupl_location((s), __FILE__, __LINE__)
 
-#endif /* _MEM_H_INCLUDED_ */
+#endif /* _MEM_H_ */

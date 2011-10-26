@@ -17,7 +17,7 @@
 @interface SubjectViewController : UIViewController {
 	
 	SubjectView* subjectView;
-	
+	UIImageView* moreButton;
 	//NSMutableArray *peopleImages;
 	//NSMutableArray *deviceImages;
 	//int peopleImageIndex ;

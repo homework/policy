@@ -44,7 +44,7 @@
 
 @synthesize status;
 @synthesize fired;
-
+@synthesize misfired;
 
 
 -(void) dealloc{
@@ -307,7 +307,7 @@
         
         self.identity = aPolicy.identity;
         self.fired = NO;
-    
+        self.misfired = NO;
     }
     return self;
 }
@@ -457,12 +457,12 @@
     
     if ([conditiontype isEqualToString:@"visiting"]){
         
-        message =  [NSString stringWithFormat:@"%@ visited [site]", message];
+        message =  [NSString stringWithFormat:@"%@ visited [site] at [time]", message];
     }else if ([conditiontype isEqualToString:@"bandwidth"]){
         float percent = [[conditionarguments objectForKey:@"percentage"] floatValue];
         message =  [NSString stringWithFormat:@"%@ used %@ percent of the bandwidth limit", message, [NSString stringWithFormat:@"%.0f", percent]];
     }else if ([conditiontype isEqualToString:@"timed"]){
-        message =  [NSString stringWithFormat:@"%@ was used between %@ and %@", [conditionarguments objectForKey:@"from"], message, [conditionarguments objectForKey:@"to"]];
+        message =  [NSString stringWithFormat:@"%@ was used at [time]", [conditionarguments objectForKey:@"from"], message, [conditionarguments objectForKey:@"to"]];
     }
     return message;
 }

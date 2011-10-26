@@ -32,7 +32,7 @@ typedef enum {
     NSMutableDictionary*    actionarguments;
     
     BOOL fired;
-    
+    BOOL misfired;
     PolicyStatus status;
 }
 
@@ -59,6 +59,7 @@ typedef enum {
 @property(nonatomic, copy) NSMutableDictionary*  actionarguments;
 
 @property(nonatomic, assign)  BOOL  fired;
+@property(nonatomic, assign)  BOOL  misfired;
 @property(nonatomic, assign) PolicyStatus status;
 
 

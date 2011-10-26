@@ -62,7 +62,6 @@ CRecord *ctable_lookup(RpcEndpoint *ep) {
     unsigned hash = endpoint_hash(ep, CTABLE_SIZE);
     CRecord *r, *ans = NULL;
 
-
     for (r = ctable[hash]; r != NULL; r = r->next)
         if (endpoint_equal(ep, r->ep)) {
             ans = r;
@@ -156,7 +155,7 @@ void ctable_purge(void) {
     pthread_mutex_destroy(&mutex);
     for (i = 0; i < CTABLE_SIZE; i++) {
         for (p = ctable[i]; p != NULL; p = next) {
-				next = p->next;
+            next = p->next;
 	    crecord_destroy(p);
 	}
     }

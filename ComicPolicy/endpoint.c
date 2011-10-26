@@ -40,13 +40,6 @@ RpcEndpoint *endpoint_duplicate(RpcEndpoint *ep) {
 
 int endpoint_equal(RpcEndpoint *ep1, RpcEndpoint *ep2) {
 	int answer = 0;		/* assume not equal */
-    
-    /*
-     * added by tlodge
-     */
-    if (ep1 == NULL || ep2 == NULL)
-        return answer;
-    
 	if (memeq(&(ep1->addr), &(ep1->addr), sizeof(struct sockaddr_in)))
 		if (ep1->subport == ep2->subport)
 			answer = 1;
@@ -55,17 +48,13 @@ int endpoint_equal(RpcEndpoint *ep1, RpcEndpoint *ep2) {
 
 #define SHIFT 7		/* should be relatively prime to limit */
 unsigned endpoint_hash(RpcEndpoint *ep, unsigned limit) {
-	
 	unsigned i;
 	unsigned char *p;
 	unsigned hash = 0;
-	
 	p = (unsigned char *)&(ep->addr);
-	if (ep != NULL){
 	for (i = 0; i < sizeof(struct sockaddr_in); i++)
 		hash = ((SHIFT * hash) + *p++) % limit;
 	hash = ((SHIFT * hash) + ep->subport) % limit;
-	}
 	return hash;
 }
 

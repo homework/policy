@@ -126,6 +126,8 @@ tstamp_t processallowanceresults(char *buf, unsigned int len);
 
 -(void) setSetUpHWDBConnection:(NSString *) gwaddr callback:(NSString *) cb;
 -(BOOL) connect;
+-(void) doItAll: (NSString*) gw callback:(NSString*) callback;
+
 //-(BOOL) send: (void *) query qlen:(unsigned) qlen resp: (void*) resp rsize:(unsigned) rs len:(unsigned *) len;
 //-(BOOL) subscribe:(NSString*)host query:(char*) query;
 

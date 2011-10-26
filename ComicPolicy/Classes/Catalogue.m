@@ -143,6 +143,9 @@ NSMutableDictionary *tree;
         return FALSE;
     }
     
+    
+    
+    NSLog(@"%@",dynamiccatalogue);
    
     //read in dynamic data
     
@@ -564,6 +567,9 @@ NSMutableDictionary *tree;
 	return [self lookupDynamicImage: [self currentSubjectDevice] type:@"main" state:nil];
 }
 
+-(BOOL) subjectHasMultipleDevices{
+   return [devices count] > 1;
+}
 
 //Static images (i.e. local to the app...)
 

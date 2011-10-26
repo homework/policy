@@ -8,6 +8,7 @@
  */
 
 #ifndef _LIST_H_INCLUDED_
+#define _LIST_H_INCLUDED_
 
 typedef void *TSList;
 
@@ -26,5 +27,7 @@ int tsl_prepend(TSList tsl, void *a, void *b, int size);
 /* remove first element of the list; thread blocks until successful */
 void tsl_remove(TSList tsl, void **a, void **b, int *size);
 
-#define _LIST_H_INCLUDED_
+/* remove first element of the list if there, do not block, return 1/0 */
+int tsl_remove_nb(TSList tsl, void **a, void **b, int *size);
+
 #endif /* _LIST_H_INCLUDED_*/
