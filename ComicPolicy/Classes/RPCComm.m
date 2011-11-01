@@ -13,7 +13,6 @@
 +(NSString *)getGatewayAddress;
 -(void) subscribe: (NSString*) listeninghost service:(char*) service query:(char*) query handler: (void * (void *args)) handler;
 -(void) unsubscribe:(NSString *) listeninghost service:(char*) s  query:(char*) query;
-/*-(void) send: (void *) query qlen:(unsigned) qlen resp: (void*) resp rsize:(unsigned) rs len:(unsigned int) len callback: (tstamp_t (char *buf, unsigned int len)) callback;*/
 -(void) send: (NSString *) query callback: (tstamp_t (char *buf, unsigned int len)) callback;
 @end
 
@@ -101,17 +100,9 @@ NSString* callbackaddr;
 
 -(void) getStoredPolicies{
      NSString* statequery = [NSString stringWithFormat:@"SQL:select * from PolicyState WHERE state contains \"BLED\")\n"];
-    //sprintf(sendquery, "%s", [statequery UTF8String]);
-	//querylen = strlen(sendquery) + 1;
-    //[self send: sendquery qlen:querylen resp: response rsize: sizeof(response) len:length callback:processpolicystateresults];
     [self send: statequery callback:processpolicystateresults];
-    
-    
     NSString* firedquery = [NSString stringWithFormat:@"SQL:select * from PolicyFired WHERE state contains \"FIRED\")\n"];
-   // sprintf(sendquery, "%s", [firedquery UTF8String]);
-	//querylen = strlen(sendquery) + 1;
-    //[self send: sendquery qlen:querylen resp: response rsize: sizeof(response) len:length callback:processfiredresults];
-    [self send: firedquery callback:processfiredresults];
+   [self send: firedquery callback:processfiredresults];
 }
 
 
@@ -126,10 +117,6 @@ NSString* callbackaddr;
     else{
         query = [NSString stringWithFormat:@"SQL:select t, sum(nbytes) from KFlows [range 5 seconds] WHERE saddr = \"%@\" or daddr = \"%@\"\n", ipaddr, ipaddr];
     }
-    
-    //sprintf(sendquery, "%s", [query UTF8String]);
-	 //querylen = strlen(sendquery) + 1;
-     //[self send: sendquery qlen:querylen resp: response rsize: sizeof(response) len:length callback:processflowresults];
     [self send: query callback:processflowresults];
 }
 
@@ -142,22 +129,12 @@ NSString* callbackaddr;
         query = [NSString stringWithFormat:@"SQL:select nbytes from BWUsage where ip = \"%@\"\n", ipaddr]; 
     }
     
-    //sprintf(sendquery, "%s", [query UTF8String]);
-	
-    //querylen = strlen(sendquery) + 1;
-    
-   // [self send: sendquery qlen:querylen resp: response rsize: sizeof(response) len:length callback:processusageresults];
     [self send: query callback:processusageresults];
 }
 
 
 -(void) getHouseholdAllowance{
     NSString* query = [NSString stringWithFormat:@"SQL:select allowance from Allowances\n"]; 
-    //sprintf(sendquery, "%s", [query UTF8String]);
-	
-    //querylen = strlen(sendquery) + 1;
-    
-    //[self send: sendquery qlen:querylen resp: response rsize: sizeof(response) len:length callback:processallowanceresults];
     [self send: query callback:processallowanceresults];
 
 }
@@ -171,17 +148,11 @@ NSString* callbackaddr;
         query = [NSString stringWithFormat:@"SQL:select * from Urls [range 5 seconds]"];
     
     
-    //sprintf(sendquery, "%s", [query UTF8String]);
-	//querylen = strlen(sendquery) + 1;
-   // [self send: sendquery qlen:querylen resp: response rsize: sizeof(response) len:length callback:processurlesults];  
     [self send: query callback:processurlesults]; 
 }
 
 -(void) query:(NSString *)q{
-	//sprintf(sendquery, "%s", [q UTF8String]);
-	//querylen = strlen(sendquery) + 1;
-   // [self send: sendquery qlen:querylen resp: response rsize: sizeof(response) len:length callback:NULL];
-    [self send: q callback:NULL];
+	 [self send: q callback:NULL];
 }
 
 
@@ -189,7 +160,7 @@ static void *policy_fired_handler(void *args) {
     printf("in policy fired handler\n");
     char event[SOCK_RECV_BUF_LEN], resp[100];
 	char stsmsg[RTAB_MSG_MAX_LENGTH];
-	RpcConnection sender;
+	RpcEndpoint sender;
 	unsigned len, rlen;
 	
     Rtab *results;
@@ -197,14 +168,12 @@ static void *policy_fired_handler(void *args) {
 	PolicyFired *pf;
 	
     while ((len = rpc_query(firedservice, &sender, event, SOCK_RECV_BUF_LEN)) > 0) {
-        NSLog(@"GOT A POLICY FIRED EVENT!!!");
-		sprintf(resp, "OK");
+        sprintf(resp, "OK");
 		rlen = strlen(resp) + 1;
-		rpc_response(firedservice, sender, resp, rlen);
+		rpc_response(firedservice, &sender, resp, rlen);
 		event[len] = '\0';
 		results = rtab_unpack(event, len);
 		if (results && ! rtab_status(event, stsmsg)) {
-			printf("got fired results\n");
 			/* 
  			 * 
  			 * Do process */
@@ -235,7 +204,7 @@ static void *policy_response_handler(void *args) {
     
    	char event[SOCK_RECV_BUF_LEN], resp[100];
 	char stsmsg[RTAB_MSG_MAX_LENGTH];
-	RpcConnection sender;
+	RpcEndpoint sender;
 	unsigned len, rlen;
 	
     Rtab *results;
@@ -246,7 +215,7 @@ static void *policy_response_handler(void *args) {
         
 		sprintf(resp, "OK");
 		rlen = strlen(resp) + 1;
-		rpc_response(responseservice, sender, resp, rlen);
+		rpc_response(responseservice, &sender, resp, rlen);
 		event[len] = '\0';
 		results = rtab_unpack(event, len);
 		if (results && ! rtab_status(event, stsmsg)) {
@@ -584,7 +553,6 @@ tstamp_t processallowanceresults(char *buf, unsigned int len) {
 	if (results && ! rtab_status(buf, stsmsg)) {
 		bytes = allowance_convert(results);
         NSAutoreleasePool *autoreleasepool = [[NSAutoreleasePool alloc] init];
-        NSLog(@"******* setting allowance to %llu", bytes);
         [[Catalogue sharedCatalogue] performSelectorOnMainThread:@selector(setAllowance:) withObject:[NSNumber numberWithLongLong:bytes] waitUntilDone:YES];
         [autoreleasepool release];
     }
@@ -662,7 +630,6 @@ tstamp_t processflowresults(char *buf, unsigned int len) {
     
 	if (results && ! rtab_status(buf, stsmsg)) {
 		UsageData* ud = flow_convert(results);
-       // NSLog(@"got %lu bytes\n", ud.bytes);
         NSAutoreleasePool *autoreleasepool = [[NSAutoreleasePool alloc] init];
         [[RPCComm sharedRPCComm] performSelectorOnMainThread:@selector(notifyActivity:) withObject:ud waitUntilDone:YES];
         [autoreleasepool release];
@@ -699,11 +666,11 @@ tstamp_t processpolicystateresults(char *buf, unsigned int len) {
 			
 			char *s = timestamp_to_string(ps->tstamp);
 			
-			printf("pf readin policy %s and  %s\n", ps->state , ps->pondertalk);
+		
 			PolicyStateObject *psobj = [[[PolicyStateObject alloc] initWithPolicyState:ps] autorelease];
             NSLog(@"ns read in a policy %d %@ %@\n", psobj.pid, psobj.state, psobj.pondertalk);
             [policies addObject:psobj];
-			//[psobj release];
+			
             free(s);
         }
 		policy_state_results_free(psr);
@@ -1080,7 +1047,7 @@ tstamp_t start_fired_handler(char *buf, unsigned int len){
 
 -(void) unsubscribe:(NSString *) listeninghost service:(char*) s  query:(char*) q{
     unsigned rlen;
-	char question[1000], resp[100], myhost[100], qname[64], service[100];
+	char /*question[1000],*/ resp[100], myhost[100], qname[64], service[100];
 	unsigned short myport;
     Q_Decl(query,SOCK_RECV_BUF_LEN);
     
@@ -1096,72 +1063,20 @@ tstamp_t start_fired_handler(char *buf, unsigned int len){
     
     if (rpc == NULL) {
 		fprintf(stderr, "Error connecting to HWDB at %s:%05u\n", target, port);
-        //		exit(1);
+        return;
 	}
 	
 	sprintf(qname, "%s", q);
 	/* subscribe to query 'qname' */
-	sprintf(question, "SQL:unsubscribe %s %s %hu %s", qname, myhost, myport, service);
+	sprintf(query, "SQL:unsubscribe %s %s %hu %s", qname, myhost, myport, service);
     if (! rpc_call(rpc, Q_Arg(query),  strlen(query)+1, resp, sizeof(resp), &rlen)){ 
-    //if (!rpc_call(rpc, question, strlen(question)+1, resp, 100, &rlen)) {
         fprintf(stderr, "Error issuing subscribe command\n");
-        //exit(1);
+        return;
     }
     resp[rlen] = '\0';
     printf("Response to unsubscribe command: %s", resp);
 
 }
-
-
-
-
-/*
--(void) subscribe: (NSString*) listeninghost service:(char*) s query:(char*) q handler: (void * (void *args)) handler{
-    
-    
-	unsigned rlen;
-	//char question[1000], 
-    char resp[100], myhost[100], qname[64], service[100];
-     Q_Decl(query,SOCK_RECV_BUF_LEN);
-    
-	unsigned short myport;
-	pthread_t thr;
-	
-	unsigned short port;
-	char *target;
-	port = HWDB_SERVER_PORT;
-    sprintf(service, "%s", s);
-	
-    rpc_details(myhost, &myport);
-    
-    sprintf(myhost, "%s", [listeninghost UTF8String]);
-    
-	printf("my callback port is %05u and host is %s\n", myport, myhost);
-    
-    if (rpc == NULL) {
-		fprintf(stderr, "Error connecting to HWDB at %s:%05u\n", target, port);
-        //		exit(1);
-	}
-	
-	sprintf(qname, "%s", q);
-	// subscribe to query 'qname' 
-	//sprintf(question, "SQL:subscribe %s %s %hu %s", qname, myhost, myport, service);
-    sprintf(query, "SQL:subscribe %s %s %hu %s", qname, myhost, myport, service);
-    NSLog(@"%s", query);
-    if (! rpc_call(rpc, Q_Arg(query),  strlen(query)+1, resp, sizeof(resp), &rlen)){ 
-    //if (!rpc_call(rpc, question, strlen(question)+1, resp, 100, &rlen)) {
-        fprintf(stderr, "Error issuing subscribe command\n");
-        //exit(1);
-    }
-    resp[rlen] = '\0';
-    printf("Response to subscribe command: %s", resp);
-    
-    // start handler thread 
-    if (pthread_create(&thr, NULL, handler, NULL)) {
-        fprintf(stderr, "Failure to start handler thread\n");
-    }
-
-}*/
 
 
 -(void) send: (NSString *) q callback: (tstamp_t (char *buf, unsigned int len)) callback{
@@ -1180,6 +1095,7 @@ tstamp_t start_fired_handler(char *buf, unsigned int len){
         if (rpc){
 			connected = TRUE;
             [self performSelectorOnMainThread:@selector(notifyconnected:) withObject:nil waitUntilDone:NO];
+            [[PolicyManager sharedPolicyManager] refresh];
         }
         else{
             [self performSelectorOnMainThread:@selector(notifydisconnected:) withObject:nil waitUntilDone:NO];

@@ -220,7 +220,7 @@
         if (applyfor != nil){
             NSArray *actionargumentarray =  [self getArrayFromPonderString:applyfor];
             float timeframe =  [(NSString*) [actionargumentarray objectAtIndex:0] floatValue];
-            [dict setObject:[NSString stringWithFormat:@"%0.f",timeframe/(float)60] forKey:@"timeframe"];
+            [dict setObject:[NSString stringWithFormat:@"%0.f",timeframe] forKey:@"timeframe"];
         }
         
         self.actionarguments = dict;
@@ -434,7 +434,7 @@
         
     }else if ([actiontype isEqualToString:@"notify"]){
         
-        return [NSString stringWithFormat:@"action:#(\"notify\" \"%@,%@,%@\")",actionsubject,[actionarguments objectForKey:@"options"],[self generateNotificationMessage]];
+        return [NSString stringWithFormat:@"action:#(\"notify\" \"%@,%@,%@\") for:#(\"10\" \"min\")",actionsubject,[actionarguments objectForKey:@"options"],[self generateNotificationMessage]];
         
 
     }

@@ -56,13 +56,15 @@ bool timerangeselected = false;
     UITouch *touch = [[event allTouches] anyObject];
 	CGPoint touchLocation = [touch locationInView:self.view];
 	
-    if ( touchLocation.y > 250){
-        timerangeselected = !timerangeselected;
-        [self updateCaption];
-    }
+    if (!toScaled && !fromScaled){
+        
+        if ( touchLocation.y > 250){
+            timerangeselected = !timerangeselected;
+            [self updateCaption];
+        }
     //if (timerangeselected)
         [self updateCatalogue];
-   
+    }
     [super touchesBegan:touches withEvent:event];
 }
 
@@ -94,6 +96,8 @@ conditionTimeView.bottomcaptionframe.transform = transform;
 }
 
 -(void) updateCaption{
+    
+   
     
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.75];

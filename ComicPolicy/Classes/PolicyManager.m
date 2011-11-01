@@ -75,6 +75,11 @@ static int requestId;
 }
 
 -(void) setUpWithPolicies:(NSMutableArray *) policystateobjects{
+    [policies removeAllObjects];
+    [policyids removeAllObjects];
+    [localLookup removeAllObjects];
+    localId = 1;
+    
     for (PolicyStateObject* pso in policystateobjects){
         Policy *p = [[[Policy alloc] initWithPonderString:[self decodePolicyFromDatabase:pso.pondertalk]] autorelease];
         NSString* policylid = [NSString stringWithFormat:@"%d",localId];
@@ -246,15 +251,9 @@ static int requestId;
 }
 
 -(void) refresh{
-    if (currentPolicy.identity != NULL){
-        [self loadPolicy:currentPolicy.localid];
-    }
+    [[RPCComm sharedRPCComm] getStoredPolicies];
+    [self loadFirstPolicy];
 }
-
-/*
--(void) reset{
-    [self savePolicy];
-}*/
 
 -(void) loadPolicy:(NSString*) localpolicyid{
     
@@ -266,11 +265,13 @@ static int requestId;
         NSLog(@"LOADED:");
         [apolicy print];
         
-        [[Catalogue sharedCatalogue]  setSubjectDevice:apolicy.subjectdevice];
         
         [[Catalogue sharedCatalogue] setCondition:apolicy.conditiontype options:apolicy.conditionarguments];
     
+        [[Catalogue sharedCatalogue]  setSubjectDevice:apolicy.subjectdevice];
+        
         [[Catalogue sharedCatalogue] setAction:apolicy.actiontype subject:apolicy.actionsubject options:apolicy.actionarguments];
+        
         
         self.currentPolicy = apolicy;
         
@@ -374,16 +375,11 @@ static int requestId;
             [self loadPolicy:tosave.localid];
         }   
         else if (robj.requestType == requestRemove){
-            //if ([policies count] > 1)
-              //  [self deletePolicyFromUI];
-            //else{
-                currentPolicy.status = unsaved;
+               currentPolicy.status = unsaved;
                 [self loadPolicy:currentPolicy.localid];
-            //}
+            
         }
     }
-    //[rmdir
-    //[robj release];
     [self removerequest:pr.requestid];
 }
 
@@ -403,7 +399,6 @@ static int requestId;
         }
         
     }
-    //[[NSNotificationCenter defaultCenter] postNotificationName:@"totalPoliciesChanged" object:nil userInfo:nil];
 }
 
 
@@ -417,7 +412,6 @@ static int requestId;
         if (globalid != nil)
             [localLookup removeObjectForKey:globalid];
             
-        //[currentPolicy release]; //this will be released when it is removed from polcies.
         [self loadPolicy:[policyids objectAtIndex:0]];
     }
 }
@@ -512,7 +506,6 @@ static int requestId;
     [localLookup release];
     [policies release];
     [policyids release];
-    //[self createDefaultStartPolicy];
 }
 
 - (void)addedRequestComplete:(ASIHTTPRequest *)request

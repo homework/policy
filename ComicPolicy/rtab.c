@@ -10,8 +10,6 @@
  * (c) 2009. All rights reserved.
  */
 #include "rtab.h"
-#include "mem.h"
-#include "logdefs.h"
 #include "util.h"
 #include "typetable.h"
 #include "sqlstmts.h"

@@ -73,12 +73,84 @@ typedef struct dp {		/* template for data payload */
 } DataPayload;
 
 #define CP_SIZE sizeof(ControlPayload)
+#define CONN_SIZE 11
+
+typedef struct conn_struct {
+	struct conn_struct *next;
+	char *key;
+	CRecord *cr;
+} connStruct;
 
 static struct sockaddr_in my_addr;	/* our address information */
 static int my_sock;
 static char my_name[16];
 static unsigned short my_port;
 static const struct timespec one_tick = {0, 20000000}; /* one tick is 20 ms */
+static connStruct *conn_table[11] =
+                      {NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL};
+//static pthread_mutex_t conn_mutex = PTHREAD_MUTEX_INITIALIZER;
+
+#define SHIFT 7
+static int conn_hash(char *key) {
+	int ans = 0;
+	for (; *key; key++)
+		ans = (SHIFT * ans + *key) % CONN_SIZE;
+	return ans;
+}
+
+/*
+ * all three of the following functions assume that the connection record
+ * table lock is held when called
+ */
+static CRecord *conn_lookup(char *s) {
+	CRecord *ans = NULL;
+	connStruct *p;
+	int i = conn_hash(s);
+	//pthread_mutex_lock(&conn_mutex);
+	for (p = conn_table[i]; p != NULL; p = p->next) {
+		if (strcmp(p->key, s) == 0) {
+			ans = p->cr;
+			break;
+		}
+	}
+	//pthread_mutex_unlock(&conn_mutex);
+	return ans;
+}
+
+static void conn_remove(char *s) {
+	connStruct *p, *q;
+	int i = conn_hash(s);
+	//pthread_mutex_lock(&conn_mutex);
+	for (p = conn_table[i], q = NULL; p != NULL; q = p, p = q->next) {
+		if (strcmp(p->key, s) == 0) {
+			if (q == NULL)
+				conn_table[i] = p->next;
+			else
+				q->next = p->next;
+			mem_free(p->key);
+			break;
+		}
+	}
+	//pthread_mutex_unlock(&conn_mutex);
+}
+
+static int conn_insert(char *s, CRecord *cr) {
+	int i = conn_hash(s);
+	connStruct *ans = (connStruct *)malloc(sizeof(connStruct));
+	if (ans) {
+		ans->key = str_dupl(s);
+		if (ans->key) {
+			ans->cr = cr;
+			//pthread_mutex_lock(&conn_mutex);
+			ans->next = conn_table[i];
+			conn_table[i] = ans;
+			//pthread_mutex_unlock(&conn_mutex);
+			return 1;
+		}
+		mem_free(ans);
+	}
+	return 0;
+}
 
 #ifdef LOG
 static void dumpsockNpacket(struct sockaddr_in *s, DataPayload *p, char *lstr) {
@@ -496,6 +568,8 @@ static void *timer(void *args) {
 	for (cr = limbohead; cr != NULL; ) {
 	    if (--cr->ticksLeft <= 0) {
                 limbohead = cr->link;	/* remove it from head of the queue */
+		if (cr->key)
+		   conn_remove(cr->key);
 		crecord_destroy(cr);
 		cr = limbohead;
 		if (! limbohead)
@@ -654,16 +728,23 @@ RpcConnection rpc_connect(char *host, unsigned short port,
     CRecord *cr;
     unsigned long subport;
     unsigned long states[2] = {ST_IDLE, ST_TIMEDOUT};
+    char tb[256];
+    char *key = NULL;
 
     ctable_lock();
     subport = ctable_newSubport();
+    sprintf(tb, "%s|%hu|%s|%ld", host, port, svcName, subport);
     nep = rpc_socket(host, port, subport);
     if (nep != NULL) {
+        key = str_dupl(tb);
         len += strlen(svcName);			/* room for svcName */
         buf = (ConnectPayload *)mem_alloc(len);
         cp_complete((ControlPayload *)buf, nep->subport, CONNECT, seqno, 1, 1);
         strcpy(buf->sname, svcName);
         cr = crecord_create(nep, seqno);
+	crecord_setKey(cr, key);
+	conn_insert(key, cr);
+	key = str_dupl(tb);		/* copy to return to user */
         crecord_setPayload(cr, buf, len, ATTEMPTS, TICKS);
 #ifdef LOG
         dumpsockNpacket(&(nep->addr), (DataPayload *)buf, "rpc_connect");
@@ -674,11 +755,11 @@ RpcConnection rpc_connect(char *host, unsigned short port,
         if (crecord_waitForState(cr, states, 2) == ST_TIMEDOUT) {
 	    ctable_remove(cr);
             mem_free(nep);
-            nep = NULL;
+            key = NULL;
         }
         ctable_unlock();
     }
-    return (RpcConnection)nep;
+    return (RpcConnection)key;
 }
 
 #define SEQNO_LIMIT 1000000000
@@ -686,7 +767,7 @@ RpcConnection rpc_connect(char *host, unsigned short port,
 int rpc_call(RpcConnection rpc, const struct qdecl *q, unsigned qlen,
              void *resp, unsigned rsize, unsigned *rlen) {
     DataPayload *buf;
-    RpcEndpoint *ep = (RpcEndpoint *)rpc;
+    RpcEndpoint *ep;
     unsigned short size = sizeof(PayloadHeader) + sizeof(DataHeader) + qlen;
     unsigned long seqno;
     unsigned long qstates[2] = {ST_IDLE, ST_TIMEDOUT};
@@ -703,10 +784,11 @@ int rpc_call(RpcConnection rpc, const struct qdecl *q, unsigned qlen,
 	return result;
     }
     ctable_lock();
-    if (! (cr = ctable_lookup(ep))) {
-	ctable_unlock();
-	return result;
+    if ((cr = conn_lookup((char *)rpc)) == NULL) {
+            ctable_unlock();
+	    return result;
     }
+    ep = cr->ep;
     if (cr->state == ST_IDLE) {
 	if (cr->seqno >= SEQNO_LIMIT) {
 	    ControlPayload *cp;
@@ -778,13 +860,17 @@ int rpc_call(RpcConnection rpc, const struct qdecl *q, unsigned qlen,
 /* disconnect from target
  */
 void rpc_disconnect(RpcConnection rpc) {
-    RpcEndpoint *ep = (RpcEndpoint *)rpc;
     CRecord *cr;
     ControlPayload *cp;
+    RpcEndpoint *ep;
     unsigned long states[1] = {ST_TIMEDOUT};
 
     ctable_lock();
-    cr = ctable_lookup(ep);
+    if ((cr = conn_lookup((char *)rpc)) == NULL) {
+            ctable_unlock();
+	    return;
+    }
+    ep = cr->ep;
     if (cr) {
 	cp = (ControlPayload *)mem_alloc(CP_SIZE);
 	cp_complete(cp, ep->subport, DISCONNECT, cr->seqno, 1, 1);
@@ -809,15 +895,15 @@ void rpc_withdraw(RpcService rps) {
     dummy = NULL;
 }
 
-unsigned rpc_query(RpcService rps, RpcConnection *rpc, void *qb, unsigned len) {
-    RpcEndpoint *ep;
+unsigned rpc_query(RpcService rps, RpcEndpoint *ep, void *qb, unsigned len) {
     DataPayload *dp;
+    RpcEndpoint *tep;
     SRecord *sr = (SRecord *)rps;
     int size;
     unsigned n;
 
-    tsl_remove(sr->s_queue, (void **)&ep, (void **)&dp, &size);
-    *rpc = (RpcConnection)ep;
+    tsl_remove(sr->s_queue, (void **)&tep, (void **)&dp, &size);
+    *ep = *tep;
     n = ntohs(dp->dhdr.tlen);
     if (n <= len)
         memcpy(qb, dp->data, n);
@@ -827,10 +913,9 @@ unsigned rpc_query(RpcService rps, RpcConnection *rpc, void *qb, unsigned len) {
     return n;
 }
 
-int rpc_response(RpcService rps, RpcConnection rpc, void *rb, unsigned len) {
+int rpc_response(RpcService rps, RpcEndpoint *ep, void *rb, unsigned len) {
     DataPayload *dp = (DataPayload *)rps;	/* subterfuge for unused
 						   warning */
-    RpcEndpoint *ep = (RpcEndpoint *)rpc;
     int ans = 0;
     CRecord *cr;
     unsigned char *cp = (unsigned char *)rb;

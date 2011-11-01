@@ -11,6 +11,7 @@
 
 @interface RouterConnectionViewController : UIViewController {
     RouterConnectionView* routerConnectionView;
+    UIImageView* exitButton;
 }
 
 -(void) updateCaption:(NSString *) text;

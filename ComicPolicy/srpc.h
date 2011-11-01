@@ -5,6 +5,8 @@
 #ifndef _SRPC_DEFINED_
 #define _SRPC_DEFINED_
 
+#include "endpoint.h"
+
 typedef void *RpcConnection;
 typedef void *RpcService;
 
@@ -61,18 +63,18 @@ void rpc_withdraw(RpcService rps);
 
 /* obtain the next query message from `rps' - blocks until message available
  * `len' is the size of `qb' to receive the data
- * upon return, rpc has opaque sender information
+ * upon return, ep has opaque sender information
  *              qb has query data
  *
  * returns actual length as function value
  * returns 0 if there is some massive failure in the system */
-unsigned rpc_query(RpcService rps, RpcConnection *rpc, void *qb, unsigned len);
+unsigned rpc_query(RpcService rps, RpcEndpoint *ep, void *qb, unsigned len);
 
-/* send the next response message to the ‘rpc’
+/* send the next response message to the ‘ep’
  * ‘rb’ contains the response to return to the caller
  * returns 1 if successful
  * returns 0 if there is a massive failure in the system */
-int rpc_response(RpcService rps, RpcConnection rpc, void *rb, unsigned len);
+int rpc_response(RpcService rps, RpcEndpoint *ep, void *rb, unsigned len);
 
 /* the following methods are used to prevent parent and child processes from
    colliding over the same port numbers */

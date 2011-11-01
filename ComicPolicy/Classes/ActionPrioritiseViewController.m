@@ -105,7 +105,10 @@
         priority = @"low";
         slider.value = 0;
     }
-    prioritiseview.prioritiseamountcaption.text = [NSString stringWithFormat:@"%@ priority for 30 min", priority];
+    
+    NSString *timeframe = [[[Catalogue sharedCatalogue] currentCondition] isEqualToString:@"timed"] ? @"" : @"for 30 min";
+    
+    prioritiseview.prioritiseamountcaption.text = [NSString stringWithFormat:@"%@ priority %@", priority, timeframe];
 }
 
 -(void) sliderAction:(UISlider*)sender{

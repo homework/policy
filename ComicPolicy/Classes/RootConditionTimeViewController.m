@@ -11,14 +11,14 @@
 
 @implementation RootConditionTimeViewController
 
-BOOL fromScaled = NO;
-BOOL toScaled = NO;
+
 
 // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     //if ((self = [super initWithNibNameAndType:nibNameOrNil bundle:nibBundleOrNil type:@"timed"])) {
     if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
-            
+       fromScaled = NO;
+       toScaled = NO;   
         [self setUpConditionView];
         [self addAMPMListeners];
         [self initialiseClocks];
@@ -87,7 +87,7 @@ BOOL toScaled = NO;
         }
     }
     [self updateCaption];
-   // [self updateCatalogue];
+   [self updateCatalogue];
     [sender setSelected:![sender isSelected]];
     
 }

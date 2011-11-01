@@ -186,6 +186,8 @@
     CGPoint touchLocation = [touch locationInView:self.view];
 	
 	if (CGRectContainsPoint( deleteButton.frame , touchLocation)){
+       
+       
         /*
          * Don't do anything if this is the only policy left and it is unsaved.
          */
@@ -221,7 +223,7 @@
     [self.view addSubview:progressView];
     inprogress = YES;
     
-    requestTimer = [NSTimer scheduledTimerWithTimeInterval:8.0 
+    requestTimer = [NSTimer scheduledTimerWithTimeInterval:10.0 
                                      target:self 
                                    selector:@selector(requestTimeOut:) //addSite:
                                    userInfo:nil 
@@ -234,6 +236,7 @@
         requestTimer = nil;
     }
     [self requestComplete];
+    [[PolicyManager sharedPolicyManager] refresh];
 }
 
 -(void) requestComplete{

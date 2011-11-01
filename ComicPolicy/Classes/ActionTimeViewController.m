@@ -71,12 +71,13 @@
     NSDictionary *dict = [[Catalogue sharedCatalogue] actionArguments];
 
     NSString* timeframe = [dict objectForKey:@"timeframe"];
-        if (timeframe == nil)
+    if (timeframe == nil){
         [self setSlider:0];
-    else{
-        [self setSlider:[timeframe floatValue]];
     }
-    
+    else{
+        [self setSlider:[timeframe floatValue]/60];
+    }
+   
 
 }
 
@@ -92,8 +93,10 @@
     
     NSNumber* duration = [NSNumber numberWithFloat: (round([slider value])) * 60];
     
-    if ([duration intValue] == 0){
-        NSLog(@"removing key timeframe");
+    
+    NSLog(@"in update catalogue and duration is %d", [duration intValue]);
+    
+    if ([duration intValue] <= 0){
         [[[Catalogue sharedCatalogue] actionArguments] removeObjectForKey:@"timeframe"];
         return;
     }

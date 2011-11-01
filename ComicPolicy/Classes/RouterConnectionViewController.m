@@ -46,10 +46,25 @@
     routerConnectionView.caption.text = [NSString stringWithFormat:@"Getting catalogue from router \n [%@]", [[NetworkManager sharedManager] rootURL]]; 
     
     self.view = routerConnectionView;
+    
+    exitButton = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"exit.png"]];
+    exitButton.frame = CGRectMake(appFrame.size.height -150, appFrame.size.width -150, exitButton.frame.size.width, exitButton.frame.size.height);
+    [self.view addSubview:exitButton];
 }
 
 -(void) updateCaption:(NSString *) text{
     routerConnectionView.caption.text = text;
+}
+
+-(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+   
+
+    UITouch *touch = [[event allTouches] anyObject];
+    CGPoint touchLocation = [touch locationInView:self.view];
+        
+    if (CGRectContainsPoint(exitButton.frame, touchLocation)){
+        exit(1);
+    }
 }
 
 /*

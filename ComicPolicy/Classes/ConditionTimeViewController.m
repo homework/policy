@@ -171,22 +171,31 @@
 }
 
 -(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    
+       
+    
     UITouch *touch = [[event allTouches] anyObject];
     CGPoint touchLocation = [touch locationInView:self.view];
 	
     bool labeltouched = false;
-    int index = 0;
-    for (UILabel *dow in dayLabels){
-        if (CGRectContainsPoint(dow.frame, touchLocation)){
-            labeltouched = true;
-            [self updateValues:index];
-            
-        }
-        index++;
-    }
     
-    [self updateLabelColors];
-    [self updateCaption];
+   
+    if (!fromScaled && !toScaled){    
+        int index = 0;
+        for (UILabel *dow in dayLabels){
+            if (CGRectContainsPoint(dow.frame, touchLocation)){
+                labeltouched = true;
+                [self updateValues:index];
+            
+            }
+            index++;
+        }
+    
+    
+        [self updateLabelColors];
+        [self updateCaption];
+    }   
+    
     if (!labeltouched)
         [super touchesBegan:touches withEvent:event];
 }

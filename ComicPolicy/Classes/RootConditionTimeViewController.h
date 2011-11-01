@@ -22,6 +22,8 @@
     CGRect clockFromFrame;
 	CGRect clockToFrame;
 
+    BOOL fromScaled;
+    BOOL toScaled;
 }
 
 -(void) updateCaption;

@@ -77,7 +77,7 @@
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
 	
-	
+    
 	//lookup = [[SubjectImageLookup alloc] init];
 	CGRect aframe = CGRectMake(64,60,294,301);
     
@@ -114,10 +114,16 @@
         subjectView.devicecaption.text = [NSString stringWithFormat:@"device (%@)",[[Catalogue sharedCatalogue] currentDeviceName]];
         
         subjectView.ownercaption.text = [NSString stringWithFormat:@"When %@'s",[[Catalogue sharedCatalogue] currentSubjectOwner]];
+        [self addMoreButton];
         
     }else{
-        subjectView.devicecaption.text = [NSString stringWithFormat:@"When any device"];
+        if ([[[Catalogue sharedCatalogue] currentCondition] isEqualToString:@"bandwidth"]){
+            subjectView.devicecaption.text = @"When ALL devices";
+        }else{
+            subjectView.devicecaption.text = @"When any device";
+        }
         subjectView.ownercaption.text = @"";
+        [self addMoreButton];
     }
     
     subjectView.topImage.image = [UIImage imageNamed:[[Catalogue sharedCatalogue] currentSubjectOwnerImage]];
@@ -160,6 +166,9 @@
         moreButton = nil;
     }
     
+    if ([[[Catalogue sharedCatalogue] currentSubjectOwner] isEqualToString:@"any"])
+        return;
+    
     if ([[Catalogue sharedCatalogue] subjectHasMultipleDevices]){
         NSLog(@"The subject has multiple devices....");
         moreButton = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sgreenbuttonup.png"]] autorelease];
@@ -177,11 +186,14 @@
 }
 
 -(void) loadCaptions{
-    subjectView.devicecaption.alpha = 1.0;
+    
+   subjectView.devicecaption.alpha = 1.0;
     subjectView.ownercaption.alpha = 1.0;
+    
     if ([[[Catalogue sharedCatalogue] currentSubjectOwner] isEqualToString:@"any"]){
         subjectView.ownercaption.text = @"";
-
+        
+    
         if ([[[Catalogue sharedCatalogue] currentCondition] isEqualToString:@"bandwidth"]){
             subjectView.devicecaption.text = @"When ALL devices";
         }else{
@@ -219,6 +231,7 @@
 
 
 - (void)viewDidUnload {
+   
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
