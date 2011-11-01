@@ -169,6 +169,22 @@
                     }
                 },
 
+                "otherbundle":
+                {
+                    "main":"condother.png",
+                    "block":{
+                            "action":"asother.png",
+                            "result":"otherunblocked.png",
+                            "fired":"otherblocked.png"
+                    },
+                    "prioritise":{
+                            "action":"asother.png",
+                            "result":"otherunblocked.png",
+                            "fired":"otherpriority.png"
+                    }
+                },
+
+
                 "twitter":
                 {
                     "notify":{

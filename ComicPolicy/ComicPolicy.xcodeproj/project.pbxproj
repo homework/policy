@@ -137,6 +137,11 @@
 		A358AFF813D4433200B9A228 /* RouterConnectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = A358AFF713D4433100B9A228 /* RouterConnectionView.m */; };
 		A358AFFB13D4436800B9A228 /* RouterConnectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A358AFFA13D4436800B9A228 /* RouterConnectionViewController.m */; };
 		A358AFFD13D450BC00B9A228 /* loadingcatalogue.png in Resources */ = {isa = PBXBuildFile; fileRef = A358AFFC13D450BC00B9A228 /* loadingcatalogue.png */; };
+		A36C5C6F14601B220011C849 /* asother.png in Resources */ = {isa = PBXBuildFile; fileRef = A36C5C6E14601B220011C849 /* asother.png */; };
+		A36C5C7114601C8D0011C849 /* condother.png in Resources */ = {isa = PBXBuildFile; fileRef = A36C5C7014601C8D0011C849 /* condother.png */; };
+		A36C5C75146024930011C849 /* otherblocked.png in Resources */ = {isa = PBXBuildFile; fileRef = A36C5C72146024930011C849 /* otherblocked.png */; };
+		A36C5C76146024930011C849 /* otherpriority.png in Resources */ = {isa = PBXBuildFile; fileRef = A36C5C73146024930011C849 /* otherpriority.png */; };
+		A36C5C77146024930011C849 /* otherunblocked.png in Resources */ = {isa = PBXBuildFile; fileRef = A36C5C74146024930011C849 /* otherunblocked.png */; };
 		A372A5AC13A8B854006CF4B4 /* plus.png in Resources */ = {isa = PBXBuildFile; fileRef = A372A5AB13A8B853006CF4B4 /* plus.png */; };
 		A372A5AF13A8B933006CF4B4 /* ConditionVisitingView.m in Sources */ = {isa = PBXBuildFile; fileRef = A372A5AE13A8B930006CF4B4 /* ConditionVisitingView.m */; };
 		A377335D14066A6500D71E26 /* RPCComm.m in Sources */ = {isa = PBXBuildFile; fileRef = A377335C14066A6500D71E26 /* RPCComm.m */; };
@@ -462,6 +467,11 @@
 		A358AFF913D4436700B9A228 /* RouterConnectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouterConnectionViewController.h; sourceTree = "<group>"; };
 		A358AFFA13D4436800B9A228 /* RouterConnectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouterConnectionViewController.m; sourceTree = "<group>"; };
 		A358AFFC13D450BC00B9A228 /* loadingcatalogue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loadingcatalogue.png; sourceTree = "<group>"; };
+		A36C5C6E14601B220011C849 /* asother.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = asother.png; sourceTree = "<group>"; };
+		A36C5C7014601C8D0011C849 /* condother.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = condother.png; sourceTree = "<group>"; };
+		A36C5C72146024930011C849 /* otherblocked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = otherblocked.png; sourceTree = "<group>"; };
+		A36C5C73146024930011C849 /* otherpriority.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = otherpriority.png; sourceTree = "<group>"; };
+		A36C5C74146024930011C849 /* otherunblocked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = otherunblocked.png; sourceTree = "<group>"; };
 		A372A5AB13A8B853006CF4B4 /* plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plus.png; sourceTree = "<group>"; };
 		A372A5AD13A8B92F006CF4B4 /* ConditionVisitingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConditionVisitingView.h; sourceTree = "<group>"; };
 		A372A5AE13A8B930006CF4B4 /* ConditionVisitingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConditionVisitingView.m; sourceTree = "<group>"; };
@@ -903,6 +913,7 @@
 		A30ADF06131528F70060D2F1 /* actionsubject */ = {
 			isa = PBXGroup;
 			children = (
+				A36C5C6E14601B220011C849 /* asother.png */,
 				A3FF78001444A6540045C8D0 /* astablet.png */,
 				A30ADF07131528F70060D2F1 /* ascomputer.png */,
 				A30ADF08131528F70060D2F1 /* asdesktop.png */,
@@ -938,6 +949,7 @@
 		A30ADF14131528F70060D2F1 /* devices */ = {
 			isa = PBXGroup;
 			children = (
+				A36C5C7014601C8D0011C849 /* condother.png */,
 				A3FF77FE1444A62F0045C8D0 /* condtablet.png */,
 				A30ADF15131528F70060D2F1 /* condcomputer.png */,
 				A30ADF16131528F70060D2F1 /* conddesktop.png */,
@@ -1183,6 +1195,9 @@
 		A352AA90131D03B10053867A /* devices */ = {
 			isa = PBXGroup;
 			children = (
+				A36C5C72146024930011C849 /* otherblocked.png */,
+				A36C5C73146024930011C849 /* otherpriority.png */,
+				A36C5C74146024930011C849 /* otherunblocked.png */,
 				A3FF77F81444A6170045C8D0 /* tabletblocked.png */,
 				A3FF77F91444A6170045C8D0 /* tabletpriority.png */,
 				A3FF77FA1444A6170045C8D0 /* tabletunblocked.png */,
@@ -1721,6 +1736,11 @@
 				A3BDE7BF1458627E008321BE /* Icon-72.png in Resources */,
 				A3BDE7C01458627E008321BE /* Icon.png in Resources */,
 				A3BDE7F2145AAF8C008321BE /* exit.png in Resources */,
+				A36C5C6F14601B220011C849 /* asother.png in Resources */,
+				A36C5C7114601C8D0011C849 /* condother.png in Resources */,
+				A36C5C75146024930011C849 /* otherblocked.png in Resources */,
+				A36C5C76146024930011C849 /* otherpriority.png in Resources */,
+				A36C5C77146024930011C849 /* otherunblocked.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
