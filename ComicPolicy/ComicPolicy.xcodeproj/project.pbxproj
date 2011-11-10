@@ -1896,8 +1896,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Tom Lodge (C4DACQ32K3)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Tom Lodge (C4DACQ32K3)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Tom Lodge";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Tom Lodge";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1906,8 +1906,8 @@
 				INFOPLIST_FILE = "ComicPolicy-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = ComicPolicy;
-				PROVISIONING_PROFILE = "0091603E-A2F8-47A0-9E1E-54C1150C75E8";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "0091603E-A2F8-47A0-9E1E-54C1150C75E8";
+				PROVISIONING_PROFILE = "39B6ECF8-22E2-45DC-8F40-D4344E35CCBA";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E205B6E6-CCA0-4CA7-8E65-3873EADE908B";
 				SDKROOT = iphoneos4.3;
 			};
 			name = Debug;
@@ -1917,16 +1917,16 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Tom Lodge (C4DACQ32K3)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Tom Lodge (C4DACQ32K3)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Tom Lodge";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Tom Lodge";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ComicPolicy_Prefix.pch;
 				INFOPLIST_FILE = "ComicPolicy-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = ComicPolicy;
-				PROVISIONING_PROFILE = "0091603E-A2F8-47A0-9E1E-54C1150C75E8";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "0091603E-A2F8-47A0-9E1E-54C1150C75E8";
+				PROVISIONING_PROFILE = "39B6ECF8-22E2-45DC-8F40-D4344E35CCBA";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "39B6ECF8-22E2-45DC-8F40-D4344E35CCBA";
 				SDKROOT = iphoneos4.3;
 				TARGETED_DEVICE_FAMILY = 2;
 				VALIDATE_PRODUCT = YES;
