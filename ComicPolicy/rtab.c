@@ -15,7 +15,8 @@
 #include "sqlstmts.h"
 #include "list.h"
 #include "hashtable.h"
-
+#include "mem.h"
+#include "logdefs.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>

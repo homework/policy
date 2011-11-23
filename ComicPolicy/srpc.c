@@ -98,13 +98,25 @@ static int conn_hash(char *key) {
 	return ans;
 }
 
+#define MAX_CONN_ID 0x7fffffff
+#define MIN_CONN_ID 0x10000000
+static unsigned long gen_conn_id(void) {
+	static unsigned long id = MIN_CONN_ID;
+	unsigned long ans = ++id;
+	if (id == MAX_CONN_ID)
+		id = MIN_CONN_ID;
+	return ans;
+}
+
 /*
  * all three of the following functions assume that the connection record
  * table lock is held when called
  */
-static CRecord *conn_lookup(char *s) {
+static CRecord *conn_lookup(unsigned long id) {
 	CRecord *ans = NULL;
 	connStruct *p;
+	char s[128];
+	sprintf(s, "%08lx", id);
 	int i = conn_hash(s);
 	//pthread_mutex_lock(&conn_mutex);
 	for (p = conn_table[i]; p != NULL; p = p->next) {
@@ -117,8 +129,10 @@ static CRecord *conn_lookup(char *s) {
 	return ans;
 }
 
-static void conn_remove(char *s) {
+static void conn_remove(unsigned long id) {
 	connStruct *p, *q;
+	char s[128];
+	sprintf(s, "%08lx", id);
 	int i = conn_hash(s);
 	//pthread_mutex_lock(&conn_mutex);
 	for (p = conn_table[i], q = NULL; p != NULL; q = p, p = q->next) {
@@ -134,7 +148,9 @@ static void conn_remove(char *s) {
 	//pthread_mutex_unlock(&conn_mutex);
 }
 
-static int conn_insert(char *s, CRecord *cr) {
+static int conn_insert(unsigned long id, CRecord *cr) {
+	char s[128];
+	sprintf(s, "%08lx", id);
 	int i = conn_hash(s);
 	connStruct *ans = (connStruct *)malloc(sizeof(connStruct));
 	if (ans) {
@@ -531,8 +547,6 @@ static void *reader(void *args) {
 #define TICKS_TIL_PURGE 10
 static void *timer(void *args) {
     CRecord *retry, *timed, *ping, *purge, *cr;
-    CRecord *limbohead = NULL;
-    CRecord *limbotail = NULL;
     int counter = 0;
 
     debugf("timer thread started\n");
@@ -548,35 +562,13 @@ static void *timer(void *args) {
 #endif /* VLOG */
 	}
         ctable_scan(&retry, &timed, &ping, &purge);
-	while (purge != NULL) {	/* add purged CRecords to limbo */
+	while (purge != NULL) {
 	    cr = purge->link;
-	    purge->link = NULL;
-	    purge->ticksLeft = TICKS_TIL_PURGE;
-	    if (limbotail)
-                limbotail->link = purge;
-	    else
-                limbohead = purge;
-	    limbotail = purge;
 	    ctable_remove(purge);
+            if (purge->cid)
+		conn_remove(purge->cid);
+	    crecord_destroy(purge);
 	    purge = cr;
-	}
-	/*
-	 * scan entire limbo list, decrementing ticksLeft as we go along
-	 * for those at the beginning of the list, if ticksLeft <= 0,
-	 * remove it from the queue and destroy it
-	 */
-	for (cr = limbohead; cr != NULL; ) {
-	    if (--cr->ticksLeft <= 0) {
-                limbohead = cr->link;	/* remove it from head of the queue */
-		if (cr->key)
-		   conn_remove(cr->key);
-		crecord_destroy(cr);
-		cr = limbohead;
-		if (! limbohead)
-                   limbotail = NULL;
-	    } else {
-                cr = cr->link;
-	    }
 	}
 	while (timed != NULL) {
 	    cr = timed->link;
@@ -712,9 +704,9 @@ static RpcEndpoint *rpc_socket(char *host, unsigned short port,
         memcpy(&(s->addr).sin_addr, hp->h_addr_list[0], hp->h_length);
         (s->addr).sin_family = AF_INET;
         (s->addr).sin_port = htons(port);
-//#ifdef HAVE_SOCKADDR_LEN
+/*#ifdef HAVE_SOCKADDR_LEN*/
 	(s->addr).sin_len = sizeof(struct sockaddr_in);
-//#endif /* HAVE_SOCKADDR_LEN */
+/*#endif  HAVE_SOCKADDR_LEN */
         s->subport = subport;
     }
     return s;
@@ -728,23 +720,20 @@ RpcConnection rpc_connect(char *host, unsigned short port,
     CRecord *cr;
     unsigned long subport;
     unsigned long states[2] = {ST_IDLE, ST_TIMEDOUT};
-    char tb[256];
-    char *key = NULL;
+    unsigned long id = 0;
 
     ctable_lock();
     subport = ctable_newSubport();
-    sprintf(tb, "%s|%hu|%s|%ld", host, port, svcName, subport);
     nep = rpc_socket(host, port, subport);
     if (nep != NULL) {
-        key = str_dupl(tb);
+	id = gen_conn_id();
         len += strlen(svcName);			/* room for svcName */
         buf = (ConnectPayload *)mem_alloc(len);
         cp_complete((ControlPayload *)buf, nep->subport, CONNECT, seqno, 1, 1);
         strcpy(buf->sname, svcName);
         cr = crecord_create(nep, seqno);
-	crecord_setKey(cr, key);
-	conn_insert(key, cr);
-	key = str_dupl(tb);		/* copy to return to user */
+	crecord_setCID(cr, id);
+	conn_insert(id, cr);
         crecord_setPayload(cr, buf, len, ATTEMPTS, TICKS);
 #ifdef LOG
         dumpsockNpacket(&(nep->addr), (DataPayload *)buf, "rpc_connect");
@@ -755,11 +744,11 @@ RpcConnection rpc_connect(char *host, unsigned short port,
         if (crecord_waitForState(cr, states, 2) == ST_TIMEDOUT) {
 	    ctable_remove(cr);
             mem_free(nep);
-            key = NULL;
+            id = 0;
         }
         ctable_unlock();
     }
-    return (RpcConnection)key;
+    return (RpcConnection)id;
 }
 
 #define SEQNO_LIMIT 1000000000
@@ -784,7 +773,7 @@ int rpc_call(RpcConnection rpc, const struct qdecl *q, unsigned qlen,
 	return result;
     }
     ctable_lock();
-    if ((cr = conn_lookup((char *)rpc)) == NULL) {
+    if ((cr = conn_lookup((unsigned long)rpc)) == NULL) {
             ctable_unlock();
 	    return result;
     }
@@ -866,7 +855,7 @@ void rpc_disconnect(RpcConnection rpc) {
     unsigned long states[1] = {ST_TIMEDOUT};
 
     ctable_lock();
-    if ((cr = conn_lookup((char *)rpc)) == NULL) {
+    if ((cr = conn_lookup((unsigned long)rpc)) == NULL) {
             ctable_unlock();
 	    return;
     }

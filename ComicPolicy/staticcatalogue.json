@@ -39,6 +39,46 @@
                             "fired":"morttold.png"
                         }
                     },
+                    
+                 "man3bundle":
+                    {
+                        "main":"arthur.png",
+                        "block":{
+                            "action":"blockarthur.png"
+                        },
+                        "notify":{
+                            "action":"notifyarthur.png",
+                            "result":"arthurwaiting.png",
+                            "fired":"arthurtold.png"
+                        }
+                    },
+                
+                  "man4bundle":
+                    {
+                        "main":"winston.png",
+                        "block":{
+                            "action":"blockwinston.png"
+                        },
+                        "notify":{
+                            "action":"notifywinston.png",
+                            "result":"winstonwaiting.png",
+                            "fired":"winstontold.png"
+                        }
+                    },
+
+                    "man5bundle":
+                    {
+                        "main":"brain.png",
+                        "block":{
+                            "action":"blockbrain.png"
+                        },
+                        "notify":{
+                            "action":"notifybrain.png",
+                            "result":"brainwaiting.png",
+                            "fired":"braintold.png"
+                        }
+                    },
+
                 "girlbundle":
                     {
                         "main":"katie.png",
@@ -51,6 +91,33 @@
                             "fired":"katietold.png"
                         }
                     },
+
+                 "girl2bundle":
+                    {
+                        "main":"rachel.png",
+                        "block":{
+                            "action":"blockrachel.png"
+                        },
+                        "notify":{
+                            "action":"notifyrachel.png",
+                            "result":"rachelwaiting.png",
+                            "fired":"racheltold.png"
+                        }
+                    },
+
+                  "girl3bundle":
+                    {
+                        "main":"annie.png",
+                        "block":{
+                            "action":"blockannie.png"
+                        },
+                        "notify":{
+                            "action":"notifyannie.png",
+                            "result":"anniewaiting.png",
+                            "fired":"annietold.png"
+                        }
+                    },
+
                 "ladybundle":
                     {
                         "main":"mum.png",
@@ -63,6 +130,20 @@
                             "fired":"mumtold.png"
                         }
                     },
+                 
+                "lady2bundle":
+                    {
+                        "main":"granny.png",
+                        "block":{
+                            "action":"blockgranny.png"
+                        },
+                        "notify":{
+                            "action":"notifygranny.png",
+                            "result":"grannywaiting.png",
+                            "fired":"grannytold.png"
+                        }
+                    },
+
                 "boybundle":
                     {
                         "main":"john.png",
@@ -73,6 +154,19 @@
                             "action":"notifyjohn.png",
                             "result":"johnwaiting.png",
                             "fired":"johntold.png"
+                        }
+                    },
+                
+                "boy2bundle":
+                    {
+                        "main":"george.png",
+                        "block":{
+                            "action":"blockgeorge.png"
+                        },
+                        "notify":{
+                            "action":"notifygeorge.png",
+                            "result":"georgewaiting.png",
+                            "fired":"georgetold.png"
                         }
                     },
 

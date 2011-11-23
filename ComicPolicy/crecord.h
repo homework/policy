@@ -36,7 +36,7 @@ typedef struct c_record {
 	pthread_cond_t stateChanged;
 	RpcEndpoint *ep;
 	SRecord *svc;
-	char *key;
+	unsigned long cid;
 	void *pl;
 	void *resp;
 	unsigned size;
@@ -72,9 +72,9 @@ void crecord_setPayload(CRecord *cr, void *payload, unsigned size,
 void crecord_setService(CRecord *cr, SRecord *sr);
 
 /*
- * set the hash key for the record
+ * set the connection id for the record
  */
-void crecord_setKey(CRecord *cr, char *key);
+void crecord_setCID(CRecord *cr, unsigned long id);
 
 /*
  * wait until connection record reaches one of supplied states

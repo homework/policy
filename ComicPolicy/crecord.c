@@ -24,7 +24,7 @@ CRecord *crecord_create(RpcEndpoint *ep, unsigned long seqno) {
 		cr->mutex = ctable_getMutex();
 		pthread_cond_init(&cr->stateChanged, NULL);
 		cr->ep = ep;
-		cr->key = NULL;
+		cr->cid = 0;
 		cr->svc = NULL;
 		cr->pl = NULL;
 		cr->resp = NULL;
@@ -68,8 +68,8 @@ void crecord_setService(CRecord *cr, SRecord *sr) {
 	cr->svc = sr;
 }
 
-void crecord_setKey(CRecord *cr, char *key) {
-	cr->key = key;
+void crecord_setCID(CRecord *cr, unsigned long id) {
+	cr->cid = id;
 }
 
 static int matchedState(unsigned long st, unsigned long *states, int n) {
@@ -96,8 +96,6 @@ void crecord_destroy(CRecord *cr) {
 	    mem_free(cr->pl);
 	if (cr->resp)
 	    mem_free(cr->resp);
-	if (cr->key)
-	    mem_free(cr->key);
 	mem_free(cr);
     }
 }

@@ -14,8 +14,6 @@
 
 #include "config.h"
 #include "srpc.h"
-#include "mem.h"
-#include "logdefs.h"
 
 /* Rtab Status flags */
 #define RTAB_MSG_SUCCESS 0
