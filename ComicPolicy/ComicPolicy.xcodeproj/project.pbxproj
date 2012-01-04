@@ -320,6 +320,11 @@
 		A3F0CEE9143B0B4400C69749 /* URLObject.m in Sources */ = {isa = PBXBuildFile; fileRef = A3F0CEE8143B0B4400C69749 /* URLObject.m */; };
 		A3F3F45A143C69920092ADF3 /* UsageData.m in Sources */ = {isa = PBXBuildFile; fileRef = A3F3F459143C69920092ADF3 /* UsageData.m */; };
 		A3F3F45C143CA5730092ADF3 /* notifybygrowl.png in Resources */ = {isa = PBXBuildFile; fileRef = A3F3F45B143CA5730092ADF3 /* notifybygrowl.png */; };
+		A3F7232A149249B4002DF1DF /* notifyother.png in Resources */ = {isa = PBXBuildFile; fileRef = A3F72329149249B4002DF1DF /* notifyother.png */; };
+		A3F7232C149249C1002DF1DF /* blockother.png in Resources */ = {isa = PBXBuildFile; fileRef = A3F7232B149249C1002DF1DF /* blockother.png */; };
+		A3F7232E149249E7002DF1DF /* other.png in Resources */ = {isa = PBXBuildFile; fileRef = A3F7232D149249E7002DF1DF /* other.png */; };
+		A3F7233114924A20002DF1DF /* otherold.png in Resources */ = {isa = PBXBuildFile; fileRef = A3F7232F14924A20002DF1DF /* otherold.png */; };
+		A3F7233214924A20002DF1DF /* otherwaiting.png in Resources */ = {isa = PBXBuildFile; fileRef = A3F7233014924A20002DF1DF /* otherwaiting.png */; };
 		A3FF77F414449F680045C8D0 /* computerpriority.png in Resources */ = {isa = PBXBuildFile; fileRef = A3FF77F014449F680045C8D0 /* computerpriority.png */; };
 		A3FF77F514449F680045C8D0 /* desktoppriority.png in Resources */ = {isa = PBXBuildFile; fileRef = A3FF77F114449F680045C8D0 /* desktoppriority.png */; };
 		A3FF77F614449F680045C8D0 /* laptoppriority.png in Resources */ = {isa = PBXBuildFile; fileRef = A3FF77F214449F680045C8D0 /* laptoppriority.png */; };
@@ -792,6 +797,11 @@
 		A3F3F458143C69920092ADF3 /* UsageData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsageData.h; sourceTree = "<group>"; };
 		A3F3F459143C69920092ADF3 /* UsageData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UsageData.m; sourceTree = "<group>"; };
 		A3F3F45B143CA5730092ADF3 /* notifybygrowl.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = notifybygrowl.png; path = notify/notifybygrowl.png; sourceTree = "<group>"; };
+		A3F72329149249B4002DF1DF /* notifyother.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = notifyother.png; sourceTree = "<group>"; };
+		A3F7232B149249C1002DF1DF /* blockother.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blockother.png; sourceTree = "<group>"; };
+		A3F7232D149249E7002DF1DF /* other.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = other.png; sourceTree = "<group>"; };
+		A3F7232F14924A20002DF1DF /* otherold.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = otherold.png; sourceTree = "<group>"; };
+		A3F7233014924A20002DF1DF /* otherwaiting.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = otherwaiting.png; sourceTree = "<group>"; };
 		A3FF77F014449F680045C8D0 /* computerpriority.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = computerpriority.png; sourceTree = "<group>"; };
 		A3FF77F114449F680045C8D0 /* desktoppriority.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = desktoppriority.png; sourceTree = "<group>"; };
 		A3FF77F214449F680045C8D0 /* laptoppriority.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = laptoppriority.png; sourceTree = "<group>"; };
@@ -949,6 +959,7 @@
 		A30ADEFA131528F70060D2F1 /* notify */ = {
 			isa = PBXGroup;
 			children = (
+				A3F72329149249B4002DF1DF /* notifyother.png */,
 				A3E3688B147D4F2100DDBC72 /* notifyannie.png */,
 				A3E3688C147D4F2100DDBC72 /* notifyarthur.png */,
 				A3E3688D147D4F2100DDBC72 /* notifybrain.png */,
@@ -973,6 +984,7 @@
 		A30ADF01131528F70060D2F1 /* block */ = {
 			isa = PBXGroup;
 			children = (
+				A3F7232B149249C1002DF1DF /* blockother.png */,
 				A3E36899147D4F4800DDBC72 /* blockannie.png */,
 				A3E3689A147D4F4800DDBC72 /* blockarthur.png */,
 				A3E3689B147D4F4800DDBC72 /* blockbrain.png */,
@@ -1016,6 +1028,7 @@
 		A30ADF0D131528F70060D2F1 /* people */ = {
 			isa = PBXGroup;
 			children = (
+				A3F7232D149249E7002DF1DF /* other.png */,
 				A3E3687D147D4EE900DDBC72 /* annie.png */,
 				A3E3687E147D4EE900DDBC72 /* arthur.png */,
 				A3E3687F147D4EE900DDBC72 /* brain.png */,
@@ -1120,6 +1133,8 @@
 		A30ADF48131528F80060D2F1 /* characters */ = {
 			isa = PBXGroup;
 			children = (
+				A3F7232F14924A20002DF1DF /* otherold.png */,
+				A3F7233014924A20002DF1DF /* otherwaiting.png */,
 				A3E368A7147D4FB200DDBC72 /* arthurtold.png */,
 				A3E368A8147D4FB200DDBC72 /* arthurwaiting.png */,
 				A3E368BF147D575C00DDBC72 /* racheltold.png */,
@@ -1873,6 +1888,11 @@
 				A3E368BE147D4FB200DDBC72 /* winstonwaiting.png in Resources */,
 				A3E368C1147D575C00DDBC72 /* racheltold.png in Resources */,
 				A3E368C2147D575C00DDBC72 /* rachelwaiting.png in Resources */,
+				A3F7232A149249B4002DF1DF /* notifyother.png in Resources */,
+				A3F7232C149249C1002DF1DF /* blockother.png in Resources */,
+				A3F7232E149249E7002DF1DF /* other.png in Resources */,
+				A3F7233114924A20002DF1DF /* otherold.png in Resources */,
+				A3F7233214924A20002DF1DF /* otherwaiting.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2028,8 +2048,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Tom Lodge (C4DACQ32K3)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Tom Lodge (C4DACQ32K3)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Tom Lodge";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Tom Lodge";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -2038,8 +2058,8 @@
 				INFOPLIST_FILE = "ComicPolicy-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = ComicPolicy;
-				PROVISIONING_PROFILE = "0091603E-A2F8-47A0-9E1E-54C1150C75E8";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "0091603E-A2F8-47A0-9E1E-54C1150C75E8";
+				PROVISIONING_PROFILE = "39B6ECF8-22E2-45DC-8F40-D4344E35CCBA";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "39B6ECF8-22E2-45DC-8F40-D4344E35CCBA";
 				SDKROOT = iphoneos4.3;
 			};
 			name = Debug;
@@ -2049,16 +2069,16 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Tom Lodge (C4DACQ32K3)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Tom Lodge (C4DACQ32K3)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Tom Lodge";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Tom Lodge";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ComicPolicy_Prefix.pch;
 				INFOPLIST_FILE = "ComicPolicy-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = ComicPolicy;
-				PROVISIONING_PROFILE = "0091603E-A2F8-47A0-9E1E-54C1150C75E8";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "0091603E-A2F8-47A0-9E1E-54C1150C75E8";
+				PROVISIONING_PROFILE = "39B6ECF8-22E2-45DC-8F40-D4344E35CCBA";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "39B6ECF8-22E2-45DC-8F40-D4344E35CCBA";
 				SDKROOT = iphoneos4.3;
 				TARGETED_DEVICE_FAMILY = 2;
 				VALIDATE_PRODUCT = YES;

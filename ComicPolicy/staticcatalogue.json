@@ -169,6 +169,19 @@
                             "fired":"georgetold.png"
                         }
                     },
+                
+                "visitorbundle":
+                    {
+                        "main":"other.png",
+                        "block":{
+                            "action":"blockother.png"
+                        },
+                        "notify":{
+                            "action":"notifyother.png",
+                            "result":"otherwaiting.png",
+                            "fired":"othertold.png"
+                        }
+                    },
 
                 "everyonebundle":
                     {
